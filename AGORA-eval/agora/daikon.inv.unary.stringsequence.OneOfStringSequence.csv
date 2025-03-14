@@ -1,0 +1,2 @@
+pptname,invariant,invariantType,variables,tp,fp,enter,bug,description,response resource,name_attribute
+main.orgs{org}repos.createOrganizationRepository&201(main.createOrganizationRepository&Input):::EXIT,return.topics[] == [],daikon.inv.unary.stringsequence.OneOfStringSequence,(return.topics[..]),1,0,0,0,,repository,"[('repository', 'topics')]"

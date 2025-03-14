@@ -1,0 +1,15 @@
+~$*.xlxs
+constraint*.txt
+code/*
+experiment_*
+.DS_Store
+**bodyParameters 
+**queryParameters 
+**responseBody
+**error_codes
+**gpt_response
+**error_codes
+**/get-*
+**/post-*
+**/put-*
+.env

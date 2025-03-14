@@ -1,0 +1,10 @@
+file_path,satisfied,mismatched,unknown
+IGNORE\new_method_our_data copy 2\Canada Holidays API\response_property_constraints.xlsx,12,0,4
+IGNORE\new_method_our_data copy 2\GitLab Branch API\request_response_constraints.xlsx,33,2,0
+IGNORE\new_method_our_data copy 2\GitLab Commit API\request_response_constraints.xlsx,40,8,6
+IGNORE\new_method_our_data copy 2\GitLab Groups API\request_response_constraints.xlsx,60,1,0
+IGNORE\new_method_our_data copy 2\GitLab Issues API\request_response_constraints.xlsx,80,7,5
+IGNORE\new_method_our_data copy 2\GitLab Project API\request_response_constraints.xlsx,102,0,8
+IGNORE\new_method_our_data copy 2\GitLab Repository API\request_response_constraints.xlsx,30,2,1
+IGNORE\new_method_our_data copy 2\StripeClone API\request_response_constraints.xlsx,7,0,5
+IGNORE\new_method_our_data copy 2\StripeClone API\response_property_constraints.xlsx,14,1,1

@@ -1,0 +1,22 @@
+Groups in ours but not in agora: 3
+[('input', 't'), ('Title',)]
+[('input', 'plot'), ('Plot',)]
+[('input', 'type'), ('Type',)]
+
+Groups in agora but not in ours: 13
+[('Response', 'Source')]
+[('Response', 'Episode')]
+[('Response', 'Response')]
+[('Response', 'DVD')]
+[('Response', 'Season')]
+[('Response', 'imdbRating')]
+[('Response', 'imdbVotes')]
+[('Response', 'totalSeasons')]
+[('Response', 'Metascore')]
+[('Response', 'Released')]
+[('Response', 'Poster')]
+[('Response', 'Type')]
+[('Response', 'seriesID')]
+
+Groups in both: 1
+[('input', 'i'), ('imdbID',)]

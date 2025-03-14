@@ -1,0 +1,17 @@
+Groups in ours but not in agora: 1
+[('input', 'open_now'), ('is_closed',)]
+
+Groups in agora but not in ours: 11
+[('BusinessesResult', 'id')]
+[('BusinessesResult', 'image_url')]
+[('BusinessesResult', 'address2'), ('BusinessesResult', 'display_address')]
+[('BusinessesResult', 'url')]
+[('input', 'limit'), ('businesses',)]
+[('BusinessesResult', 'transactions')]
+[('BusinessesResult', 'address1'), ('BusinessesResult', 'display_address')]
+[('BusinessesResult', 'country')]
+[('BusinessesResult', 'total'), ('BusinessesResult', 'businesses')]
+[('BusinessesResult', 'address3'), ('BusinessesResult', 'display_address')]
+[('BusinessesResult', 'total')]
+
+Groups in both: 0

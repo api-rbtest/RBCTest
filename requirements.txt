@@ -1,0 +1,9 @@
+numpy
+openai
+pip
+python-dotenv
+PyYAML
+graphviz
+networkx
+pyvis
+pandas==1.5.3
