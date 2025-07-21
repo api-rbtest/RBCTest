@@ -1,0 +1,319 @@
+,endpoint,group,invariant,invariantType,variables,pptname,tp_x,description,tp_y
+0,get+groups,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/groups&/groups&get&200():::EXIT
+/groups&/groups&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+1,get+groups_{id}_issues,confidential,input.confidential == return.confidential,daikon.inv.binary.twoScalar.IntEqual,"(input.confidential, return.confidential)",/groups/{id}/issues&/groups/{id}/issues&get&200():::EXIT,1.0,Attribute confidential is responded to by parameter confidential with a description: Filter confidential or public issues,1.0
+2,get+groups_{id}_issues,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/groups/{id}/issues&/groups/{id}/issues&get&200():::EXIT
+/groups/{id}/issues&/groups/{id}/issues&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+3,get+groups_{id}_issues,due_date,return.due_date is a Date. Format: YYYY/MM/DD,daikon.inv.unary.string.dates.IsDateYYYYMMDD,(return.due_date),/groups/{id}/issues&/groups/{id}/issues&get&200():::EXIT,1.0,"Attribute due_date is responded to by parameter due_date with a description: Return issues that have no due date, are overdue, or whose due date is this week, this month, or between two weeks ago and next month. Accepts: 0 (no due date), overdue , week , month , next_month_and_previous_two_weeks . (Introduced in GitLab 13.3 )
+{""type"": ""string"", ""format"": ""date""}",1.0
+4,get+groups_{id}_issues,state,"input.state == return.state
+return.state one of { ""closed"", ""opened"" }
+LENGTH(return.state)==6","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(input.state, return.state)
+(return.state)
+(return.state)","/groups/{id}/issues&/groups/{id}/issues&get&200():::EXIT
+/groups/{id}/issues&/groups/{id}/issues&get&200():::EXIT
+/groups/{id}/issues&/groups/{id}/issues&get&200():::EXIT",1.0,Attribute state is responded to by parameter state with a description: Return all issues or just those that are opened or closed,1.0
+5,get+groups_{id}_issues,updated_at,"LENGTH(return.updated_at)==24
+return.updated_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.updated_at)
+(return.updated_at)","/groups/{id}/issues&/groups/{id}/issues&get&200():::EXIT
+/groups/{id}/issues&/groups/{id}/issues&get&200():::EXIT",1.0,"Attribute updated_at is responded to by parameter updated_after with a description: Return issues updated on or after the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )
+Attribute updated_at is responded to by parameter updated_before with a description: Return issues updated on or before the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )
+{""type"": ""string"", ""format"": ""date-time""}",1.0
+6,get+issues,confidential,input.confidential == return.confidential,daikon.inv.binary.twoScalar.IntEqual,"(input.confidential, return.confidential)",/issues&/issues&get&200():::EXIT,1.0,Attribute confidential is responded to by parameter confidential with a description: Filter confidential or public issues,1.0
+7,get+issues,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/issues&/issues&get&200():::EXIT
+/issues&/issues&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+8,get+issues,due_date,return.due_date is a Date. Format: YYYY/MM/DD,daikon.inv.unary.string.dates.IsDateYYYYMMDD,(return.due_date),/issues&/issues&get&200():::EXIT,1.0,"Attribute due_date is responded to by parameter due_date with a description: Return issues that have no due date, are overdue, or whose due date is this week, this month, or between two weeks ago and next month. Accepts: 0 (no due date), overdue , week , month , next_month_and_previous_two_weeks . (Introduced in GitLab 13.3 )
+{""type"": ""string"", ""format"": ""date""}",1.0
+9,get+issues,state,"return.state one of { ""closed"", ""opened"" }
+LENGTH(return.state)==6","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.state)
+(return.state)","/issues&/issues&get&200():::EXIT
+/issues&/issues&get&200():::EXIT",1.0,Attribute state is responded to by parameter state with a description: Return all issues or just those that are opened or closed,1.0
+10,get+issues,updated_at,"LENGTH(return.updated_at)==24
+return.updated_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.updated_at)
+(return.updated_at)","/issues&/issues&get&200():::EXIT
+/issues&/issues&get&200():::EXIT",1.0,"Attribute updated_at is responded to by parameter updated_before with a description: Return issues updated on or before the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )
+Attribute updated_at is responded to by parameter updated_after with a description: Return issues updated on or after the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )
+{""type"": ""string"", ""format"": ""date-time""}",1.0
+11,get+issues_{id},created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/issues/{id}&/issues/{id}&get&200():::EXIT
+/issues/{id}&/issues/{id}&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+12,get+issues_{id},due_date,return.due_date is a Date. Format: YYYY/MM/DD,daikon.inv.unary.string.dates.IsDateYYYYMMDD,(return.due_date),/issues/{id}&/issues/{id}&get&200():::EXIT,1.0,"{""type"": ""string"", ""format"": ""date""}",1.0
+13,get+issues_{id},id,input.id == return.id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.id)",/issues/{id}&/issues/{id}&get&200():::EXIT,1.0,Attribute id is responded to by parameter id with a description: The ID of the issue,1.0
+14,get+issues_{id},updated_at,"LENGTH(return.updated_at)==24
+return.updated_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.updated_at)
+(return.updated_at)","/issues/{id}&/issues/{id}&get&200():::EXIT
+/issues/{id}&/issues/{id}&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+15,get+projects,archived,input.archived == return.archived,daikon.inv.binary.twoScalar.IntEqual,"(input.archived, return.archived)",/projects&/projects&get&200():::EXIT,1.0,Attribute archived is responded to by parameter archived with a description: Limit by archived status,1.0
+16,get+projects,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+17,get+projects,repository_storage,"return.repository_storage == ""default""
+LENGTH(return.repository_storage)==7","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.repository_storage)
+(return.repository_storage)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0,Attribute repository_storage is responded to by parameter repository_storage with a description: Limit results to projects stored on repository_storage. (admins only),1.0
+18,get+projects,visibility,"input.visibility == return.visibility
+return.visibility one of { ""internal"", ""private"", ""public"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.visibility, return.visibility)
+(return.visibility)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0,Attribute visibility is responded to by parameter visibility with a description: Limit by visibility,1.0
+19,get+projects,web_url,"return.web_url is a substring of return.http_url_to_repo
+return.web_url is a substring of return.readme_url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return.http_url_to_repo, return.web_url)
+(return.web_url, return.readme_url)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0,"{""type"": ""string""}",1.0
+20,get+projects_{id}_issues,assignee.web_url,return.assignee.username is a substring of return.assignee.web_url,daikon.inv.binary.twoString.StdString$SubString,"(return.assignee.web_url, return.assignee.username)",/projects/{id}/issues&/projects/{id}/issues&get&200():::EXIT,1.0,"{""type"": ""string""}",1.0
+21,get+projects_{id}_issues,assignees.web_url,return.username is a substring of return.web_url,daikon.inv.binary.twoString.StdString$SubString,"(return.web_url, return.username)",/projects/{id}/issues&/projects/{id}/issues&get&200&assignees():::EXIT,1.0,"{""type"": ""string""}",1.0
+22,get+projects_{id}_issues,author.avatar_url,"LENGTH(return.author.avatar_url)==81
+return.author.avatar_url is Url","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.IsUrl","(return.author.avatar_url)
+(return.author.avatar_url)","/projects/{id}/issues&/projects/{id}/issues&get&200():::EXIT
+/projects/{id}/issues&/projects/{id}/issues&get&200():::EXIT",1.0,"{""type"": ""string""}",1.0
+23,get+projects_{id}_issues,author.web_url,return.author.username is a substring of return.author.web_url,daikon.inv.binary.twoString.StdString$SubString,"(return.author.web_url, return.author.username)",/projects/{id}/issues&/projects/{id}/issues&get&200():::EXIT,1.0,"{""type"": ""string""}",1.0
+24,get+projects_{id}_issues,confidential,input.confidential == return.confidential,daikon.inv.binary.twoScalar.IntEqual,"(input.confidential, return.confidential)",/projects/{id}/issues&/projects/{id}/issues&get&200():::EXIT,1.0,Attribute confidential is responded to by parameter confidential with a description: Filter confidential or public issues,1.0
+25,get+projects_{id}_issues,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/projects/{id}/issues&/projects/{id}/issues&get&200():::EXIT
+/projects/{id}/issues&/projects/{id}/issues&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+26,get+projects_{id}_issues,due_date,return.due_date is a Date. Format: YYYY/MM/DD,daikon.inv.unary.string.dates.IsDateYYYYMMDD,(return.due_date),/projects/{id}/issues&/projects/{id}/issues&get&200():::EXIT,1.0,"Attribute due_date is responded to by parameter due_date with a description: Return issues that have no due date, are overdue, or whose due date is this week, this month, or between two weeks ago and next month. Accepts: 0 (no due date), overdue , week , month , next_month_and_previous_two_weeks . (Introduced in GitLab 13.3 )
+{""type"": ""string"", ""format"": ""date""}",1.0
+27,get+projects_{id}_issues,project_id,input.id == return.project_id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.project_id)",/projects/{id}/issues&/projects/{id}/issues&get&200():::EXIT,1.0,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user user,1.0
+28,get+projects_{id}_issues,state,"input.state == return.state
+return.state one of { ""closed"", ""opened"" }
+LENGTH(return.state)==6","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(input.state, return.state)
+(return.state)
+(return.state)","/projects/{id}/issues&/projects/{id}/issues&get&200():::EXIT
+/projects/{id}/issues&/projects/{id}/issues&get&200():::EXIT
+/projects/{id}/issues&/projects/{id}/issues&get&200():::EXIT",1.0,Attribute state is responded to by parameter state with a description: Return all issues or just those that are opened or closed,1.0
+29,get+projects_{id}_issues,updated_at,"LENGTH(return.updated_at)==24
+return.updated_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.updated_at)
+(return.updated_at)","/projects/{id}/issues&/projects/{id}/issues&get&200():::EXIT
+/projects/{id}/issues&/projects/{id}/issues&get&200():::EXIT",1.0,"Attribute updated_at is responded to by parameter updated_after with a description: Return issues updated on or after the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )
+Attribute updated_at is responded to by parameter updated_before with a description: Return issues updated on or before the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )
+{""type"": ""string"", ""format"": ""date-time""}",1.0
+30,get+projects_{id}_issues_{issue_iid},created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/projects/{id}/issues/{issue_iid}&/projects/{id}/issues/{issue_iid}&get&200():::EXIT
+/projects/{id}/issues/{issue_iid}&/projects/{id}/issues/{issue_iid}&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+31,get+projects_{id}_issues_{issue_iid},due_date,return.due_date is a Date. Format: YYYY/MM/DD,daikon.inv.unary.string.dates.IsDateYYYYMMDD,(return.due_date),/projects/{id}/issues/{issue_iid}&/projects/{id}/issues/{issue_iid}&get&200():::EXIT,1.0,"{""type"": ""string"", ""format"": ""date""}",1.0
+32,get+projects_{id}_issues_{issue_iid},iid,input.issue_iid == return.iid,daikon.inv.binary.twoScalar.IntEqual,"(input.issue_iid, return.iid)",/projects/{id}/issues/{issue_iid}&/projects/{id}/issues/{issue_iid}&get&200():::EXIT,1.0,Attribute iid is responded to by parameter issue_iid with a description: The internal ID of a project's issue,1.0
+33,get+projects_{id}_issues_{issue_iid},project_id,input.id == return.project_id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.project_id)",/projects/{id}/issues/{issue_iid}&/projects/{id}/issues/{issue_iid}&get&200():::EXIT,1.0,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user,1.0
+34,get+projects_{id}_issues_{issue_iid},updated_at,"LENGTH(return.updated_at)==24
+return.updated_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.updated_at)
+(return.updated_at)","/projects/{id}/issues/{issue_iid}&/projects/{id}/issues/{issue_iid}&get&200():::EXIT
+/projects/{id}/issues/{issue_iid}&/projects/{id}/issues/{issue_iid}&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+35,get+projects_{id}_issues_{issue_iid}_closed_by,milestone.created_at,"LENGTH(return.milestone.created_at)==24
+return.milestone.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.milestone.created_at)
+(return.milestone.created_at)","/projects/{id}/issues/{issue_iid}/closed_by&/projects/{id}/issues/{issue_iid}/closed_by&get&200():::EXIT
+/projects/{id}/issues/{issue_iid}/closed_by&/projects/{id}/issues/{issue_iid}/closed_by&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+36,get+projects_{id}_issues_{issue_iid}_closed_by,milestone.updated_at,"LENGTH(return.milestone.updated_at)==24
+return.milestone.updated_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.milestone.updated_at)
+(return.milestone.updated_at)","/projects/{id}/issues/{issue_iid}/closed_by&/projects/{id}/issues/{issue_iid}/closed_by&get&200():::EXIT
+/projects/{id}/issues/{issue_iid}/closed_by&/projects/{id}/issues/{issue_iid}/closed_by&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+37,get+projects_{id}_issues_{issue_iid}_closed_by,project_id,input.id == return.project_id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.project_id)",/projects/{id}/issues/{issue_iid}/closed_by&/projects/{id}/issues/{issue_iid}/closed_by&get&200():::EXIT,1.0,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user,1.0
+38,get+projects_{id}_issues_{issue_iid}_related_merge_requests,milestone.created_at,"LENGTH(return.milestone.created_at)==24
+return.milestone.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.milestone.created_at)
+(return.milestone.created_at)","/projects/{id}/issues/{issue_iid}/related_merge_requests&/projects/{id}/issues/{issue_iid}/related_merge_requests&get&200():::EXIT
+/projects/{id}/issues/{issue_iid}/related_merge_requests&/projects/{id}/issues/{issue_iid}/related_merge_requests&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+39,get+projects_{id}_issues_{issue_iid}_related_merge_requests,milestone.updated_at,"LENGTH(return.milestone.updated_at)==24
+return.milestone.updated_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.milestone.updated_at)
+(return.milestone.updated_at)","/projects/{id}/issues/{issue_iid}/related_merge_requests&/projects/{id}/issues/{issue_iid}/related_merge_requests&get&200():::EXIT
+/projects/{id}/issues/{issue_iid}/related_merge_requests&/projects/{id}/issues/{issue_iid}/related_merge_requests&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+40,get+projects_{id}_issues_{issue_iid}_related_merge_requests,project_id,"return.project_id == return.target_project_id
+return.project_id <= return.source_project_id","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntLessEqual","(return.project_id, return.target_project_id)
+(return.project_id, return.source_project_id)","/projects/{id}/issues/{issue_iid}/related_merge_requests&/projects/{id}/issues/{issue_iid}/related_merge_requests&get&200():::EXIT
+/projects/{id}/issues/{issue_iid}/related_merge_requests&/projects/{id}/issues/{issue_iid}/related_merge_requests&get&200():::EXIT",1.0,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user,1.0
+41,post+groups,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/groups&/groups&post&201():::EXIT
+/groups&/groups&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+42,post+groups,default_branch_protection,"return.default_branch_protection one of { 0, 1, 2 }",daikon.inv.unary.scalar.OneOfScalar,(return.default_branch_protection),/groups&/groups&post&201():::EXIT,1.0,Attribute default_branch_protection is responded to by parameter default_branch_protection with a description: SeeOptions fordefault_branch_protection. Default to the global level default branch protection setting,1.0
+43,post+groups,description,input.description == return.description,daikon.inv.binary.twoString.StringEqual,"(input.description, return.description)",/groups&/groups&post&201():::EXIT,1.0,Attribute description is responded to by parameter description with a description: The group's description,1.0
+44,post+groups,lfs_enabled,input.lfs_enabled == return.lfs_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.lfs_enabled, return.lfs_enabled)",/groups&/groups&post&201():::EXIT,1.0,Attribute lfs_enabled is responded to by parameter lfs_enabled with a description: Enable/disable Large File Storage (LFS) for the projects in this group,1.0
+45,post+groups,name,input.name == return.name,daikon.inv.binary.twoString.StringEqual,"(input.name, return.name)",/groups&/groups&post&201():::EXIT,1.0,Attribute name is responded to by parameter name with a description: The name of the group,1.0
+46,post+groups,path,input.path == return.path,daikon.inv.binary.twoString.StringEqual,"(input.path, return.path)",/groups&/groups&post&201():::EXIT,1.0,Attribute path is responded to by parameter path with a description: The path of the group,1.0
+47,post+groups,project_creation_level,"input.project_creation_level == return.project_creation_level
+return.project_creation_level one of { ""developer"", ""maintainer"", ""noone"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.project_creation_level, return.project_creation_level)
+(return.project_creation_level)","/groups&/groups&post&201():::EXIT
+/groups&/groups&post&201():::EXIT",1.0,"Attribute project_creation_level is responded to by parameter project_creation_level with a description: Determine if developers can create projects in the group. Can benoone(No one),maintainer(Maintainers), or developer(Developers + Maintainers)",1.0
+48,post+groups,request_access_enabled,input.request_access_enabled == return.request_access_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.request_access_enabled, return.request_access_enabled)",/groups&/groups&post&201():::EXIT,1.0,Attribute request_access_enabled is responded to by parameter request_access_enabled with a description: Allow users to request member access,1.0
+49,post+groups,require_two_factor_authentication,input.require_two_factor_authentication == return.require_two_factor_authentication,daikon.inv.binary.twoScalar.IntEqual,"(input.require_two_factor_authentication, return.require_two_factor_authentication)",/groups&/groups&post&201():::EXIT,1.0,Attribute require_two_factor_authentication is responded to by parameter require_two_factor_authentication with a description: Require all users in this group to setup Two-factor authentication,1.0
+50,post+groups,share_with_group_lock,input.share_with_group_lock == return.share_with_group_lock,daikon.inv.binary.twoScalar.IntEqual,"(input.share_with_group_lock, return.share_with_group_lock)",/groups&/groups&post&201():::EXIT,1.0,Attribute share_with_group_lock is responded to by parameter share_with_group_lock with a description: Prevent sharing a project with another group within this group,1.0
+51,post+groups,subgroup_creation_level,"input.subgroup_creation_level == return.subgroup_creation_level
+return.subgroup_creation_level one of { ""maintainer"", ""owner"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.subgroup_creation_level, return.subgroup_creation_level)
+(return.subgroup_creation_level)","/groups&/groups&post&201():::EXIT
+/groups&/groups&post&201():::EXIT",1.0,"Attribute subgroup_creation_level is responded to by parameter subgroup_creation_level with a description: Allowed to create subgroups. Can be owner(Owners), or maintainer(Maintainers)",1.0
+52,post+groups,two_factor_grace_period,input.two_factor_grace_period == return.two_factor_grace_period,daikon.inv.binary.twoScalar.IntEqual,"(input.two_factor_grace_period, return.two_factor_grace_period)",/groups&/groups&post&201():::EXIT,1.0,Attribute two_factor_grace_period is responded to by parameter two_factor_grace_period with a description: Time before Two-factor authentication is enforced (in hours),1.0
+53,post+groups,visibility,"input.visibility == return.visibility
+return.visibility one of { ""internal"", ""private"", ""public"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.visibility, return.visibility)
+(return.visibility)","/groups&/groups&post&201():::EXIT
+/groups&/groups&post&201():::EXIT",1.0,"Attribute visibility is responded to by parameter visibility with a description: The group's visibility. Can be private,internal, orpublic",1.0
+54,post+projects,allow_merge_on_skipped_pipeline,input.allow_merge_on_skipped_pipeline == return.allow_merge_on_skipped_pipeline,daikon.inv.binary.twoScalar.IntEqual,"(input.allow_merge_on_skipped_pipeline, return.allow_merge_on_skipped_pipeline)",/projects&/projects&post&201():::EXIT,1.0,Attribute allow_merge_on_skipped_pipeline is responded to by parameter allow_merge_on_skipped_pipeline with a description: Set whether or not merge requests can be merged with skipped jobs,1.0
+55,post+projects,auto_devops_deploy_strategy,"input.auto_devops_deploy_strategy == return.auto_devops_deploy_strategy
+return.auto_devops_deploy_strategy one of { ""continuous"", ""manual"", ""timed_incremental"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.auto_devops_deploy_strategy, return.auto_devops_deploy_strategy)
+(return.auto_devops_deploy_strategy)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0,Attribute auto_devops_deploy_strategy is responded to by parameter auto_devops_deploy_strategy with a description: Auto Deploy strategy,1.0
+56,post+projects,auto_devops_enabled,input.auto_devops_enabled == return.auto_devops_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.auto_devops_enabled, return.auto_devops_enabled)",/projects&/projects&post&201():::EXIT,1.0,Attribute auto_devops_enabled is responded to by parameter auto_devops_enabled with a description: Enable Auto DevOps for this project,1.0
+57,post+projects,autoclose_referenced_issues,input.autoclose_referenced_issues == return.autoclose_referenced_issues,daikon.inv.binary.twoScalar.IntEqual,"(input.autoclose_referenced_issues, return.autoclose_referenced_issues)",/projects&/projects&post&201():::EXIT,1.0,Attribute autoclose_referenced_issues is responded to by parameter autoclose_referenced_issues with a description: Set whether auto-closing referenced issues on default branch,1.0
+58,post+projects,container_registry_enabled,input.container_registry_enabled == return.container_registry_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.container_registry_enabled, return.container_registry_enabled)",/projects&/projects&post&201():::EXIT,1.0,Attribute container_registry_enabled is responded to by parameter container_registry_enabled with a description: Enable container registry for this project,1.0
+59,post+projects,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+60,post+projects,default_branch,return.default_branch is a substring of return.readme_url,daikon.inv.binary.twoString.StdString$SubString,"(return.default_branch, return.readme_url)",/projects&/projects&post&201():::EXIT,1.0,Attribute default_branch is responded to by parameter default_branch with a description: master by default,1.0
+61,post+projects,description,input.description == return.description,daikon.inv.binary.twoString.StringEqual,"(input.description, return.description)",/projects&/projects&post&201():::EXIT,1.0,Attribute description is responded to by parameter description with a description: Short project description,1.0
+62,post+projects,merge_method,"input.merge_method == return.merge_method
+return.merge_method one of { ""ff"", ""merge"", ""rebase_merge"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.merge_method, return.merge_method)
+(return.merge_method)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0,Attribute merge_method is responded to by parameter merge_method with a description: Set the merge method used,1.0
+63,post+projects,name,input.name == return.name,daikon.inv.binary.twoString.StringEqual,"(input.name, return.name)",/projects&/projects&post&201():::EXIT,1.0,"Attribute name is responded to by parameter name with a description: The name of the new project. Either path or name is required, not both",1.0
+64,post+projects,only_allow_merge_if_all_discussions_are_resolved,input.only_allow_merge_if_all_discussions_are_resolved == return.only_allow_merge_if_all_discussions_are_resolved,daikon.inv.binary.twoScalar.IntEqual,"(input.only_allow_merge_if_all_discussions_are_resolved, return.only_allow_merge_if_all_discussions_are_resolved)",/projects&/projects&post&201():::EXIT,1.0,Attribute only_allow_merge_if_all_discussions_are_resolved is responded to by parameter only_allow_merge_if_all_discussions_are_resolved with a description: Set whether merge requests can only be merged when all the discussions are resolved,1.0
+65,post+projects,only_allow_merge_if_pipeline_succeeds,input.only_allow_merge_if_pipeline_succeeds == return.only_allow_merge_if_pipeline_succeeds,daikon.inv.binary.twoScalar.IntEqual,"(input.only_allow_merge_if_pipeline_succeeds, return.only_allow_merge_if_pipeline_succeeds)",/projects&/projects&post&201():::EXIT,1.0,Attribute only_allow_merge_if_pipeline_succeeds is responded to by parameter only_allow_merge_if_pipeline_succeeds with a description: Set whether merge requests can only be merged with successful jobs,1.0
+66,post+projects,packages_enabled,input.packages_enabled == return.packages_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.packages_enabled, return.packages_enabled)",/projects&/projects&post&201():::EXIT,1.0,Attribute packages_enabled is responded to by parameter packages_enabled with a description: Enable or disable packages repository feature,1.0
+67,post+projects,path,input.path == return.path,daikon.inv.binary.twoString.StringEqual,"(input.path, return.path)",/projects&/projects&post&201():::EXIT,1.0,Attribute path is responded to by parameter path with a description: Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes),1.0
+68,post+projects,public_jobs,input.public_builds == return.public_jobs,daikon.inv.binary.twoScalar.IntEqual,"(input.public_builds, return.public_jobs)",/projects&/projects&post&201():::EXIT,1.0,"Attribute public_jobs is responded to by parameter public_builds with a description: If true, jobs can be viewed by non-project members",1.0
+69,post+projects,remove_source_branch_after_merge,input.remove_source_branch_after_merge == return.remove_source_branch_after_merge,daikon.inv.binary.twoScalar.IntEqual,"(input.remove_source_branch_after_merge, return.remove_source_branch_after_merge)",/projects&/projects&post&201():::EXIT,1.0,Attribute remove_source_branch_after_merge is responded to by parameter remove_source_branch_after_merge with a description: Enable Delete source branch option by default for all new merge requests,1.0
+70,post+projects,repository_storage,"input.repository_storage == return.repository_storage
+return.repository_storage == ""default""
+LENGTH(return.repository_storage)==7","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(input.repository_storage, return.repository_storage)
+(return.repository_storage)
+(return.repository_storage)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0,Attribute repository_storage is responded to by parameter repository_storage with a description: Which storage shard the repository is on.(admins only),1.0
+71,post+projects,request_access_enabled,input.request_access_enabled == return.request_access_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.request_access_enabled, return.request_access_enabled)",/projects&/projects&post&201():::EXIT,1.0,Attribute request_access_enabled is responded to by parameter request_access_enabled with a description: Allow users to request member access,1.0
+72,post+projects,resolve_outdated_diff_discussions,input.resolve_outdated_diff_discussions == return.resolve_outdated_diff_discussions,daikon.inv.binary.twoScalar.IntEqual,"(input.resolve_outdated_diff_discussions, return.resolve_outdated_diff_discussions)",/projects&/projects&post&201():::EXIT,1.0,Attribute resolve_outdated_diff_discussions is responded to by parameter resolve_outdated_diff_discussions with a description: Automatically resolve merge request diffs discussions on lines changed with a push,1.0
+73,post+projects,shared_runners_enabled,input.shared_runners_enabled == return.shared_runners_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.shared_runners_enabled, return.shared_runners_enabled)",/projects&/projects&post&201():::EXIT,1.0,Attribute shared_runners_enabled is responded to by parameter shared_runners_enabled with a description: Enable shared runners for this project,1.0
+74,post+projects,tag_list,"size(input.tag_list[]) == size(return.tag_list[])
+return.open_issues_count <= size(return.tag_list[])
+return.forks_count <= size(return.tag_list[])","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual","(size(input.tag_list[..]), size(return.tag_list[..]))
+(return.open_issues_count, size(return.tag_list[..]))
+(return.forks_count, size(return.tag_list[..]))","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0,"Attribute tag_list is responded to by parameter tag_list with a description: The list of tags for a project; put array of tags, that should be finally assigned to a project",1.0
+75,post+projects_{id}_issues,confidential,input.confidential == return.confidential,daikon.inv.binary.twoScalar.IntEqual,"(input.confidential, return.confidential)",/projects/{id}/issues&/projects/{id}/issues&post&201():::EXIT,1.0,Attribute confidential is responded to by parameter confidential with a description: Set an issue to be confidential. Default is false,1.0
+76,post+projects_{id}_issues,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/projects/{id}/issues&/projects/{id}/issues&post&201():::EXIT
+/projects/{id}/issues&/projects/{id}/issues&post&201():::EXIT",1.0,"Attribute created_at is responded to by parameter created_at with a description: When the issue was created. Date time string, ISO 8601 formatted, for example 2016-03-11T03:45:40Z . Requires administrator or project/group owner rights
+{""type"": ""string"", ""format"": ""date-time""}",1.0
+77,post+projects_{id}_issues,description,input.description == return.description,daikon.inv.binary.twoString.StringEqual,"(input.description, return.description)",/projects/{id}/issues&/projects/{id}/issues&post&201():::EXIT,1.0,"Attribute description is responded to by parameter description with a description: The description of an issue. Limited to 1,048,576 characters",1.0
+78,post+projects_{id}_issues,due_date,input.due_date == return.due_date,daikon.inv.binary.twoString.StringEqual,"(input.due_date, return.due_date)",/projects/{id}/issues&/projects/{id}/issues&post&201():::EXIT,1.0,"Attribute due_date is responded to by parameter due_date with a description: The due date. Date time string in the format YYYY-MM-DD , for example 2016-03-11
+{""type"": ""string"", ""format"": ""date""}",1.0
+79,post+projects_{id}_issues,project_id,input.id == return.project_id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.project_id)",/projects/{id}/issues&/projects/{id}/issues&post&201():::EXIT,1.0,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user,1.0
+80,post+projects_{id}_issues,title,input.title == return.title,daikon.inv.binary.twoString.StringEqual,"(input.title, return.title)",/projects/{id}/issues&/projects/{id}/issues&post&201():::EXIT,1.0,Attribute title is responded to by parameter title with a description: The title of an issue,1.0
+81,post+projects_{id}_issues,updated_at,"LENGTH(return.updated_at)==24
+return.updated_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.updated_at)
+(return.updated_at)","/projects/{id}/issues&/projects/{id}/issues&post&201():::EXIT
+/projects/{id}/issues&/projects/{id}/issues&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+82,post+projects_{id}_issues_{issue_iid}_move,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/projects/{id}/issues/{issue_iid}/move&/projects/{id}/issues/{issue_iid}/move&post&201():::EXIT
+/projects/{id}/issues/{issue_iid}/move&/projects/{id}/issues/{issue_iid}/move&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+83,post+projects_{id}_issues_{issue_iid}_move,due_date,return.due_date is a Date. Format: YYYY/MM/DD,daikon.inv.unary.string.dates.IsDateYYYYMMDD,(return.due_date),/projects/{id}/issues/{issue_iid}/move&/projects/{id}/issues/{issue_iid}/move&post&201():::EXIT,1.0,"{""type"": ""string"", ""format"": ""date""}",1.0
+84,post+projects_{id}_issues_{issue_iid}_move,iid,return.iid > size(return.assignees[]),daikon.inv.binary.twoScalar.IntGreaterThan,"(return.iid, size(return.assignees[..]))",/projects/{id}/issues/{issue_iid}/move&/projects/{id}/issues/{issue_iid}/move&post&201():::EXIT,1.0,Attribute iid is responded to by parameter issue_iid with a description: The internal ID of the project's issue,1.0
+85,post+projects_{id}_issues_{issue_iid}_move,project_id,input.to_project_id == return.project_id,daikon.inv.binary.twoScalar.IntEqual,"(input.to_project_id, return.project_id)",/projects/{id}/issues/{issue_iid}/move&/projects/{id}/issues/{issue_iid}/move&post&201():::EXIT,1.0,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user,1.0
+86,post+projects_{id}_issues_{issue_iid}_move,updated_at,"LENGTH(return.updated_at)==24
+return.updated_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.updated_at)
+(return.updated_at)","/projects/{id}/issues/{issue_iid}/move&/projects/{id}/issues/{issue_iid}/move&post&201():::EXIT
+/projects/{id}/issues/{issue_iid}/move&/projects/{id}/issues/{issue_iid}/move&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+87,post+projects_{id}_issues_{issue_iid}_subscribe,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/projects/{id}/issues/{issue_iid}/subscribe&/projects/{id}/issues/{issue_iid}/subscribe&post&201():::EXIT
+/projects/{id}/issues/{issue_iid}/subscribe&/projects/{id}/issues/{issue_iid}/subscribe&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+88,post+projects_{id}_issues_{issue_iid}_subscribe,due_date,return.due_date is a Date. Format: YYYY/MM/DD,daikon.inv.unary.string.dates.IsDateYYYYMMDD,(return.due_date),/projects/{id}/issues/{issue_iid}/subscribe&/projects/{id}/issues/{issue_iid}/subscribe&post&201():::EXIT,1.0,"{""type"": ""string"", ""format"": ""date""}",1.0
+89,post+projects_{id}_issues_{issue_iid}_subscribe,iid,input.issue_iid == return.iid,daikon.inv.binary.twoScalar.IntEqual,"(input.issue_iid, return.iid)",/projects/{id}/issues/{issue_iid}/subscribe&/projects/{id}/issues/{issue_iid}/subscribe&post&201():::EXIT,1.0,Attribute iid is responded to by parameter issue_iid with a description: The internal ID of the project's issue,1.0
+90,post+projects_{id}_issues_{issue_iid}_subscribe,project_id,input.id == return.project_id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.project_id)",/projects/{id}/issues/{issue_iid}/subscribe&/projects/{id}/issues/{issue_iid}/subscribe&post&201():::EXIT,1.0,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user,1.0
+91,post+projects_{id}_issues_{issue_iid}_subscribe,updated_at,"LENGTH(return.updated_at)==24
+return.updated_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.updated_at)
+(return.updated_at)","/projects/{id}/issues/{issue_iid}/subscribe&/projects/{id}/issues/{issue_iid}/subscribe&post&201():::EXIT
+/projects/{id}/issues/{issue_iid}/subscribe&/projects/{id}/issues/{issue_iid}/subscribe&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+92,post+projects_{id}_issues_{issue_iid}_todo,target.created_at,"LENGTH(return.target.created_at)==24
+return.target.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.target.created_at)
+(return.target.created_at)","/projects/{id}/issues/{issue_iid}/todo&/projects/{id}/issues/{issue_iid}/todo&post&201():::EXIT
+/projects/{id}/issues/{issue_iid}/todo&/projects/{id}/issues/{issue_iid}/todo&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+93,post+projects_{id}_issues_{issue_iid}_todo,target.due_date,return.target.due_date is a Date. Format: YYYY/MM/DD,daikon.inv.unary.string.dates.IsDateYYYYMMDD,(return.target.due_date),/projects/{id}/issues/{issue_iid}/todo&/projects/{id}/issues/{issue_iid}/todo&post&201():::EXIT,1.0,"{""type"": ""string"", ""format"": ""date""}",1.0
+94,post+projects_{id}_issues_{issue_iid}_todo,target.updated_at,"LENGTH(return.target.updated_at)==24
+return.target.updated_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.target.updated_at)
+(return.target.updated_at)","/projects/{id}/issues/{issue_iid}/todo&/projects/{id}/issues/{issue_iid}/todo&post&201():::EXIT
+/projects/{id}/issues/{issue_iid}/todo&/projects/{id}/issues/{issue_iid}/todo&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+95,post+projects_{id}_issues_{issue_iid}_unsubscribe,assignee.web_url,return.assignee.username is a substring of return.assignee.web_url,daikon.inv.binary.twoString.StdString$SubString,"(return.assignee.web_url, return.assignee.username)",/projects/{id}/issues/{issue_iid}/unsubscribe&/projects/{id}/issues/{issue_iid}/unsubscribe&post&201():::EXIT,1.0,"{""type"": ""string""}",1.0
+96,post+projects_{id}_issues_{issue_iid}_unsubscribe,assignees.web_url,return.username is a substring of return.web_url,daikon.inv.binary.twoString.StdString$SubString,"(return.web_url, return.username)",/projects/{id}/issues/{issue_iid}/unsubscribe&/projects/{id}/issues/{issue_iid}/unsubscribe&post&201&assignees():::EXIT,1.0,"{""type"": ""string""}",1.0
+97,post+projects_{id}_issues_{issue_iid}_unsubscribe,author.web_url,return.author.username is a substring of return.author.web_url,daikon.inv.binary.twoString.StdString$SubString,"(return.author.web_url, return.author.username)",/projects/{id}/issues/{issue_iid}/unsubscribe&/projects/{id}/issues/{issue_iid}/unsubscribe&post&201():::EXIT,1.0,"{""type"": ""string""}",1.0
+98,post+projects_{id}_issues_{issue_iid}_unsubscribe,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/projects/{id}/issues/{issue_iid}/unsubscribe&/projects/{id}/issues/{issue_iid}/unsubscribe&post&201():::EXIT
+/projects/{id}/issues/{issue_iid}/unsubscribe&/projects/{id}/issues/{issue_iid}/unsubscribe&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+99,post+projects_{id}_issues_{issue_iid}_unsubscribe,due_date,return.due_date is a Date. Format: YYYY/MM/DD,daikon.inv.unary.string.dates.IsDateYYYYMMDD,(return.due_date),/projects/{id}/issues/{issue_iid}/unsubscribe&/projects/{id}/issues/{issue_iid}/unsubscribe&post&201():::EXIT,1.0,"{""type"": ""string"", ""format"": ""date""}",1.0
+100,post+projects_{id}_issues_{issue_iid}_unsubscribe,iid,input.issue_iid == return.iid,daikon.inv.binary.twoScalar.IntEqual,"(input.issue_iid, return.iid)",/projects/{id}/issues/{issue_iid}/unsubscribe&/projects/{id}/issues/{issue_iid}/unsubscribe&post&201():::EXIT,1.0,Attribute iid is responded to by parameter issue_iid with a description: The internal ID of the project's issue,1.0
+101,post+projects_{id}_issues_{issue_iid}_unsubscribe,project_id,input.id == return.project_id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.project_id)",/projects/{id}/issues/{issue_iid}/unsubscribe&/projects/{id}/issues/{issue_iid}/unsubscribe&post&201():::EXIT,1.0,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user,1.0
+102,post+projects_{id}_issues_{issue_iid}_unsubscribe,updated_at,"LENGTH(return.updated_at)==24
+return.updated_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.updated_at)
+(return.updated_at)","/projects/{id}/issues/{issue_iid}/unsubscribe&/projects/{id}/issues/{issue_iid}/unsubscribe&post&201():::EXIT
+/projects/{id}/issues/{issue_iid}/unsubscribe&/projects/{id}/issues/{issue_iid}/unsubscribe&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+103,put+projects_{id}_issues_{issue_iid},created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/projects/{id}/issues/{issue_iid}&/projects/{id}/issues/{issue_iid}&put&200():::EXIT
+/projects/{id}/issues/{issue_iid}&/projects/{id}/issues/{issue_iid}&put&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+104,put+projects_{id}_issues_{issue_iid},description,input.description == return.description,daikon.inv.binary.twoString.StringEqual,"(input.description, return.description)",/projects/{id}/issues/{issue_iid}&/projects/{id}/issues/{issue_iid}&put&200():::EXIT,1.0,"Attribute description is responded to by parameter description with a description: The description of an issue. Limited to 1,048,576 characters",1.0
+105,put+projects_{id}_issues_{issue_iid},discussion_locked,input.discussion_locked == return.discussion_locked,daikon.inv.binary.twoScalar.IntEqual,"(input.discussion_locked, return.discussion_locked)",/projects/{id}/issues/{issue_iid}&/projects/{id}/issues/{issue_iid}&put&200():::EXIT,1.0,Attribute discussion_locked is responded to by parameter discussion_locked with a description: Flag indicating if the issue's discussion is locked. If the discussion is locked only project members can add or edit comments,1.0
+106,put+projects_{id}_issues_{issue_iid},iid,input.issue_iid == return.iid,daikon.inv.binary.twoScalar.IntEqual,"(input.issue_iid, return.iid)",/projects/{id}/issues/{issue_iid}&/projects/{id}/issues/{issue_iid}&put&200():::EXIT,1.0,Attribute iid is responded to by parameter issue_iid with a description: The internal ID of a project's issue,1.0
+107,put+projects_{id}_issues_{issue_iid},project_id,input.id == return.project_id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.project_id)",/projects/{id}/issues/{issue_iid}&/projects/{id}/issues/{issue_iid}&put&200():::EXIT,1.0,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user,1.0
+108,put+projects_{id}_issues_{issue_iid},title,input.title == return.title,daikon.inv.binary.twoString.StringEqual,"(input.title, return.title)",/projects/{id}/issues/{issue_iid}&/projects/{id}/issues/{issue_iid}&put&200():::EXIT,1.0,Attribute title is responded to by parameter title with a description: The title of an issue,1.0
+109,put+projects_{id}_issues_{issue_iid},updated_at,"LENGTH(return.updated_at)==24
+return.updated_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.updated_at)
+(return.updated_at)","/projects/{id}/issues/{issue_iid}&/projects/{id}/issues/{issue_iid}&put&200():::EXIT
+/projects/{id}/issues/{issue_iid}&/projects/{id}/issues/{issue_iid}&put&200():::EXIT",1.0,"Attribute updated_at is responded to by parameter updated_at with a description: When the issue was updated. Date time string, ISO 8601 formatted, for example 2016-03-11T03:45:40Z (requires administrator or project owner rights). Empty string or null values are not accepted
+{""type"": ""string"", ""format"": ""date-time""}",1.0

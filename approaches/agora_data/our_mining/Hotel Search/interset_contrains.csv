@@ -1,0 +1,29 @@
+,group,invariant,endpoint,description,tp
+0,data.hotel.hotelId,"return.hotel.chainCode is a substring of return.hotel.hotelId
+return.hotel.cityCode is a substring of return.hotel.hotelId
+LENGTH(return.hotel.hotelId)==8
+return.hotel.hotelId in input.hotelIds[]",get+shopping_hotel-offers,Amadeus Property Code (8 chars,1.0
+1,data.offers.checkOutDate,"input.checkOutDate == return.checkOutDate
+return.checkOutDate is a Date. Format: YYYY/MM/DD",get+shopping_hotel-offers,"Attribute checkOutDate is responded to by parameter HotelOffer with a description: Check-out date of the stay (hotel local date). Format YYYY-MM-DD. The lowest accepted value is checkInDate+1. If not present, it will default to checkInDate +1
+check-out date of the stay (hotel local date",1.0
+2,data.offers.commission.percentage,return.commission.percentage is Numeric,get+shopping_hotel-offers,Percentage of the commission paid to the travel seller. Value is between 0 and 100,1.0
+3,data.offers.guests.adults,input.adults == return.guests.adults,get+shopping_hotel-offers,Attribute adults is responded to by parameter HotelProduct_Guests with a description: Number of adult guests (1-9) per room,1.0
+4,data.offers.id,"return.id is a substring of return.self
+LENGTH(return.id)==10",get+shopping_hotel-offers,"Unique identifier of this offer. Might be valid for a temporary period only, schema: {""type"": ""string"", ""minLength"": 2, ""maxLength"": 100}",1.0
+5,data.offers.policies.guarantee.acceptedPayments.creditCards,All the elements of return.policies.guarantee.acceptedPayments.creditCards[] have LENGTH=2,get+shopping_hotel-offers,"Accepted Payment Card Types for the `method` CREDIT_CARD, schema: {""type"": ""array"", ""minLength"": 2, ""maxLength"": 2}",1.0
+6,data.offers.price.taxes.currency,LENGTH(return.currency)==3,get+shopping_hotel-offers,Defines a monetary unit. It is a three alpha code (iata code,1.0
+7,data.offers.price.total,return.price.total is Numeric,get+shopping_hotel-offers,"Attribute priceRange is responded to by parameter HotelProduct_HotelPrice with a description: Filter hotel offers by price per night interval (ex: 200-300 or -300 or 100).
+It is mandatory to include a currency when this field is set",1.0
+8,data.offers.price.variations.changes.endDate,return.endDate is a Date. Format: YYYY/MM/DD,get+shopping_hotel-offers,"End date of the period
+Format: YYYY-MM-DD, schema: {""type"": ""string"", ""format"": ""date""}",1.0
+9,data.offers.price.variations.changes.startDate,return.startDate is a Date. Format: YYYY/MM/DD,get+shopping_hotel-offers,"Begin date of the period
+Format: YYYY-MM-DD, schema: {""type"": ""string"", ""format"": ""date""}",1.0
+10,data.offers.room.type,LENGTH(return.room.type)==3,get+shopping_hotel-offers,"Room type code, 3 character identifier of the room.
+The first character identifies the room type category. 
+The second numeric character identifies the number of beds. 
+The third character identifies the bed type. 
+There is a special case where ROH is returned, this value stands for Run Of House",1.0
+11,data.type,"return.type is a substring of return.self
+return.hotel.type is a substring of return.type
+LENGTH(return.type)==12
+return.type == ""hotel-offers""",get+shopping_hotel-offers,the type of the object (hotel-offers,1.0

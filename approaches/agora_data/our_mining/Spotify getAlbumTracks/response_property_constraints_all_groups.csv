@@ -1,0 +1,269 @@
+operation,response resource,attribute,group,description,tp,verification script,status,script confirmation,revised script,revised executable script,revised status,TP
+get-/albums/{id}/tracks,track-simple,external_urls,items.external_urls,"Known external URLs for this track, schema: {""type"": ""object"", ""format"": ""uri""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'items' is in the response
+        if 'items' not in latest_response:
+            return 0
+        
+        # Iterate over each 'track-simple' object in 'items'
+        for track in latest_response['items']:
+            # Check if 'external_urls' is in the track object
+            if 'external_urls' not in track:
+                return 0
+            
+            external_urls = track['external_urls']
+            
+            # Check if 'external_urls' is an object
+            if not isinstance(external_urls, dict):
+                return -1
+            
+            # Check if all values in 'external_urls' are strings
+            for key, value in external_urls.items():
+                if not isinstance(value, str):
+                    return -1
+        
+        # If all checks pass
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/albums/{id}/tracks,track-simple,available_markets,items.available_markets,"A list of the countries in which the track can be played, identified by their ISO 3166-1 alpha-2 code",1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'items' key exists in the response
+        if 'items' not in latest_response:
+            return 0
+        
+        # Iterate over each 'track-simple' object in the 'items' array
+        for track in latest_response['items']:
+            # Check if 'available_markets' key exists in the track object
+            if 'available_markets' not in track:
+                return 0
+            
+            # Check if 'available_markets' is a list
+            if not isinstance(track['available_markets'], list):
+                return -1
+            
+            # Check each market code in 'available_markets'
+            for market in track['available_markets']:
+                # Check if each market code is a string
+                if not isinstance(market, str):
+                    return -1
+                
+                # Check if each market code is a valid ISO 3166-1 alpha-2 code
+                if len(market) != 2 or not market.isalpha() or not market.isupper():
+                    return -1
+        
+        # If all checks pass
+        return 1
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,1
+get-/albums/{id}/tracks,track-simple-page,previous,previous,URL to the previous page of items. (null if none,1,"def verify_latest_response(latest_response):
+    try:
+        previous = latest_response.get(""previous"", None)
+        
+        # Check if 'previous' is either a string or None
+        if previous is None or isinstance(previous, str):
+            return 1
+        else:
+            return -1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/albums/{id}/tracks,track-simple,href,items.href,A link to the Web API endpoint providing full details of the track,1,"def verify_latest_response(latest_response):
+    try:
+        href = latest_response.get('href')
+        if href is None:
+            return 0  # Attribute does not exist
+        if isinstance(href, str):
+            return 1  # Constraint satisfied
+        else:
+            return -1  # Constraint not satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/albums/{id}/tracks,track-simple,type,items.type,The object type: 'track',1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for item in items:
+            if 'type' not in item:
+                return 0  # Attribute does not exist
+            if item['type'] != 'track':
+                return -1  # Constraint not satisfied
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/albums/{id}/tracks,track-simple-page,total,total,The total number of items available to return,1,"def verify_latest_response(latest_response):
+    try:
+        total = latest_response.get(""total"")
+        if total is None:
+            return 0
+        if isinstance(total, int):
+            return 1
+        else:
+            return -1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/albums/{id}/tracks,artist-simple,uri,items.artists.uri,"The Spotify URI for the artist, schema: {""type"": ""string"", ""format"": ""uri""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for track in items:
+            uri = track.get('uri')
+            if uri is None:
+                return 0  # Attribute does not exist
+            if not isinstance(uri, str):
+                return -1  # Constraint not satisfied: uri is not a string
+        return 1  # Constraint satisfied for all items
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/albums/{id}/tracks,artist-simple,uri,items.linked_from.uri,"The Spotify URI for the artist, schema: {""type"": ""string"", ""format"": ""uri""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for track in items:
+            uri = track.get('uri')
+            if uri is None:
+                return 0  # Attribute does not exist
+            if not isinstance(uri, str):
+                return -1  # Constraint not satisfied: uri is not a string
+        return 1  # Constraint satisfied for all items
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/albums/{id}/tracks,artist-simple,type,items.artists.type,The object type: 'artist',1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'items' key exists in the response
+        if 'items' not in latest_response:
+            return 0
+        
+        # Iterate over each 'track-simple' object in 'items'
+        for track in latest_response['items']:
+            # Check if 'type' key exists in the track object
+            if 'type' not in track:
+                return 0
+            
+            # Verify that the 'type' is 'track'
+            if track['type'] != 'track':
+                return -1
+        
+        # If all checks pass
+        return 1
+    except Exception as e:
+        # Return -1 if any exception occurs
+        return -1
+",unknown,,,,,1
+get-/albums/{id}/tracks,artist-simple,type,items.linked_from.type,The object type: 'artist',1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'items' key exists in the response
+        if 'items' not in latest_response:
+            return 0
+        
+        # Iterate over each 'track-simple' object in 'items'
+        for track in latest_response['items']:
+            # Check if 'type' key exists in the track object
+            if 'type' not in track:
+                return 0
+            
+            # Verify that the 'type' is 'track'
+            if track['type'] != 'track':
+                return -1
+        
+        # If all checks pass
+        return 1
+    except Exception as e:
+        # Return -1 if any exception occurs
+        return -1
+",unknown,,,,,1
+get-/albums/{id}/tracks,track-simple-page,next,next,URL to the next page of items. (null if none,1,"def verify_latest_response(latest_response):
+    try:
+        next_value = latest_response.get(""next"", None)
+        
+        # Check if 'next' is either a string or None
+        if isinstance(next_value, str) or next_value is None:
+            return 1
+        else:
+            return -1
+    except Exception:
+        return 0
+",unknown,,,,,1
+get-/albums/{id}/tracks,artist-simple,href,items.artists.href,A link to the Web API endpoint providing full details of the artist,1,"def verify_latest_response(latest_response):
+    try:
+        href = latest_response.get(""href"")
+        if href is None:
+            return 0  # Attribute does not exist
+        if isinstance(href, str) and href.startswith(""http""):
+            return 1  # Constraint satisfied
+        else:
+            return -1  # Constraint not satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/albums/{id}/tracks,artist-simple,href,items.linked_from.href,A link to the Web API endpoint providing full details of the artist,1,"def verify_latest_response(latest_response):
+    try:
+        href = latest_response.get(""href"")
+        if href is None:
+            return 0  # Attribute does not exist
+        if isinstance(href, str) and href.startswith(""http""):
+            return 1  # Constraint satisfied
+        else:
+            return -1  # Constraint not satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/albums/{id}/tracks,artist-simple,external_urls,items.artists.external_urls,"Known external URLs for this artist, schema: {""type"": ""object"", ""format"": ""uri""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'items' is in the response and is a list
+        if 'items' not in latest_response or not isinstance(latest_response['items'], list):
+            return 0
+        
+        for track in latest_response['items']:
+            # Check if 'external_urls' is in each track and is a dictionary
+            if 'external_urls' not in track or not isinstance(track['external_urls'], dict):
+                return -1
+            
+            # Check if all values in 'external_urls' are strings
+            for url in track['external_urls'].values():
+                if not isinstance(url, str):
+                    return -1
+        
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/albums/{id}/tracks,artist-simple,external_urls,items.linked_from.external_urls,"Known external URLs for this artist, schema: {""type"": ""object"", ""format"": ""uri""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'items' is in the response and is a list
+        if 'items' not in latest_response or not isinstance(latest_response['items'], list):
+            return 0
+        
+        for track in latest_response['items']:
+            # Check if 'external_urls' is in each track and is a dictionary
+            if 'external_urls' not in track or not isinstance(track['external_urls'], dict):
+                return -1
+            
+            # Check if all values in 'external_urls' are strings
+            for url in track['external_urls'].values():
+                if not isinstance(url, str):
+                    return -1
+        
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/albums/{id}/tracks,track-simple,explicit,items.explicit,Whether or not the track has explicit lyrics (true = yes it does; false = no it does not OR unknown,1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for track in items:
+            explicit = track.get('explicit')
+            if explicit is None:
+                return 0  # Attribute does not exist
+            if not isinstance(explicit, bool):
+                return -1  # Constraint not satisfied: explicit must be a boolean
+        return 1  # Constraint satisfied for all items
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/albums/{id}/tracks,track-simple,preview_url,items.preview_url,"A URL to a 30 second preview (MP3 format) of the track. schema: {""type"": ""string"", ""x-nullable"": true} schema: {""type"": ""string"", ""x-nullable"": true}",1,,,,,,,1

@@ -1,0 +1,2 @@
+,group,invariant,endpoint,description,tp
+0,businesses.url,return.url is Url,get+businesses_search,"{""type"": ""string""} schema: {""type"": ""string""}",1.0

@@ -8,7 +8,7 @@ This repository contains the resources and code related to the paper "Combining 
 - [`agora_dataset`](AGORA_dataset): AGORA's dataset.
 - [`approaches`](approaches): Includes our ground-truth constraints, detected constraints from RBCTest, RBCTest-.
 - [`src`](src): Source code.
-- Benchmark for API Constraints Mining in [`approaches/ground_truth`](approaches/ground_truth).
+- Benchmark for API Constraints Mining in [`approaches/agora_data/our_ground_truth`](approaches/agora_data/our_ground_truth) and [`approaches/our_data/our_ground_truth`](approaches/our_data/our_ground_truth).
 
 ## Usage
 
@@ -68,24 +68,24 @@ This repository contains the resources and code related to the paper "Combining 
 
 ## Experimental Results
 
-### RQ1.1 Results on AGORA Dataset
+### RQ1.1 Results on AGORA and RBCTest Dataset
+#### AGORA Dataset
 - All Dynamic (AGORA) detected invariants: [`AGORA-eval/agora_all.xlsx`](AGORA-eval/agora_all.xlsx)
-- All Static (LLM-based) detected constraints: see sub-folders in [`approaches/rbctest_agora_data`](approaches/rbctest_agora_data)
+- All Static (LLM-based) detected constraints: see sub-folders in [`approaches/agora_data/our_mining`](approaches/agora_data/our_mining)
 - Overlapping analysis: [`AGORA-eval/overlapping_analysis_all.xlsx`](AGORA-eval/overlapping_analysis_all.xlsx)
+#### RBCTest Dataset
+- All Dynamic (AGORA) detected invariants: see file invariants.csv in each sub-folders [`approaches/our_data/agora_mining/`](approaches/our_data/agora_mining) 
+- All Static (LLM-based) detected constraints: see sub-folders in [`approaches/our_data/our_mining/`](approaches/our_data/our_mining/)
+- Overlapping analysis: [`approaches/agora_data/Overlapping.xlsx`](approaches/agora_data/Overlapping.xlsx) and [`approaches/our_data/Overlapping.xlsx`](approaches/our_data/Overlapping.xlsx)
 
-**Annotation:**
-- `s`: Static constraint is better
-- `d`: Dynamic invariant is better
-- `=`: Equivalent constraint
+**Annotation:** in column "Better"
+- `1`: Static constraint is better
+- `-1`: Dynamic invariant is better
+- `0`: Equivalent constraint
 
-### RQ1.2, RQ2, RQ3 Results on RBCTest Dataset
-- Results Analysis: [`approach_evaluation_test_gen.csv`](approaches/rbctest_agora_data/approach_evaluation_test_gen.csv)
-- Details: see [`approaches/rbctest_our_data`](approaches/rbctest_our_data) (each subfolder is an API-under-test)
-
-### RQ4 Usefulness
-- Results Analysis: [`test_outcomes_analyze.csv`](approaches/rbctest_our_data/test_outcomes_analyze.csv)
-- Detected mismatches: [`all_mismatches.xlsx`](approaches/rbctest_our_data/all_mismatches.xlsx) 
-
+### RQ1.2, RQ2, RQ3, RQ4 Results on RBCTest Dataset and AGORA Dataset
+- Results Analysis: [`approaches/agora_data/Overlapping.xlsx`](approaches/agora_data/Overlapping.xlsx) and [`approaches/our_data/Overlapping.xlsx`](approaches/our_data/Overlapping.xlsx) in sheet 'AnalyzeRQ2'
+- Details: see [`approaches/agora_data`](approaches/agora_data) (each subfolder is an API-under-test) of AGORA Dataset and [`approaches/our_mining`](approaches/our_mining) (each subfolder is an API-under-test) of RBCTest Dataset
 ### RQ5 Ablation
 - Ablation study: see [`approaches/ablation`](approaches/ablation)
 

@@ -1,0 +1,26 @@
+endpoint,group,response resource,attribute,description,tp
+post+users_{user_id}_playlists,name,playlist,name,nan,1
+post+users_{user_id}_playlists,description,playlist,description,nan,1
+post+users_{user_id}_playlists,public,playlist,public,nan,1
+post+users_{user_id}_playlists,collaborative,playlist,collaborative,nan,1
+post+users_{user_id}_playlists,tracks.previous,playlist-track-page,previous,URL to the previous page of items. (null if none,1
+post+users_{user_id}_playlists,uri,playlist,uri,"Spotify URI of the playlist, schema: {""type"": ""string"", ""format"": ""uri""}",1
+post+users_{user_id}_playlists,public,playlist,public,"The playlist's public/private status: true the playlist is public, false the playlist is private, null the playlist status is not relevant. For more about public/private status, see Working with Playlists",1
+post+users_{user_id}_playlists,owner.followers.total,followers,total,The total number of followers,0
+post+users_{user_id}_playlists,tracks.items.added_by.followers.total,followers,total,The total number of followers,0
+post+users_{user_id}_playlists,owner.href,user-profile,href,A link to the Web API endpoint for this user,1
+post+users_{user_id}_playlists,tracks.items.added_by.href,user-profile,href,A link to the Web API endpoint for this user,1
+post+users_{user_id}_playlists,tracks.items.added_at,playlist-track,added_at,The date and time the track was added in ISO 8601 format. Note that some very old playlists may return null in this field,1
+post+users_{user_id}_playlists,owner.uri,user-profile,uri,"The Spotify URI for the user, schema: {""type"": ""string"", ""format"": ""uri""}",1
+post+users_{user_id}_playlists,tracks.items.added_by.uri,user-profile,uri,"The Spotify URI for the user, schema: {""type"": ""string"", ""format"": ""uri""}",1
+post+users_{user_id}_playlists,tracks.next,playlist-track-page,next,URL to the next page of items. (null if none,1
+post+users_{user_id}_playlists,type,playlist,type,The object type: 'playlist',1
+post+users_{user_id}_playlists,owner.type,user-profile,type,The object type: 'user',1
+post+users_{user_id}_playlists,tracks.items.added_by.type,user-profile,type,The object type: 'user',1
+post+users_{user_id}_playlists,owner.followers.href,followers,href,A link to the Web API endpoint providing full details of the followers; null if not available,1
+post+users_{user_id}_playlists,tracks.items.added_by.followers.href,followers,href,A link to the Web API endpoint providing full details of the followers; null if not available,1
+post+users_{user_id}_playlists,tracks.total,playlist-track-page,total,The total number of items available to return,0
+post+users_{user_id}_playlists,followers.href,playlist,href,A link to the Web API endpoint providing full details of the playlist,1
+post+users_{user_id}_playlists,href,playlist,href,A link to the Web API endpoint providing full details of the playlist,1
+post+users_{user_id}_playlists,images.url,image,url,"The source URL of the image, schema: {""type"": ""string"", ""format"": ""uri""}",0
+post+users_{user_id}_playlists,images.height,image,height,The image height in pixels. If unknown: null or not returned,0

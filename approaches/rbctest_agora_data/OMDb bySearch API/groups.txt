@@ -1,9 +1,0 @@
-Groups in ours but not in agora: 0
-
-Groups in agora but not in ours: 3
-[('Response', 'Poster')]
-[('Response', 'Response')]
-[('Response', 'totalResults')]
-
-Groups in both: 1
-[('input', 'type'), ('Type',)]

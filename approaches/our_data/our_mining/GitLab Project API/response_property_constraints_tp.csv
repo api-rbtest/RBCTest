@@ -1,0 +1,71 @@
+operation,response resource,attribute,description,TP
+get-/projects,BasicProjectDetails,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+get-/projects,Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects,BasicProjectDetails,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects,BasicProjectDetails,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects,BasicProjectDetails,ssh_url_to_repo,"{""type"": ""string""}",1
+get-/projects/{id},Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id},ForkedFromProject,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id},ProjectWithAcess,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id},ForkedFromProject,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id},ProjectWithAcess,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+get-/projects/{id},ContainerExpirationPolicy,next_run_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id},ProjectWithAcess,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/forks,Project,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/forks,Project,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/starrers,Starrer,starred_since,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/users,Author,web_url,"{""type"": ""string""}_x000D_",1
+get-/projects/{id}/users,Author,avatar_url,"{""type"": ""string""}_x000D_",1
+get-/users/{user_id}/projects,BasicProjectDetails,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+get-/users/{user_id}/projects,BasicProjectDetails,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/users/{user_id}/projects,BasicProjectDetails,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/users/{user_id}/projects,Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/users/{user_id}/starred_projects,BasicProjectDetails,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/users/{user_id}/starred_projects,BasicProjectDetails,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+get-/users/{user_id}/starred_projects,BasicProjectDetails,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/users/{user_id}/starred_projects,Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects,BasicProjectDetails,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+post-/projects,BasicProjectDetails,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects,BasicProjectDetails,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects,Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/archive,ArchiveProject,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/archive,ArchiveProject,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/archive,Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/fork,Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/fork,BasicProjectDetails,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/fork,BasicProjectDetails,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+post-/projects/{id}/fork,BasicProjectDetails,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/fork,BasicProjectDetails,http_url_to_repo,"{""type"": ""string""}_x000D_",1
+post-/projects/{id}/fork,BasicProjectDetails,web_url,"{""type"": ""string""}_x000D_",1
+post-/projects/{id}/fork,BasicProjectDetails,readme_url,"{""type"": ""string""}",1
+post-/projects/{id}/star,/projects/{id},last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/star,StarProject,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/unarchive,ArchiveProject,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/unarchive,Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/unarchive,ArchiveProject,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/unarchive,ArchiveProject,license_url,"{""type"": ""string""}",1
+post-/projects/{id}/unstar,StarProject,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/unstar,StarProject,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/user/{user_id},BasicProjectDetails,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/user/{user_id},BasicProjectDetails,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+post-/projects/user/{user_id},BasicProjectDetails,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/user/{user_id},Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/projects/{id},Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/projects/{id},BasicProjectDetails,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+put-/projects/{id},BasicProjectDetails,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/projects/{id},ArchiveProject,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}_x000D_",1
+put-/projects/{id},BasicProjectDetails,avatar_url,"{""type"": ""string""}_x000D_",1
+put-/projects/{id},BasicProjectDetails,marked_for_deletion_at,"{""type"": ""string"", ""format"": ""date""}_x000D_",1
+put-/projects/{id},BasicProjectDetails,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}_x000D_",1
+put-/projects/{id}/transfer,Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/projects/{id}/transfer,ProjectWithAcess,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+put-/projects/{id}/transfer,ProjectWithAcess,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/projects/{id}/transfer,ProjectWithAcess,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/projects/{id}/transfer,ContainerExpirationPolicy,next_run_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/projects/{id}/transfer,ForkedFromProject,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/projects/{id}/transfer,ForkedFromProject,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/projects/{id}/transfer,ForkedFromProject,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/projects/{id}/transfer,ForkedFromProject,web_url,"{""type"": ""string""}",1
+put-/projects/{id}/transfer,ForkedFromProject,avatar_url,"{""type"": ""string""}",1
+put-/projects/{id}/transfer,ForkedFromProject,license_url,"{""type"": ""string""}",1
+put-/projects/{id}/transfer,ForkedFromProject,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1

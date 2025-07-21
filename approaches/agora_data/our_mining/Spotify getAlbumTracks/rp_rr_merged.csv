@@ -1,0 +1,20 @@
+endpoint,group,response resource,attribute,description,tp
+get+albums_{id}_tracks,limit,track-simple-page,limit,Attribute limit is responded to by parameter track-simple-page with a description: The maximum number of items to return,1
+get+albums_{id}_tracks,offset,track-simple-page,offset,Attribute offset is responded to by parameter track-simple-page with a description: The index of the first item to return,1
+get+albums_{id}_tracks,items.external_urls,track-simple,external_urls,"Known external URLs for this track, schema: {""type"": ""object"", ""format"": ""uri""}",1
+get+albums_{id}_tracks,items.available_markets,track-simple,available_markets,"A list of the countries in which the track can be played, identified by their ISO 3166-1 alpha-2 code",1
+get+albums_{id}_tracks,previous,track-simple-page,previous,URL to the previous page of items. (null if none,1
+get+albums_{id}_tracks,items.href,track-simple,href,A link to the Web API endpoint providing full details of the track,1
+get+albums_{id}_tracks,items.type,track-simple,type,The object type: 'track',1
+get+albums_{id}_tracks,total,track-simple-page,total,The total number of items available to return,1
+get+albums_{id}_tracks,items.artists.uri,artist-simple,uri,"The Spotify URI for the artist, schema: {""type"": ""string"", ""format"": ""uri""}",1
+get+albums_{id}_tracks,items.linked_from.uri,artist-simple,uri,"The Spotify URI for the artist, schema: {""type"": ""string"", ""format"": ""uri""}",1
+get+albums_{id}_tracks,items.artists.type,artist-simple,type,The object type: 'artist',1
+get+albums_{id}_tracks,items.linked_from.type,artist-simple,type,The object type: 'artist',1
+get+albums_{id}_tracks,next,track-simple-page,next,URL to the next page of items. (null if none,1
+get+albums_{id}_tracks,items.artists.href,artist-simple,href,A link to the Web API endpoint providing full details of the artist,1
+get+albums_{id}_tracks,items.linked_from.href,artist-simple,href,A link to the Web API endpoint providing full details of the artist,1
+get+albums_{id}_tracks,items.artists.external_urls,artist-simple,external_urls,"Known external URLs for this artist, schema: {""type"": ""object"", ""format"": ""uri""}",1
+get+albums_{id}_tracks,items.linked_from.external_urls,artist-simple,external_urls,"Known external URLs for this artist, schema: {""type"": ""object"", ""format"": ""uri""}",1
+get+albums_{id}_tracks,items.explicit,track-simple,explicit,Whether or not the track has explicit lyrics (true = yes it does; false = no it does not OR unknown,1
+get+albums_{id}_tracks,items.preview_url,track-simple,preview_url,"A URL to a 30 second preview (MP3 format) of the track. schema: {""type"": ""string"", ""x-nullable"": true} schema: {""type"": ""string"", ""x-nullable"": true}",1

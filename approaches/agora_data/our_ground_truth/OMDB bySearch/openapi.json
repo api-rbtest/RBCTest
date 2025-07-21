@@ -1,0 +1,188 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "OMDb bySearch API",
+        "description": "This API requires authorization, you can get a free key here: [http://omdbapi.com/apikey.aspx](http://omdbapi.com/apikey.aspx)",
+        "termsOfService": "http://omdbapi.com/legal.htm",
+        "contact": {
+            "email": "bfritz@fadingsignal.com"
+        },
+        "license": {
+            "name": "CC BY-NC 4.0",
+            "url": "https://creativecommons.org/licenses/by-nc/4.0/"
+        },
+        "version": "1.0"
+    },
+    "servers": [{
+        "url": "https://omdbapi.com/"
+    }],
+    "security": [{
+        "APIKeyQueryParam": []
+    }],
+    "tags": [{
+        "name": "Search"
+    }],
+    "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "Search"
+                ],
+                "summary": "Search",
+                "operationId": "bySearch",
+                "parameters": [{
+                        "name": "s",
+                        "in": "query",
+                        "description": "Title of movie or series",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Return movie or series",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "movie",
+                                "series",
+                                "episode"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "y",
+                        "in": "query",
+                        "description": "Year of release",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "r",
+                        "in": "query",
+                        "description": "The response type to return",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "json"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number to return",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Response"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Not authenticated",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Error"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Response": {
+                "required": [
+                    "Response"
+                ],
+                "type": "object",
+                "properties": {
+                    "Response": {
+                        "type": "string",
+                        "example": "True",
+                        "enum": [
+                            "True",
+                            "False"
+                        ]
+                    },
+                    "Search": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "Title": {
+                                    "type": "string",
+                                    "example": "This Is the End"
+                                },
+                                "Year": {
+                                    "type": "string",
+                                    "example": "2013"
+                                },
+                                "imdbID": {
+                                    "type": "string",
+                                    "example": "tt1245492"
+                                },
+                                "Type": {
+                                    "type": "string",
+                                    "example": "movie"
+                                },
+                                "Poster": {
+                                    "type": "string",
+                                    "example": "https://m.media-amazon.com/images/M/MV5BMTQxODE3NjM1Ml5BMl5BanBnXkFtZTcwMzkzNjc4OA@@._V1_SX300.jpg"
+                                }
+                            }
+                        }
+                    },
+                    "totalResults": {
+                        "type": "string",
+                        "example": "2"
+                    }
+                }
+            },
+            "Error": {
+                "required": [
+                    "Error",
+                    "Response"
+                ],
+                "type": "object",
+                "properties": {
+                    "Response": {
+                        "type": "string",
+                        "example": "False",
+                        "enum": [
+                            "False"
+                        ]
+                    },
+                    "Error": {
+                        "type": "string",
+                        "example": "No API key provided."
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "APIKeyQueryParam": {
+                "type": "apiKey",
+                "name": "apikey",
+                "in": "query"
+            }
+        }
+    },
+    "x-original-swagger-version": "2.0"
+}

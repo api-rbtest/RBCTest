@@ -1,0 +1,95 @@
+operation,response resource,attribute,group,kio,description,part,corresponding attribute,corresponding attribute description,verification script,tp,verify_result
+get-/youtube/v3/videos,PageInfo,resultsPerPage,pageInfo.resultsPerPage,1,,parameters,maxResults,"The *maxResults* parameter specifies the maximum number of items that should be returned in the result set. *Note:* This parameter is supported for use in conjunction with the myRating and chart parameters, but it is not supported for use in conjunction with the id parameter","def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract maxResults from request_info and cast to integer
+        max_results = int(request_info.get('maxResults', 0))
+        
+        # Check if maxResults is within the allowed range
+        if not (1 <= max_results <= 50):
+            return -1
+        
+        # Extract resultsPerPage from the response
+        results_per_page = latest_response.get('pageInfo', {}).get('resultsPerPage')
+        
+        # Check if resultsPerPage exists in the response
+        if results_per_page is None:
+            return 0
+        
+        # Verify that resultsPerPage matches maxResults
+        if results_per_page == max_results:
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        # Handle any unexpected errors
+        return -1
+",0,
+get-/youtube/v3/videos,VideoFileDetailsVideoStream,widthPixels,items.fileDetails.videoStreams.widthPixels,2,,parameters,maxWidth,Return the player with maximum height specified in,"def verify_latest_response(latest_response, request_info):
+    try:
+        max_width = int(request_info.get('maxWidth', 8192))  # Default to maximum if not provided
+        if not (72 <= max_width <= 8192):
+            return -1  # Invalid maxWidth constraint in request_info
+
+        items = latest_response.get('items', [])
+        if not items:
+            return 0  # No items to verify
+
+        for item in items:
+            file_details = item.get('fileDetails', {})
+            video_streams = file_details.get('videoStreams', [])
+            for stream in video_streams:
+                width_pixels = stream.get('widthPixels')
+                if width_pixels is None:
+                    return 0  # widthPixels attribute does not exist
+                if width_pixels > max_width:
+                    return -1  # Constraint not satisfied
+
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # An error occurred during verification
+",1,
+get-/youtube/v3/videos,VideoSnippet,categoryId,items.snippet.categoryId,4,,parameters,videoCategoryId,Use chart that is specific to the specified video category,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the videoCategoryId from request_info and cast it to string
+        video_category_id = str(request_info.get('videoCategoryId', ''))
+
+        # Check if 'items' attribute exists in the response
+        if 'items' not in latest_response:
+            return 0
+
+        # Iterate through each item in the 'items' array
+        for item in latest_response['items']:
+            # Check if 'snippet' and 'categoryId' exist in the item
+            if 'snippet' in item and 'categoryId' in item['snippet']:
+                # Verify if the categoryId matches the videoCategoryId from the request
+                if item['snippet']['categoryId'] != video_category_id:
+                    return -1
+            else:
+                return 0
+
+        return 1
+    except Exception as e:
+        return -1
+",0,
+get-/youtube/v3/videos,VideoListResponse,nextPageToken,nextPageToken,5,The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set,parameters,pageToken,"The *pageToken* parameter identifies a specific page in the result set that should be returned. In an API response, the nextPageToken and prevPageToken properties identify other pages that could be retrieved. *Note:* This parameter is supported for use in conjunction with the myRating and chart parameters, but it is not supported for use in conjunction with the id parameter","def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'pageToken' is in request_info
+        if 'pageToken' in request_info:
+            page_token = request_info['pageToken']
+            
+            # Check if 'nextPageToken' is in the response
+            if 'nextPageToken' in latest_response:
+                next_page_token = latest_response['nextPageToken']
+                
+                # Verify that the nextPageToken is a string
+                if isinstance(next_page_token, str):
+                    return 1
+                else:
+                    return -1
+            else:
+                return 0
+        else:
+            return 0
+    except Exception as e:
+        return -1
+",1,

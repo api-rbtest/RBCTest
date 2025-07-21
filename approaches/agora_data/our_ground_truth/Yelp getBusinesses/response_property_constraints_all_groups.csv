@@ -1,0 +1,4 @@
+operation,response resource,attribute,group,description
+get-/businesses/search,BusinessesResult,price,businesses.price,"{""type"": ""string"", ""enum"": [""$"", ""$$"", ""$$$"", ""$$$$"", ""Â£"", ""Â£Â£"", ""Â£Â£Â£"", ""Â£Â£Â£Â£"", ""â‚¬"", ""â‚¬â‚¬"", ""â‚¬â‚¬â‚¬"", ""â‚¬â‚¬â‚¬â‚¬"", ""ï¿¥"", ""ï¿¥ï¿¥"", ""ï¿¥ï¿¥ï¿¥"", ""ï¿¥ï¿¥ï¿¥ï¿¥""]} schema: {""type"": ""string"", ""enum"": [""$"", ""$$"", ""$$$"", ""$$$$"", ""Â£"", ""Â£Â£"", ""Â£Â£Â£"", ""Â£Â£Â£Â£"", ""â‚¬"", ""â‚¬â‚¬"", ""â‚¬â‚¬â‚¬"", ""â‚¬â‚¬â‚¬â‚¬"", ""ï¿¥"", ""ï¿¥ï¿¥"", ""ï¿¥ï¿¥ï¿¥"", ""ï¿¥ï¿¥ï¿¥ï¿¥""]}"
+get-/businesses/search,BusinessesResult,rating,businesses.rating,"{""type"": ""number"", ""minimum"": 1, ""maximum"": 5} schema: {""type"": ""number"", ""minimum"": 1, ""maximum"": 5}"
+get-/businesses/search,BusinessesResult,url,businesses.url,"{""type"": ""string""} schema: {""type"": ""string""}"

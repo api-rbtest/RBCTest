@@ -1,0 +1,7 @@
+operation,response resource,attribute,group,description
+get-/,Response,Response,Response,"{""type"": ""string"", ""enum"": [""True"", ""False""], ""example"": ""True""} schema: {""type"": ""string"", ""enum"": [""True"", ""False""], ""example"": ""True""}"
+get-/,Response,Year,Search.Year,"{""type"": ""string"", ""example"": 2013} schema: {""type"": ""string"", ""example"": 2013}"
+get-/,Response,imdbID,Search.imdbID,"{""type"": ""string"", ""example"": ""tt1245492""} schema: {""type"": ""string"", ""example"": ""tt1245492""}"
+get-/,Response,Type,Search.Type,"{""type"": ""string"", ""example"": ""movie""} schema: {""type"": ""string"", ""example"": ""movie""}"
+get-/,Response,Poster,Search.Poster,"{""type"": ""string"", ""example"": ""https://m.media-amazon.com/images/M/MV5BMTQxODE3NjM1Ml5BMl5BanBnXkFtZTcwMzkzNjc4OA@@._V1_SX300.jpg""} schema: {""type"": ""string"", ""example"": ""https://m.media-amazon.com/images/M/MV5BMTQxODE3NjM1Ml5BMl5BanBnXkFtZTcwMzkzNjc4OA@@._V1_SX300.jpg""}"
+get-/,Response,totalResults,totalResults,"{""type"": ""string"", ""example"": 2} schema: {""type"": ""string"", ""example"": 2}"

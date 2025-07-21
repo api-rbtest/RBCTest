@@ -1,0 +1,376 @@
+group,invariant,invariantType,variables,pptname,tp
+archive_url,return.archive_url is Url,daikon.inv.unary.string.IsUrl,(return.archive_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+array,input.per_page >= size(return.array[]),daikon.inv.binary.twoScalar.IntGreaterEqual,"(input.per_page, size(return.array[..]))",main.orgs{org}repos.getOrganizationRepositories&200.array(main.getOrganizationRepositories&Input):::EXIT,1.0
+assignees_url,return.assignees_url is Url,daikon.inv.unary.string.IsUrl,(return.assignees_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+blobs_url,return.blobs_url is Url,daikon.inv.unary.string.IsUrl,(return.blobs_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+branches_url,return.branches_url is Url,daikon.inv.unary.string.IsUrl,(return.branches_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+clone_url,return.clone_url is Url,daikon.inv.unary.string.IsUrl,(return.clone_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+collaborators_url,return.collaborators_url is Url,daikon.inv.unary.string.IsUrl,(return.collaborators_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+comments_url,return.comments_url is Url,daikon.inv.unary.string.IsUrl,(return.comments_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+commits_url,return.commits_url is Url,daikon.inv.unary.string.IsUrl,(return.commits_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+compare_url,return.compare_url is Url,daikon.inv.unary.string.IsUrl,(return.compare_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+contents_url,return.contents_url is Url,daikon.inv.unary.string.IsUrl,(return.contents_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+contributors_url,return.contributors_url is Url,daikon.inv.unary.string.IsUrl,(return.contributors_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+created_at,"LENGTH(return.created_at)==20
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",1.0
+deployments_url,return.deployments_url is Url,daikon.inv.unary.string.IsUrl,(return.deployments_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+disabled,return.disabled == false,daikon.inv.unary.scalar.OneOfScalar,(return.disabled),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,0.0
+downloads_url,return.downloads_url is Url,daikon.inv.unary.string.IsUrl,(return.downloads_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+events_url,return.events_url is Url,daikon.inv.unary.string.IsUrl,(return.events_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+forks_count,"return.forks_count == return.forks
+return.forks_count >= 0","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.unary.scalar.LowerBound","(return.forks_count, return.forks)
+(return.forks_count)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",1.0
+forks_url,return.forks_url is Url,daikon.inv.unary.string.IsUrl,(return.forks_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+full_name,"input.org is a substring of return.full_name
+return.full_name is a substring of return.html_url
+return.full_name is a substring of return.url
+return.full_name is a substring of return.git_url
+return.full_name is a substring of return.ssh_url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(input.org, return.full_name)
+(return.full_name, return.html_url)
+(return.full_name, return.url)
+(return.full_name, return.git_url)
+(return.full_name, return.ssh_url)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",0.8
+git_commits_url,return.git_commits_url is Url,daikon.inv.unary.string.IsUrl,(return.git_commits_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+git_refs_url,return.git_refs_url is Url,daikon.inv.unary.string.IsUrl,(return.git_refs_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+git_tags_url,return.git_tags_url is Url,daikon.inv.unary.string.IsUrl,(return.git_tags_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+hooks_url,return.hooks_url is Url,daikon.inv.unary.string.IsUrl,(return.hooks_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+html_url,"return.html_url is a substring of return.clone_url
+return.html_url is Url
+return.html_url == return.svn_url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.unary.string.IsUrl
+daikon.inv.binary.twoString.StringEqual","(return.html_url, return.clone_url)
+(return.html_url)
+(return.html_url, return.svn_url)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",0.6666666666666666
+id,"return.id > return.forks_count
+return.id > return.stargazers_count
+return.id > return.open_issues_count
+return.id > size(return.topics[])
+input.per_page < return.id
+input.page < return.id","daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntLessThan
+daikon.inv.binary.twoScalar.IntLessThan","(return.id, return.forks_count)
+(return.id, return.stargazers_count)
+(return.id, return.open_issues_count)
+(return.id, size(return.topics[..]))
+(input.per_page, return.id)
+(input.page, return.id)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",0.0
+issue_comment_url,return.issue_comment_url is Url,daikon.inv.unary.string.IsUrl,(return.issue_comment_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+issue_events_url,return.issue_events_url is Url,daikon.inv.unary.string.IsUrl,(return.issue_events_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+issues_url,return.issues_url is Url,daikon.inv.unary.string.IsUrl,(return.issues_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+keys_url,return.keys_url is Url,daikon.inv.unary.string.IsUrl,(return.keys_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+labels_url,return.labels_url is Url,daikon.inv.unary.string.IsUrl,(return.labels_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+languages_url,return.languages_url is Url,daikon.inv.unary.string.IsUrl,(return.languages_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+license.key,return.license.key is a substring of return.license.url,daikon.inv.binary.twoString.StdString$SubString,"(return.license.key, return.license.url)",main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+license.node_id,LENGTH(return.license.node_id)==16,daikon.inv.unary.string.FixedLengthString,(return.license.node_id),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+license.url,return.license.url is Url,daikon.inv.unary.string.IsUrl,(return.license.url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+merges_url,return.merges_url is Url,daikon.inv.unary.string.IsUrl,(return.merges_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+milestones_url,return.milestones_url is Url,daikon.inv.unary.string.IsUrl,(return.milestones_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+name,return.name is a substring of return.full_name,daikon.inv.binary.twoString.StdString$SubString,"(return.name, return.full_name)",main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+notifications_url,return.notifications_url is Url,daikon.inv.unary.string.IsUrl,(return.notifications_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+open_issues_count,"return.open_issues_count == return.open_issues
+return.open_issues_count >= 0","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.unary.scalar.LowerBound","(return.open_issues_count, return.open_issues)
+(return.open_issues_count)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",1.0
+owner.avatar_url,return.owner.avatar_url is Url,daikon.inv.unary.string.IsUrl,(return.owner.avatar_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+owner.events_url,return.owner.events_url is Url,daikon.inv.unary.string.IsUrl,(return.owner.events_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+owner.followers_url,return.owner.followers_url is Url,daikon.inv.unary.string.IsUrl,(return.owner.followers_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+owner.following_url,return.owner.following_url is Url,daikon.inv.unary.string.IsUrl,(return.owner.following_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+owner.gists_url,return.owner.gists_url is Url,daikon.inv.unary.string.IsUrl,(return.owner.gists_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+owner.gravatar_id,"LENGTH(return.owner.gravatar_id)==0
+return.owner.gravatar_id == """"","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.OneOfString","(return.owner.gravatar_id)
+(return.owner.gravatar_id)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",1.0
+owner.html_url,"input.org is a substring of return.owner.html_url
+return.owner.html_url is a substring of return.html_url
+return.owner.html_url is Url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.unary.string.IsUrl","(input.org, return.owner.html_url)
+(return.owner.html_url, return.html_url)
+(return.owner.html_url)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",0.6666666666666666
+owner.id,"return.owner.id > return.forks_count
+return.owner.id > return.open_issues_count
+return.owner.id > size(return.topics[])
+input.per_page < return.owner.id
+input.page < return.owner.id","daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntLessThan
+daikon.inv.binary.twoScalar.IntLessThan","(return.owner.id, return.forks_count)
+(return.owner.id, return.open_issues_count)
+(return.owner.id, size(return.topics[..]))
+(input.per_page, return.owner.id)
+(input.page, return.owner.id)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",0.0
+owner.login,input.org == return.owner.login,daikon.inv.binary.twoString.StringEqual,"(input.org, return.owner.login)",main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,0.0
+owner.organizations_url,return.owner.organizations_url is Url,daikon.inv.unary.string.IsUrl,(return.owner.organizations_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+owner.received_events_url,return.owner.received_events_url is Url,daikon.inv.unary.string.IsUrl,(return.owner.received_events_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+owner.repos_url,return.owner.repos_url is Url,daikon.inv.unary.string.IsUrl,(return.owner.repos_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+owner.site_admin,return.owner.site_admin == return.disabled,daikon.inv.binary.twoScalar.IntEqual,"(return.owner.site_admin, return.disabled)",main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,0.0
+owner.starred_url,return.owner.starred_url is Url,daikon.inv.unary.string.IsUrl,(return.owner.starred_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+owner.subscriptions_url,return.owner.subscriptions_url is Url,daikon.inv.unary.string.IsUrl,(return.owner.subscriptions_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+owner.type,"LENGTH(return.owner.type)==12
+return.owner.type == ""Organization""","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.OneOfString","(return.owner.type)
+(return.owner.type)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",1.0
+owner.url,"input.org is a substring of return.owner.url
+return.owner.url is a substring of return.owner.followers_url
+return.owner.url is a substring of return.owner.following_url
+return.owner.url is a substring of return.owner.gists_url
+return.owner.url is a substring of return.owner.starred_url
+return.owner.url is a substring of return.owner.subscriptions_url
+return.owner.url is a substring of return.owner.organizations_url
+return.owner.url is a substring of return.owner.repos_url
+return.owner.url is a substring of return.owner.events_url
+return.owner.url is a substring of return.owner.received_events_url
+return.owner.url is Url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.unary.string.IsUrl","(input.org, return.owner.url)
+(return.owner.url, return.owner.followers_url)
+(return.owner.url, return.owner.following_url)
+(return.owner.url, return.owner.gists_url)
+(return.owner.url, return.owner.starred_url)
+(return.owner.url, return.owner.subscriptions_url)
+(return.owner.url, return.owner.organizations_url)
+(return.owner.url, return.owner.repos_url)
+(return.owner.url, return.owner.events_url)
+(return.owner.url, return.owner.received_events_url)
+(return.owner.url)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",0.9090909090909091
+permissions.admin,"return.permissions.admin == return.permissions.push
+return.permissions.admin == return.permissions.maintain
+return.permissions.admin == return.permissions.triage","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual","(return.permissions.admin, return.permissions.push)
+(return.permissions.admin, return.permissions.maintain)
+(return.permissions.admin, return.permissions.triage)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",0.0
+permissions.pull,return.permissions.pull == true,daikon.inv.unary.scalar.OneOfScalar,(return.permissions.pull),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+pulls_url,return.pulls_url is Url,daikon.inv.unary.string.IsUrl,(return.pulls_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+pushed_at,"LENGTH(return.pushed_at)==20
+return.pushed_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.pushed_at)
+(return.pushed_at)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",1.0
+releases_url,return.releases_url is Url,daikon.inv.unary.string.IsUrl,(return.releases_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+size,"return.size >= size(return.topics[])
+return.size >= 0","daikon.inv.binary.twoScalar.IntGreaterEqual
+daikon.inv.unary.scalar.LowerBound","(return.size, size(return.topics[..]))
+(return.size)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",0.5
+stargazers_count,"return.stargazers_count == return.watchers_count
+return.stargazers_count == return.watchers
+return.stargazers_count >= 0","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.unary.scalar.LowerBound","(return.stargazers_count, return.watchers_count)
+(return.stargazers_count, return.watchers)
+(return.stargazers_count)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",1.0
+stargazers_url,return.stargazers_url is Url,daikon.inv.unary.string.IsUrl,(return.stargazers_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+statuses_url,return.statuses_url is Url,daikon.inv.unary.string.IsUrl,(return.statuses_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+subscribers_url,return.subscribers_url is Url,daikon.inv.unary.string.IsUrl,(return.subscribers_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+subscription_url,return.subscription_url is Url,daikon.inv.unary.string.IsUrl,(return.subscription_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+tags_url,return.tags_url is Url,daikon.inv.unary.string.IsUrl,(return.tags_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+teams_url,return.teams_url is Url,daikon.inv.unary.string.IsUrl,(return.teams_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+topics,input.per_page > size(return.topics[]),daikon.inv.binary.twoScalar.IntGreaterThan,"(input.per_page, size(return.topics[..]))",main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,0.0
+trees_url,return.trees_url is Url,daikon.inv.unary.string.IsUrl,(return.trees_url),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0
+updated_at,"LENGTH(return.updated_at)==20
+return.updated_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.updated_at)
+(return.updated_at)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",1.0
+url,"return.url is a substring of return.archive_url
+return.url is a substring of return.assignees_url
+return.url is a substring of return.blobs_url
+return.url is a substring of return.branches_url
+return.url is a substring of return.collaborators_url
+return.url is a substring of return.comments_url
+return.url is a substring of return.commits_url
+return.url is a substring of return.compare_url
+return.url is a substring of return.contents_url
+return.url is a substring of return.contributors_url
+return.url is a substring of return.deployments_url
+return.url is a substring of return.downloads_url
+return.url is a substring of return.events_url
+return.url is a substring of return.forks_url
+return.url is a substring of return.git_commits_url
+return.url is a substring of return.git_refs_url
+return.url is a substring of return.git_tags_url
+return.url is a substring of return.issue_comment_url
+return.url is a substring of return.issue_events_url
+return.url is a substring of return.issues_url
+return.url is a substring of return.keys_url
+return.url is a substring of return.labels_url
+return.url is a substring of return.languages_url
+return.url is a substring of return.merges_url
+return.url is a substring of return.milestones_url
+return.url is a substring of return.notifications_url
+return.url is a substring of return.pulls_url
+return.url is a substring of return.releases_url
+return.url is a substring of return.stargazers_url
+return.url is a substring of return.statuses_url
+return.url is a substring of return.subscribers_url
+return.url is a substring of return.subscription_url
+return.url is a substring of return.tags_url
+return.url is a substring of return.teams_url
+return.url is a substring of return.trees_url
+return.url is a substring of return.hooks_url
+return.url is Url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.unary.string.IsUrl","(return.url, return.archive_url)
+(return.url, return.assignees_url)
+(return.url, return.blobs_url)
+(return.url, return.branches_url)
+(return.url, return.collaborators_url)
+(return.url, return.comments_url)
+(return.url, return.commits_url)
+(return.url, return.compare_url)
+(return.url, return.contents_url)
+(return.url, return.contributors_url)
+(return.url, return.deployments_url)
+(return.url, return.downloads_url)
+(return.url, return.events_url)
+(return.url, return.forks_url)
+(return.url, return.git_commits_url)
+(return.url, return.git_refs_url)
+(return.url, return.git_tags_url)
+(return.url, return.issue_comment_url)
+(return.url, return.issue_events_url)
+(return.url, return.issues_url)
+(return.url, return.keys_url)
+(return.url, return.labels_url)
+(return.url, return.languages_url)
+(return.url, return.merges_url)
+(return.url, return.milestones_url)
+(return.url, return.notifications_url)
+(return.url, return.pulls_url)
+(return.url, return.releases_url)
+(return.url, return.stargazers_url)
+(return.url, return.statuses_url)
+(return.url, return.subscribers_url)
+(return.url, return.subscription_url)
+(return.url, return.tags_url)
+(return.url, return.teams_url)
+(return.url, return.trees_url)
+(return.url, return.hooks_url)
+(return.url)","main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT
+main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT",1.0
+visibility,"return.visibility one of { ""private"", ""public"" }",daikon.inv.unary.string.OneOfString,(return.visibility),main.orgs{org}repos.getOrganizationRepositories&200(main.getOrganizationRepositories&Input):::EXIT,1.0

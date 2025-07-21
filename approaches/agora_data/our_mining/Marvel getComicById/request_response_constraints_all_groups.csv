@@ -1,0 +1,21 @@
+operation,response resource,attribute,group,kio,description,part,corresponding attribute,corresponding attribute description,verification script,tp,verify_result
+get-/v1/public/comics/{comicid},Comic,id,data.results.id,1,,parameters,comicId,A single comic,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the comicId from request_info and cast it to integer
+        comic_id = int(request_info.get('comicId'))
+        
+        # Extract the id from the latest_response
+        comic_id_in_response = latest_response.get('data', {}).get('results', [{}])[0].get('id')
+        
+        # Check if the id exists in the response
+        if comic_id_in_response is None:
+            return 0
+        
+        # Verify the id matches the comicId from the request
+        if comic_id == comic_id_in_response:
+            return 1
+        else:
+            return -1
+    except (ValueError, TypeError, KeyError):
+        return -1
+",1,1

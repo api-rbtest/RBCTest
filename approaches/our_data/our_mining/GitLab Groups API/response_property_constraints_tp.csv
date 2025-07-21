@@ -1,0 +1,42 @@
+operation,response resource,attribute,description,TP
+get-/groups/{id}/projects,Project,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/groups/{id}/projects/shared,ContainerExpirationPolicy,next_run_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/groups/{id},Project,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/groups/{id}/subgroups,Group,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/groups,Group,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/groups/{id},Project,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/groups/{id}/projects/{project_id},ContainerExpirationPolicy,next_run_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/groups/{id},Project,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/groups/{id}/projects,Project,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/groups/{id}/descendant_groups,Group,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/groups/{id}/share,Project,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/groups/{id},Project,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/groups,Group,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/groups/{id}/share,Project,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/groups,Group,avatar_url,"{""type"": ""string""}",1
+get-/groups,Group,web_url,"{""type"": ""string""}",1
+post-/groups,Group,avatar_url,"{""type"": ""string""}",1
+post-/groups,Group,web_url,"{""type"": ""string""}",1
+get-/groups/{id}/projects,Project,_links,"Reference to Links schema: {""type"": ""object"", ""$ref"": ""#/components/schemas/Links""}",1
+post-/groups/{id}/projects/{project_id},SharedProject,_links,"Reference to Links schema: {""type"": ""object"", ""$ref"": ""#/components/schemas/Links""}",1
+post-/groups/{id}/projects/{project_id},SharedProject,avatar_url,"{""type"": ""string""}",1
+post-/groups/{id}/projects/{project_id},SharedProject,emails_disabled,"{""type"": ""string""}",1
+post-/groups/{id}/projects/{project_id},SharedProject,http_url_to_repo,"{""type"": ""string""}",1
+post-/groups/{id}/projects/{project_id},SharedProject,readme_url,"{""type"": ""string""}",1
+post-/groups/{id}/projects/{project_id},SharedProject,web_url,"{""type"": ""string""}",1
+get-/groups/{id}/projects/shared,SharedProject,_links,"Reference to Links schema: {""type"": ""object"", ""$ref"": ""#/components/schemas/Links""}",1
+get-/groups/{id}/projects/shared,SharedProject,avatar_url,"{""type"": ""string""}",1
+get-/groups/{id}/subgroups,Group,avatar_url,"{""type"": ""string""}",1
+put-/groups/{id},GroupDetails,avatar_url,"{""type"": ""string""}",1
+put-/groups/{id},Project,http_url_to_repo,"{""type"": ""string""}",1
+put-/groups/{id},Project,web_url,"{""type"": ""string""}",1
+put-/groups/{id},Project,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/groups/{id},Project,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/groups/{id}/share,GroupDetails,avatar_url,"{""type"": ""string""}",1
+post-/groups/{id}/share,Project,http_url_to_repo,"{""type"": ""string""}",1
+post-/groups/{id}/share,Project,web_url,"{""type"": ""string""}",1
+post-/groups/{id}/share,Project,readme_url,"{""type"": ""string""}",1
+post-/groups/{id}/share,Project,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/groups/{id}/share,Project,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/groups/{id}/share,Project,avatar_url,"{""type"": ""string""}",1
+post-/groups/{id}/share,Project,web_url,"{""type"": ""string""}",1

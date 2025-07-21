@@ -1,0 +1,118 @@
+operation,response resource,attribute,group,description,tp,verification script,status,script confirmation,revised script,revised executable script,revised status,TP
+get-/businesses/search,BusinessesResult,price,businesses.price,"{""""type"""": """"string"""", """"enum"""": [""""$"""", """"$$"""", """"$$$"""", """"$$$$"""", """"¬£"""", """"¬£¬£"""", """"¬£¬£¬£"""", """"¬£¬£¬£¬£"""", """"‚Ç¨"""", """"‚Ç¨‚Ç¨"""", """"‚Ç¨‚Ç¨‚Ç¨"""", """"‚Ç¨‚Ç¨‚Ç¨‚Ç¨"""", """"Ôø•"""", """"Ôø•Ôø•"""", """"Ôø•Ôø•Ôø•"""", """"Ôø•Ôø•Ôø•Ôø•""""]}",1,"def verify_latest_response(latest_response):
+    try:
+        businesses = latest_response.get(""businesses"")
+        if businesses is None:
+            return 0
+        
+        for business in businesses:
+            # Check categories
+            categories = business.get(""categories"")
+            if not isinstance(categories, list):
+                return -1
+            for category in categories:
+                if not isinstance(category, dict):
+                    return -1
+                if not isinstance(category.get(""alias""), str):
+                    return -1
+                if not isinstance(category.get(""title""), str):
+                    return -1
+            
+            # Check coordinates
+            coordinates = business.get(""coordinates"")
+            if not isinstance(coordinates, dict):
+                return -1
+            if not isinstance(coordinates.get(""latitude""), (int, float)):
+                return -1
+            if not isinstance(coordinates.get(""longitude""), (int, float)):
+                return -1
+            
+            # Check display_phone
+            if not isinstance(business.get(""display_phone""), str):
+                return -1
+            
+            # Check distance
+            if not isinstance(business.get(""distance""), (int, float)):
+                return -1
+            
+            # Check id
+            if not isinstance(business.get(""id""), str):
+                return -1
+            
+            # Check alias
+            if not isinstance(business.get(""alias""), str):
+                return -1
+            
+            # Check image_url
+            if not isinstance(business.get(""image_url""), str):
+                return -1
+            
+            # Check is_closed
+            if not isinstance(business.get(""is_closed""), bool):
+                return -1
+            
+            # Check name
+            if not isinstance(business.get(""name""), str):
+                return -1
+            
+            # Check phone
+            if not isinstance(business.get(""phone""), str):
+                return -1
+            
+            # Check price
+            price = business.get(""price"")
+            if price is not None and price not in [""$"", ""$$"", ""$$$"", ""$$$$"", ""£"", ""££"", ""£££"", ""££££"", ""€"", ""€€"", ""€€€"", ""€€€€"", ""¥"", ""¥¥"", ""¥¥¥"", ""¥¥¥¥""]:
+                return -1
+            
+            # Check rating
+            rating = business.get(""rating"")
+            if not isinstance(rating, (int, float)) or not (1 <= rating <= 5):
+                return -1
+            
+            # Check review_count
+            if not isinstance(business.get(""review_count""), int):
+                return -1
+            
+            # Check url
+            if not isinstance(business.get(""url""), str):
+                return -1
+            
+            # Check transactions
+            transactions = business.get(""transactions"")
+            if not isinstance(transactions, list):
+                return -1
+            for transaction in transactions:
+                if transaction not in [""pickup"", ""delivery"", ""restaurant_reservation""]:
+                    return -1
+            
+            # Check location
+            location = business.get(""location"")
+            if not isinstance(location, dict):
+                return -1
+            if not isinstance(location.get(""address1""), (str, type(None))):
+                return -1
+            if not isinstance(location.get(""address2""), (str, type(None))):
+                return -1
+            if not isinstance(location.get(""address3""), (str, type(None))):
+                return -1
+            if not isinstance(location.get(""city""), str):
+                return -1
+            if not isinstance(location.get(""country""), str):
+                return -1
+            display_address = location.get(""display_address"")
+            if not isinstance(display_address, list):
+                return -1
+            for address in display_address:
+                if not isinstance(address, str):
+                    return -1
+            if not isinstance(location.get(""state""), str):
+                return -1
+            if not isinstance(location.get(""zip_code""), str):
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/businesses/search,BusinessesResult,rating,businesses.rating,"{""type"": ""number"", ""minimum"": 1, ""maximum"": 5} schema: {""type"": ""number"", ""minimum"": 1, ""maximum"": 5}",1,,,,,,,1
+get-/businesses/search,BusinessesResult,url,businesses.url,"{""type"": ""string""} schema: {""type"": ""string""}",1,,,,,,,1

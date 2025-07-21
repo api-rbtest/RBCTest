@@ -1,0 +1,3226 @@
+operation,response resource,attribute,group,description,tp,verification script,status,script confirmation,revised script,revised executable script,revised status,TP
+get-/youtube/v3/videos,ContentRating,pefilmRating,items.contentDetails.contentRating.pefilmRating,"The video's rating in Peru, schema: {""type"": ""string"", ""enum"": [""pefilmUnspecified"", ""pefilmPt"", ""pefilmPg"", ""pefilm14"", ""pefilm18"", ""pefilmUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""pefilmUnspecified"", ""pefilmPt"", ""pefilmPg"", 
+            ""pefilm14"", ""pefilm18"", ""pefilmUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            pefilm_rating = content_rating.get(""pefilmRating"")
+            
+            if pefilm_rating is None:
+                return 0  # Attribute does not exist
+            
+            if pefilm_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,pefilmRating,items.contentDetails.contentRating.pefilmRating,"The video's rating in Peru. schema: {""enum"": [""pefilmUnspecified"", ""pefilmPt"", ""pefilmPg"", ""pefilm14"", ""pefilm18"", ""pefilmUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoStatus,publishAt,items.status.publishAt,"The date and time when the video is scheduled to publish. It can be set only if the privacy status of the video is private, schema: {""type"": ""string"", ""format"": ""date-time""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for video in items:
+            status = video.get('status', {})
+            publish_at = status.get('publishAt')
+            privacy_status = status.get('privacyStatus')
+
+            if publish_at is not None:
+                if privacy_status != 'private':
+                    return -1
+                # Check if publishAt is a valid date-time string
+                from datetime import datetime
+                try:
+                    datetime.fromisoformat(publish_at.replace('Z', '+00:00'))
+                except ValueError:
+                    return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,mccaaRating,items.contentDetails.contentRating.mccaaRating,"The video's rating from Malta's Film Age-Classification Board, schema: {""type"": ""string"", ""enum"": [""mccaaUnspecified"", ""mccaaU"", ""mccaaPg"", ""mccaa12a"", ""mccaa12"", ""mccaa14"", ""mccaa15"", ""mccaa16"", ""mccaa18"", ""mccaaUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""mccaaUnspecified"", ""mccaaU"", ""mccaaPg"", ""mccaa12a"", 
+            ""mccaa12"", ""mccaa14"", ""mccaa15"", ""mccaa16"", ""mccaa18"", ""mccaaUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            mccaa_rating = item.get(""contentDetails"", {}).get(""contentRating"", {}).get(""mccaaRating"")
+            if mccaa_rating is None:
+                return 0
+            if mccaa_rating not in valid_ratings:
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,mccaaRating,items.contentDetails.contentRating.mccaaRating,"The video's rating from Malta's Film Age-Classification Board. schema: {""enum"": [""mccaaUnspecified"", ""mccaaU"", ""mccaaPg"", ""mccaa12a"", ""mccaa12"", ""mccaa14"", ""mccaa15"", ""mccaa16"", ""mccaa18"", ""mccaaUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoStatus,uploadStatus,items.status.uploadStatus,"The status of the uploaded video, schema: {""type"": ""string"", ""enum"": [""uploaded"", ""processed"", ""failed"", ""rejected"", ""deleted""]}",1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get('items', [])
+        
+        # Define the allowed values for uploadStatus
+        allowed_statuses = [""uploaded"", ""processed"", ""failed"", ""rejected"", ""deleted""]
+        
+        # Check each video item's uploadStatus
+        for video in video_items:
+            upload_status = video.get('status', {}).get('uploadStatus')
+            if upload_status is None:
+                return 0  # Attribute does not exist
+            if upload_status not in allowed_statuses:
+                return -1  # Constraint not satisfied
+        
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoContentDetailsRegionRestriction,blocked,items.contentDetails.regionRestriction.blocked,"A list of region codes that identify countries where the video is blocked. If this property is present and a country is not listed in its value, then the video is viewable in that country. If this property is present and contains an empty list, the video is viewable in all countries",0,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for video in items:
+            content_details = video.get('contentDetails', {})
+            region_restriction = content_details.get('regionRestriction', {})
+            blocked = region_restriction.get('blocked', None)
+            
+            if blocked is None:
+                return 0  # The attribute does not exist, insufficient information to verify
+            
+            if not isinstance(blocked, list):
+                return -1  # The 'blocked' attribute is not a list, constraint not satisfied
+            
+            for region_code in blocked:
+                if not isinstance(region_code, str):
+                    return -1  # Each item in 'blocked' should be a string, constraint not satisfied
+            
+            # If 'blocked' is an empty list, the video is viewable in all countries
+            if len(blocked) == 0:
+                return 1  # Constraint satisfied for viewable in all countries
+            
+            # If 'blocked' is a list of strings, the constraint is satisfied
+            return 1
+        
+        return 0  # No items in the response, insufficient information to verify
+    except Exception as e:
+        return -1  # An error occurred, constraint not satisfied
+",unknown,,,,,0
+get-/youtube/v3/videos,VideoSnippet,liveBroadcastContent,items.snippet.liveBroadcastContent,"Indicates if the video is an upcoming/active live broadcast. Or it's ""none"" if the video is not an upcoming/active live broadcast, schema: {""type"": ""string"", ""enum"": [""none"", ""upcoming"", ""live"", ""completed""]}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for item in items:
+            snippet = item.get('snippet', {})
+            live_broadcast_content = snippet.get('liveBroadcastContent', None)
+            if live_broadcast_content is None:
+                return 0
+            if live_broadcast_content not in [""none"", ""upcoming"", ""live"", ""completed""]:
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,catvRating,items.contentDetails.contentRating.catvRating,Rating system for Canadian TV - Canadian TV Classification System The video's rating from the Canadian Radio-Television and Telecommunications Commission (CRTC,1,"def verify_latest_response(latest_response):
+    try:
+        # Define the allowed enum values for catvRating
+        allowed_values = [
+            ""catvUnspecified"", ""catvC"", ""catvC8"", ""catvG"", 
+            ""catvPg"", ""catv14plus"", ""catv18plus"", ""catvUnrated"", ""catvE""
+        ]
+        
+        # Check if 'items' key exists in the response
+        if 'items' not in latest_response:
+            return 0
+        
+        # Iterate over each video item in the response
+        for video in latest_response['items']:
+            # Check if 'contentDetails' and 'contentRating' keys exist
+            if 'contentDetails' not in video or 'contentRating' not in video['contentDetails']:
+                return 0
+            
+            # Get the catvRating value
+            catv_rating = video['contentDetails']['contentRating'].get('catvRating')
+            
+            # Check if catvRating exists
+            if catv_rating is None:
+                return 0
+            
+            # Verify if the catvRating is within the allowed enum values
+            if catv_rating not in allowed_values:
+                return -1
+        
+        # If all checks pass
+        return 1
+    
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,catvRating,items.contentDetails.contentRating.catvRating,"Rating system for Canadian TV - Canadian TV Classification System The video's rating from the Canadian Radio-Television and Telecommunications Commission (CRTC) for Canadian English-language broadcasts. For more information, see the Canadian Broadcast Standards Council website. schema: {""enum"": [""catvUnspecified"", ""catvC"", ""catvC8"", ""catvG"", ""catvPg"", ""catv14plus"", ""catv18plus"", ""catvUnrated"", ""catvE""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoProcessingDetailsProcessingProgress,partsProcessed,items.processingDetails.processingProgress.partsProcessed,"The number of parts of the video that YouTube has already processed. You can estimate the percentage of the video that YouTube has already processed by calculating: 100 * parts_processed / parts_total Note that since the estimated number of parts could increase without a corresponding increase in the number of parts that have already been processed, it is possible that the calculated progress could periodically decrease while YouTube processes a video, schema: {""type"": ""string"", ""format"": ""uint64""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        if not items:
+            return 0
+        
+        for item in items:
+            processing_details = item.get(""processingDetails"", {})
+            processing_progress = processing_details.get(""processingProgress"", {})
+            parts_processed_str = processing_progress.get(""partsProcessed"", None)
+            
+            if parts_processed_str is None:
+                return 0
+            
+            # Check if partsProcessed is a valid uint64 string
+            parts_processed = int(parts_processed_str)
+            if parts_processed < 0 or parts_processed > 2**64 - 1:
+                return -1
+        
+        return 1
+    except (ValueError, TypeError):
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoContentDetails,licensedContent,items.contentDetails.licensedContent,The value of is_license_content indicates whether the video is licensed content,0,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for item in items:
+            content_details = item.get('contentDetails', {})
+            if 'licensedContent' not in content_details:
+                return 0
+            if not isinstance(content_details['licensedContent'], bool):
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,0
+get-/youtube/v3/videos,VideoStatus,failureReason,items.status.failureReason,"This value explains why a video failed to upload. This property is only present if the uploadStatus property indicates that the upload failed, schema: {""type"": ""string"", ""enum"": [""conversion"", ""invalidFile"", ""emptyFile"", ""tooSmall"", ""codec"", ""uploadAborted""]}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for video in items:
+            status = video.get(""status"", {})
+            failure_reason = status.get(""failureReason"")
+            if failure_reason is not None:
+                if failure_reason not in [""conversion"", ""invalidFile"", ""emptyFile"", ""tooSmall"", ""codec"", ""uploadAborted""]:
+                    return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,cncRating,items.contentDetails.contentRating.cncRating,"Rating system in France - Commission de classification cinematographique, schema: {""type"": ""string"", ""enum"": [""cncUnspecified"", ""cncT"", ""cnc10"", ""cnc12"", ""cnc16"", ""cnc18"", ""cncE"", ""cncInterdiction"", ""cncUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_values = [
+            ""cncUnspecified"", ""cncT"", ""cnc10"", ""cnc12"", 
+            ""cnc16"", ""cnc18"", ""cncE"", ""cncInterdiction"", ""cncUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            cnc_rating = content_rating.get(""cncRating"")
+            
+            if cnc_rating is None:
+                return 0  # Attribute does not exist
+            
+            if cnc_rating not in valid_values:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,cncRating,items.contentDetails.contentRating.cncRating,"Rating system in France - Commission de classification cinematographique schema: {""enum"": [""cncUnspecified"", ""cncT"", ""cnc10"", ""cnc12"", ""cnc16"", ""cnc18"", ""cncE"", ""cncInterdiction"", ""cncUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,fmocRating,items.contentDetails.contentRating.fmocRating,"This property has been deprecated. Use the contentDetails.contentRating.cncRating instead, schema: {""type"": ""string"", ""enum"": [""fmocUnspecified"", ""fmocU"", ""fmoc10"", ""fmoc12"", ""fmoc16"", ""fmoc18"", ""fmocE"", ""fmocUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            fmoc_rating = content_rating.get(""fmocRating"", None)
+            
+            if fmoc_rating is None:
+                return 0  # Attribute does not exist
+            
+            valid_enum = [
+                ""fmocUnspecified"", ""fmocU"", ""fmoc10"", ""fmoc12"", 
+                ""fmoc16"", ""fmoc18"", ""fmocE"", ""fmocUnrated""
+            ]
+            
+            if fmoc_rating not in valid_enum:
+                return -1  # Constraint not satisfied
+            
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,fmocRating,items.contentDetails.contentRating.fmocRating,"This property has been deprecated. Use the contentDetails.contentRating.cncRating instead. schema: {""enum"": [""fmocUnspecified"", ""fmocU"", ""fmoc10"", ""fmoc12"", ""fmoc16"", ""fmoc18"", ""fmocE"", ""fmocUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoProcessingDetails,processingStatus,items.processingDetails.processingStatus,"The video's processing status. This value indicates whether YouTube was able to process the video or if the video is still being processed, schema: {""type"": ""string"", ""enum"": [""processing"", ""succeeded"", ""failed"", ""terminated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        if not items:
+            return 0  # No items to verify
+
+        for video in items:
+            processing_details = video.get('processingDetails', {})
+            processing_status = processing_details.get('processingStatus')
+
+            if processing_status is None:
+                return 0  # Missing processingStatus attribute
+
+            if processing_status not in [""processing"", ""succeeded"", ""failed"", ""terminated""]:
+                return -1  # Constraint not satisfied
+
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Error in processing
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,chfilmRating,items.contentDetails.contentRating.chfilmRating,"The video's rating in Switzerland, schema: {""type"": ""string"", ""enum"": [""chfilmUnspecified"", ""chfilm0"", ""chfilm6"", ""chfilm12"", ""chfilm16"", ""chfilm18"", ""chfilmUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""chfilmUnspecified"", ""chfilm0"", ""chfilm6"", 
+            ""chfilm12"", ""chfilm16"", ""chfilm18"", ""chfilmUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            chfilm_rating = content_rating.get(""chfilmRating"")
+            
+            if chfilm_rating is None:
+                return 0  # Attribute does not exist
+            
+            if chfilm_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,chfilmRating,items.contentDetails.contentRating.chfilmRating,"The video's rating in Switzerland. schema: {""enum"": [""chfilmUnspecified"", ""chfilm0"", ""chfilm6"", ""chfilm12"", ""chfilm16"", ""chfilm18"", ""chfilmUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoFileDetailsAudioStream,channelCount,items.fileDetails.audioStreams.channelCount,"The number of audio channels that the stream contains, schema: {""type"": ""integer"", ""format"": ""uint32""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for item in items:
+            file_details = item.get(""fileDetails"", {})
+            audio_streams = file_details.get(""audioStreams"", [])
+            for stream in audio_streams:
+                channel_count = stream.get(""channelCount"")
+                if channel_count is None:
+                    return 0  # Attribute does not exist
+                if not isinstance(channel_count, int) or channel_count < 0:
+                    return -1  # Constraint not satisfied
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,egfilmRating,items.contentDetails.contentRating.egfilmRating,"The video's rating in Egypt, schema: {""type"": ""string"", ""enum"": [""egfilmUnspecified"", ""egfilmGn"", ""egfilm18"", ""egfilmBn"", ""egfilmUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = {""egfilmUnspecified"", ""egfilmGn"", ""egfilm18"", ""egfilmBn"", ""egfilmUnrated""}
+        items = latest_response.get(""items"", [])
+        
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            egfilm_rating = content_rating.get(""egfilmRating"")
+            
+            if egfilm_rating is None:
+                return 0  # Attribute does not exist
+            
+            if egfilm_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,egfilmRating,items.contentDetails.contentRating.egfilmRating,"The video's rating in Egypt. schema: {""enum"": [""egfilmUnspecified"", ""egfilmGn"", ""egfilm18"", ""egfilmBn"", ""egfilmUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoContentDetails,dimension,items.contentDetails.dimension,The value of dimension indicates whether the video is available in 3D or in 2D,1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for video in items:
+            content_details = video.get('contentDetails', {})
+            dimension = content_details.get('dimension')
+            if dimension not in ['2D', '3D']:
+                return -1
+        return 1
+    except Exception as e:
+        return 0
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoSuggestionsTagSuggestion,categoryRestricts,items.suggestions.tagSuggestions.categoryRestricts,"A set of video categories for which the tag is relevant. You can use this information to display appropriate tag suggestions based on the video category that the video uploader associates with the video. By default, tag suggestions are relevant for all categories if there are no restricts defined for the keyword",1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'items' is in the response
+        if 'items' not in latest_response:
+            return 0
+        
+        for video in latest_response['items']:
+            # Check if 'suggestions' is in the video object
+            if 'suggestions' not in video:
+                continue
+            
+            suggestions = video['suggestions']
+            
+            # Check if 'tagSuggestions' is in the suggestions
+            if 'tagSuggestions' not in suggestions:
+                continue
+            
+            for tag_suggestion in suggestions['tagSuggestions']:
+                # Check if 'categoryRestricts' is in the tag suggestion
+                if 'categoryRestricts' not in tag_suggestion:
+                    continue
+                
+                category_restricts = tag_suggestion['categoryRestricts']
+                
+                # Verify that 'categoryRestricts' is a list of strings
+                if not isinstance(category_restricts, list):
+                    return -1
+                
+                for category in category_restricts:
+                    if not isinstance(category, str):
+                        return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,csaRating,items.contentDetails.contentRating.csaRating,"The video's rating from France's Conseil supérieur de l’audiovisuel, which rates broadcast content, schema: {""type"": ""string"", ""enum"": [""csaUnspecified"", ""csaT"", ""csa10"", ""csa12"", ""csa16"", ""csa18"", ""csaInterdiction"", ""csaUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get('items', [])
+        
+        # Define the allowed enum values for csaRating
+        allowed_csa_ratings = [
+            ""csaUnspecified"", ""csaT"", ""csa10"", ""csa12"", 
+            ""csa16"", ""csa18"", ""csaInterdiction"", ""csaUnrated""
+        ]
+        
+        # Iterate over each video item to check the csaRating
+        for video in video_items:
+            content_details = video.get('contentDetails', {})
+            content_rating = content_details.get('contentRating', {})
+            csa_rating = content_rating.get('csaRating')
+            
+            # If csaRating is not present, return 0
+            if csa_rating is None:
+                return 0
+            
+            # Check if the csaRating is within the allowed enum values
+            if csa_rating not in allowed_csa_ratings:
+                return -1
+        
+        # If all csaRatings are valid, return 1
+        return 1
+    
+    except Exception as e:
+        # In case of any unexpected error, return -1
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,csaRating,items.contentDetails.contentRating.csaRating,"The video's rating from France's Conseil supérieur de l’audiovisuel, which rates broadcast content. schema: {""enum"": [""csaUnspecified"", ""csaT"", ""csa10"", ""csa12"", ""csa16"", ""csa18"", ""csaInterdiction"", ""csaUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoLiveStreamingDetails,concurrentViewers,items.liveStreamingDetails.concurrentViewers,"The number of viewers currently watching the broadcast. The property and its value will be present if the broadcast has current viewers and the broadcast owner has not hidden the viewcount for the video. Note that YouTube stops tracking the number of concurrent viewers for a broadcast when the broadcast ends. So, this property would not identify the number of viewers watching an archived video of a live broadcast that already ended, schema: {""type"": ""string"", ""format"": ""uint64""}",0,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for item in items:
+            live_streaming_details = item.get(""liveStreamingDetails"", {})
+            concurrent_viewers = live_streaming_details.get(""concurrentViewers"")
+            
+            if concurrent_viewers is None:
+                return 0  # Attribute does not exist, insufficient information to verify
+            
+            # Check if concurrentViewers is a string representing a uint64
+            if not isinstance(concurrent_viewers, str):
+                return -1  # Constraint not satisfied: concurrentViewers is not a string
+            
+            try:
+                viewer_count = int(concurrent_viewers)
+                if viewer_count < 0:
+                    return -1  # Constraint not satisfied: concurrentViewers is negative
+            except ValueError:
+                return -1  # Constraint not satisfied: concurrentViewers is not a valid integer
+            
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,0
+get-/youtube/v3/videos,VideoFileDetailsVideoStream,aspectRatio,items.fileDetails.videoStreams.aspectRatio,"The video content's display aspect ratio, which specifies the aspect ratio in which the video should be displayed, schema: {""type"": ""number"", ""format"": ""double""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for video in items:
+            file_details = video.get(""fileDetails"", {})
+            video_streams = file_details.get(""videoStreams"", [])
+            for stream in video_streams:
+                aspect_ratio = stream.get(""aspectRatio"")
+                if aspect_ratio is None:
+                    return 0  # Aspect ratio attribute does not exist
+                if not isinstance(aspect_ratio, (int, float)):
+                    return -1  # Aspect ratio is not a number
+        return 1  # All aspect ratios are valid numbers
+    except Exception as e:
+        return -1  # An error occurred during verification
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,menaMpaaRating,items.contentDetails.contentRating.menaMpaaRating,"The rating system for MENA countries, a clone of MPAA. It is needed to prevent titles go live w/o additional QC check, since some of them can be inappropriate for the countries at all. See b/33408548 for more details, schema: {""type"": ""string"", ""enum"": [""menaMpaaUnspecified"", ""menaMpaaG"", ""menaMpaaPg"", ""menaMpaaPg13"", ""menaMpaaR"", ""menaMpaaUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        # Define the allowed enum values for menaMpaaRating
+        allowed_values = [
+            ""menaMpaaUnspecified"", 
+            ""menaMpaaG"", 
+            ""menaMpaaPg"", 
+            ""menaMpaaPg13"", 
+            ""menaMpaaR"", 
+            ""menaMpaaUnrated""
+        ]
+        
+        # Check if 'items' key exists in the response
+        if 'items' not in latest_response:
+            return 0
+        
+        # Iterate over each video item in the response
+        for video in latest_response['items']:
+            # Check if 'contentDetails' and 'contentRating' keys exist
+            if 'contentDetails' not in video or 'contentRating' not in video['contentDetails']:
+                return 0
+            
+            # Get the menaMpaaRating value
+            mena_mpaa_rating = video['contentDetails']['contentRating'].get('menaMpaaRating')
+            
+            # Check if menaMpaaRating exists
+            if mena_mpaa_rating is None:
+                return 0
+            
+            # Verify if the menaMpaaRating is within the allowed enum values
+            if mena_mpaa_rating not in allowed_values:
+                return -1
+        
+        # If all checks pass
+        return 1
+    
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,menaMpaaRating,items.contentDetails.contentRating.menaMpaaRating,"The rating system for MENA countries, a clone of MPAA. It is needed to prevent titles go live w/o additional QC check, since some of them can be inappropriate for the countries at all. See b/33408548 for more details. schema: {""enum"": [""menaMpaaUnspecified"", ""menaMpaaG"", ""menaMpaaPg"", ""menaMpaaPg13"", ""menaMpaaR"", ""menaMpaaUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,mpaatRating,items.contentDetails.contentRating.mpaatRating,"The rating system for trailer, DVD, and Ad in the US. See http://movielabs.com/md/ratings/v2.3/html/US_MPAAT_Ratings.html, schema: {""type"": ""string"", ""enum"": [""mpaatUnspecified"", ""mpaatGb"", ""mpaatRb""]}",1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get('items', [])
+        
+        # Define the allowed enum values for mpaatRating
+        allowed_mpaat_ratings = [""mpaatUnspecified"", ""mpaatGb"", ""mpaatRb""]
+        
+        # Iterate over each video item to check the mpaatRating
+        for video in video_items:
+            content_details = video.get('contentDetails', {})
+            content_rating = content_details.get('contentRating', {})
+            mpaat_rating = content_rating.get('mpaatRating')
+            
+            # Check if mpaatRating exists
+            if mpaat_rating is None:
+                return 0  # Insufficient information to verify
+            
+            # Check if mpaatRating is within the allowed enum values
+            if mpaat_rating not in allowed_mpaat_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied for all items
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,mpaatRating,items.contentDetails.contentRating.mpaatRating,"The rating system for trailer, DVD, and Ad in the US. See http://movielabs.com/md/ratings/v2.3/html/US_MPAAT_Ratings.html. schema: {""enum"": [""mpaatUnspecified"", ""mpaatGb"", ""mpaatRb""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoProcessingDetailsProcessingProgress,timeLeftMs,items.processingDetails.processingProgress.timeLeftMs,"An estimate of the amount of time, in millseconds, that YouTube needs to finish processing the video, schema: {""type"": ""string"", ""format"": ""uint64""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for item in items:
+            processing_details = item.get(""processingDetails"", {})
+            processing_progress = processing_details.get(""processingProgress"", {})
+            time_left_ms = processing_progress.get(""timeLeftMs"", None)
+            
+            if time_left_ms is None:
+                return 0  # Attribute does not exist
+            
+            # Check if timeLeftMs is a string representation of a uint64
+            if not isinstance(time_left_ms, str):
+                return -1  # Not a string
+            
+            try:
+                time_left_value = int(time_left_ms)
+                if time_left_value < 0 or time_left_value > 2**64 - 1:
+                    return -1  # Not within uint64 range
+            except ValueError:
+                return -1  # Not a valid integer string
+
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # An error occurred during verification
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoProcessingDetails,processingFailureReason,items.processingDetails.processingFailureReason,"The reason that YouTube failed to process the video. This property will only have a value if the processingStatus property's value is failed, schema: {""type"": ""string"", ""enum"": [""uploadFailed"", ""transcodeFailed"", ""streamingFailed"", ""other""]}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for video in items:
+            processing_details = video.get(""processingDetails"", {})
+            processing_failure_reason = processing_details.get(""processingFailureReason"", None)
+            processing_status = processing_details.get(""processingStatus"", None)
+            
+            if processing_failure_reason is not None:
+                if processing_status != ""failed"":
+                    return -1
+                if processing_failure_reason not in [""uploadFailed"", ""transcodeFailed"", ""streamingFailed"", ""other""]:
+                    return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,mtrcbRating,items.contentDetails.contentRating.mtrcbRating,The video's rating from the Movie and Television Review and Classification Board (Philippines,1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""mtrcbUnspecified"", ""mtrcbG"", ""mtrcbPg"", 
+            ""mtrcbR13"", ""mtrcbR16"", ""mtrcbR18"", 
+            ""mtrcbX"", ""mtrcbUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            mtrcb_rating = content_rating.get(""mtrcbRating"")
+            
+            if mtrcb_rating is None:
+                return 0  # Attribute does not exist
+            
+            if mtrcb_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,mtrcbRating,items.contentDetails.contentRating.mtrcbRating,"The video's rating from the Movie and Television Review and Classification Board (Philippines). schema: {""enum"": [""mtrcbUnspecified"", ""mtrcbG"", ""mtrcbPg"", ""mtrcbR13"", ""mtrcbR16"", ""mtrcbR18"", ""mtrcbX"", ""mtrcbUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoContentDetailsRegionRestriction,allowed,items.contentDetails.regionRestriction.allowed,"A list of region codes that identify countries where the video is viewable. If this property is present and a country is not listed in its value, then the video is blocked from appearing in that country. If this property is present and contains an empty list, the video is blocked in all countries",0,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'items' is present in the response
+        if 'items' not in latest_response:
+            return 0
+        
+        for video in latest_response['items']:
+            # Check if 'contentDetails' is present in the video object
+            if 'contentDetails' not in video:
+                return 0
+            
+            content_details = video['contentDetails']
+            
+            # Check if 'countryRestriction' is present in the contentDetails
+            if 'countryRestriction' not in content_details:
+                return 0
+            
+            country_restriction = content_details['countryRestriction']
+            
+            # Check if 'allowed' is present in the countryRestriction
+            if 'allowed' not in country_restriction:
+                return 0
+            
+            allowed = country_restriction['allowed']
+            
+            # Verify the constraints
+            if isinstance(allowed, list):
+                if len(allowed) == 0:
+                    # If the list is empty, the video is blocked in all countries
+                    return 1
+                elif all(isinstance(code, str) for code in allowed):
+                    # If the list contains strings, the constraint is satisfied
+                    return 1
+                else:
+                    # If the list contains non-string items, the constraint is not satisfied
+                    return -1
+            else:
+                # If 'allowed' is not a list, the constraint is not satisfied
+                return -1
+        
+        # If all videos satisfy the constraints
+        return 1
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,0
+get-/youtube/v3/videos,ContentRating,fpbRating,items.contentDetails.contentRating.fpbRating,"The video's rating from South Africa's Film and Publication Board, schema: {""type"": ""string"", ""enum"": [""fpbUnspecified"", ""fpbA"", ""fpbPg"", ""fpb79Pg"", ""fpb1012Pg"", ""fpb13"", ""fpb16"", ""fpb18"", ""fpbX18"", ""fpbXx"", ""fpbUnrated"", ""fpb10""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""fpbUnspecified"", ""fpbA"", ""fpbPg"", ""fpb79Pg"", ""fpb1012Pg"", 
+            ""fpb13"", ""fpb16"", ""fpb18"", ""fpbX18"", ""fpbXx"", ""fpbUnrated"", ""fpb10""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            fpb_rating = content_rating.get(""fpbRating"")
+            
+            if fpb_rating is None:
+                return 0  # Attribute does not exist
+            
+            if fpb_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,fpbRating,items.contentDetails.contentRating.fpbRating,"The video's rating from South Africa's Film and Publication Board. schema: {""enum"": [""fpbUnspecified"", ""fpbA"", ""fpbPg"", ""fpb79Pg"", ""fpb1012Pg"", ""fpb13"", ""fpb16"", ""fpb18"", ""fpbX18"", ""fpbXx"", ""fpbUnrated"", ""fpb10""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoSuggestions,processingErrors,items.suggestions.processingErrors,"A list of errors that will prevent YouTube from successfully processing the uploaded video video. These errors indicate that, regardless of the video's current processing status, eventually, that status will almost certainly be failed",0,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get('items', [])
+        
+        # Check if video_items is a list
+        if not isinstance(video_items, list):
+            return 0
+        
+        # Define the allowed error types
+        allowed_errors = [
+            ""audioFile"", ""imageFile"", ""projectFile"", ""notAVideoFile"", 
+            ""docFile"", ""archiveFile"", ""unsupportedSpatialAudioLayout""
+        ]
+        
+        for video in video_items:
+            # Extract suggestions from each video
+            suggestions = video.get('suggestions', {})
+            
+            # Extract processingErrors from suggestions
+            processing_errors = suggestions.get('processingErrors', [])
+            
+            # Check if processing_errors is a list
+            if not isinstance(processing_errors, list):
+                return 0
+            
+            # Verify each error in processingErrors
+            for error in processing_errors:
+                if error not in allowed_errors:
+                    return -1
+        
+        # If all errors are valid
+        return 1
+    
+    except Exception as e:
+        # Return 0 if any exception occurs
+        return 0
+",unknown,,,,,0
+get-/youtube/v3/videos,Video,kind,items.kind,"Identifies what kind of resource this is. Value: the fixed string ""youtube#video""",1,"def verify_latest_response(latest_response):
+    try:
+        kind_value = latest_response.get(""kind"")
+        if kind_value is None:
+            return 0
+        if kind_value == ""youtube#videoListResponse"":
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,nmcRating,items.contentDetails.contentRating.nmcRating,"The National Media Council ratings system for United Arab Emirates, schema: {""type"": ""string"", ""enum"": [""nmcUnspecified"", ""nmcG"", ""nmcPg"", ""nmcPg13"", ""nmcPg15"", ""nmc15plus"", ""nmc18plus"", ""nmc18tc"", ""nmcUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_nmc_ratings = [
+            ""nmcUnspecified"", ""nmcG"", ""nmcPg"", ""nmcPg13"", ""nmcPg15"", 
+            ""nmc15plus"", ""nmc18plus"", ""nmc18tc"", ""nmcUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        if not items:
+            return 0
+        
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            nmc_rating = content_rating.get(""nmcRating"")
+            
+            if nmc_rating is None:
+                return 0
+            
+            if nmc_rating not in valid_nmc_ratings:
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,nmcRating,items.contentDetails.contentRating.nmcRating,"The National Media Council ratings system for United Arab Emirates. schema: {""enum"": [""nmcUnspecified"", ""nmcG"", ""nmcPg"", ""nmcPg13"", ""nmcPg15"", ""nmc15plus"", ""nmc18plus"", ""nmc18tc"", ""nmcUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoStatus,publicStatsViewable,items.status.publicStatsViewable,"This value indicates if the extended video statistics on the watch page can be viewed by everyone. Note that the view count, likes, etc will still be visible if this is disabled. @mutable youtube.videos.insert youtube.videos.update",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        if not items:
+            return 0  # No items to verify
+
+        for video in items:
+            status = video.get('status', {})
+            if 'publicStatsViewable' not in status:
+                return 0  # Attribute does not exist
+
+            public_stats_viewable = status['publicStatsViewable']
+            if not isinstance(public_stats_viewable, bool):
+                return -1  # Constraint not satisfied: should be a boolean
+
+        return 1  # Constraint satisfied for all items
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoStatistics,dislikeCount,items.statistics.dislikeCount,"The number of users who have indicated that they disliked the video by giving it a negative rating, schema: {""type"": ""string"", ""format"": ""uint64""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for item in items:
+            statistics = item.get(""statistics"", {})
+            dislike_count = statistics.get(""dislikeCount"")
+            
+            if dislike_count is None:
+                return 0
+            
+            # Check if dislikeCount is a string representation of a uint64
+            if not isinstance(dislike_count, str):
+                return -1
+            
+            # Attempt to convert the string to an integer and check if it fits within uint64 range
+            dislike_count_int = int(dislike_count)
+            if dislike_count_int < 0 or dislike_count_int > 18446744073709551615:
+                return -1
+        
+        return 1
+    except (ValueError, TypeError):
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,ifcoRating,items.contentDetails.contentRating.ifcoRating,The video's Irish Film Classification Office (IFCO - Ireland,1,"def verify_latest_response(latest_response):
+    try:
+        valid_ifco_ratings = [
+            ""ifcoUnspecified"", ""ifcoG"", ""ifcoPg"", ""ifco12"", ""ifco12a"", 
+            ""ifco15"", ""ifco15a"", ""ifco16"", ""ifco18"", ""ifcoUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            ifco_rating = content_rating.get(""ifcoRating"")
+            
+            if ifco_rating is None:
+                return 0  # Attribute does not exist
+            
+            if ifco_rating not in valid_ifco_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,ifcoRating,items.contentDetails.contentRating.ifcoRating,"The video's Irish Film Classification Office (IFCO - Ireland) rating. See the IFCO website for more information. schema: {""enum"": [""ifcoUnspecified"", ""ifcoG"", ""ifcoPg"", ""ifco12"", ""ifco12a"", ""ifco15"", ""ifco15a"", ""ifco16"", ""ifco18"", ""ifcoUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoAgeGating,restricted,items.ageGating.restricted,Age-restricted trailers. For redband trailers and adult-rated video-games. Only users aged 18+ can view the content. The the field is true the content is restricted to viewers aged 18+. Otherwise The field won't be present,1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for video in items:
+            age_gating = video.get(""ageGating"", {})
+            if ""restricted"" in age_gating:
+                restricted = age_gating[""restricted""]
+                if not isinstance(restricted, bool):
+                    return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoLiveStreamingDetails,activeLiveChatId,items.liveStreamingDetails.activeLiveChatId,The ID of the currently active live chat attached to this video. This field is filled only if the video is a currently live broadcast that has live chat. Once the broadcast transitions to complete this field will be removed and the live chat closed down. For persistent broadcasts that live chat id will no longer be tied to this video but rather to the new video being displayed at the persistent page,1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for item in items:
+            live_streaming_details = item.get('liveStreamingDetails', {})
+            active_live_chat_id = live_streaming_details.get('activeLiveChatId', None)
+            
+            # Check if the video is a currently live broadcast
+            if active_live_chat_id is not None:
+                # If activeLiveChatId is present, it implies the video is currently live
+                return 1
+            else:
+                # If activeLiveChatId is absent, it implies the video is not currently live
+                return 0
+        return 0  # No items to verify
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoLiveStreamingDetails,actualEndTime,items.liveStreamingDetails.actualEndTime,"The time that the broadcast actually ended. This value will not be available until the broadcast is over, schema: {""type"": ""string"", ""format"": ""date-time""}",1,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get('items', [])
+        
+        # Iterate over each video item
+        for video in video_items:
+            # Extract live streaming details
+            live_streaming_details = video.get('liveStreamingDetails', {})
+            
+            # Check if 'actualEndTime' exists
+            actual_end_time = live_streaming_details.get('actualEndTime')
+            if actual_end_time is None:
+                return 0  # Insufficient information to verify the constraint
+            
+            # Verify 'actualEndTime' is in 'date-time' format
+            try:
+                datetime.fromisoformat(actual_end_time.replace('Z', '+00:00'))
+            except ValueError:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied for all items
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoProcessingDetailsProcessingProgress,partsTotal,items.processingDetails.processingProgress.partsTotal,"An estimate of the total number of parts that need to be processed for the video. The number may be updated with more precise estimates while YouTube processes the video, schema: {""type"": ""string"", ""format"": ""uint64""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate to the partsTotal attribute in the response
+        items = latest_response.get(""items"", [])
+        for item in items:
+            processing_details = item.get(""processingDetails"", {})
+            processing_progress = processing_details.get(""processingProgress"", {})
+            parts_total = processing_progress.get(""partsTotal"", None)
+            
+            if parts_total is None:
+                return 0  # Attribute does not exist
+            
+            # Check if partsTotal is a valid uint64
+            if not parts_total.isdigit():
+                return -1  # Not a valid number
+            
+            parts_total_value = int(parts_total)
+            if parts_total_value < 0 or parts_total_value > 18446744073709551615:
+                return -1  # Not within uint64 range
+        
+        return 1  # Constraint is satisfied
+    except Exception as e:
+        return -1  # An error occurred, constraint not satisfied
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoFileDetails,fileType,items.fileDetails.fileType,"The uploaded file's type as detected by YouTube's video processing engine. Currently, YouTube only processes video files, but this field is present whether a video file or another type of file was uploaded, schema: {""type"": ""string"", ""enum"": [""video"", ""audio"", ""image"", ""archive"", ""document"", ""project"", ""other""]}",1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get('items', [])
+        
+        # Define the allowed file types
+        allowed_file_types = [""video"", ""audio"", ""image"", ""archive"", ""document"", ""project"", ""other""]
+        
+        # Iterate over each video item to check the fileType
+        for video in video_items:
+            file_details = video.get('fileDetails', {})
+            file_type = file_details.get('fileType')
+            
+            # Check if fileType is present
+            if file_type is None:
+                return 0  # Insufficient information to verify the constraint
+            
+            # Check if fileType is within the allowed values
+            if file_type not in allowed_file_types:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied for all items
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoRecordingDetails,recordingDate,items.recordingDetails.recordingDate,"The date and time when the video was recorded, schema: {""type"": ""string"", ""format"": ""date-time""}",1,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for item in items:
+            recording_details = item.get('recordingDetails', {})
+            recording_date_str = recording_details.get('recordingDate', None)
+            if recording_date_str is None:
+                return 0  # Attribute does not exist
+            # Check if the recordingDate is in the correct date-time format
+            try:
+                datetime.fromisoformat(recording_date_str.replace('Z', '+00:00'))
+            except ValueError:
+                return -1  # Constraint not satisfied
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,ecbmctRating,items.contentDetails.contentRating.ecbmctRating,"Rating system in Turkey - Evaluation and Classification Board of the Ministry of Culture and Tourism, schema: {""type"": ""string"", ""enum"": [""ecbmctUnspecified"", ""ecbmctG"", ""ecbmct7a"", ""ecbmct7plus"", ""ecbmct13a"", ""ecbmct13plus"", ""ecbmct15a"", ""ecbmct15plus"", ""ecbmct18plus"", ""ecbmctUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get(""items"", [])
+        
+        # Define the allowed enum values for ecbmctRating
+        allowed_values = [
+            ""ecbmctUnspecified"", ""ecbmctG"", ""ecbmct7a"", ""ecbmct7plus"", 
+            ""ecbmct13a"", ""ecbmct13plus"", ""ecbmct15a"", ""ecbmct15plus"", 
+            ""ecbmct18plus"", ""ecbmctUnrated""
+        ]
+        
+        # Iterate over each video item to check the ecbmctRating
+        for video in video_items:
+            content_details = video.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            ecbmct_rating = content_rating.get(""ecbmctRating"")
+            
+            # If ecbmctRating is not present, return 0
+            if ecbmct_rating is None:
+                return 0
+            
+            # Check if the ecbmctRating is within the allowed values
+            if ecbmct_rating not in allowed_values:
+                return -1
+        
+        # If all ratings are valid, return 1
+        return 1
+    
+    except Exception as e:
+        # In case of any exception, return -1
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,ecbmctRating,items.contentDetails.contentRating.ecbmctRating,"Rating system in Turkey - Evaluation and Classification Board of the Ministry of Culture and Tourism schema: {""enum"": [""ecbmctUnspecified"", ""ecbmctG"", ""ecbmct7a"", ""ecbmct7plus"", ""ecbmct13a"", ""ecbmct13plus"", ""ecbmct15a"", ""ecbmct15plus"", ""ecbmct18plus"", ""ecbmctUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoStatistics,commentCount,items.statistics.commentCount,"The number of comments for the video, schema: {""type"": ""string"", ""format"": ""uint64""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate to the commentCount attribute in the response
+        items = latest_response.get('items', [])
+        for item in items:
+            statistics = item.get('statistics', {})
+            comment_count_str = statistics.get('commentCount', None)
+            
+            if comment_count_str is None:
+                return 0  # Attribute does not exist
+            
+            # Check if commentCount is a valid uint64
+            comment_count = int(comment_count_str)
+            if comment_count < 0 or comment_count > 18446744073709551615:
+                return -1  # Constraint not satisfied
+        return 1  # Constraint satisfied
+    except (ValueError, TypeError):
+        return -1  # Constraint not satisfied due to invalid type or value
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoContentDetails,projection,items.contentDetails.projection,"Specifies the projection format of the video, schema: {""type"": ""string"", ""enum"": [""rectangular"", ""360""]}",1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'items' is in the response
+        if 'items' not in latest_response:
+            return 0
+        
+        # Iterate over each video item
+        for video in latest_response['items']:
+            # Check if 'contentDetails' is in the video object
+            if 'contentDetails' not in video:
+                return 0
+            
+            # Check if 'projection' is in the contentDetails
+            if 'projection' not in video['contentDetails']:
+                return 0
+            
+            # Get the projection value
+            projection_value = video['contentDetails']['projection']
+            
+            # Verify if the projection value is within the allowed enum
+            if projection_value not in [""rectangular"", ""360""]:
+                return -1
+        
+        # If all checks pass
+        return 1
+    
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoFileDetails,fileName,items.fileDetails.fileName,The uploaded file's name. This field is present whether a video file or another type of file was uploaded,0,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for item in items:
+            file_details = item.get(""fileDetails"", {})
+            file_name = file_details.get(""fileName"")
+            if file_name is None:
+                return 0  # The response lacks sufficient information to verify the constraint
+            if not isinstance(file_name, str):
+                return -1  # Constraint not satisfied: fileName is not a string
+        return 1  # Constraint satisfied for all items
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,0
+get-/youtube/v3/videos,VideoStatistics,viewCount,items.statistics.viewCount,"The number of times the video has been viewed, schema: {""type"": ""string"", ""format"": ""uint64""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for item in items:
+            statistics = item.get('statistics', {})
+            view_count_str = statistics.get('viewCount', None)
+            if view_count_str is None:
+                return 0  # Attribute does not exist
+            # Check if viewCount is a valid uint64
+            view_count = int(view_count_str)
+            if view_count < 0 or view_count > 18446744073709551615:
+                return -1  # Constraint not satisfied
+        return 1  # Constraint satisfied
+    except (ValueError, TypeError):
+        return -1  # Constraint not satisfied due to invalid type or value
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,nbcRating,items.contentDetails.contentRating.nbcRating,"The video's rating from the Maldives National Bureau of Classification, schema: {""type"": ""string"", ""enum"": [""nbcUnspecified"", ""nbcG"", ""nbcPg"", ""nbc12plus"", ""nbc15plus"", ""nbc18plus"", ""nbc18plusr"", ""nbcPu"", ""nbcUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""nbcUnspecified"", ""nbcG"", ""nbcPg"", ""nbc12plus"", 
+            ""nbc15plus"", ""nbc18plus"", ""nbc18plusr"", ""nbcPu"", ""nbcUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            nbc_rating = content_rating.get(""nbcRating"")
+            
+            if nbc_rating is None:
+                return 0  # Attribute does not exist
+            
+            if nbc_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,nbcRating,items.contentDetails.contentRating.nbcRating,"The video's rating from the Maldives National Bureau of Classification. schema: {""enum"": [""nbcUnspecified"", ""nbcG"", ""nbcPg"", ""nbc12plus"", ""nbc15plus"", ""nbc18plus"", ""nbc18plusr"", ""nbcPu"", ""nbcUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoStatus,privacyStatus,items.status.privacyStatus,"The video's privacy status, schema: {""type"": ""string"", ""enum"": [""public"", ""unlisted"", ""private""]}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        if not items:
+            return 0
+        
+        valid_privacy_statuses = {""public"", ""unlisted"", ""private""}
+        
+        for video in items:
+            status = video.get('status', {})
+            privacy_status = status.get('privacyStatus')
+            
+            if privacy_status is None:
+                return 0
+            
+            if privacy_status not in valid_privacy_statuses:
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoAgeGating,videoGameRating,items.ageGating.videoGameRating,"Video game rating, if any, schema: {""type"": ""string"", ""enum"": [""anyone"", ""m15Plus"", ""m16Plus"", ""m17Plus""]}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for item in items:
+            age_gating = item.get(""ageGating"", {})
+            video_game_rating = age_gating.get(""videoGameRating"")
+            if video_game_rating is None:
+                return 0
+            if video_game_rating not in [""anyone"", ""m15Plus"", ""m16Plus"", ""m17Plus""]:
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoPlayer,embedWidth,items.player.embedWidth,"The embed width, schema: {""type"": ""string"", ""format"": ""int64""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for item in items:
+            player = item.get(""player"", {})
+            embed_width = player.get(""embedWidth"", None)
+            if embed_width is None:
+                return 0  # Attribute does not exist
+            # Check if embedWidth is a string representation of an int64
+            if not isinstance(embed_width, str):
+                return -1
+            try:
+                int_value = int(embed_width)
+                if int_value < -(2**63) or int_value >= 2**63:
+                    return -1  # Not within int64 range
+            except ValueError:
+                return -1  # Not a valid integer string
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Error in processing
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoLiveStreamingDetails,scheduledEndTime,items.liveStreamingDetails.scheduledEndTime,"The time that the broadcast is scheduled to end. If the value is empty or the property is not present, then the broadcast is scheduled to contiue indefinitely, schema: {""type"": ""string"", ""format"": ""date-time""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for item in items:
+            live_streaming_details = item.get('liveStreamingDetails', {})
+            scheduled_end_time = live_streaming_details.get('scheduledEndTime', None)
+            
+            if scheduled_end_time is None or scheduled_end_time == """":
+                # The broadcast is scheduled to continue indefinitely, which is valid
+                continue
+            
+            # Check if the scheduledEndTime is a valid date-time string
+            from datetime import datetime
+            try:
+                datetime.fromisoformat(scheduled_end_time.replace('Z', '+00:00'))
+            except ValueError:
+                return -1  # Invalid date-time format
+        
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # An error occurred during verification
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoFileDetailsVideoStream,widthPixels,items.fileDetails.videoStreams.widthPixels,"The encoded video content's width in pixels. You can calculate the video's encoding aspect ratio as width_pixels / height_pixels, schema: {""type"": ""integer"", ""format"": ""uint32""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        if not items:
+            return 0
+        
+        for item in items:
+            file_details = item.get(""fileDetails"", {})
+            video_streams = file_details.get(""videoStreams"", [])
+            
+            for stream in video_streams:
+                width_pixels = stream.get(""widthPixels"")
+                
+                if width_pixels is None:
+                    return 0
+                
+                if not isinstance(width_pixels, int) or width_pixels < 0:
+                    return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,fskRating,items.contentDetails.contentRating.fskRating,The video's Freiwillige Selbstkontrolle der Filmwirtschaft (FSK - Germany,1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get('items', [])
+        
+        # Define the allowed enum values for fskRating
+        allowed_fsk_ratings = [""fskUnspecified"", ""fsk0"", ""fsk6"", ""fsk12"", ""fsk16"", ""fsk18"", ""fskUnrated""]
+        
+        # Iterate over each video item to check the fskRating
+        for video in video_items:
+            content_details = video.get('contentDetails', {})
+            content_rating = content_details.get('contentRating', {})
+            fsk_rating = content_rating.get('fskRating')
+            
+            # Check if fskRating exists
+            if fsk_rating is None:
+                return 0  # Insufficient information to verify
+            
+            # Check if fskRating is within the allowed enum values
+            if fsk_rating not in allowed_fsk_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,fskRating,items.contentDetails.contentRating.fskRating,"The video's Freiwillige Selbstkontrolle der Filmwirtschaft (FSK - Germany) rating. schema: {""enum"": [""fskUnspecified"", ""fsk0"", ""fsk6"", ""fsk12"", ""fsk16"", ""fsk18"", ""fskUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoSnippet,publishedAt,items.snippet.publishedAt,"The date and time when the video was uploaded, schema: {""type"": ""string"", ""format"": ""date-time""}",1,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for item in items:
+            snippet = item.get('snippet', {})
+            published_at = snippet.get('publishedAt')
+            if published_at is None:
+                return 0
+            # Check if 'publishedAt' is a valid date-time string
+            try:
+                datetime.fromisoformat(published_at.replace('Z', '+00:00'))
+            except ValueError:
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoFileDetailsVideoStream,heightPixels,items.fileDetails.videoStreams.heightPixels,"The encoded video content's height in pixels, schema: {""type"": ""integer"", ""format"": ""uint32""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for item in items:
+            file_details = item.get('fileDetails', {})
+            video_streams = file_details.get('videoStreams', [])
+            for stream in video_streams:
+                height_pixels = stream.get('heightPixels')
+                if height_pixels is None:
+                    return 0  # Attribute does not exist
+                if not isinstance(height_pixels, int) or height_pixels < 0:
+                    return -1  # Constraint not satisfied
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to error
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoFileDetails,durationMs,items.fileDetails.durationMs,"The length of the uploaded video in milliseconds, schema: {""type"": ""string"", ""format"": ""uint64""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for video in items:
+            file_details = video.get(""fileDetails"", {})
+            duration_ms = file_details.get(""durationMs"", None)
+            
+            if duration_ms is None:
+                return 0  # Attribute does not exist
+            
+            # Check if durationMs is a string representation of a uint64
+            if not isinstance(duration_ms, str):
+                return -1  # Not a string
+            
+            try:
+                duration_value = int(duration_ms)
+                if duration_value < 0 or duration_value > 2**64 - 1:
+                    return -1  # Not within uint64 range
+            except ValueError:
+                return -1  # Not a valid integer string
+        
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # General failure
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoLiveStreamingDetails,scheduledStartTime,items.liveStreamingDetails.scheduledStartTime,"The time that the broadcast is scheduled to begin, schema: {""type"": ""string"", ""format"": ""date-time""}",1,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for item in items:
+            live_streaming_details = item.get('liveStreamingDetails', {})
+            scheduled_start_time = live_streaming_details.get('scheduledStartTime', None)
+            
+            if scheduled_start_time is None:
+                return 0  # Attribute does not exist
+            
+            # Check if the scheduledStartTime is in the correct date-time format
+            try:
+                datetime.fromisoformat(scheduled_start_time.replace('Z', '+00:00'))
+            except ValueError:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoFileDetailsAudioStream,vendor,items.fileDetails.audioStreams.vendor,"A value that uniquely identifies a video vendor. Typically, the value is a four-letter vendor code",0,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for video in items:
+            file_details = video.get(""fileDetails"", {})
+            audio_streams = file_details.get(""audioStreams"", [])
+            for stream in audio_streams:
+                vendor = stream.get(""vendor"")
+                if vendor is None:
+                    return 0  # Attribute does not exist
+                if not isinstance(vendor, str) or len(vendor) != 4:
+                    return -1  # Constraint not satisfied
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,0
+get-/youtube/v3/videos,Thumbnail,url,items.snippet.thumbnails.default.url,"The thumbnail image's URL, schema: {""type"": ""string"", ""format"": ""uri""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        if not items:
+            return 0
+        
+        for item in items:
+            snippet = item.get('snippet', {})
+            thumbnails = snippet.get('thumbnails', {})
+            default_thumbnail = thumbnails.get('default', {})
+            url = default_thumbnail.get('url')
+            
+            if url is None:
+                return 0
+            
+            if not isinstance(url, str):
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,Thumbnail,url,items.snippet.thumbnails.high.url,"The thumbnail image's URL, schema: {""type"": ""string"", ""format"": ""uri""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        if not items:
+            return 0
+        
+        for item in items:
+            snippet = item.get('snippet', {})
+            thumbnails = snippet.get('thumbnails', {})
+            default_thumbnail = thumbnails.get('default', {})
+            url = default_thumbnail.get('url')
+            
+            if url is None:
+                return 0
+            
+            if not isinstance(url, str):
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,Thumbnail,url,items.snippet.thumbnails.maxres.url,"The thumbnail image's URL, schema: {""type"": ""string"", ""format"": ""uri""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        if not items:
+            return 0
+        
+        for item in items:
+            snippet = item.get('snippet', {})
+            thumbnails = snippet.get('thumbnails', {})
+            default_thumbnail = thumbnails.get('default', {})
+            url = default_thumbnail.get('url')
+            
+            if url is None:
+                return 0
+            
+            if not isinstance(url, str):
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,Thumbnail,url,items.snippet.thumbnails.medium.url,"The thumbnail image's URL, schema: {""type"": ""string"", ""format"": ""uri""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        if not items:
+            return 0
+        
+        for item in items:
+            snippet = item.get('snippet', {})
+            thumbnails = snippet.get('thumbnails', {})
+            default_thumbnail = thumbnails.get('default', {})
+            url = default_thumbnail.get('url')
+            
+            if url is None:
+                return 0
+            
+            if not isinstance(url, str):
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,Thumbnail,url,items.snippet.thumbnails.standard.url,"The thumbnail image's URL, schema: {""type"": ""string"", ""format"": ""uri""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        if not items:
+            return 0
+        
+        for item in items:
+            snippet = item.get('snippet', {})
+            thumbnails = snippet.get('thumbnails', {})
+            default_thumbnail = thumbnails.get('default', {})
+            url = default_thumbnail.get('url')
+            
+            if url is None:
+                return 0
+            
+            if not isinstance(url, str):
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoListResponse,kind,kind,"Identifies what kind of resource this is. Value: the fixed string ""youtube#videoListResponse""",1,"def verify_latest_response(latest_response):
+    try:
+        kind_value = latest_response.get(""kind"")
+        if kind_value is None:
+            return 0
+        if kind_value == ""youtube#videoListResponse"":
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,tvpgRating,items.contentDetails.contentRating.tvpgRating,The video's TV Parental Guidelines (TVPG,1,"def verify_latest_response(latest_response):
+    try:
+        # Define the allowed enum values for tvpgRating
+        allowed_tvpg_ratings = [
+            ""tvpgUnspecified"", ""tvpgY"", ""tvpgY7"", ""tvpgY7Fv"", 
+            ""tvpgG"", ""tvpgPg"", ""pg14"", ""tvpgMa"", ""tvpgUnrated""
+        ]
+        
+        # Extract the list of video items from the response
+        video_items = latest_response.get('items', [])
+        
+        # Iterate over each video item to check the tvpgRating
+        for video in video_items:
+            content_details = video.get('contentDetails', {})
+            content_rating = content_details.get('contentRating', {})
+            tvpg_rating = content_rating.get('tvpgRating')
+            
+            # If tvpgRating is not present, return 0
+            if tvpg_rating is None:
+                return 0
+            
+            # Check if the tvpgRating is within the allowed enum values
+            if tvpg_rating not in allowed_tvpg_ratings:
+                return -1
+        
+        # If all tvpgRatings are valid, return 1
+        return 1
+    
+    except Exception as e:
+        # In case of any unexpected error, return -1
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,tvpgRating,items.contentDetails.contentRating.tvpgRating,"The video's TV Parental Guidelines (TVPG) rating. schema: {""enum"": [""tvpgUnspecified"", ""tvpgY"", ""tvpgY7"", ""tvpgY7Fv"", ""tvpgG"", ""tvpgPg"", ""pg14"", ""tvpgMa"", ""tvpgUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,nbcplRating,items.contentDetails.contentRating.nbcplRating,"The video's rating in Poland, schema: {""type"": ""string"", ""enum"": [""nbcplUnspecified"", ""nbcplI"", ""nbcplIi"", ""nbcplIii"", ""nbcplIv"", ""nbcpl18plus"", ""nbcplUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""nbcplUnspecified"", ""nbcplI"", ""nbcplIi"", 
+            ""nbcplIii"", ""nbcplIv"", ""nbcpl18plus"", ""nbcplUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            nbcpl_rating = content_rating.get(""nbcplRating"")
+            
+            if nbcpl_rating is None:
+                return 0
+            
+            if nbcpl_rating not in valid_ratings:
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,nbcplRating,items.contentDetails.contentRating.nbcplRating,"The video's rating in Poland. schema: {""enum"": [""nbcplUnspecified"", ""nbcplI"", ""nbcplIi"", ""nbcplIii"", ""nbcplIv"", ""nbcpl18plus"", ""nbcplUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,fcbmRating,items.contentDetails.contentRating.fcbmRating,"The video's rating from Malaysia's Film Censorship Board, schema: {""type"": ""string"", ""enum"": [""fcbmUnspecified"", ""fcbmU"", ""fcbmPg13"", ""fcbmP13"", ""fcbm18"", ""fcbm18sx"", ""fcbm18pa"", ""fcbm18sg"", ""fcbm18pl"", ""fcbmUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""fcbmUnspecified"", ""fcbmU"", ""fcbmPg13"", ""fcbmP13"", 
+            ""fcbm18"", ""fcbm18sx"", ""fcbm18pa"", ""fcbm18sg"", 
+            ""fcbm18pl"", ""fcbmUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            fcbm_rating = content_rating.get(""fcbmRating"")
+            
+            if fcbm_rating is None:
+                return 0  # Attribute does not exist
+            
+            if fcbm_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,fcbmRating,items.contentDetails.contentRating.fcbmRating,"The video's rating from Malaysia's Film Censorship Board. schema: {""enum"": [""fcbmUnspecified"", ""fcbmU"", ""fcbmPg13"", ""fcbmP13"", ""fcbm18"", ""fcbm18sx"", ""fcbm18pa"", ""fcbm18sg"", ""fcbm18pl"", ""fcbmUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoContentDetails,duration,items.contentDetails.duration,"The length of the video. The tag value is an ISO 8601 duration in the format PT#M#S, in which the letters PT indicate that the value specifies a period of time, and the letters M and S refer to length in minutes and seconds, respectively. The # characters preceding the M and S letters are both integers that specify the number of minutes (or seconds",1,"import re
+
+def verify_latest_response(latest_response):
+    try:
+        # Check if 'items' is in the response
+        if 'items' not in latest_response:
+            return 0
+        
+        # Define the regex pattern for ISO 8601 duration in the format PT#M#S
+        pattern = re.compile(r'^PT(\d+M)?(\d+S)?$')
+        
+        for video in latest_response['items']:
+            # Check if 'contentDetails' and 'duration' are in the video object
+            if 'contentDetails' not in video or 'duration' not in video['contentDetails']:
+                return 0
+            
+            duration = video['contentDetails']['duration']
+            
+            # Validate the duration format
+            if not pattern.match(duration):
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoStatus,embeddable,items.status.embeddable,This value indicates if the video can be embedded on another website. @mutable youtube.videos.insert youtube.videos.update,1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        if not items:
+            return 0  # No items to verify
+
+        for video in items:
+            status = video.get(""status"", {})
+            if ""embeddable"" not in status:
+                return 0  # Attribute does not exist
+
+            embeddable = status[""embeddable""]
+            if not isinstance(embeddable, bool):
+                return -1  # Constraint not satisfied: embeddable must be a boolean
+
+        return 1  # Constraint satisfied for all items
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoFileDetails,creationTime,items.fileDetails.creationTime,"The date and time when the uploaded video file was created. The value is specified in ISO 8601 format. Currently, the following ISO 8601 formats are supported: - Date only: YYYY-MM-DD - Naive time: YYYY-MM-DDTHH:MM:SS - Time with timezone: YYYY-MM-DDTHH:MM:SS+HH:MM",1,"import re
+from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        if not items:
+            return 0
+        
+        iso8601_date_only = re.compile(r'^\d{4}-\d{2}-\d{2}$')
+        iso8601_naive_time = re.compile(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$')
+        iso8601_time_with_timezone = re.compile(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2}$')
+
+        for item in items:
+            file_details = item.get('fileDetails', {})
+            creation_time = file_details.get('creationTime', None)
+            
+            if creation_time is None:
+                return 0
+            
+            if (iso8601_date_only.match(creation_time) or 
+                iso8601_naive_time.match(creation_time) or 
+                iso8601_time_with_timezone.match(creation_time)):
+                try:
+                    # Attempt to parse the date to ensure it's valid
+                    datetime.fromisoformat(creation_time)
+                except ValueError:
+                    return -1
+            else:
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoStatistics,favoriteCount,items.statistics.favoriteCount,"The number of users who currently have the video marked as a favorite video, schema: {""type"": ""string"", ""format"": ""uint64""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for item in items:
+            statistics = item.get('statistics', {})
+            favorite_count = statistics.get('favoriteCount', None)
+            if favorite_count is None:
+                return 0  # Attribute does not exist
+            # Check if favoriteCount is a string representation of a uint64
+            if not isinstance(favorite_count, str):
+                return -1
+            try:
+                value = int(favorite_count)
+                if value < 0 or value > 18446744073709551615:
+                    return -1
+            except ValueError:
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,PageInfo,resultsPerPage,pageInfo.resultsPerPage,"The number of results included in the API response, schema: {""type"": ""integer"", ""format"": ""int32""}",1,"def verify_latest_response(latest_response):
+    try:
+        results_per_page = latest_response['pageInfo']['resultsPerPage']
+        if isinstance(results_per_page, int):
+            return 1
+        else:
+            return -1
+    except KeyError:
+        return 0
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,nfvcbRating,items.contentDetails.contentRating.nfvcbRating,"The video's rating from Nigeria's National Film and Video Censors Board, schema: {""type"": ""string"", ""enum"": [""nfvcbUnspecified"", ""nfvcbG"", ""nfvcbPg"", ""nfvcb12"", ""nfvcb12a"", ""nfvcb15"", ""nfvcb18"", ""nfvcbRe"", ""nfvcbUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""nfvcbUnspecified"", ""nfvcbG"", ""nfvcbPg"", ""nfvcb12"", 
+            ""nfvcb12a"", ""nfvcb15"", ""nfvcb18"", ""nfvcbRe"", ""nfvcbUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            nfvcb_rating = content_rating.get(""nfvcbRating"")
+            
+            if nfvcb_rating is None:
+                return 0  # Attribute does not exist
+            
+            if nfvcb_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,nfvcbRating,items.contentDetails.contentRating.nfvcbRating,"The video's rating from Nigeria's National Film and Video Censors Board. schema: {""enum"": [""nfvcbUnspecified"", ""nfvcbG"", ""nfvcbPg"", ""nfvcb12"", ""nfvcb12a"", ""nfvcb15"", ""nfvcb18"", ""nfvcbRe"", ""nfvcbUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,PageInfo,totalResults,pageInfo.totalResults,"The total number of results in the result set, schema: {""type"": ""integer"", ""format"": ""int32""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'pageInfo' and 'totalResults' exist in the response
+        if 'pageInfo' in latest_response and 'totalResults' in latest_response['pageInfo']:
+            total_results = latest_response['pageInfo']['totalResults']
+            # Verify that 'totalResults' is an integer
+            if isinstance(total_results, int):
+                return 1
+            else:
+                return -1
+        else:
+            return 0
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,mcstRating,items.contentDetails.contentRating.mcstRating,"The video's rating system for Vietnam - MCST, schema: {""type"": ""string"", ""enum"": [""mcstUnspecified"", ""mcstP"", ""mcst0"", ""mcstC13"", ""mcstC16"", ""mcst16plus"", ""mcstC18"", ""mcstGPg"", ""mcstUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_mcst_ratings = [
+            ""mcstUnspecified"", ""mcstP"", ""mcst0"", ""mcstC13"", 
+            ""mcstC16"", ""mcst16plus"", ""mcstC18"", ""mcstGPg"", ""mcstUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            mcst_rating = content_rating.get(""mcstRating"")
+            
+            if mcst_rating is None:
+                return 0  # Attribute does not exist
+            
+            if mcst_rating not in valid_mcst_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,mcstRating,items.contentDetails.contentRating.mcstRating,"The video's rating system for Vietnam - MCST schema: {""enum"": [""mcstUnspecified"", ""mcstP"", ""mcst0"", ""mcstC13"", ""mcstC16"", ""mcst16plus"", ""mcstC18"", ""mcstGPg"", ""mcstUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoPlayer,embedHeight,items.player.embedHeight,"{""type"": ""string"", ""format"": ""int64""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for video in items:
+            player = video.get(""player"", {})
+            embed_height = player.get(""embedHeight"", None)
+            if embed_height is None:
+                return 0  # Attribute does not exist
+            # Check if embedHeight is a string that can be converted to an int64
+            if not isinstance(embed_height, str):
+                return -1
+            try:
+                int_value = int(embed_height)
+                if int_value < -(2**63) or int_value >= 2**63:
+                    return -1
+            except ValueError:
+                return -1
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,ilfilmRating,items.contentDetails.contentRating.ilfilmRating,"The video's rating in Israel, schema: {""type"": ""string"", ""enum"": [""ilfilmUnspecified"", ""ilfilmAa"", ""ilfilm12"", ""ilfilm14"", ""ilfilm16"", ""ilfilm18"", ""ilfilmUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""ilfilmUnspecified"", ""ilfilmAa"", ""ilfilm12"", 
+            ""ilfilm14"", ""ilfilm16"", ""ilfilm18"", ""ilfilmUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            ilfilm_rating = content_rating.get(""ilfilmRating"")
+            
+            if ilfilm_rating is None:
+                return 0  # Attribute does not exist
+            
+            if ilfilm_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,ilfilmRating,items.contentDetails.contentRating.ilfilmRating,"The video's rating in Israel. schema: {""enum"": [""ilfilmUnspecified"", ""ilfilmAa"", ""ilfilm12"", ""ilfilm14"", ""ilfilm16"", ""ilfilm18"", ""ilfilmUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,mpaaRating,items.contentDetails.contentRating.mpaaRating,The video's Motion Picture Association of America (MPAA,1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items from the response
+        video_items = latest_response.get('items', [])
+        
+        # Define the allowed MPAA ratings
+        allowed_ratings = [
+            ""mpaaUnspecified"", ""mpaaG"", ""mpaaPg"", ""mpaaPg13"", 
+            ""mpaaR"", ""mpaaNc17"", ""mpaaX"", ""mpaaUnrated""
+        ]
+        
+        # Iterate over each video item to check the mpaaRating
+        for video in video_items:
+            content_details = video.get('contentDetails', {})
+            content_rating = content_details.get('contentRating', {})
+            mpaa_rating = content_rating.get('mpaaRating')
+            
+            # If mpaaRating is not present, return 0
+            if mpaa_rating is None:
+                return 0
+            
+            # Check if the mpaaRating is within the allowed values
+            if mpaa_rating not in allowed_ratings:
+                return -1
+        
+        # If all mpaaRatings are valid, return 1
+        return 1
+    
+    except Exception as e:
+        # In case of any exception, return -1 indicating failure
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,mpaaRating,items.contentDetails.contentRating.mpaaRating,"The video's Motion Picture Association of America (MPAA) rating. schema: {""enum"": [""mpaaUnspecified"", ""mpaaG"", ""mpaaPg"", ""mpaaPg13"", ""mpaaR"", ""mpaaNc17"", ""mpaaX"", ""mpaaUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoStatus,rejectionReason,items.status.rejectionReason,"This value explains why YouTube rejected an uploaded video. This property is only present if the uploadStatus property indicates that the upload was rejected, schema: {""type"": ""string"", ""enum"": [""copyright"", ""inappropriate"", ""duplicate"", ""termsOfUse"", ""uploaderAccountSuspended"", ""length"", ""claim"", ""uploaderAccountClosed"", ""trademark"", ""legal""]}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for item in items:
+            status = item.get(""status"", {})
+            rejection_reason = status.get(""rejectionReason"")
+            upload_status = status.get(""uploadStatus"")
+
+            # Check if rejectionReason is present only if uploadStatus is 'rejected'
+            if rejection_reason is not None:
+                if upload_status != ""rejected"":
+                    return -1
+
+                # Check if rejectionReason is one of the allowed enum values
+                allowed_reasons = [
+                    ""copyright"", ""inappropriate"", ""duplicate"", ""termsOfUse"",
+                    ""uploaderAccountSuspended"", ""length"", ""claim"",
+                    ""uploaderAccountClosed"", ""trademark"", ""legal""
+                ]
+                if rejection_reason not in allowed_reasons:
+                    return -1
+
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,VideoStatistics,likeCount,items.statistics.likeCount,"The number of users who have indicated that they liked the video by giving it a positive rating, schema: {""type"": ""string"", ""format"": ""uint64""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for item in items:
+            statistics = item.get(""statistics"", {})
+            like_count_str = statistics.get(""likeCount"", None)
+            if like_count_str is None:
+                return 0  # Attribute does not exist
+            like_count = int(like_count_str)
+            if like_count < 0:
+                return -1  # Constraint not satisfied: likeCount should be non-negative
+        return 1  # Constraint satisfied for all items
+    except ValueError:
+        return -1  # Constraint not satisfied: likeCount should be a valid integer
+",unknown,,,,,1
+get-/youtube/v3/videos,GeoPoint,latitude,items.recordingDetails.location.latitude,"Latitude in degrees, schema: {""type"": ""number"", ""format"": ""double""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for video in items:
+            recording_details = video.get(""recordingDetails"", {})
+            location = recording_details.get(""location"", {})
+            latitude = location.get(""latitude"", None)
+            
+            if latitude is None:
+                return 0  # Insufficient information to verify the constraint
+            
+            if not isinstance(latitude, (int, float)):
+                return -1  # Constraint not satisfied: latitude must be a number
+            
+        return 1  # Constraint satisfied for all items
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,cbfcRating,items.contentDetails.contentRating.cbfcRating,The video's Central Board of Film Certification (CBFC - India,1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [""cbfcUnspecified"", ""cbfcU"", ""cbfcUA"", ""cbfcA"", ""cbfcS"", ""cbfcUnrated""]
+        items = latest_response.get(""items"", [])
+        
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            cbfc_rating = content_rating.get(""cbfcRating"")
+            
+            if cbfc_rating is None:
+                return 0  # Attribute does not exist
+            
+            if cbfc_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,cbfcRating,items.contentDetails.contentRating.cbfcRating,"The video's Central Board of Film Certification (CBFC - India) rating. schema: {""enum"": [""cbfcUnspecified"", ""cbfcU"", ""cbfcUA"", ""cbfcA"", ""cbfcS"", ""cbfcUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoContentDetails,caption,items.contentDetails.caption,"The value of captions indicates whether the video has captions or not, schema: {""type"": ""string"", ""enum"": [""true"", ""false""]}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for video in items:
+            content_details = video.get('contentDetails', {})
+            caption = content_details.get('caption')
+            if caption is None:
+                return 0  # Attribute does not exist
+            if caption not in [""true"", ""false""]:
+                return -1  # Constraint not satisfied
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,mdaRating,items.contentDetails.contentRating.mdaRating,The video's rating from Singapore's Media Development Authority (MDA,1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get('items', [])
+        
+        # Define the allowed enum values for mdaRating
+        allowed_mda_ratings = [
+            ""mdaUnspecified"", ""mdaG"", ""mdaPg"", ""mdaPg13"", 
+            ""mdaNc16"", ""mdaM18"", ""mdaR21"", ""mdaUnrated""
+        ]
+        
+        # Iterate over each video item to check the mdaRating
+        for video in video_items:
+            content_details = video.get('contentDetails', {})
+            content_rating = content_details.get('contentRating', {})
+            mda_rating = content_rating.get('mdaRating')
+            
+            # Check if mdaRating exists
+            if mda_rating is None:
+                return 0  # Insufficient information to verify
+            
+            # Check if mdaRating is within the allowed enum values
+            if mda_rating not in allowed_mda_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,mdaRating,items.contentDetails.contentRating.mdaRating,"The video's rating from Singapore's Media Development Authority (MDA) and, specifically, it's Board of Film Censors (BFC). schema: {""enum"": [""mdaUnspecified"", ""mdaG"", ""mdaPg"", ""mdaPg13"", ""mdaNc16"", ""mdaM18"", ""mdaR21"", ""mdaUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,nfrcRating,items.contentDetails.contentRating.nfrcRating,"The video's rating from the Bulgarian National Film Center, schema: {""type"": ""string"", ""enum"": [""nfrcUnspecified"", ""nfrcA"", ""nfrcB"", ""nfrcC"", ""nfrcD"", ""nfrcX"", ""nfrcUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [""nfrcUnspecified"", ""nfrcA"", ""nfrcB"", ""nfrcC"", ""nfrcD"", ""nfrcX"", ""nfrcUnrated""]
+        items = latest_response.get(""items"", [])
+        
+        for item in items:
+            nfrc_rating = item.get(""contentDetails"", {}).get(""contentRating"", {}).get(""nfrcRating"")
+            if nfrc_rating is None:
+                return 0  # Attribute does not exist
+            if nfrc_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,nfrcRating,items.contentDetails.contentRating.nfrcRating,"The video's rating from the Bulgarian National Film Center. schema: {""enum"": [""nfrcUnspecified"", ""nfrcA"", ""nfrcB"", ""nfrcC"", ""nfrcD"", ""nfrcX"", ""nfrcUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoFileDetailsVideoStream,rotation,items.fileDetails.videoStreams.rotation,"The amount that YouTube needs to rotate the original source content to properly display the video, schema: {""type"": ""string"", ""enum"": [""none"", ""clockwise"", ""upsideDown"", ""counterClockwise"", ""other""]}",1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get(""items"", [])
+        
+        # Iterate over each video item
+        for video in video_items:
+            # Extract file details
+            file_details = video.get(""fileDetails"", {})
+            # Extract video streams
+            video_streams = file_details.get(""videoStreams"", [])
+            
+            # Iterate over each video stream
+            for stream in video_streams:
+                # Get the rotation value
+                rotation = stream.get(""rotation"")
+                
+                # Check if rotation is one of the allowed values
+                if rotation not in [""none"", ""clockwise"", ""upsideDown"", ""counterClockwise"", ""other""]:
+                    return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,moctwRating,items.contentDetails.contentRating.moctwRating,The video's rating from Taiwan's Ministry of Culture (文化部,1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get(""items"", [])
+        
+        # Define the allowed enum values for moctwRating
+        allowed_ratings = [
+            ""moctwUnspecified"", ""moctwG"", ""moctwP"", ""moctwPg"", 
+            ""moctwR"", ""moctwUnrated"", ""moctwR12"", ""moctwR15""
+        ]
+        
+        # Iterate over each video item to check the moctwRating
+        for video in video_items:
+            content_details = video.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            moctw_rating = content_rating.get(""moctwRating"")
+            
+            # If moctwRating is not present, return 0
+            if moctw_rating is None:
+                return 0
+            
+            # Check if the moctwRating is within the allowed enum values
+            if moctw_rating not in allowed_ratings:
+                return -1
+        
+        # If all moctwRatings are valid, return 1
+        return 1
+    
+    except Exception as e:
+        # In case of any unexpected error, return -1
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,moctwRating,items.contentDetails.contentRating.moctwRating,"The video's rating from Taiwan's Ministry of Culture (文化部). schema: {""enum"": [""moctwUnspecified"", ""moctwG"", ""moctwP"", ""moctwPg"", ""moctwR"", ""moctwUnrated"", ""moctwR12"", ""moctwR15""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,rteRating,items.contentDetails.contentRating.rteRating,"The video's rating from Ireland's Raidió Teilifís Éireann, schema: {""type"": ""string"", ""enum"": [""rteUnspecified"", ""rteGa"", ""rteCh"", ""rtePs"", ""rteMa"", ""rteUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            rte_rating = content_rating.get(""rteRating"", None)
+            
+            if rte_rating is None:
+                return 0  # Attribute does not exist
+            
+            if rte_rating not in [""rteUnspecified"", ""rteGa"", ""rteCh"", ""rtePs"", ""rteMa"", ""rteUnrated""]:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,rteRating,items.contentDetails.contentRating.rteRating,"The video's rating from Ireland's Raidió Teilifís Éireann. schema: {""enum"": [""rteUnspecified"", ""rteGa"", ""rteCh"", ""rtePs"", ""rteMa"", ""rteUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoFileDetailsVideoStream,vendor,items.fileDetails.videoStreams.vendor,"A value that uniquely identifies a video vendor. Typically, the value is a four-letter vendor code",0,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for video in items:
+            file_details = video.get(""fileDetails"", {})
+            audio_streams = file_details.get(""audioStreams"", [])
+            for stream in audio_streams:
+                vendor = stream.get(""vendor"")
+                if vendor is None:
+                    return 0  # Attribute does not exist
+                if not isinstance(vendor, str) or len(vendor) != 4:
+                    return -1  # Constraint not satisfied
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,0
+get-/youtube/v3/videos,ContentRating,cceRating,items.contentDetails.contentRating.cceRating,"The video's rating from Portugal's Comissão de Classificação de Espect´culos, schema: {""type"": ""string"", ""enum"": [""cceUnspecified"", ""cceM4"", ""cceM6"", ""cceM12"", ""cceM16"", ""cceM18"", ""cceUnrated"", ""cceM14""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [""cceUnspecified"", ""cceM4"", ""cceM6"", ""cceM12"", ""cceM16"", ""cceM18"", ""cceUnrated"", ""cceM14""]
+        items = latest_response.get(""items"", [])
+        
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            cce_rating = content_rating.get(""cceRating"")
+            
+            if cce_rating is None:
+                return 0  # Attribute does not exist
+            
+            if cce_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,cceRating,items.contentDetails.contentRating.cceRating,"The video's rating from Portugal's Comissão de Classificação de Espect´culos. schema: {""enum"": [""cceUnspecified"", ""cceM4"", ""cceM6"", ""cceM12"", ""cceM16"", ""cceM18"", ""cceUnrated"", ""cceM14""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,smaisRating,items.contentDetails.contentRating.smaisRating,"The video's rating in Iceland, schema: {""type"": ""string"", ""enum"": [""smaisUnspecified"", ""smaisL"", ""smais7"", ""smais12"", ""smais14"", ""smais16"", ""smais18"", ""smaisUnrated""]}",1,"def verify_latest_response(latest_response):
+    valid_ratings = [
+        ""smaisUnspecified"", ""smaisL"", ""smais7"", ""smais12"", 
+        ""smais14"", ""smais16"", ""smais18"", ""smaisUnrated""
+    ]
+    
+    try:
+        items = latest_response.get(""items"", [])
+        for item in items:
+            smais_rating = item.get(""contentDetails"", {}).get(""contentRating"", {}).get(""smaisRating"")
+            if smais_rating is None:
+                return 0
+            if smais_rating not in valid_ratings:
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,smaisRating,items.contentDetails.contentRating.smaisRating,"The video's rating in Iceland. schema: {""enum"": [""smaisUnspecified"", ""smaisL"", ""smais7"", ""smais12"", ""smais14"", ""smais16"", ""smais18"", ""smaisUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,grfilmRating,items.contentDetails.contentRating.grfilmRating,"The video's rating in Greece, schema: {""type"": ""string"", ""enum"": [""grfilmUnspecified"", ""grfilmK"", ""grfilmE"", ""grfilmK12"", ""grfilmK13"", ""grfilmK15"", ""grfilmK17"", ""grfilmK18"", ""grfilmUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""grfilmUnspecified"", ""grfilmK"", ""grfilmE"", ""grfilmK12"", 
+            ""grfilmK13"", ""grfilmK15"", ""grfilmK17"", ""grfilmK18"", ""grfilmUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            grfilm_rating = content_rating.get(""grfilmRating"")
+            
+            if grfilm_rating is None:
+                return 0
+            
+            if grfilm_rating not in valid_ratings:
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,grfilmRating,items.contentDetails.contentRating.grfilmRating,"The video's rating in Greece. schema: {""enum"": [""grfilmUnspecified"", ""grfilmK"", ""grfilmE"", ""grfilmK12"", ""grfilmK13"", ""grfilmK15"", ""grfilmK17"", ""grfilmK18"", ""grfilmUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,skfilmRating,items.contentDetails.contentRating.skfilmRating,"The video's rating in Slovakia, schema: {""type"": ""string"", ""enum"": [""skfilmUnspecified"", ""skfilmG"", ""skfilmP2"", ""skfilmP5"", ""skfilmP8"", ""skfilmUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [""skfilmUnspecified"", ""skfilmG"", ""skfilmP2"", ""skfilmP5"", ""skfilmP8"", ""skfilmUnrated""]
+        items = latest_response.get(""items"", [])
+        
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            skfilm_rating = content_rating.get(""skfilmRating"")
+            
+            if skfilm_rating is None:
+                return 0  # Attribute does not exist
+            
+            if skfilm_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,skfilmRating,items.contentDetails.contentRating.skfilmRating,"The video's rating in Slovakia. schema: {""enum"": [""skfilmUnspecified"", ""skfilmG"", ""skfilmP2"", ""skfilmP5"", ""skfilmP8"", ""skfilmUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoLiveStreamingDetails,actualStartTime,items.liveStreamingDetails.actualStartTime,"The time that the broadcast actually started. This value will not be available until the broadcast begins, schema: {""type"": ""string"", ""format"": ""date-time""}",1,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get('items', [])
+        for item in items:
+            live_streaming_details = item.get('liveStreamingDetails', {})
+            actual_start_time = live_streaming_details.get('actualStartTime', None)
+            
+            if actual_start_time is None:
+                return 0  # The attribute does not exist, insufficient information to verify
+            
+            # Check if actualStartTime is a valid date-time string
+            try:
+                datetime.fromisoformat(actual_start_time.replace('Z', '+00:00'))
+            except ValueError:
+                return -1  # The format is incorrect
+        
+        return 1  # All constraints are satisfied
+    except Exception as e:
+        return -1  # An error occurred, indicating a failure in constraint satisfaction
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,fcoRating,items.contentDetails.contentRating.fcoRating,"The video's rating from Hong Kong's Office for Film, Newspaper and Article Administration, schema: {""type"": ""string"", ""enum"": [""fcoUnspecified"", ""fcoI"", ""fcoIia"", ""fcoIib"", ""fcoIi"", ""fcoIii"", ""fcoUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get('items', [])
+        
+        # Define the allowed enum values for fcoRating
+        allowed_fco_ratings = [
+            ""fcoUnspecified"", ""fcoI"", ""fcoIia"", ""fcoIib"", ""fcoIi"", ""fcoIii"", ""fcoUnrated""
+        ]
+        
+        # Iterate over each video item to check the fcoRating
+        for video in video_items:
+            content_details = video.get('contentDetails', {})
+            content_rating = content_details.get('contentRating', {})
+            fco_rating = content_rating.get('fcoRating')
+            
+            # If fcoRating is not present, return 0
+            if fco_rating is None:
+                return 0
+            
+            # Check if fcoRating is within the allowed enum values
+            if fco_rating not in allowed_fco_ratings:
+                return -1
+        
+        # If all fcoRatings are valid, return 1
+        return 1
+    
+    except Exception as e:
+        # In case of any unexpected error, return -1
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,fcoRating,items.contentDetails.contentRating.fcoRating,"The video's rating from Hong Kong's Office for Film, Newspaper and Article Administration. schema: {""enum"": [""fcoUnspecified"", ""fcoI"", ""fcoIia"", ""fcoIib"", ""fcoIi"", ""fcoIii"", ""fcoUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoTopicDetails,topicIds,items.topicDetails.topicIds,"A list of Freebase topic IDs that are centrally associated with the video. These are topics that are centrally featured in the video, and it can be said that the video is mainly about each of these. You can retrieve information about each topic using the < a href=""http://wiki.freebase.com/wiki/Topic_API"">Freebase Topic API",1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'items' is in the response
+        if 'items' not in latest_response:
+            return 0
+        
+        # Iterate over each video item
+        for video in latest_response['items']:
+            # Check if 'topicDetails' is in the video
+            if 'topicDetails' not in video:
+                return 0
+            
+            # Check if 'topicIds' is in the topicDetails
+            if 'topicIds' not in video['topicDetails']:
+                return 0
+            
+            # Check if 'topicIds' is a list
+            topic_ids = video['topicDetails']['topicIds']
+            if not isinstance(topic_ids, list):
+                return -1
+            
+            # Check if each item in 'topicIds' is a string
+            for topic_id in topic_ids:
+                if not isinstance(topic_id, str):
+                    return -1
+        
+        # If all checks pass
+        return 1
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,bfvcRating,items.contentDetails.contentRating.bfvcRating,"The video's rating from Thailand's Board of Film and Video Censors, schema: {""type"": ""string"", ""enum"": [""bfvcUnspecified"", ""bfvcG"", ""bfvcE"", ""bfvc13"", ""bfvc15"", ""bfvc18"", ""bfvc20"", ""bfvcB"", ""bfvcUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""bfvcUnspecified"", ""bfvcG"", ""bfvcE"", ""bfvc13"", 
+            ""bfvc15"", ""bfvc18"", ""bfvc20"", ""bfvcB"", ""bfvcUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            bfvc_rating = content_rating.get(""bfvcRating"")
+            
+            if bfvc_rating is None:
+                return 0  # Attribute does not exist
+            
+            if bfvc_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,bfvcRating,items.contentDetails.contentRating.bfvcRating,"The video's rating from Thailand's Board of Film and Video Censors. schema: {""enum"": [""bfvcUnspecified"", ""bfvcG"", ""bfvcE"", ""bfvc13"", ""bfvc15"", ""bfvc18"", ""bfvc20"", ""bfvcB"", ""bfvcUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoFileDetailsVideoStream,bitrateBps,items.fileDetails.videoStreams.bitrateBps,"The video stream's bitrate, in bits per second, schema: {""type"": ""string"", ""format"": ""uint64""}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for video in items:
+            file_details = video.get(""fileDetails"", {})
+            bitrate_bps = file_details.get(""bitrateBps"", None)
+            
+            if bitrate_bps is None:
+                return 0  # Attribute does not exist
+            
+            # Check if bitrateBps is a string representation of a uint64
+            if not isinstance(bitrate_bps, str):
+                return -1  # Not a string
+            
+            try:
+                bitrate_value = int(bitrate_bps)
+                if bitrate_value < 0 or bitrate_value > 2**64 - 1:
+                    return -1  # Not within uint64 range
+            except ValueError:
+                return -1  # Not a valid integer string
+
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # An error occurred during verification
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,lsfRating,items.contentDetails.contentRating.lsfRating,"The video's rating from Indonesia's Lembaga Sensor Film, schema: {""type"": ""string"", ""enum"": [""lsfUnspecified"", ""lsfSu"", ""lsfA"", ""lsfBo"", ""lsf13"", ""lsfR"", ""lsf17"", ""lsfD"", ""lsf21"", ""lsfUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""lsfUnspecified"", ""lsfSu"", ""lsfA"", ""lsfBo"", ""lsf13"", 
+            ""lsfR"", ""lsf17"", ""lsfD"", ""lsf21"", ""lsfUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            lsf_rating = content_rating.get(""lsfRating"")
+            
+            if lsf_rating is None:
+                return 0
+            
+            if lsf_rating not in valid_ratings:
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,lsfRating,items.contentDetails.contentRating.lsfRating,"The video's rating from Indonesia's Lembaga Sensor Film. schema: {""enum"": [""lsfUnspecified"", ""lsfSu"", ""lsfA"", ""lsfBo"", ""lsf13"", ""lsfR"", ""lsf17"", ""lsfD"", ""lsf21"", ""lsfUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,VideoContentDetails,hasCustomThumbnail,items.contentDetails.hasCustomThumbnail,Indicates whether the video uploader has provided a custom thumbnail image for the video. This property is only visible to the video uploader,0,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'items' is in the response and is a list
+        if 'items' not in latest_response or not isinstance(latest_response['items'], list):
+            return 0
+        
+        for video in latest_response['items']:
+            # Check if 'contentDetails' is in the video object
+            if 'contentDetails' not in video:
+                return 0
+            
+            # Check if 'hasCustomThumbnail' is in 'contentDetails' and is a boolean
+            if 'hasCustomThumbnail' not in video['contentDetails']:
+                return 0
+            if not isinstance(video['contentDetails']['hasCustomThumbnail'], bool):
+                return -1
+        
+        # If all checks pass
+        return 1
+    except Exception as e:
+        # If any exception occurs, return -1 indicating failure
+        return -1
+",unknown,,,,,0
+get-/youtube/v3/videos,ContentRating,acbRating,items.contentDetails.contentRating.acbRating,"The video's Australian Classification Board (ACB) or Australian Communications and Media Authority (ACMA) rating. ACMA ratings are used to classify children's television programming. schema: {""enum"": [""acbUnspecified"", ""acbE"", ""acbP"", ""acbC"", ""acbG"", ""acbPg"", ""acbM"", ""acbMa15plus"", ""acbR18plus"", ""acbUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,agcomRating,items.contentDetails.contentRating.agcomRating,"The video's rating from Italy's Autorità per le Garanzie nelle Comunicazioni (AGCOM). schema: {""enum"": [""agcomUnspecified"", ""agcomT"", ""agcomVm14"", ""agcomVm18"", ""agcomUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,anatelRating,items.contentDetails.contentRating.anatelRating,"The video's Anatel (Asociación Nacional de Televisión) rating for Chilean television. schema: {""enum"": [""anatelUnspecified"", ""anatelF"", ""anatelI"", ""anatelI7"", ""anatelI10"", ""anatelI12"", ""anatelR"", ""anatelA"", ""anatelUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,bbfcRating,items.contentDetails.contentRating.bbfcRating,"The video's British Board of Film Classification (BBFC) rating. schema: {""enum"": [""bbfcUnspecified"", ""bbfcU"", ""bbfcPg"", ""bbfc12a"", ""bbfc12"", ""bbfc15"", ""bbfc18"", ""bbfcR18"", ""bbfcUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,bfvcRating,items.contentDetails.contentRating.bfvcRating,"The video's rating from Thailand's Board of Film and Video Censors, schema: {""type"": ""string"", ""enum"": [""bfvcUnspecified"", ""bfvcG"", ""bfvcE"", ""bfvc13"", ""bfvc15"", ""bfvc18"", ""bfvc20"", ""bfvcB"", ""bfvcUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""bfvcUnspecified"", ""bfvcG"", ""bfvcE"", ""bfvc13"", 
+            ""bfvc15"", ""bfvc18"", ""bfvc20"", ""bfvcB"", ""bfvcUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            bfvc_rating = content_rating.get(""bfvcRating"")
+            
+            if bfvc_rating is None:
+                return 0  # Attribute does not exist
+            
+            if bfvc_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,bfvcRating,items.contentDetails.contentRating.bfvcRating,"The video's rating from Thailand's Board of Film and Video Censors. schema: {""enum"": [""bfvcUnspecified"", ""bfvcG"", ""bfvcE"", ""bfvc13"", ""bfvc15"", ""bfvc18"", ""bfvc20"", ""bfvcB"", ""bfvcUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,bmukkRating,items.contentDetails.contentRating.bmukkRating,"The video's rating from the Austrian Board of Media Classification (Bundesministerium für Unterricht, Kunst und Kultur). schema: {""enum"": [""bmukkUnspecified"", ""bmukkAa"", ""bmukk6"", ""bmukk8"", ""bmukk10"", ""bmukk12"", ""bmukk14"", ""bmukk16"", ""bmukkUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,catvRating,items.contentDetails.contentRating.catvRating,Rating system for Canadian TV - Canadian TV Classification System The video's rating from the Canadian Radio-Television and Telecommunications Commission (CRTC,1,"def verify_latest_response(latest_response):
+    try:
+        # Define the allowed enum values for catvRating
+        allowed_values = [
+            ""catvUnspecified"", ""catvC"", ""catvC8"", ""catvG"", 
+            ""catvPg"", ""catv14plus"", ""catv18plus"", ""catvUnrated"", ""catvE""
+        ]
+        
+        # Check if 'items' key exists in the response
+        if 'items' not in latest_response:
+            return 0
+        
+        # Iterate over each video item in the response
+        for video in latest_response['items']:
+            # Check if 'contentDetails' and 'contentRating' keys exist
+            if 'contentDetails' not in video or 'contentRating' not in video['contentDetails']:
+                return 0
+            
+            # Get the catvRating value
+            catv_rating = video['contentDetails']['contentRating'].get('catvRating')
+            
+            # Check if catvRating exists
+            if catv_rating is None:
+                return 0
+            
+            # Verify if the catvRating is within the allowed enum values
+            if catv_rating not in allowed_values:
+                return -1
+        
+        # If all checks pass
+        return 1
+    
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,catvRating,items.contentDetails.contentRating.catvRating,"Rating system for Canadian TV - Canadian TV Classification System The video's rating from the Canadian Radio-Television and Telecommunications Commission (CRTC) for Canadian English-language broadcasts. For more information, see the Canadian Broadcast Standards Council website. schema: {""enum"": [""catvUnspecified"", ""catvC"", ""catvC8"", ""catvG"", ""catvPg"", ""catv14plus"", ""catv18plus"", ""catvUnrated"", ""catvE""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,catvfrRating,items.contentDetails.contentRating.catvfrRating,"The video's rating from the Canadian Radio-Television and Telecommunications Commission (CRTC) for Canadian French-language broadcasts. For more information, see the Canadian Broadcast Standards Council website. schema: {""enum"": [""catvfrUnspecified"", ""catvfrG"", ""catvfr8plus"", ""catvfr13plus"", ""catvfr16plus"", ""catvfr18plus"", ""catvfrUnrated"", ""catvfrE""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,cbfcRating,items.contentDetails.contentRating.cbfcRating,The video's Central Board of Film Certification (CBFC - India,1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [""cbfcUnspecified"", ""cbfcU"", ""cbfcUA"", ""cbfcA"", ""cbfcS"", ""cbfcUnrated""]
+        items = latest_response.get(""items"", [])
+        
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            cbfc_rating = content_rating.get(""cbfcRating"")
+            
+            if cbfc_rating is None:
+                return 0  # Attribute does not exist
+            
+            if cbfc_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,cbfcRating,items.contentDetails.contentRating.cbfcRating,"The video's Central Board of Film Certification (CBFC - India) rating. schema: {""enum"": [""cbfcUnspecified"", ""cbfcU"", ""cbfcUA"", ""cbfcA"", ""cbfcS"", ""cbfcUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,cccRating,items.contentDetails.contentRating.cccRating,"The video's Consejo de Calificación Cinematográfica (Chile) rating. schema: {""enum"": [""cccUnspecified"", ""cccTe"", ""ccc6"", ""ccc14"", ""ccc18"", ""ccc18v"", ""ccc18s"", ""cccUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,cceRating,items.contentDetails.contentRating.cceRating,"The video's rating from Portugal's Comissão de Classificação de Espect´culos, schema: {""type"": ""string"", ""enum"": [""cceUnspecified"", ""cceM4"", ""cceM6"", ""cceM12"", ""cceM16"", ""cceM18"", ""cceUnrated"", ""cceM14""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [""cceUnspecified"", ""cceM4"", ""cceM6"", ""cceM12"", ""cceM16"", ""cceM18"", ""cceUnrated"", ""cceM14""]
+        items = latest_response.get(""items"", [])
+        
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            cce_rating = content_rating.get(""cceRating"")
+            
+            if cce_rating is None:
+                return 0  # Attribute does not exist
+            
+            if cce_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,cceRating,items.contentDetails.contentRating.cceRating,"The video's rating from Portugal's Comissão de Classificação de Espect´culos. schema: {""enum"": [""cceUnspecified"", ""cceM4"", ""cceM6"", ""cceM12"", ""cceM16"", ""cceM18"", ""cceUnrated"", ""cceM14""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,chfilmRating,items.contentDetails.contentRating.chfilmRating,"The video's rating in Switzerland, schema: {""type"": ""string"", ""enum"": [""chfilmUnspecified"", ""chfilm0"", ""chfilm6"", ""chfilm12"", ""chfilm16"", ""chfilm18"", ""chfilmUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""chfilmUnspecified"", ""chfilm0"", ""chfilm6"", 
+            ""chfilm12"", ""chfilm16"", ""chfilm18"", ""chfilmUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            chfilm_rating = content_rating.get(""chfilmRating"")
+            
+            if chfilm_rating is None:
+                return 0  # Attribute does not exist
+            
+            if chfilm_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,chfilmRating,items.contentDetails.contentRating.chfilmRating,"The video's rating in Switzerland. schema: {""enum"": [""chfilmUnspecified"", ""chfilm0"", ""chfilm6"", ""chfilm12"", ""chfilm16"", ""chfilm18"", ""chfilmUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,chvrsRating,items.contentDetails.contentRating.chvrsRating,"The video's Canadian Home Video Rating System (CHVRS) rating. schema: {""enum"": [""chvrsUnspecified"", ""chvrsG"", ""chvrsPg"", ""chvrs14a"", ""chvrs18a"", ""chvrsR"", ""chvrsE"", ""chvrsUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,cicfRating,items.contentDetails.contentRating.cicfRating,"The video's rating from the Commission de Contrôle des Films (Belgium). schema: {""enum"": [""cicfUnspecified"", ""cicfE"", ""cicfKtEa"", ""cicfKntEna"", ""cicfUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,cnaRating,items.contentDetails.contentRating.cnaRating,"The video's rating from Romania's CONSILIUL NATIONAL AL AUDIOVIZUALULUI (CNA). schema: {""enum"": [""cnaUnspecified"", ""cnaAp"", ""cna12"", ""cna15"", ""cna18"", ""cna18plus"", ""cnaUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,cncRating,items.contentDetails.contentRating.cncRating,"Rating system in France - Commission de classification cinematographique, schema: {""type"": ""string"", ""enum"": [""cncUnspecified"", ""cncT"", ""cnc10"", ""cnc12"", ""cnc16"", ""cnc18"", ""cncE"", ""cncInterdiction"", ""cncUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_values = [
+            ""cncUnspecified"", ""cncT"", ""cnc10"", ""cnc12"", 
+            ""cnc16"", ""cnc18"", ""cncE"", ""cncInterdiction"", ""cncUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            cnc_rating = content_rating.get(""cncRating"")
+            
+            if cnc_rating is None:
+                return 0  # Attribute does not exist
+            
+            if cnc_rating not in valid_values:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,cncRating,items.contentDetails.contentRating.cncRating,"Rating system in France - Commission de classification cinematographique schema: {""enum"": [""cncUnspecified"", ""cncT"", ""cnc10"", ""cnc12"", ""cnc16"", ""cnc18"", ""cncE"", ""cncInterdiction"", ""cncUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,csaRating,items.contentDetails.contentRating.csaRating,"The video's rating from France's Conseil supérieur de l’audiovisuel, which rates broadcast content, schema: {""type"": ""string"", ""enum"": [""csaUnspecified"", ""csaT"", ""csa10"", ""csa12"", ""csa16"", ""csa18"", ""csaInterdiction"", ""csaUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get('items', [])
+        
+        # Define the allowed enum values for csaRating
+        allowed_csa_ratings = [
+            ""csaUnspecified"", ""csaT"", ""csa10"", ""csa12"", 
+            ""csa16"", ""csa18"", ""csaInterdiction"", ""csaUnrated""
+        ]
+        
+        # Iterate over each video item to check the csaRating
+        for video in video_items:
+            content_details = video.get('contentDetails', {})
+            content_rating = content_details.get('contentRating', {})
+            csa_rating = content_rating.get('csaRating')
+            
+            # If csaRating is not present, return 0
+            if csa_rating is None:
+                return 0
+            
+            # Check if the csaRating is within the allowed enum values
+            if csa_rating not in allowed_csa_ratings:
+                return -1
+        
+        # If all csaRatings are valid, return 1
+        return 1
+    
+    except Exception as e:
+        # In case of any unexpected error, return -1
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,csaRating,items.contentDetails.contentRating.csaRating,"The video's rating from France's Conseil supérieur de l’audiovisuel, which rates broadcast content. schema: {""enum"": [""csaUnspecified"", ""csaT"", ""csa10"", ""csa12"", ""csa16"", ""csa18"", ""csaInterdiction"", ""csaUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,cscfRating,items.contentDetails.contentRating.cscfRating,"The video's rating from Luxembourg's Commission de surveillance de la classification des films (CSCF). schema: {""enum"": [""cscfUnspecified"", ""cscfAl"", ""cscfA"", ""cscf6"", ""cscf9"", ""cscf12"", ""cscf16"", ""cscf18"", ""cscfUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,czfilmRating,items.contentDetails.contentRating.czfilmRating,"The video's rating in the Czech Republic. schema: {""enum"": [""czfilmUnspecified"", ""czfilmU"", ""czfilm12"", ""czfilm14"", ""czfilm18"", ""czfilmUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,djctqRating,items.contentDetails.contentRating.djctqRating,"The video's Departamento de Justiça, Classificação, Qualificação e Títulos (DJCQT - Brazil) rating. schema: {""enum"": [""djctqUnspecified"", ""djctqL"", ""djctq10"", ""djctq12"", ""djctq14"", ""djctq16"", ""djctq18"", ""djctqEr"", ""djctqL10"", ""djctqL12"", ""djctqL14"", ""djctqL16"", ""djctqL18"", ""djctq1012"", ""djctq1014"", ""djctq1016"", ""djctq1018"", ""djctq1214"", ""djctq1216"", ""djctq1218"", ""djctq1416"", ""djctq1418"", ""djctq1618"", ""djctqUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,djctqRatingReasons,items.contentDetails.contentRating.djctqRatingReasons,"Reasons that explain why the video received its DJCQT (Brazil) rating. schema: {""type"": ""array""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,ecbmctRating,items.contentDetails.contentRating.ecbmctRating,"Rating system in Turkey - Evaluation and Classification Board of the Ministry of Culture and Tourism, schema: {""type"": ""string"", ""enum"": [""ecbmctUnspecified"", ""ecbmctG"", ""ecbmct7a"", ""ecbmct7plus"", ""ecbmct13a"", ""ecbmct13plus"", ""ecbmct15a"", ""ecbmct15plus"", ""ecbmct18plus"", ""ecbmctUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get(""items"", [])
+        
+        # Define the allowed enum values for ecbmctRating
+        allowed_values = [
+            ""ecbmctUnspecified"", ""ecbmctG"", ""ecbmct7a"", ""ecbmct7plus"", 
+            ""ecbmct13a"", ""ecbmct13plus"", ""ecbmct15a"", ""ecbmct15plus"", 
+            ""ecbmct18plus"", ""ecbmctUnrated""
+        ]
+        
+        # Iterate over each video item to check the ecbmctRating
+        for video in video_items:
+            content_details = video.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            ecbmct_rating = content_rating.get(""ecbmctRating"")
+            
+            # If ecbmctRating is not present, return 0
+            if ecbmct_rating is None:
+                return 0
+            
+            # Check if the ecbmctRating is within the allowed values
+            if ecbmct_rating not in allowed_values:
+                return -1
+        
+        # If all ratings are valid, return 1
+        return 1
+    
+    except Exception as e:
+        # In case of any exception, return -1
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,ecbmctRating,items.contentDetails.contentRating.ecbmctRating,"Rating system in Turkey - Evaluation and Classification Board of the Ministry of Culture and Tourism schema: {""enum"": [""ecbmctUnspecified"", ""ecbmctG"", ""ecbmct7a"", ""ecbmct7plus"", ""ecbmct13a"", ""ecbmct13plus"", ""ecbmct15a"", ""ecbmct15plus"", ""ecbmct18plus"", ""ecbmctUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,eefilmRating,items.contentDetails.contentRating.eefilmRating,"The video's rating in Estonia. schema: {""enum"": [""eefilmUnspecified"", ""eefilmPere"", ""eefilmL"", ""eefilmMs6"", ""eefilmK6"", ""eefilmMs12"", ""eefilmK12"", ""eefilmK14"", ""eefilmK16"", ""eefilmUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,egfilmRating,items.contentDetails.contentRating.egfilmRating,"The video's rating in Egypt, schema: {""type"": ""string"", ""enum"": [""egfilmUnspecified"", ""egfilmGn"", ""egfilm18"", ""egfilmBn"", ""egfilmUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = {""egfilmUnspecified"", ""egfilmGn"", ""egfilm18"", ""egfilmBn"", ""egfilmUnrated""}
+        items = latest_response.get(""items"", [])
+        
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            egfilm_rating = content_rating.get(""egfilmRating"")
+            
+            if egfilm_rating is None:
+                return 0  # Attribute does not exist
+            
+            if egfilm_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,egfilmRating,items.contentDetails.contentRating.egfilmRating,"The video's rating in Egypt. schema: {""enum"": [""egfilmUnspecified"", ""egfilmGn"", ""egfilm18"", ""egfilmBn"", ""egfilmUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,eirinRating,items.contentDetails.contentRating.eirinRating,"The video's Eirin (映倫) rating. Eirin is the Japanese rating system. schema: {""enum"": [""eirinUnspecified"", ""eirinG"", ""eirinPg12"", ""eirinR15plus"", ""eirinR18plus"", ""eirinUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,fcbmRating,items.contentDetails.contentRating.fcbmRating,"The video's rating from Malaysia's Film Censorship Board, schema: {""type"": ""string"", ""enum"": [""fcbmUnspecified"", ""fcbmU"", ""fcbmPg13"", ""fcbmP13"", ""fcbm18"", ""fcbm18sx"", ""fcbm18pa"", ""fcbm18sg"", ""fcbm18pl"", ""fcbmUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""fcbmUnspecified"", ""fcbmU"", ""fcbmPg13"", ""fcbmP13"", 
+            ""fcbm18"", ""fcbm18sx"", ""fcbm18pa"", ""fcbm18sg"", 
+            ""fcbm18pl"", ""fcbmUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            fcbm_rating = content_rating.get(""fcbmRating"")
+            
+            if fcbm_rating is None:
+                return 0  # Attribute does not exist
+            
+            if fcbm_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,fcbmRating,items.contentDetails.contentRating.fcbmRating,"The video's rating from Malaysia's Film Censorship Board. schema: {""enum"": [""fcbmUnspecified"", ""fcbmU"", ""fcbmPg13"", ""fcbmP13"", ""fcbm18"", ""fcbm18sx"", ""fcbm18pa"", ""fcbm18sg"", ""fcbm18pl"", ""fcbmUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,fcoRating,items.contentDetails.contentRating.fcoRating,"The video's rating from Hong Kong's Office for Film, Newspaper and Article Administration, schema: {""type"": ""string"", ""enum"": [""fcoUnspecified"", ""fcoI"", ""fcoIia"", ""fcoIib"", ""fcoIi"", ""fcoIii"", ""fcoUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get('items', [])
+        
+        # Define the allowed enum values for fcoRating
+        allowed_fco_ratings = [
+            ""fcoUnspecified"", ""fcoI"", ""fcoIia"", ""fcoIib"", ""fcoIi"", ""fcoIii"", ""fcoUnrated""
+        ]
+        
+        # Iterate over each video item to check the fcoRating
+        for video in video_items:
+            content_details = video.get('contentDetails', {})
+            content_rating = content_details.get('contentRating', {})
+            fco_rating = content_rating.get('fcoRating')
+            
+            # If fcoRating is not present, return 0
+            if fco_rating is None:
+                return 0
+            
+            # Check if fcoRating is within the allowed enum values
+            if fco_rating not in allowed_fco_ratings:
+                return -1
+        
+        # If all fcoRatings are valid, return 1
+        return 1
+    
+    except Exception as e:
+        # In case of any unexpected error, return -1
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,fcoRating,items.contentDetails.contentRating.fcoRating,"The video's rating from Hong Kong's Office for Film, Newspaper and Article Administration. schema: {""enum"": [""fcoUnspecified"", ""fcoI"", ""fcoIia"", ""fcoIib"", ""fcoIi"", ""fcoIii"", ""fcoUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,fmocRating,items.contentDetails.contentRating.fmocRating,"This property has been deprecated. Use the contentDetails.contentRating.cncRating instead, schema: {""type"": ""string"", ""enum"": [""fmocUnspecified"", ""fmocU"", ""fmoc10"", ""fmoc12"", ""fmoc16"", ""fmoc18"", ""fmocE"", ""fmocUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            fmoc_rating = content_rating.get(""fmocRating"", None)
+            
+            if fmoc_rating is None:
+                return 0  # Attribute does not exist
+            
+            valid_enum = [
+                ""fmocUnspecified"", ""fmocU"", ""fmoc10"", ""fmoc12"", 
+                ""fmoc16"", ""fmoc18"", ""fmocE"", ""fmocUnrated""
+            ]
+            
+            if fmoc_rating not in valid_enum:
+                return -1  # Constraint not satisfied
+            
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,fmocRating,items.contentDetails.contentRating.fmocRating,"This property has been deprecated. Use the contentDetails.contentRating.cncRating instead. schema: {""enum"": [""fmocUnspecified"", ""fmocU"", ""fmoc10"", ""fmoc12"", ""fmoc16"", ""fmoc18"", ""fmocE"", ""fmocUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,fpbRating,items.contentDetails.contentRating.fpbRating,"The video's rating from South Africa's Film and Publication Board, schema: {""type"": ""string"", ""enum"": [""fpbUnspecified"", ""fpbA"", ""fpbPg"", ""fpb79Pg"", ""fpb1012Pg"", ""fpb13"", ""fpb16"", ""fpb18"", ""fpbX18"", ""fpbXx"", ""fpbUnrated"", ""fpb10""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""fpbUnspecified"", ""fpbA"", ""fpbPg"", ""fpb79Pg"", ""fpb1012Pg"", 
+            ""fpb13"", ""fpb16"", ""fpb18"", ""fpbX18"", ""fpbXx"", ""fpbUnrated"", ""fpb10""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            fpb_rating = content_rating.get(""fpbRating"")
+            
+            if fpb_rating is None:
+                return 0  # Attribute does not exist
+            
+            if fpb_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,fpbRating,items.contentDetails.contentRating.fpbRating,"The video's rating from South Africa's Film and Publication Board. schema: {""enum"": [""fpbUnspecified"", ""fpbA"", ""fpbPg"", ""fpb79Pg"", ""fpb1012Pg"", ""fpb13"", ""fpb16"", ""fpb18"", ""fpbX18"", ""fpbXx"", ""fpbUnrated"", ""fpb10""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,fpbRatingReasons,items.contentDetails.contentRating.fpbRatingReasons,"Reasons that explain why the video received its FPB (South Africa) rating. schema: {""type"": ""array""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,fskRating,items.contentDetails.contentRating.fskRating,The video's Freiwillige Selbstkontrolle der Filmwirtschaft (FSK - Germany,1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get('items', [])
+        
+        # Define the allowed enum values for fskRating
+        allowed_fsk_ratings = [""fskUnspecified"", ""fsk0"", ""fsk6"", ""fsk12"", ""fsk16"", ""fsk18"", ""fskUnrated""]
+        
+        # Iterate over each video item to check the fskRating
+        for video in video_items:
+            content_details = video.get('contentDetails', {})
+            content_rating = content_details.get('contentRating', {})
+            fsk_rating = content_rating.get('fskRating')
+            
+            # Check if fskRating exists
+            if fsk_rating is None:
+                return 0  # Insufficient information to verify
+            
+            # Check if fskRating is within the allowed enum values
+            if fsk_rating not in allowed_fsk_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,fskRating,items.contentDetails.contentRating.fskRating,"The video's Freiwillige Selbstkontrolle der Filmwirtschaft (FSK - Germany) rating. schema: {""enum"": [""fskUnspecified"", ""fsk0"", ""fsk6"", ""fsk12"", ""fsk16"", ""fsk18"", ""fskUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,grfilmRating,items.contentDetails.contentRating.grfilmRating,"The video's rating in Greece, schema: {""type"": ""string"", ""enum"": [""grfilmUnspecified"", ""grfilmK"", ""grfilmE"", ""grfilmK12"", ""grfilmK13"", ""grfilmK15"", ""grfilmK17"", ""grfilmK18"", ""grfilmUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""grfilmUnspecified"", ""grfilmK"", ""grfilmE"", ""grfilmK12"", 
+            ""grfilmK13"", ""grfilmK15"", ""grfilmK17"", ""grfilmK18"", ""grfilmUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            grfilm_rating = content_rating.get(""grfilmRating"")
+            
+            if grfilm_rating is None:
+                return 0
+            
+            if grfilm_rating not in valid_ratings:
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,grfilmRating,items.contentDetails.contentRating.grfilmRating,"The video's rating in Greece. schema: {""enum"": [""grfilmUnspecified"", ""grfilmK"", ""grfilmE"", ""grfilmK12"", ""grfilmK13"", ""grfilmK15"", ""grfilmK17"", ""grfilmK18"", ""grfilmUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,icaaRating,items.contentDetails.contentRating.icaaRating,"The video's Instituto de la Cinematografía y de las Artes Audiovisuales (ICAA - Spain) rating. schema: {""enum"": [""icaaUnspecified"", ""icaaApta"", ""icaa7"", ""icaa12"", ""icaa13"", ""icaa16"", ""icaa18"", ""icaaX"", ""icaaUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,ifcoRating,items.contentDetails.contentRating.ifcoRating,The video's Irish Film Classification Office (IFCO - Ireland,1,"def verify_latest_response(latest_response):
+    try:
+        valid_ifco_ratings = [
+            ""ifcoUnspecified"", ""ifcoG"", ""ifcoPg"", ""ifco12"", ""ifco12a"", 
+            ""ifco15"", ""ifco15a"", ""ifco16"", ""ifco18"", ""ifcoUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            ifco_rating = content_rating.get(""ifcoRating"")
+            
+            if ifco_rating is None:
+                return 0  # Attribute does not exist
+            
+            if ifco_rating not in valid_ifco_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,ifcoRating,items.contentDetails.contentRating.ifcoRating,"The video's Irish Film Classification Office (IFCO - Ireland) rating. See the IFCO website for more information. schema: {""enum"": [""ifcoUnspecified"", ""ifcoG"", ""ifcoPg"", ""ifco12"", ""ifco12a"", ""ifco15"", ""ifco15a"", ""ifco16"", ""ifco18"", ""ifcoUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,ilfilmRating,items.contentDetails.contentRating.ilfilmRating,"The video's rating in Israel, schema: {""type"": ""string"", ""enum"": [""ilfilmUnspecified"", ""ilfilmAa"", ""ilfilm12"", ""ilfilm14"", ""ilfilm16"", ""ilfilm18"", ""ilfilmUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""ilfilmUnspecified"", ""ilfilmAa"", ""ilfilm12"", 
+            ""ilfilm14"", ""ilfilm16"", ""ilfilm18"", ""ilfilmUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            ilfilm_rating = content_rating.get(""ilfilmRating"")
+            
+            if ilfilm_rating is None:
+                return 0  # Attribute does not exist
+            
+            if ilfilm_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,ilfilmRating,items.contentDetails.contentRating.ilfilmRating,"The video's rating in Israel. schema: {""enum"": [""ilfilmUnspecified"", ""ilfilmAa"", ""ilfilm12"", ""ilfilm14"", ""ilfilm16"", ""ilfilm18"", ""ilfilmUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,incaaRating,items.contentDetails.contentRating.incaaRating,"The video's INCAA (Instituto Nacional de Cine y Artes Audiovisuales - Argentina) rating. schema: {""enum"": [""incaaUnspecified"", ""incaaAtp"", ""incaaSam13"", ""incaaSam16"", ""incaaSam18"", ""incaaC"", ""incaaUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,kfcbRating,items.contentDetails.contentRating.kfcbRating,"The video's rating from the Kenya Film Classification Board. schema: {""enum"": [""kfcbUnspecified"", ""kfcbG"", ""kfcbPg"", ""kfcb16plus"", ""kfcbR"", ""kfcbUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,kijkwijzerRating,items.contentDetails.contentRating.kijkwijzerRating,"The video's NICAM/Kijkwijzer rating from the Nederlands Instituut voor de Classificatie van Audiovisuele Media (Netherlands). schema: {""enum"": [""kijkwijzerUnspecified"", ""kijkwijzerAl"", ""kijkwijzer6"", ""kijkwijzer9"", ""kijkwijzer12"", ""kijkwijzer16"", ""kijkwijzer18"", ""kijkwijzerUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,kmrbRating,items.contentDetails.contentRating.kmrbRating,"The video's Korea Media Rating Board (영상물등급위원회) rating. The KMRB rates videos in South Korea. schema: {""enum"": [""kmrbUnspecified"", ""kmrbAll"", ""kmrb12plus"", ""kmrb15plus"", ""kmrbTeenr"", ""kmrbR"", ""kmrbUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,lsfRating,items.contentDetails.contentRating.lsfRating,"The video's rating from Indonesia's Lembaga Sensor Film, schema: {""type"": ""string"", ""enum"": [""lsfUnspecified"", ""lsfSu"", ""lsfA"", ""lsfBo"", ""lsf13"", ""lsfR"", ""lsf17"", ""lsfD"", ""lsf21"", ""lsfUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""lsfUnspecified"", ""lsfSu"", ""lsfA"", ""lsfBo"", ""lsf13"", 
+            ""lsfR"", ""lsf17"", ""lsfD"", ""lsf21"", ""lsfUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            lsf_rating = content_rating.get(""lsfRating"")
+            
+            if lsf_rating is None:
+                return 0
+            
+            if lsf_rating not in valid_ratings:
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,lsfRating,items.contentDetails.contentRating.lsfRating,"The video's rating from Indonesia's Lembaga Sensor Film. schema: {""enum"": [""lsfUnspecified"", ""lsfSu"", ""lsfA"", ""lsfBo"", ""lsf13"", ""lsfR"", ""lsf17"", ""lsfD"", ""lsf21"", ""lsfUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,mccaaRating,items.contentDetails.contentRating.mccaaRating,"The video's rating from Malta's Film Age-Classification Board, schema: {""type"": ""string"", ""enum"": [""mccaaUnspecified"", ""mccaaU"", ""mccaaPg"", ""mccaa12a"", ""mccaa12"", ""mccaa14"", ""mccaa15"", ""mccaa16"", ""mccaa18"", ""mccaaUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""mccaaUnspecified"", ""mccaaU"", ""mccaaPg"", ""mccaa12a"", 
+            ""mccaa12"", ""mccaa14"", ""mccaa15"", ""mccaa16"", ""mccaa18"", ""mccaaUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            mccaa_rating = item.get(""contentDetails"", {}).get(""contentRating"", {}).get(""mccaaRating"")
+            if mccaa_rating is None:
+                return 0
+            if mccaa_rating not in valid_ratings:
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,mccaaRating,items.contentDetails.contentRating.mccaaRating,"The video's rating from Malta's Film Age-Classification Board. schema: {""enum"": [""mccaaUnspecified"", ""mccaaU"", ""mccaaPg"", ""mccaa12a"", ""mccaa12"", ""mccaa14"", ""mccaa15"", ""mccaa16"", ""mccaa18"", ""mccaaUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,mccypRating,items.contentDetails.contentRating.mccypRating,"The video's rating from the Danish Film Institute's (Det Danske Filminstitut) Media Council for Children and Young People. schema: {""enum"": [""mccypUnspecified"", ""mccypA"", ""mccyp7"", ""mccyp11"", ""mccyp15"", ""mccypUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,mcstRating,items.contentDetails.contentRating.mcstRating,"The video's rating system for Vietnam - MCST, schema: {""type"": ""string"", ""enum"": [""mcstUnspecified"", ""mcstP"", ""mcst0"", ""mcstC13"", ""mcstC16"", ""mcst16plus"", ""mcstC18"", ""mcstGPg"", ""mcstUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_mcst_ratings = [
+            ""mcstUnspecified"", ""mcstP"", ""mcst0"", ""mcstC13"", 
+            ""mcstC16"", ""mcst16plus"", ""mcstC18"", ""mcstGPg"", ""mcstUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            mcst_rating = content_rating.get(""mcstRating"")
+            
+            if mcst_rating is None:
+                return 0  # Attribute does not exist
+            
+            if mcst_rating not in valid_mcst_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,mcstRating,items.contentDetails.contentRating.mcstRating,"The video's rating system for Vietnam - MCST schema: {""enum"": [""mcstUnspecified"", ""mcstP"", ""mcst0"", ""mcstC13"", ""mcstC16"", ""mcst16plus"", ""mcstC18"", ""mcstGPg"", ""mcstUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,mdaRating,items.contentDetails.contentRating.mdaRating,The video's rating from Singapore's Media Development Authority (MDA,1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get('items', [])
+        
+        # Define the allowed enum values for mdaRating
+        allowed_mda_ratings = [
+            ""mdaUnspecified"", ""mdaG"", ""mdaPg"", ""mdaPg13"", 
+            ""mdaNc16"", ""mdaM18"", ""mdaR21"", ""mdaUnrated""
+        ]
+        
+        # Iterate over each video item to check the mdaRating
+        for video in video_items:
+            content_details = video.get('contentDetails', {})
+            content_rating = content_details.get('contentRating', {})
+            mda_rating = content_rating.get('mdaRating')
+            
+            # Check if mdaRating exists
+            if mda_rating is None:
+                return 0  # Insufficient information to verify
+            
+            # Check if mdaRating is within the allowed enum values
+            if mda_rating not in allowed_mda_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,mdaRating,items.contentDetails.contentRating.mdaRating,"The video's rating from Singapore's Media Development Authority (MDA) and, specifically, it's Board of Film Censors (BFC). schema: {""enum"": [""mdaUnspecified"", ""mdaG"", ""mdaPg"", ""mdaPg13"", ""mdaNc16"", ""mdaM18"", ""mdaR21"", ""mdaUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,medietilsynetRating,items.contentDetails.contentRating.medietilsynetRating,"The video's rating from Medietilsynet, the Norwegian Media Authority. schema: {""enum"": [""medietilsynetUnspecified"", ""medietilsynetA"", ""medietilsynet6"", ""medietilsynet7"", ""medietilsynet9"", ""medietilsynet11"", ""medietilsynet12"", ""medietilsynet15"", ""medietilsynet18"", ""medietilsynetUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,mekuRating,items.contentDetails.contentRating.mekuRating,"The video's rating from Finland's Kansallinen Audiovisuaalinen Instituutti (National Audiovisual Institute). schema: {""enum"": [""mekuUnspecified"", ""mekuS"", ""meku7"", ""meku12"", ""meku16"", ""meku18"", ""mekuUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,menaMpaaRating,items.contentDetails.contentRating.menaMpaaRating,"The rating system for MENA countries, a clone of MPAA. It is needed to prevent titles go live w/o additional QC check, since some of them can be inappropriate for the countries at all. See b/33408548 for more details, schema: {""type"": ""string"", ""enum"": [""menaMpaaUnspecified"", ""menaMpaaG"", ""menaMpaaPg"", ""menaMpaaPg13"", ""menaMpaaR"", ""menaMpaaUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        # Define the allowed enum values for menaMpaaRating
+        allowed_values = [
+            ""menaMpaaUnspecified"", 
+            ""menaMpaaG"", 
+            ""menaMpaaPg"", 
+            ""menaMpaaPg13"", 
+            ""menaMpaaR"", 
+            ""menaMpaaUnrated""
+        ]
+        
+        # Check if 'items' key exists in the response
+        if 'items' not in latest_response:
+            return 0
+        
+        # Iterate over each video item in the response
+        for video in latest_response['items']:
+            # Check if 'contentDetails' and 'contentRating' keys exist
+            if 'contentDetails' not in video or 'contentRating' not in video['contentDetails']:
+                return 0
+            
+            # Get the menaMpaaRating value
+            mena_mpaa_rating = video['contentDetails']['contentRating'].get('menaMpaaRating')
+            
+            # Check if menaMpaaRating exists
+            if mena_mpaa_rating is None:
+                return 0
+            
+            # Verify if the menaMpaaRating is within the allowed enum values
+            if mena_mpaa_rating not in allowed_values:
+                return -1
+        
+        # If all checks pass
+        return 1
+    
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,menaMpaaRating,items.contentDetails.contentRating.menaMpaaRating,"The rating system for MENA countries, a clone of MPAA. It is needed to prevent titles go live w/o additional QC check, since some of them can be inappropriate for the countries at all. See b/33408548 for more details. schema: {""enum"": [""menaMpaaUnspecified"", ""menaMpaaG"", ""menaMpaaPg"", ""menaMpaaPg13"", ""menaMpaaR"", ""menaMpaaUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,mibacRating,items.contentDetails.contentRating.mibacRating,"The video's rating from the Ministero dei Beni e delle Attività Culturali e del Turismo (Italy). schema: {""enum"": [""mibacUnspecified"", ""mibacT"", ""mibacVap"", ""mibacVm12"", ""mibacVm14"", ""mibacVm18"", ""mibacUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,mocRating,items.contentDetails.contentRating.mocRating,"The video's Ministerio de Cultura (Colombia) rating. schema: {""enum"": [""mocUnspecified"", ""mocE"", ""mocT"", ""moc7"", ""moc12"", ""moc15"", ""moc18"", ""mocX"", ""mocBanned"", ""mocUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,moctwRating,items.contentDetails.contentRating.moctwRating,The video's rating from Taiwan's Ministry of Culture (文化部,1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get(""items"", [])
+        
+        # Define the allowed enum values for moctwRating
+        allowed_ratings = [
+            ""moctwUnspecified"", ""moctwG"", ""moctwP"", ""moctwPg"", 
+            ""moctwR"", ""moctwUnrated"", ""moctwR12"", ""moctwR15""
+        ]
+        
+        # Iterate over each video item to check the moctwRating
+        for video in video_items:
+            content_details = video.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            moctw_rating = content_rating.get(""moctwRating"")
+            
+            # If moctwRating is not present, return 0
+            if moctw_rating is None:
+                return 0
+            
+            # Check if the moctwRating is within the allowed enum values
+            if moctw_rating not in allowed_ratings:
+                return -1
+        
+        # If all moctwRatings are valid, return 1
+        return 1
+    
+    except Exception as e:
+        # In case of any unexpected error, return -1
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,moctwRating,items.contentDetails.contentRating.moctwRating,"The video's rating from Taiwan's Ministry of Culture (文化部). schema: {""enum"": [""moctwUnspecified"", ""moctwG"", ""moctwP"", ""moctwPg"", ""moctwR"", ""moctwUnrated"", ""moctwR12"", ""moctwR15""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,mpaaRating,items.contentDetails.contentRating.mpaaRating,The video's Motion Picture Association of America (MPAA,1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items from the response
+        video_items = latest_response.get('items', [])
+        
+        # Define the allowed MPAA ratings
+        allowed_ratings = [
+            ""mpaaUnspecified"", ""mpaaG"", ""mpaaPg"", ""mpaaPg13"", 
+            ""mpaaR"", ""mpaaNc17"", ""mpaaX"", ""mpaaUnrated""
+        ]
+        
+        # Iterate over each video item to check the mpaaRating
+        for video in video_items:
+            content_details = video.get('contentDetails', {})
+            content_rating = content_details.get('contentRating', {})
+            mpaa_rating = content_rating.get('mpaaRating')
+            
+            # If mpaaRating is not present, return 0
+            if mpaa_rating is None:
+                return 0
+            
+            # Check if the mpaaRating is within the allowed values
+            if mpaa_rating not in allowed_ratings:
+                return -1
+        
+        # If all mpaaRatings are valid, return 1
+        return 1
+    
+    except Exception as e:
+        # In case of any exception, return -1 indicating failure
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,mpaaRating,items.contentDetails.contentRating.mpaaRating,"The video's Motion Picture Association of America (MPAA) rating. schema: {""enum"": [""mpaaUnspecified"", ""mpaaG"", ""mpaaPg"", ""mpaaPg13"", ""mpaaR"", ""mpaaNc17"", ""mpaaX"", ""mpaaUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,mpaatRating,items.contentDetails.contentRating.mpaatRating,"The rating system for trailer, DVD, and Ad in the US. See http://movielabs.com/md/ratings/v2.3/html/US_MPAAT_Ratings.html, schema: {""type"": ""string"", ""enum"": [""mpaatUnspecified"", ""mpaatGb"", ""mpaatRb""]}",1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of video items
+        video_items = latest_response.get('items', [])
+        
+        # Define the allowed enum values for mpaatRating
+        allowed_mpaat_ratings = [""mpaatUnspecified"", ""mpaatGb"", ""mpaatRb""]
+        
+        # Iterate over each video item to check the mpaatRating
+        for video in video_items:
+            content_details = video.get('contentDetails', {})
+            content_rating = content_details.get('contentRating', {})
+            mpaat_rating = content_rating.get('mpaatRating')
+            
+            # Check if mpaatRating exists
+            if mpaat_rating is None:
+                return 0  # Insufficient information to verify
+            
+            # Check if mpaatRating is within the allowed enum values
+            if mpaat_rating not in allowed_mpaat_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied for all items
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,mpaatRating,items.contentDetails.contentRating.mpaatRating,"The rating system for trailer, DVD, and Ad in the US. See http://movielabs.com/md/ratings/v2.3/html/US_MPAAT_Ratings.html. schema: {""enum"": [""mpaatUnspecified"", ""mpaatGb"", ""mpaatRb""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,mtrcbRating,items.contentDetails.contentRating.mtrcbRating,The video's rating from the Movie and Television Review and Classification Board (Philippines,1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""mtrcbUnspecified"", ""mtrcbG"", ""mtrcbPg"", 
+            ""mtrcbR13"", ""mtrcbR16"", ""mtrcbR18"", 
+            ""mtrcbX"", ""mtrcbUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            mtrcb_rating = content_rating.get(""mtrcbRating"")
+            
+            if mtrcb_rating is None:
+                return 0  # Attribute does not exist
+            
+            if mtrcb_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,mtrcbRating,items.contentDetails.contentRating.mtrcbRating,"The video's rating from the Movie and Television Review and Classification Board (Philippines). schema: {""enum"": [""mtrcbUnspecified"", ""mtrcbG"", ""mtrcbPg"", ""mtrcbR13"", ""mtrcbR16"", ""mtrcbR18"", ""mtrcbX"", ""mtrcbUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,nbcRating,items.contentDetails.contentRating.nbcRating,"The video's rating from the Maldives National Bureau of Classification, schema: {""type"": ""string"", ""enum"": [""nbcUnspecified"", ""nbcG"", ""nbcPg"", ""nbc12plus"", ""nbc15plus"", ""nbc18plus"", ""nbc18plusr"", ""nbcPu"", ""nbcUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""nbcUnspecified"", ""nbcG"", ""nbcPg"", ""nbc12plus"", 
+            ""nbc15plus"", ""nbc18plus"", ""nbc18plusr"", ""nbcPu"", ""nbcUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            nbc_rating = content_rating.get(""nbcRating"")
+            
+            if nbc_rating is None:
+                return 0  # Attribute does not exist
+            
+            if nbc_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,nbcRating,items.contentDetails.contentRating.nbcRating,"The video's rating from the Maldives National Bureau of Classification. schema: {""enum"": [""nbcUnspecified"", ""nbcG"", ""nbcPg"", ""nbc12plus"", ""nbc15plus"", ""nbc18plus"", ""nbc18plusr"", ""nbcPu"", ""nbcUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,nbcplRating,items.contentDetails.contentRating.nbcplRating,"The video's rating in Poland, schema: {""type"": ""string"", ""enum"": [""nbcplUnspecified"", ""nbcplI"", ""nbcplIi"", ""nbcplIii"", ""nbcplIv"", ""nbcpl18plus"", ""nbcplUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""nbcplUnspecified"", ""nbcplI"", ""nbcplIi"", 
+            ""nbcplIii"", ""nbcplIv"", ""nbcpl18plus"", ""nbcplUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            nbcpl_rating = content_rating.get(""nbcplRating"")
+            
+            if nbcpl_rating is None:
+                return 0
+            
+            if nbcpl_rating not in valid_ratings:
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,nbcplRating,items.contentDetails.contentRating.nbcplRating,"The video's rating in Poland. schema: {""enum"": [""nbcplUnspecified"", ""nbcplI"", ""nbcplIi"", ""nbcplIii"", ""nbcplIv"", ""nbcpl18plus"", ""nbcplUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,nfrcRating,items.contentDetails.contentRating.nfrcRating,"The video's rating from the Bulgarian National Film Center, schema: {""type"": ""string"", ""enum"": [""nfrcUnspecified"", ""nfrcA"", ""nfrcB"", ""nfrcC"", ""nfrcD"", ""nfrcX"", ""nfrcUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [""nfrcUnspecified"", ""nfrcA"", ""nfrcB"", ""nfrcC"", ""nfrcD"", ""nfrcX"", ""nfrcUnrated""]
+        items = latest_response.get(""items"", [])
+        
+        for item in items:
+            nfrc_rating = item.get(""contentDetails"", {}).get(""contentRating"", {}).get(""nfrcRating"")
+            if nfrc_rating is None:
+                return 0  # Attribute does not exist
+            if nfrc_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,nfrcRating,items.contentDetails.contentRating.nfrcRating,"The video's rating from the Bulgarian National Film Center. schema: {""enum"": [""nfrcUnspecified"", ""nfrcA"", ""nfrcB"", ""nfrcC"", ""nfrcD"", ""nfrcX"", ""nfrcUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,nfvcbRating,items.contentDetails.contentRating.nfvcbRating,"The video's rating from Nigeria's National Film and Video Censors Board, schema: {""type"": ""string"", ""enum"": [""nfvcbUnspecified"", ""nfvcbG"", ""nfvcbPg"", ""nfvcb12"", ""nfvcb12a"", ""nfvcb15"", ""nfvcb18"", ""nfvcbRe"", ""nfvcbUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""nfvcbUnspecified"", ""nfvcbG"", ""nfvcbPg"", ""nfvcb12"", 
+            ""nfvcb12a"", ""nfvcb15"", ""nfvcb18"", ""nfvcbRe"", ""nfvcbUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            nfvcb_rating = content_rating.get(""nfvcbRating"")
+            
+            if nfvcb_rating is None:
+                return 0  # Attribute does not exist
+            
+            if nfvcb_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,nfvcbRating,items.contentDetails.contentRating.nfvcbRating,"The video's rating from Nigeria's National Film and Video Censors Board. schema: {""enum"": [""nfvcbUnspecified"", ""nfvcbG"", ""nfvcbPg"", ""nfvcb12"", ""nfvcb12a"", ""nfvcb15"", ""nfvcb18"", ""nfvcbRe"", ""nfvcbUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,nkclvRating,items.contentDetails.contentRating.nkclvRating,"The video's rating from the Nacionãlais Kino centrs (National Film Centre of Latvia). schema: {""enum"": [""nkclvUnspecified"", ""nkclvU"", ""nkclv7plus"", ""nkclv12plus"", ""nkclv16plus"", ""nkclv18plus"", ""nkclvUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,nmcRating,items.contentDetails.contentRating.nmcRating,"The National Media Council ratings system for United Arab Emirates, schema: {""type"": ""string"", ""enum"": [""nmcUnspecified"", ""nmcG"", ""nmcPg"", ""nmcPg13"", ""nmcPg15"", ""nmc15plus"", ""nmc18plus"", ""nmc18tc"", ""nmcUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_nmc_ratings = [
+            ""nmcUnspecified"", ""nmcG"", ""nmcPg"", ""nmcPg13"", ""nmcPg15"", 
+            ""nmc15plus"", ""nmc18plus"", ""nmc18tc"", ""nmcUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        if not items:
+            return 0
+        
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            nmc_rating = content_rating.get(""nmcRating"")
+            
+            if nmc_rating is None:
+                return 0
+            
+            if nmc_rating not in valid_nmc_ratings:
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,nmcRating,items.contentDetails.contentRating.nmcRating,"The National Media Council ratings system for United Arab Emirates. schema: {""enum"": [""nmcUnspecified"", ""nmcG"", ""nmcPg"", ""nmcPg13"", ""nmcPg15"", ""nmc15plus"", ""nmc18plus"", ""nmc18tc"", ""nmcUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,oflcRating,items.contentDetails.contentRating.oflcRating,"The video's Office of Film and Literature Classification (OFLC - New Zealand) rating. schema: {""enum"": [""oflcUnspecified"", ""oflcG"", ""oflcPg"", ""oflcM"", ""oflcR13"", ""oflcR15"", ""oflcR16"", ""oflcR18"", ""oflcUnrated"", ""oflcRp13"", ""oflcRp16"", ""oflcRp18""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,pefilmRating,items.contentDetails.contentRating.pefilmRating,"The video's rating in Peru, schema: {""type"": ""string"", ""enum"": [""pefilmUnspecified"", ""pefilmPt"", ""pefilmPg"", ""pefilm14"", ""pefilm18"", ""pefilmUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [
+            ""pefilmUnspecified"", ""pefilmPt"", ""pefilmPg"", 
+            ""pefilm14"", ""pefilm18"", ""pefilmUnrated""
+        ]
+        
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            pefilm_rating = content_rating.get(""pefilmRating"")
+            
+            if pefilm_rating is None:
+                return 0  # Attribute does not exist
+            
+            if pefilm_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,pefilmRating,items.contentDetails.contentRating.pefilmRating,"The video's rating in Peru. schema: {""enum"": [""pefilmUnspecified"", ""pefilmPt"", ""pefilmPg"", ""pefilm14"", ""pefilm18"", ""pefilmUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,rcnofRating,items.contentDetails.contentRating.rcnofRating,"The video's rating from the Hungarian Nemzeti Filmiroda, the Rating Committee of the National Office of Film. schema: {""enum"": [""rcnofUnspecified"", ""rcnofI"", ""rcnofIi"", ""rcnofIii"", ""rcnofIv"", ""rcnofV"", ""rcnofVi"", ""rcnofUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,resorteviolenciaRating,items.contentDetails.contentRating.resorteviolenciaRating,"The video's rating in Venezuela. schema: {""enum"": [""resorteviolenciaUnspecified"", ""resorteviolenciaA"", ""resorteviolenciaB"", ""resorteviolenciaC"", ""resorteviolenciaD"", ""resorteviolenciaE"", ""resorteviolenciaUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,rtcRating,items.contentDetails.contentRating.rtcRating,"The video's General Directorate of Radio, Television and Cinematography (Mexico) rating. schema: {""enum"": [""rtcUnspecified"", ""rtcAa"", ""rtcA"", ""rtcB"", ""rtcB15"", ""rtcC"", ""rtcD"", ""rtcUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,rteRating,items.contentDetails.contentRating.rteRating,"The video's rating from Ireland's Raidió Teilifís Éireann, schema: {""type"": ""string"", ""enum"": [""rteUnspecified"", ""rteGa"", ""rteCh"", ""rtePs"", ""rteMa"", ""rteUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        items = latest_response.get(""items"", [])
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            rte_rating = content_rating.get(""rteRating"", None)
+            
+            if rte_rating is None:
+                return 0  # Attribute does not exist
+            
+            if rte_rating not in [""rteUnspecified"", ""rteGa"", ""rteCh"", ""rtePs"", ""rteMa"", ""rteUnrated""]:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,rteRating,items.contentDetails.contentRating.rteRating,"The video's rating from Ireland's Raidió Teilifís Éireann. schema: {""enum"": [""rteUnspecified"", ""rteGa"", ""rteCh"", ""rtePs"", ""rteMa"", ""rteUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,russiaRating,items.contentDetails.contentRating.russiaRating,"The video's National Film Registry of the Russian Federation (MKRF - Russia) rating. schema: {""enum"": [""russiaUnspecified"", ""russia0"", ""russia6"", ""russia12"", ""russia16"", ""russia18"", ""russiaUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,skfilmRating,items.contentDetails.contentRating.skfilmRating,"The video's rating in Slovakia, schema: {""type"": ""string"", ""enum"": [""skfilmUnspecified"", ""skfilmG"", ""skfilmP2"", ""skfilmP5"", ""skfilmP8"", ""skfilmUnrated""]}",1,"def verify_latest_response(latest_response):
+    try:
+        valid_ratings = [""skfilmUnspecified"", ""skfilmG"", ""skfilmP2"", ""skfilmP5"", ""skfilmP8"", ""skfilmUnrated""]
+        items = latest_response.get(""items"", [])
+        
+        for item in items:
+            content_details = item.get(""contentDetails"", {})
+            content_rating = content_details.get(""contentRating"", {})
+            skfilm_rating = content_rating.get(""skfilmRating"")
+            
+            if skfilm_rating is None:
+                return 0  # Attribute does not exist
+            
+            if skfilm_rating not in valid_ratings:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,skfilmRating,items.contentDetails.contentRating.skfilmRating,"The video's rating in Slovakia. schema: {""enum"": [""skfilmUnspecified"", ""skfilmG"", ""skfilmP2"", ""skfilmP5"", ""skfilmP8"", ""skfilmUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,smaisRating,items.contentDetails.contentRating.smaisRating,"The video's rating in Iceland, schema: {""type"": ""string"", ""enum"": [""smaisUnspecified"", ""smaisL"", ""smais7"", ""smais12"", ""smais14"", ""smais16"", ""smais18"", ""smaisUnrated""]}",1,"def verify_latest_response(latest_response):
+    valid_ratings = [
+        ""smaisUnspecified"", ""smaisL"", ""smais7"", ""smais12"", 
+        ""smais14"", ""smais16"", ""smais18"", ""smaisUnrated""
+    ]
+    
+    try:
+        items = latest_response.get(""items"", [])
+        for item in items:
+            smais_rating = item.get(""contentDetails"", {}).get(""contentRating"", {}).get(""smaisRating"")
+            if smais_rating is None:
+                return 0
+            if smais_rating not in valid_ratings:
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,smaisRating,items.contentDetails.contentRating.smaisRating,"The video's rating in Iceland. schema: {""enum"": [""smaisUnspecified"", ""smaisL"", ""smais7"", ""smais12"", ""smais14"", ""smais16"", ""smais18"", ""smaisUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,smsaRating,items.contentDetails.contentRating.smsaRating,"The video's rating from Statens medieråd (Sweden's National Media Council). schema: {""enum"": [""smsaUnspecified"", ""smsaA"", ""smsa7"", ""smsa11"", ""smsa15"", ""smsaUnrated""], ""type"": ""string""}",1,,,,,,,1
+get-/youtube/v3/videos,ContentRating,tvpgRating,items.contentDetails.contentRating.tvpgRating,The video's TV Parental Guidelines (TVPG,1,"def verify_latest_response(latest_response):
+    try:
+        # Define the allowed enum values for tvpgRating
+        allowed_tvpg_ratings = [
+            ""tvpgUnspecified"", ""tvpgY"", ""tvpgY7"", ""tvpgY7Fv"", 
+            ""tvpgG"", ""tvpgPg"", ""pg14"", ""tvpgMa"", ""tvpgUnrated""
+        ]
+        
+        # Extract the list of video items from the response
+        video_items = latest_response.get('items', [])
+        
+        # Iterate over each video item to check the tvpgRating
+        for video in video_items:
+            content_details = video.get('contentDetails', {})
+            content_rating = content_details.get('contentRating', {})
+            tvpg_rating = content_rating.get('tvpgRating')
+            
+            # If tvpgRating is not present, return 0
+            if tvpg_rating is None:
+                return 0
+            
+            # Check if the tvpgRating is within the allowed enum values
+            if tvpg_rating not in allowed_tvpg_ratings:
+                return -1
+        
+        # If all tvpgRatings are valid, return 1
+        return 1
+    
+    except Exception as e:
+        # In case of any unexpected error, return -1
+        return -1
+",unknown,,,,,1
+get-/youtube/v3/videos,ContentRating,tvpgRating,items.contentDetails.contentRating.tvpgRating,"The video's TV Parental Guidelines (TVPG) rating. schema: {""enum"": [""tvpgUnspecified"", ""tvpgY"", ""tvpgY7"", ""tvpgY7Fv"", ""tvpgG"", ""tvpgPg"", ""pg14"", ""tvpgMa"", ""tvpgUnrated""], ""type"": ""string""}",1,,,,,,,1

@@ -1,0 +1,67 @@
+group,invariant,invariantType,variables,pptname,tp
+businesses,"input.radius > size(return.businesses[])
+input.limit >= size(return.businesses[])","daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntGreaterEqual","(input.radius, size(return.businesses[..]))
+(input.limit, size(return.businesses[..]))","main.businessessearch.getBusinesses&200(main.getBusinesses&Input):::EXIT
+main.businessessearch.getBusinesses&200(main.getBusinesses&Input):::EXIT",0.5
+businesses.categories,"input.radius > size(return.categories[])
+input.limit >= size(return.categories[])
+size(return.categories[]) >= 1","daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntGreaterEqual
+daikon.inv.unary.scalar.LowerBound","(input.radius, size(return.categories[..]))
+(input.limit, size(return.categories[..]))
+(size(return.categories[..]))","main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT
+main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT
+main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT",0.0
+businesses.coordinates.latitude,return.coordinates.latitude < return.distance,daikon.inv.binary.twoScalar.FloatLessThan,"(return.coordinates.latitude, return.distance)",main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,0.0
+businesses.coordinates.longitude,return.coordinates.longitude < return.distance,daikon.inv.binary.twoScalar.FloatLessThan,"(return.coordinates.longitude, return.distance)",main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,0.0
+businesses.distance,return.distance > return.rating,daikon.inv.binary.twoScalar.FloatGreaterThan,"(return.distance, return.rating)",main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,0.0
+businesses.id,LENGTH(return.id)==22,daikon.inv.unary.string.FixedLengthString,(return.id),main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,1.0
+businesses.image_url,"return.image_url is Url
+LENGTH(return.image_url)==68","daikon.inv.unary.string.IsUrl
+daikon.inv.unary.string.FixedLengthString","(return.image_url)
+(return.image_url)","main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT
+main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT",1.0
+businesses.is_closed,return.is_closed == false,daikon.inv.unary.scalar.OneOfScalar,(return.is_closed),main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,0.0
+businesses.location.address1,return.location.address1 in return.location.display_address[],daikon.inv.binary.sequenceString.MemberString,"(return.location.address1, return.location.display_address[..])",main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,1.0
+businesses.location.address2,return.location.address2 in return.location.display_address[],daikon.inv.binary.sequenceString.MemberString,"(return.location.address2, return.location.display_address[..])",main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,1.0
+businesses.location.address3,return.location.address3 in return.location.display_address[],daikon.inv.binary.sequenceString.MemberString,"(return.location.address3, return.location.display_address[..])",main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,1.0
+businesses.location.country,LENGTH(return.location.country)==2,daikon.inv.unary.string.FixedLengthString,(return.location.country),main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,1.0
+businesses.location.display_address,"input.radius > size(return.location.display_address[])
+size(return.location.display_address[]) >= 2","daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.unary.scalar.LowerBound","(input.radius, size(return.location.display_address[..]))
+(size(return.location.display_address[..]))","main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT
+main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT",0.0
+businesses.phone,return.phone is Numeric,daikon.inv.unary.string.IsNumeric,(return.phone),main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,0.0
+businesses.review_count,"input.radius > return.review_count
+return.review_count > size(return.transactions[])
+return.review_count >= size(input.attributes[])
+return.review_count >= 1","daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntGreaterEqual
+daikon.inv.unary.scalar.LowerBound","(input.radius, return.review_count)
+(return.review_count, size(return.transactions[..]))
+(return.review_count, size(input.attributes[..]))
+(return.review_count)","main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT
+main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT
+main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT
+main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT",0.0
+businesses.transactions,"input.radius > size(return.transactions[])
+input.limit >= size(return.transactions[])
+return.transactions[] elements one of { ""delivery"", ""pickup"", ""restaurant_reservation"" }","daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntGreaterEqual
+daikon.inv.unary.stringsequence.EltOneOfString","(input.radius, size(return.transactions[..]))
+(input.limit, size(return.transactions[..]))
+(return.transactions[..])","main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT
+main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT
+main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT",0.3333333333333333
+businesses.url,return.url is Url,daikon.inv.unary.string.IsUrl,(return.url),main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,1.0
+total,"input.radius > return.total
+return.total >= size(return.businesses[])
+return.total >= 0","daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntGreaterEqual
+daikon.inv.unary.scalar.LowerBound","(input.radius, return.total)
+(return.total, size(return.businesses[..]))
+(return.total)","main.businessessearch.getBusinesses&200(main.getBusinesses&Input):::EXIT
+main.businessessearch.getBusinesses&200(main.getBusinesses&Input):::EXIT
+main.businessessearch.getBusinesses&200(main.getBusinesses&Input):::EXIT",0.6666666666666666

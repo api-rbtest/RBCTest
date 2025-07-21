@@ -1,0 +1,113 @@
+operation,response resource,attribute,group,description,tp,verification script,status,script confirmation,revised script,revised executable script,revised status,TP
+get-/,Response,Runtime,Runtime,"{""type"": ""string"", ""example"": ""107 min""}",1,"def verify_latest_response(latest_response):
+    try:
+        runtime = latest_response.get(""Runtime"")
+        if runtime is None:
+            return 0  # Attribute does not exist
+        
+        if isinstance(runtime, str) and runtime.endswith("" min""):
+            return 1  # Constraint is satisfied
+        else:
+            return -1  # Constraint is not satisfied
+    except Exception as e:
+        return -1  # Constraint is not satisfied due to an error
+",unknown,,,,,1
+get-/,Response,DVD,DVD,"{""type"": ""string"", ""example"": ""01 Oct 2013""}",1,"def verify_latest_response(latest_response):
+    try:
+        dvd_value = latest_response.get(""DVD"")
+        if dvd_value is None:
+            return 0
+        
+        # Check if the DVD value is a string
+        if not isinstance(dvd_value, str):
+            return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/,Response,Response,Response,"{""type"": ""string"", ""enum"": [""True"", ""False""]}",1,"def verify_latest_response(latest_response):
+    try:
+        response_value = latest_response.get(""Response"")
+        if response_value is None:
+            return 0
+        if response_value in [""True"", ""False""]:
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/,Response,Response,Response,"{""type"": ""string"", ""enum"": [""True"", ""False""], ""example"": ""True""} schema: {""type"": ""string"", ""enum"": [""True"", ""False""], ""example"": ""True""}",1,,,,,,,1
+get-/,Response,BoxOffice,BoxOffice,"{""type"": ""string"", ""example"": ""$96,200,000""}",1,"def verify_latest_response(latest_response):
+    try:
+        box_office = latest_response.get(""BoxOffice"")
+        if box_office is None:
+            return 0
+        
+        # Check if the BoxOffice value is a string and matches the pattern of a dollar amount
+        import re
+        pattern = r""^\$\d{1,3}(?:,\d{3})*(?:\.\d{2})?$""
+        if isinstance(box_office, str) and re.match(pattern, box_office):
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/,Response,Poster,Poster,"{""type"": ""string"", ""example"": ""https://m.media-amazon.com/images/M/MV5BMTQxODE3NjM1Ml5BMl5BanBnXkFtZTcwMzkzNjc4OA@@._V1_SX300.jpg""}",1,"def verify_latest_response(latest_response):
+    try:
+        poster_url = latest_response.get(""Poster"")
+        if poster_url is None:
+            return 0
+        if isinstance(poster_url, str) and poster_url.startswith(""http""):
+            return 1
+        else:
+            return -1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/,Response,seriesID,seriesID,"{""type"": ""string"", ""example"": ""tt0341939""}",1,"def verify_latest_response(latest_response):
+    try:
+        seriesID = latest_response.get(""seriesID"")
+        if seriesID is None:
+            return 0
+        if isinstance(seriesID, str):
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/,Response,Released,Released,"{""type"": ""string"", ""example"": ""12 Jun 2013""}",1,"def verify_latest_response(latest_response):
+    try:
+        released_value = latest_response.get(""Released"")
+        if released_value is None:
+            return 0
+        
+        # Check if the ""Released"" value is a string
+        if not isinstance(released_value, str):
+            return -1
+        
+        # Additional checks for date format can be added here if needed
+        # For now, we assume any string is valid as the description does not specify a format constraint
+        
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/,Response,Response,Response,"{""type"": ""string"", ""enum"": [""True"", ""False""]}",1,"def verify_latest_response(latest_response):
+    try:
+        response_value = latest_response.get(""Response"")
+        if response_value is None:
+            return 0
+        if response_value in [""True"", ""False""]:
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/,Response,Response,Response,"{""type"": ""string"", ""enum"": [""True"", ""False""], ""example"": ""True""} schema: {""type"": ""string"", ""enum"": [""True"", ""False""], ""example"": ""True""}",1,,,,,,,1
+get-/,Response,Year,Year,"{""type"": ""string"", ""example"": 2013} schema: {""type"": ""string"", ""example"": 2013}",1,,,,,,,1
+get-/,Response,imdbID,imdbID,"{""type"": ""string"", ""example"": ""tt1245492""} schema: {""type"": ""string"", ""example"": ""tt1245492""}",1,,,,,,,1

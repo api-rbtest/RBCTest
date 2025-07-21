@@ -1,0 +1,20 @@
+endpoint,group,description,tp,status,check_verify,_merge
+get+albums_{id}_tracks,items.artists.external_urls,"Known external URLs for this artist, schema: {""type"": ""object"", ""format"": ""uri""}",1,unknown,yes,both
+get+albums_{id}_tracks,items.artists.href,A link to the Web API endpoint providing full details of the artist,1,satisfied,yes,both
+get+albums_{id}_tracks,items.artists.type,The object type: 'artist',1,unknown,yes,both
+get+albums_{id}_tracks,items.artists.uri,"The Spotify URI for the artist, schema: {""type"": ""string"", ""format"": ""uri""}",1,unknown,yes,both
+get+albums_{id}_tracks,items.available_markets,"A list of the countries in which the track can be played, identified by their ISO 3166-1 alpha-2 code",1,unknown,yes,both
+get+albums_{id}_tracks,items.explicit,Whether or not the track has explicit lyrics (true = yes it does; false = no it does not OR unknown,1,unknown,yes,both
+get+albums_{id}_tracks,items.external_urls,"Known external URLs for this track, schema: {""type"": ""object"", ""format"": ""uri""}",1,unknown,yes,both
+get+albums_{id}_tracks,items.href,A link to the Web API endpoint providing full details of the track,1,satisfied,yes,both
+get+albums_{id}_tracks,items.linked_from.external_urls,"Known external URLs for this artist, schema: {""type"": ""object"", ""format"": ""uri""}",1,unknown,yes,both
+get+albums_{id}_tracks,items.linked_from.href,A link to the Web API endpoint providing full details of the artist,1,satisfied,yes,both
+get+albums_{id}_tracks,items.linked_from.type,The object type: 'artist',1,unknown,yes,both
+get+albums_{id}_tracks,items.linked_from.uri,"The Spotify URI for the artist, schema: {""type"": ""string"", ""format"": ""uri""}",1,unknown,yes,both
+get+albums_{id}_tracks,items.preview_url,"A URL to a 30 second preview (MP3 format) of the track. schema: {""type"": ""string"", ""x-nullable"": true} schema: {""type"": ""string"", ""x-nullable"": true}",1,satisfied,yes,both
+get+albums_{id}_tracks,items.type,The object type: 'track',1,unknown,yes,both
+get+albums_{id}_tracks,limit,Attribute limit is responded to by parameter track-simple-page with a description: The maximum number of items to return,1,satisfied,yes,both
+get+albums_{id}_tracks,next,URL to the next page of items. (null if none,1,satisfied,yes,both
+get+albums_{id}_tracks,offset,Attribute offset is responded to by parameter track-simple-page with a description: The index of the first item to return,1,unknown,yes,both
+get+albums_{id}_tracks,previous,URL to the previous page of items. (null if none,1,satisfied,yes,both
+get+albums_{id}_tracks,total,The total number of items available to return,1,satisfied,yes,both

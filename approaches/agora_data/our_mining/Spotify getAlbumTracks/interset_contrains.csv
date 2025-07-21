@@ -1,0 +1,44 @@
+,group,invariant,endpoint,description,tp
+0,items.artists.href,"return.id is a substring of return.href
+return.type is a substring of return.href
+return.href is Url
+LENGTH(return.href)==57",get+albums_{id}_tracks,A link to the Web API endpoint providing full details of the artist,1.0
+1,items.artists.type,"return.type is a substring of return.uri
+LENGTH(return.type)==6
+return.type == ""artist""",get+albums_{id}_tracks,The object type: 'artist',1.0
+2,items.artists.uri,LENGTH(return.uri)==37,get+albums_{id}_tracks,"The Spotify URI for the artist, schema: {""type"": ""string"", ""format"": ""uri""}",1.0
+3,items.available_markets,All the elements of return.available_markets[] have LENGTH=2,get+albums_{id}_tracks,"A list of the countries in which the track can be played, identified by their ISO 3166-1 alpha-2 code",1.0
+4,items.href,"return.id is a substring of return.href
+return.linked_from.type is a substring of return.href
+return.type is a substring of return.href
+return.href is Url
+LENGTH(return.href)==56",get+albums_{id}_tracks,A link to the Web API endpoint providing full details of the track,1.0
+5,items.linked_from.href,"return.linked_from.id is a substring of return.linked_from.href
+return.linked_from.type is a substring of return.linked_from.href
+return.type is a substring of return.linked_from.href
+return.linked_from.href is Url
+LENGTH(return.linked_from.href)==56",get+albums_{id}_tracks,A link to the Web API endpoint providing full details of the artist,1.0
+6,items.linked_from.type,"return.linked_from.type is a substring of return.linked_from.uri
+return.linked_from.type is a substring of return.uri
+LENGTH(return.linked_from.type)==5
+return.linked_from.type == ""track""
+return.linked_from.type == return.type",get+albums_{id}_tracks,The object type: 'artist',1.0
+7,items.linked_from.uri,"return.type is a substring of return.linked_from.uri
+LENGTH(return.linked_from.uri)==36",get+albums_{id}_tracks,"The Spotify URI for the artist, schema: {""type"": ""string"", ""format"": ""uri""}",1.0
+8,items.preview_url,"return.preview_url is Url
+LENGTH(return.preview_url)==107",get+albums_{id}_tracks,"A URL to a 30 second preview (MP3 format) of the track. schema: {""type"": ""string"", ""x-nullable"": true} schema: {""type"": ""string"", ""x-nullable"": true}",1.0
+9,items.type,"return.type is a substring of return.uri
+LENGTH(return.type)==5
+return.type == ""track""",get+albums_{id}_tracks,The object type: 'track',1.0
+10,limit,"input.limit == return.limit
+return.limit >= size(return.items[])",get+albums_{id}_tracks,Attribute limit is responded to by parameter track-simple-page with a description: The maximum number of items to return,1.0
+11,next,"input.id is a substring of return.next
+input.market is a substring of return.next
+return.next is Url",get+albums_{id}_tracks,URL to the next page of items. (null if none,1.0
+12,offset,"input.offset == return.offset
+return.offset >= 0",get+albums_{id}_tracks,Attribute offset is responded to by parameter track-simple-page with a description: The index of the first item to return,1.0
+13,previous,"input.id is a substring of return.previous
+input.market is a substring of return.previous
+return.previous is Url",get+albums_{id}_tracks,URL to the previous page of items. (null if none,1.0
+14,total,"return.total >= size(return.items[])
+return.total >= 1",get+albums_{id}_tracks,The total number of items available to return,1.0

@@ -1,0 +1,301 @@
+operation,response resource,attribute,group,kio,description,part,corresponding attribute,corresponding attribute description,verification script,Example_value,verify_result,tp
+post-/orgs/{org}/repos,repository,name,name,1,The name of the repository,requestBody,name,The name of the repository,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'name' exists in the response
+        if 'name' not in latest_response:
+            return 0
+        
+        # Extract the 'name' from the response
+        response_name = latest_response['name']
+        
+        # Check if 'name' in the response is a string
+        if not isinstance(response_name, str):
+            return -1
+        
+        # Extract the 'name' from the request_info
+        request_name = request_info.get('name')
+        
+        # Check if the request_name is provided and is a string
+        if request_name is not None and not isinstance(request_name, str):
+            return -1
+        
+        # Compare the request_name with the response_name
+        if request_name is not None and request_name != response_name:
+            return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",Team Environment,1.0,0
+post-/orgs/{org}/repos,repository,description,description,2,,requestBody,description,A short description of the repository,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'description' exists in the response
+        if 'description' not in latest_response:
+            return 0
+        
+        # Extract the 'description' from the response
+        response_description = latest_response['description']
+        
+        # Check if the 'description' is a string
+        if not isinstance(response_description, str):
+            return -1
+        
+        # If all checks pass
+        return 1
+    except Exception as e:
+        return -1
+",This your first repo!,1.0,1
+post-/orgs/{org}/repos,repository,homepage,homepage,3,,requestBody,homepage,A URL with more information about the repository,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'homepage' exists in the response
+        if 'homepage' not in latest_response:
+            return 0
+        
+        homepage = latest_response['homepage']
+        
+        # Check if 'homepage' is a string
+        if not isinstance(homepage, str):
+            return -1
+        
+        # Additional checks for URL format can be added here if needed
+        
+        return 1
+    except Exception as e:
+        return -1
+",https://github.com,1.0,1
+post-/orgs/{org}/repos,repository,private,private,4,Whether the repository is private or public,requestBody,private,Whether the repository is private,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'private' attribute exists in the response
+        if 'private' not in latest_response:
+            return 0
+        
+        # Cast the request_info value to boolean
+        expected_private = bool(request_info.get('private', False))
+        
+        # Compare the 'private' attribute in the response with the expected value
+        if latest_response['private'] == expected_private:
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",False,1.0,0
+post-/orgs/{org}/repos,repository,visibility,visibility,5,"The repository visibility: public, private, or internal",requestBody,visibility,"Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. Note: For GitHub Enterprise Server and GitHub AE, this endpoint will only list repositories available to all users on the enterprise. For more information, see ""[Creating an internal repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)"" in the GitHub Help documentation.  
+The `visibility` parameter overrides the `private` parameter when you use both parameters with the `nebula-preview` preview header","def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the visibility from the response
+        response_visibility = latest_response.get(""visibility"")
+        
+        # Check if the visibility attribute exists in the response
+        if response_visibility is None:
+            return 0
+        
+        # Define the allowed visibility values
+        allowed_visibility_values = [""public"", ""private"", ""internal""]
+        
+        # Check if the response visibility is one of the allowed values
+        if response_visibility not in allowed_visibility_values:
+            return -1
+        
+        # Extract the visibility from the request info
+        request_visibility = request_info.get(""visibility"")
+        
+        # If the request visibility is provided, check if it matches the response visibility
+        if request_visibility:
+            if request_visibility not in allowed_visibility_values:
+                return -1
+            if response_visibility != request_visibility:
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",,,1
+post-/orgs/{org}/repos,repository,has_issues,has_issues,6,Whether issues are enabled,requestBody,has_issues,Either `true` to enable issues for this repository or `false` to disable them,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'has_issues' exists in the response
+        if 'has_issues' not in latest_response:
+            return 0
+        
+        # Cast the request_info value to boolean
+        expected_has_issues = bool(request_info.get('has_issues', True))
+        
+        # Compare the response value with the expected value
+        if latest_response['has_issues'] == expected_has_issues:
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",True,1.0,1
+post-/orgs/{org}/repos,repository,has_projects,has_projects,7,Whether projects are enabled,requestBody,has_projects,"Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error","def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'has_projects' exists in the response
+        if 'has_projects' not in latest_response:
+            return 0
+        
+        # Extract the 'has_projects' value from the response
+        response_has_projects = latest_response['has_projects']
+        
+        # Extract the 'has_projects' value from the request_info and cast it to boolean
+        request_has_projects = bool(request_info.get('has_projects', True))
+        
+        # Verify the constraint
+        if response_has_projects == request_has_projects:
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",True,1.0,1
+post-/orgs/{org}/repos,repository,has_wiki,has_wiki,8,Whether the wiki is enabled,requestBody,has_wiki,Either `true` to enable the wiki for this repository or `false` to disable it,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'has_wiki' exists in the response
+        if 'has_wiki' not in latest_response:
+            return 0
+        
+        # Cast the request_info value to boolean
+        expected_has_wiki = bool(request_info.get('has_wiki', True))
+        
+        # Compare the response attribute with the expected value
+        if latest_response['has_wiki'] == expected_has_wiki:
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",True,1.0,1
+post-/orgs/{org}/repos,repository,is_template,is_template,9,Whether this repository acts as a template that can be used to generate new repositories,requestBody,is_template,Either `true` to make this repo available as a template repository or `false` to prevent it,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'is_template' exists in the response
+        if 'is_template' not in latest_response:
+            return 0
+        
+        # Cast the request_info value to boolean
+        expected_is_template = bool(request_info.get('is_template', False))
+        
+        # Compare the response attribute with the expected value
+        if latest_response['is_template'] == expected_is_template:
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",True,1.0,1
+post-/orgs/{org}/repos,license-simple,key,license.key,10,,requestBody,license_template,"Choose an [open source license template](https://choosealicense.com/) that best suits your needs, and then use the [license keyword](https://help.github.com/articles/licensing-a-repository/#searching-github-by-license-type) as the `license_template` string. For example, ""mit"" or ""mpl-2.0""","def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the license_template from request_info
+        license_template = request_info.get(""license_template"", """").lower()
+
+        # Check if the license attribute exists in the response
+        if ""license"" not in latest_response:
+            return 0
+
+        # Extract the license key from the response
+        license_key = latest_response[""license""].get(""key"", """").lower()
+
+        # Verify if the license key matches the license_template
+        if license_key == license_template:
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        # Handle any unexpected errors
+        print(f""An error occurred: {e}"")
+        return -1
+",,,0
+post-/orgs/{org}/repos,repository,allow_squash_merge,allow_squash_merge,11,Whether to allow squash merges for pull requests,requestBody,allow_squash_merge,"Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging","def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'allow_squash_merge' value from the response
+        response_allow_squash_merge = latest_response.get('allow_squash_merge')
+        
+        # Check if the attribute exists in the response
+        if response_allow_squash_merge is None:
+            return 0
+        
+        # Cast the request_info value to the appropriate data type
+        request_allow_squash_merge = request_info.get('allow_squash_merge')
+        if request_allow_squash_merge is not None:
+            request_allow_squash_merge = bool(request_allow_squash_merge)
+        else:
+            # Use the default value if not provided in request_info
+            request_allow_squash_merge = True
+        
+        # Verify the constraint
+        if response_allow_squash_merge == request_allow_squash_merge:
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",True,1.0,1
+post-/orgs/{org}/repos,repository,allow_merge_commit,allow_merge_commit,12,Whether to allow merge commits for pull requests,requestBody,allow_merge_commit,"Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits","def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'allow_merge_commit' exists in the response
+        if 'allow_merge_commit' not in latest_response:
+            return 0
+        
+        # Extract the 'allow_merge_commit' value from the response
+        response_allow_merge_commit = latest_response['allow_merge_commit']
+        
+        # Ensure the value is a boolean
+        if not isinstance(response_allow_merge_commit, bool):
+            return -1
+        
+        # Extract the 'allow_merge_commit' value from the request_info and cast to boolean
+        request_allow_merge_commit = request_info.get('allow_merge_commit', 'true').lower() == 'true'
+        
+        # Compare the response value with the request value
+        if response_allow_merge_commit == request_allow_merge_commit:
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",True,0.0,0
+post-/orgs/{org}/repos,repository,allow_rebase_merge,allow_rebase_merge,13,Whether to allow rebase merges for pull requests,requestBody,allow_rebase_merge,"Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging","def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'allow_rebase_merge' exists in the response
+        if 'allow_rebase_merge' not in latest_response:
+            return 0
+        
+        # Extract the value from the response
+        response_allow_rebase_merge = latest_response['allow_rebase_merge']
+        
+        # Ensure the value is a boolean
+        if not isinstance(response_allow_rebase_merge, bool):
+            return -1
+        
+        # Extract the expected value from request_info and cast to boolean
+        expected_allow_rebase_merge = bool(request_info.get('allow_rebase_merge', True))
+        
+        # Compare the response value with the expected value
+        if response_allow_rebase_merge == expected_allow_rebase_merge:
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",True,1.0,1
+post-/orgs/{org}/repos,repository,delete_branch_on_merge,delete_branch_on_merge,14,Whether to delete head branches when pull requests are merged,requestBody,delete_branch_on_merge,"Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion","def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'delete_branch_on_merge' value from the response
+        response_value = latest_response.get('delete_branch_on_merge')
+        
+        # Check if the attribute exists in the response
+        if response_value is None:
+            return 0
+        
+        # Cast the request_info value to the appropriate data type
+        request_value = request_info.get('delete_branch_on_merge')
+        if request_value is not None:
+            request_value = bool(request_value)
+        
+        # Verify the constraint
+        if response_value == request_value:
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",False,1.0,1

@@ -1,0 +1,131 @@
+group,invariant,invariantType,variables,pptname,tp
+etag,LENGTH(return.etag)==27,daikon.inv.unary.string.FixedLengthString,(return.etag),main.youtubev3videos.getVideos&200(main.getVideos&Input):::EXIT,1.0
+items.ageGating,return.ageGating == null,daikon.inv.unary.scalar.OneOfScalar,(return.ageGating),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.contentDetails.caption,"return.contentDetails.caption one of { ""false"", ""true"" }",daikon.inv.unary.string.OneOfString,(return.contentDetails.caption),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.contentDetails.countryRestriction,return.contentDetails.countryRestriction == null,daikon.inv.unary.scalar.OneOfScalar,(return.contentDetails.countryRestriction),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.contentDetails.definition,"LENGTH(return.contentDetails.definition)==2
+return.contentDetails.definition one of { ""hd"", ""sd"" }","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.OneOfString","(return.contentDetails.definition)
+(return.contentDetails.definition)","main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT",1.0
+items.contentDetails.dimension,"LENGTH(return.contentDetails.dimension)==2
+return.contentDetails.dimension one of { ""2d"", ""3d"" }","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.OneOfString","(return.contentDetails.dimension)
+(return.contentDetails.dimension)","main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT",1.0
+items.etag,LENGTH(return.etag)==27,daikon.inv.unary.string.FixedLengthString,(return.etag),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.fileDetails,return.fileDetails == null,daikon.inv.unary.scalar.OneOfScalar,(return.fileDetails),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.fileDetails.audioStreams,return.fileDetails.audioStreams == null,daikon.inv.unary.scalar.OneOfScalar,(return.fileDetails.audioStreams),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.fileDetails.videoStreams,return.fileDetails.videoStreams == null,daikon.inv.unary.scalar.OneOfScalar,(return.fileDetails.videoStreams),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.id,"return.id is a substring of return.player.embedHtml
+return.id is a substring of return.snippet.thumbnails.default.url
+return.id is a substring of return.snippet.thumbnails.high.url
+return.id is a substring of return.snippet.thumbnails.maxres.url
+return.id is a substring of return.snippet.thumbnails.medium.url
+return.id is a substring of return.snippet.thumbnails.standard.url
+LENGTH(return.id)==11
+return.id in input.id[]","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.unary.string.FixedLengthString
+daikon.inv.binary.sequenceString.MemberString","(return.id, return.player.embedHtml)
+(return.id, return.snippet.thumbnails.default.url)
+(return.id, return.snippet.thumbnails.high.url)
+(return.id, return.snippet.thumbnails.maxres.url)
+(return.id, return.snippet.thumbnails.medium.url)
+(return.id, return.snippet.thumbnails.standard.url)
+(return.id)
+(input.id[..], return.id)","main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT",1.0
+items.kind,"LENGTH(return.kind)==13
+return.kind == ""youtube#video""","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.OneOfString","(return.kind)
+(return.kind)","main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT",1.0
+items.liveStreamingDetails.actualEndTime,"LENGTH(return.liveStreamingDetails.actualEndTime)==20
+return.liveStreamingDetails.actualEndTime is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.liveStreamingDetails.actualEndTime)
+(return.liveStreamingDetails.actualEndTime)","main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT",1.0
+items.liveStreamingDetails.actualStartTime,"LENGTH(return.liveStreamingDetails.actualStartTime)==20
+return.liveStreamingDetails.actualStartTime is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.liveStreamingDetails.actualStartTime)
+(return.liveStreamingDetails.actualStartTime)","main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT",1.0
+items.liveStreamingDetails.scheduledStartTime,"LENGTH(return.liveStreamingDetails.scheduledStartTime)==20
+return.liveStreamingDetails.scheduledStartTime is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.liveStreamingDetails.scheduledStartTime)
+(return.liveStreamingDetails.scheduledStartTime)","main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT",1.0
+items.monetizationDetails,return.monetizationDetails == null,daikon.inv.unary.scalar.OneOfScalar,(return.monetizationDetails),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.monetizationDetails.access,return.monetizationDetails.access == null,daikon.inv.unary.scalar.OneOfScalar,(return.monetizationDetails.access),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.player.embedHeight,"return.player.embedHeight is a substring of return.player.embedHtml
+return.player.embedHeight is Numeric","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.unary.string.IsNumeric","(return.player.embedHeight, return.player.embedHtml)
+(return.player.embedHeight)","main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT",1.0
+items.player.embedWidth,return.player.embedWidth is Numeric,daikon.inv.unary.string.IsNumeric,(return.player.embedWidth),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.processingDetails,return.processingDetails == null,daikon.inv.unary.scalar.OneOfScalar,(return.processingDetails),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.processingDetails.processingProgress,return.processingDetails.processingProgress == null,daikon.inv.unary.scalar.OneOfScalar,(return.processingDetails.processingProgress),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.projectDetails,return.projectDetails == null,daikon.inv.unary.scalar.OneOfScalar,(return.projectDetails),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.recordingDetails.location.altitude,return.recordingDetails.location.altitude == 0.0,daikon.inv.unary.scalar.OneOfFloat,(return.recordingDetails.location.altitude),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.recordingDetails.recordingDate,"LENGTH(return.recordingDetails.recordingDate)==20
+return.recordingDetails.recordingDate is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.recordingDetails.recordingDate)
+(return.recordingDetails.recordingDate)","main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT",1.0
+items.snippet.categoryId,return.snippet.categoryId is Numeric,daikon.inv.unary.string.IsNumeric,(return.snippet.categoryId),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.snippet.channelId,LENGTH(return.snippet.channelId)==24,daikon.inv.unary.string.FixedLengthString,(return.snippet.channelId),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.snippet.publishedAt,"LENGTH(return.snippet.publishedAt)==20
+return.snippet.publishedAt is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.snippet.publishedAt)
+(return.snippet.publishedAt)","main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT",1.0
+items.snippet.thumbnails.default.url,return.snippet.thumbnails.default.url is Url,daikon.inv.unary.string.IsUrl,(return.snippet.thumbnails.default.url),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.snippet.thumbnails.high.url,return.snippet.thumbnails.high.url is Url,daikon.inv.unary.string.IsUrl,(return.snippet.thumbnails.high.url),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.snippet.thumbnails.maxres.url,return.snippet.thumbnails.maxres.url is Url,daikon.inv.unary.string.IsUrl,(return.snippet.thumbnails.maxres.url),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.snippet.thumbnails.medium.url,return.snippet.thumbnails.medium.url is Url,daikon.inv.unary.string.IsUrl,(return.snippet.thumbnails.medium.url),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.snippet.thumbnails.standard.url,return.snippet.thumbnails.standard.url is Url,daikon.inv.unary.string.IsUrl,(return.snippet.thumbnails.standard.url),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.statistics.commentCount,return.statistics.commentCount is Numeric,daikon.inv.unary.string.IsNumeric,(return.statistics.commentCount),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.statistics.likeCount,return.statistics.likeCount is Numeric,daikon.inv.unary.string.IsNumeric,(return.statistics.likeCount),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.statistics.viewCount,return.statistics.viewCount is Numeric,daikon.inv.unary.string.IsNumeric,(return.statistics.viewCount),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.status.license,"return.status.license one of { ""creativeCommon"", ""youtube"" }",daikon.inv.unary.string.OneOfString,(return.status.license),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.suggestions,return.suggestions == null,daikon.inv.unary.scalar.OneOfScalar,(return.suggestions),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+items.suggestions.editorSuggestions,"return.suggestions.editorSuggestions == return.suggestions.processingErrors
+return.suggestions.editorSuggestions == return.suggestions.processingHints
+return.suggestions.editorSuggestions == return.suggestions.processingWarnings
+return.suggestions.editorSuggestions == return.topicDetails.relevantTopicIds
+return.suggestions.editorSuggestions == return.topicDetails.topicIds
+return.suggestions.editorSuggestions == null","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.unary.scalar.OneOfScalar","(return.suggestions.editorSuggestions, return.suggestions.processingErrors)
+(return.suggestions.editorSuggestions, return.suggestions.processingHints)
+(return.suggestions.editorSuggestions, return.suggestions.processingWarnings)
+(return.suggestions.editorSuggestions, return.topicDetails.relevantTopicIds)
+(return.suggestions.editorSuggestions, return.topicDetails.topicIds)
+(return.suggestions.editorSuggestions)","main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT",1.0
+items.suggestions.tagSuggestions,return.suggestions.tagSuggestions == null,daikon.inv.unary.scalar.OneOfScalar,(return.suggestions.tagSuggestions),main.youtubev3videos.getVideos&200&items(main.getVideos&Input):::EXIT,1.0
+kind,"LENGTH(return.kind)==25
+return.kind == ""youtube#videoListResponse""","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.OneOfString","(return.kind)
+(return.kind)","main.youtubev3videos.getVideos&200(main.getVideos&Input):::EXIT
+main.youtubev3videos.getVideos&200(main.getVideos&Input):::EXIT",1.0
+nextPageToken,LENGTH(return.nextPageToken)==6,daikon.inv.unary.string.FixedLengthString,(return.nextPageToken),main.youtubev3videos.getVideos&200(main.getVideos&Input):::EXIT,1.0
+tokenPagination,return.tokenPagination == null,daikon.inv.unary.scalar.OneOfScalar,(return.tokenPagination),main.youtubev3videos.getVideos&200(main.getVideos&Input):::EXIT,1.0

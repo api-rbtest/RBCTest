@@ -1,0 +1,111 @@
+,group,invariant,endpoint,description,tp
+0,archive_url,return.archive_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}""}",1.0
+1,assignees_url,return.assignees_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/assignees{/user}""}",1.0
+2,blobs_url,return.blobs_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}""}",1.0
+3,branches_url,return.branches_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/branches{/branch}""}",1.0
+4,clone_url,return.clone_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""https://github.com/octocat/Hello-World.git""}",1.0
+5,collaborators_url,return.collaborators_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}""}",1.0
+6,comments_url,return.comments_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/comments{/number}""}",1.0
+7,compare_url,return.compare_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}""}",1.0
+8,delete_branch_on_merge,input.delete_branch_on_merge == return.delete_branch_on_merge,post+orgs_{org}_repos,"Attribute delete_branch_on_merge is responded to by parameter repository with a description: Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion",1.0
+9,deployments_url,return.deployments_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+10,description,input.description == return.description,post+orgs_{org}_repos,Attribute description is responded to by parameter repository with a description: A short description of the repository,1.0
+11,downloads_url,return.downloads_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+12,events_url,return.events_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+13,forks_url,return.forks_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+14,git_commits_url,return.git_commits_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}""}",1.0
+15,git_refs_url,return.git_refs_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}""}",1.0
+16,has_wiki,input.has_wiki == return.has_wiki,post+orgs_{org}_repos,Attribute has_wiki is responded to by parameter repository with a description: Either `true` to enable the wiki for this repository or `false` to disable it,1.0
+17,homepage,input.homepage == return.homepage,post+orgs_{org}_repos,"Attribute homepage is responded to by parameter repository with a description: A URL with more information about the repository
+{""type"": ""string"", ""format"": ""uri""}",1.0
+18,hooks_url,return.hooks_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+19,html_url,"return.html_url is a substring of return.clone_url
+return.html_url is Url
+return.html_url == return.svn_url",post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+20,issue_events_url,return.issue_events_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues/events{/number}""}",1.0
+21,issues_url,return.issues_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues{/number}""}",1.0
+22,languages_url,return.languages_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+23,license.url,"input.license_template is a substring of return.license.url
+return.license.url is Url",post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+24,milestones_url,return.milestones_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/milestones{/number}""}",1.0
+25,owner.events_url,"return.owner.events_url is Url
+return.owner.events_url == return.organization.events_url",post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/events{/privacy}""}",1.0
+26,owner.followers_url,"return.owner.followers_url is Url
+return.owner.followers_url == return.organization.followers_url",post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+27,owner.following_url,"return.owner.following_url is Url
+return.owner.following_url == return.organization.following_url",post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/following{/other_user}""}",1.0
+28,owner.gists_url,"return.owner.gists_url is Url
+return.owner.gists_url == return.organization.gists_url",post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/gists{/gist_id}""}",1.0
+29,owner.html_url,"input.org is a substring of return.owner.html_url
+return.owner.html_url is a substring of return.html_url
+return.owner.html_url is Url
+return.owner.html_url == return.organization.html_url",post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+30,owner.organizations_url,"return.owner.organizations_url is Url
+return.owner.organizations_url == return.organization.organizations_url",post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+31,owner.received_events_url,"return.owner.received_events_url is Url
+return.owner.received_events_url == return.organization.received_events_url",post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+32,owner.repos_url,"return.owner.repos_url is Url
+return.owner.repos_url == return.organization.repos_url",post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+33,owner.starred_url,"return.owner.starred_url is Url
+return.owner.starred_url == return.organization.starred_url",post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/starred{/owner}{/repo}""}",1.0
+34,owner.subscriptions_url,"return.owner.subscriptions_url is Url
+return.owner.subscriptions_url == return.organization.subscriptions_url",post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+35,owner.url,"input.org is a substring of return.owner.url
+return.owner.url is a substring of return.owner.followers_url
+return.owner.url is a substring of return.owner.following_url
+return.owner.url is a substring of return.owner.gists_url
+return.owner.url is a substring of return.owner.starred_url
+return.owner.url is a substring of return.owner.subscriptions_url
+return.owner.url is a substring of return.owner.organizations_url
+return.owner.url is a substring of return.owner.repos_url
+return.owner.url is a substring of return.owner.events_url
+return.owner.url is a substring of return.owner.received_events_url
+return.owner.url is Url
+return.owner.url == return.organization.url",post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+36,pulls_url,return.pulls_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/pulls{/number}""}",1.0
+37,stargazers_url,return.stargazers_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+38,statuses_url,return.statuses_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/statuses/{sha}""}",1.0
+39,subscribers_url,return.subscribers_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+40,subscription_url,return.subscription_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+41,tags_url,return.tags_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+42,teams_url,return.teams_url is Url,post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+43,url,"return.url is a substring of return.archive_url
+return.url is a substring of return.assignees_url
+return.url is a substring of return.blobs_url
+return.url is a substring of return.branches_url
+return.url is a substring of return.collaborators_url
+return.url is a substring of return.comments_url
+return.url is a substring of return.commits_url
+return.url is a substring of return.compare_url
+return.url is a substring of return.contents_url
+return.url is a substring of return.contributors_url
+return.url is a substring of return.deployments_url
+return.url is a substring of return.downloads_url
+return.url is a substring of return.events_url
+return.url is a substring of return.forks_url
+return.url is a substring of return.git_commits_url
+return.url is a substring of return.git_refs_url
+return.url is a substring of return.git_tags_url
+return.url is a substring of return.issue_comment_url
+return.url is a substring of return.issue_events_url
+return.url is a substring of return.issues_url
+return.url is a substring of return.keys_url
+return.url is a substring of return.labels_url
+return.url is a substring of return.languages_url
+return.url is a substring of return.merges_url
+return.url is a substring of return.milestones_url
+return.url is a substring of return.notifications_url
+return.url is a substring of return.pulls_url
+return.url is a substring of return.releases_url
+return.url is a substring of return.stargazers_url
+return.url is a substring of return.statuses_url
+return.url is a substring of return.subscribers_url
+return.url is a substring of return.subscription_url
+return.url is a substring of return.tags_url
+return.url is a substring of return.teams_url
+return.url is a substring of return.trees_url
+return.url is a substring of return.hooks_url
+return.url is Url",post+orgs_{org}_repos,"{""type"": ""string"", ""format"": ""uri""}",1.0
+44,visibility,input.visibility == return.visibility,post+orgs_{org}_repos,"Attribute visibility is responded to by parameter repository with a description: Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. Note: For GitHub Enterprise Server and GitHub AE, this endpoint will only list repositories available to all users on the enterprise. For more information, see ""[Creating an internal repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)"" in the GitHub Help documentation.  
+The `visibility` parameter overrides the `private` parameter when you use both parameters with the `nebula-preview` preview header
+The repository visibility: public, private, or internal",1.0

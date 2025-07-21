@@ -1,0 +1,22 @@
+endpoint,group,response resource,attribute,description
+get+albums_{id}_tracks,limit,track-simple-page,limit,Attribute limit is responded to by parameter track-simple-page with a description: The maximum number of items to return
+get+albums_{id}_tracks,offset,track-simple-page,offset,Attribute offset is responded to by parameter track-simple-page with a description: The index of the first item to return
+get+albums_{id}_tracks,href,track-simple-page,href,"A link to the Web API endpoint returning the full result of the request. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+albums_{id}_tracks,items.artists.external_urls,artist-simple,external_urls,"Known external URLs for this artist. schema: {""additionalProperties"": {""type"": ""string""}, ""type"": ""object""} schema: {""additionalProperties"": {""type"": ""string""}, ""type"": ""object""}"
+get+albums_{id}_tracks,items.linked_from.external_urls,artist-simple,external_urls,"Known external URLs for this artist. schema: {""additionalProperties"": {""type"": ""string""}, ""type"": ""object""} schema: {""additionalProperties"": {""type"": ""string""}, ""type"": ""object""}"
+get+albums_{id}_tracks,items.artists.id,artist-simple,id,"The Spotify ID for the artist. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+albums_{id}_tracks,items.linked_from.id,artist-simple,id,"The Spotify ID for the artist. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+albums_{id}_tracks,items.artists.type,artist-simple,type,"The object type: 'artist' schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+albums_{id}_tracks,items.linked_from.type,artist-simple,type,"The object type: 'artist' schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+albums_{id}_tracks,items.artists.uri,artist-simple,uri,"The Spotify URI for the artist. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+albums_{id}_tracks,items.linked_from.uri,artist-simple,uri,"The Spotify URI for the artist. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+albums_{id}_tracks,items.duration_ms,track-simple,duration_ms,"The track length in milliseconds. schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+get+albums_{id}_tracks,items.external_urls,track-simple,external_urls,"Known external URLs for this track. schema: {""additionalProperties"": {""type"": ""string""}, ""type"": ""object""} schema: {""additionalProperties"": {""type"": ""string""}, ""type"": ""object""}"
+get+albums_{id}_tracks,items.is_local,track-simple,is_local,"Is local schema: {""type"": ""boolean""} schema: {""type"": ""boolean""}"
+get+albums_{id}_tracks,items.preview_url,track-simple,preview_url,"A URL to a 30 second preview (MP3 format) of the track. schema: {""type"": ""string"", ""x-nullable"": true} schema: {""type"": ""string"", ""x-nullable"": true}"
+get+albums_{id}_tracks,items.uri,track-simple,uri,"The Spotify URI for the track. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+albums_{id}_tracks,limit,track-simple-page,limit,"The maximum number of items in the response (as set in the query or by default). schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+get+albums_{id}_tracks,next,track-simple-page,next,"URL to the next page of items. (null if none) schema: {""type"": ""string"", ""x-nullable"": true} schema: {""type"": ""string"", ""x-nullable"": true}"
+get+albums_{id}_tracks,offset,track-simple-page,offset,"The offset of the items returned (as set in the query or by default). schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+get+albums_{id}_tracks,previous,track-simple-page,previous,"URL to the previous page of items. (null if none) schema: {""type"": ""string"", ""x-nullable"": true} schema: {""type"": ""string"", ""x-nullable"": true}"
+get+albums_{id}_tracks,items.explicit,track-simple,explicit,Whether or not the track has explicit lyrics (true = yes it does; false = no it does not OR unknown

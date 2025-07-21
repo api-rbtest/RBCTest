@@ -1,0 +1,32 @@
+endpoint,group,invariant,invariantType,variables,pptname,tp
+get+api_v1_holidays,holidays.date,return.date is a Date. Format: YYYY/MM/DD,daikon.inv.unary.string.dates.IsDateYYYYMMDD,(return.date),/api/v1/holidays&Holidays&200&holidays():::EXIT,1.0
+get+api_v1_holidays,holidays.federal,"return.federal one of { 0, 1 }",daikon.inv.unary.scalar.OneOfScalar,(return.federal),/api/v1/holidays&Holidays&200&holidays():::EXIT,1.0
+get+api_v1_holidays,holidays.id,"return.id >= 1
+return.id >= return.federal","daikon.inv.unary.scalar.LowerBound
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.id)
+(return.id, return.federal)","/api/v1/holidays&Holidays&200&holidays():::EXIT
+/api/v1/holidays&Holidays&200&holidays():::EXIT",1.0
+get+api_v1_holidays,holidays.observedDate,return.observedDate is a Date. Format: YYYY/MM/DD,daikon.inv.unary.string.dates.IsDateYYYYMMDD,(return.observedDate),/api/v1/holidays&Holidays&200&holidays():::EXIT,1.0
+get+api_v1_holidays,holidays.provinces.holidays,return.holidays == null,daikon.inv.unary.scalar.OneOfScalar,(return.holidays),/api/v1/holidays&Holidays&200&holidays&provinces():::EXIT,1.0
+get+api_v1_holidays,holidays.provinces.id,LENGTH(return.id)==2,daikon.inv.unary.string.FixedLengthString,(return.id),/api/v1/holidays&Holidays&200&holidays&provinces():::EXIT,1.0
+get+api_v1_holidays,holidays.provinces.nextHoliday,return.nextHoliday == null,daikon.inv.unary.scalar.OneOfScalar,(return.nextHoliday),/api/v1/holidays&Holidays&200&holidays&provinces():::EXIT,1.0
+get+api_v1_holidays,holidays.provinces.optional,return.optional == 1,daikon.inv.unary.scalar.OneOfScalar,(return.optional),/api/v1/holidays&Holidays&200&holidays&provinces():::EXIT,1.0
+get+api_v1_holidays,holidays.provinces.sourceLink,return.sourceLink is Url,daikon.inv.unary.string.IsUrl,(return.sourceLink),/api/v1/holidays&Holidays&200&holidays&provinces():::EXIT,1.0
+get+api_v1_holidays_{holidayId},holiday.date,return.holiday.date is a Date. Format: YYYY/MM/DD,daikon.inv.unary.string.dates.IsDateYYYYMMDD,(return.holiday.date),/api/v1/holidays/{holidayId}&Holiday&200():::EXIT,1.0
+get+api_v1_holidays_{holidayId},holiday.federal,"return.holiday.federal one of { 0, 1 }
+input.holidayId >= return.holiday.federal","daikon.inv.unary.scalar.OneOfScalar
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.holiday.federal)
+(input.holidayId, return.holiday.federal)","/api/v1/holidays/{holidayId}&Holiday&200():::EXIT
+/api/v1/holidays/{holidayId}&Holiday&200():::EXIT",1.0
+get+api_v1_holidays_{holidayId},holiday.id,input.holidayId == return.holiday.id,daikon.inv.binary.twoScalar.IntEqual,"(input.holidayId, return.holiday.id)",/api/v1/holidays/{holidayId}&Holiday&200():::EXIT,1.0
+get+api_v1_holidays_{holidayId},holiday.observedDate,return.holiday.observedDate is a Date. Format: YYYY/MM/DD,daikon.inv.unary.string.dates.IsDateYYYYMMDD,(return.holiday.observedDate),/api/v1/holidays/{holidayId}&Holiday&200():::EXIT,1.0
+get+api_v1_holidays_{holidayId},holiday.provinces.holidays,return.holidays == null,daikon.inv.unary.scalar.OneOfScalar,(return.holidays),/api/v1/holidays/{holidayId}&Holiday&200&holiday&provinces():::EXIT,1.0
+get+api_v1_holidays_{holidayId},holiday.provinces.id,LENGTH(return.id)==2,daikon.inv.unary.string.FixedLengthString,(return.id),/api/v1/holidays/{holidayId}&Holiday&200&holiday&provinces():::EXIT,1.0
+get+api_v1_holidays_{holidayId},holiday.provinces.nextHoliday,return.nextHoliday == null,daikon.inv.unary.scalar.OneOfScalar,(return.nextHoliday),/api/v1/holidays/{holidayId}&Holiday&200&holiday&provinces():::EXIT,1.0
+get+api_v1_holidays_{holidayId},holiday.provinces.optional,return.optional == 1,daikon.inv.unary.scalar.OneOfScalar,(return.optional),/api/v1/holidays/{holidayId}&Holiday&200&holiday&provinces():::EXIT,1.0
+get+api_v1_holidays_{holidayId},holiday.provinces.sourceLink,return.sourceLink is Url,daikon.inv.unary.string.IsUrl,(return.sourceLink),/api/v1/holidays/{holidayId}&Holiday&200&holiday&provinces():::EXIT,1.0
+get+api_v1_provinces,provinces,size(return.provinces[]) == 13,daikon.inv.unary.scalar.OneOfScalar,(size(return.provinces[..])),/api/v1/provinces&Provinces&200():::EXIT,1.0
+get+api_v1_provinces,provinces.id,LENGTH(return.id)==2,daikon.inv.unary.string.FixedLengthString,(return.id),/api/v1/provinces&Provinces&200&provinces():::EXIT,1.0
+get+api_v1_provinces,provinces.sourceLink,return.sourceLink is Url,daikon.inv.unary.string.IsUrl,(return.sourceLink),/api/v1/provinces&Provinces&200&provinces():::EXIT,1.0
+get+api_v1_provinces_{provinceId},province.id,input.provinceId == return.province.id,daikon.inv.binary.twoString.StringEqual,"(input.provinceId, return.province.id)",/api/v1/provinces/{provinceId}&Province&200():::EXIT,1.0
+get+api_v1_provinces_{provinceId},province.sourceLink,return.province.sourceLink is Url,daikon.inv.unary.string.IsUrl,(return.province.sourceLink),/api/v1/provinces/{provinceId}&Province&200():::EXIT,1.0

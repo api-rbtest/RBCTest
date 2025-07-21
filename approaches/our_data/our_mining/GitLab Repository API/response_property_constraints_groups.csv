@@ -1,0 +1,16 @@
+operation,response resource,attribute,group,description,TP
+post-/projects,BasicProjectDetails,last_activity_at,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects,Owner,created_at,owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects,BasicProjectDetails,marked_for_deletion_on,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+get-/projects,BasicProjectDetails,marked_for_deletion_on,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+get-/projects,Owner,created_at,owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects,BasicProjectDetails,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects,BasicProjectDetails,last_activity_at,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects,BasicProjectDetails,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects,BasicProjectDetails,web_url,web_url,"{""type"": ""string""}",1
+get-/projects,BasicProjectDetails,readme_url,readme_url,"{""type"": ""string""}",1
+post-/projects,BasicProjectDetails,http_url_to_repo,http_url_to_repo,"{""type"": ""string""}",1
+post-/projects,BasicProjectDetails,web_url,web_url,"{""type"": ""string""}",1
+post-/projects,BasicProjectDetails,readme_url,readme_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/merge_base,MergeBase,authored_date,authored_date,"{""type"": ""string""}",1
+get-/projects/{id}/repository/merge_base,MergeBase,committed_date,committed_date,"{""type"": ""string""}",1

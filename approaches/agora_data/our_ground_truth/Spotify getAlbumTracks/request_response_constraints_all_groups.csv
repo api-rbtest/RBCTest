@@ -1,0 +1,3 @@
+operation,response resource,attribute,group,description,part,corresponding attribute,corresponding attribute description
+get-/albums/{id}/tracks,track-simple-page,limit,limit,The maximum number of items in the response (as set in the query or by default),parameters,limit,The maximum number of items to return
+get-/albums/{id}/tracks,track-simple-page,offset,offset,The offset of the items returned (as set in the query or by default),parameters,offset,The index of the first item to return

@@ -1,0 +1,8 @@
+operation,response resource,attribute,group,description,part,corresponding attribute,corresponding attribute description
+get-/shopping/hotel-offers,HotelProduct_Guests,adults,data.offers.guests.adults,,parameters,adults,Number of adult guests (1-9) per room
+get-/shopping/hotel-offers,HotelOffer,checkInDate,data.offers.checkInDate,,parameters,checkInDate,"Check-in date of the stay (hotel local date). Format YYYY-MM-DD. The lowest accepted value is the present date (no dates in the past). If not present, the default value will be today's date in the GMT time zone"
+get-/shopping/hotel-offers,HotelOffer,checkOutDate,data.offers.checkOutDate,,parameters,checkOutDate,"Check-out date of the stay (hotel local date). Format YYYY-MM-DD. The lowest accepted value is checkInDate+1. If not present, it will default to checkInDate +1"
+get-/shopping/hotel-offers,HotelProduct_HotelPrice,total,data.offers.price.total,,parameters,priceRange,"Filter hotel offers by price per night interval (ex: 200-300 or -300 or 100).
+It is mandatory to include a currency when this field is set"
+get-/shopping/hotel-offers,HotelProduct_HotelPrice,currency,data.offers.price.currency,,parameters,currency,"Use this parameter to request a specific currency. ISO currency code (http://www.iso.org/iso/home/standards/currency_codes.htm).
+If a hotel does not support the requested currency, the prices for the hotel will be returned in the local currency of the hotel"

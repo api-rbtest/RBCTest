@@ -1,0 +1,15 @@
+endpoint,group,description,tp,status,check_verify,_merge
+get+,BoxOffice,"{""type"": ""string"", ""example"": ""$96,200,000""}",1,mismatched,yes,both
+get+,DVD,"{""type"": ""string"", ""example"": ""01 Oct 2013""}",1,mismatched,yes,both
+get+,Plot,Attribute plot is responded to by parameter Response with a description: Return short or full plot,1,satisfied,yes,both
+get+,Poster,"{""type"": ""string"", ""example"": ""https://m.media-amazon.com/images/M/MV5BMTQxODE3NjM1Ml5BMl5BanBnXkFtZTcwMzkzNjc4OA@@._V1_SX300.jpg""}",1,satisfied,yes,both
+get+,Released,"{""type"": ""string"", ""example"": ""12 Jun 2013""}",1,satisfied,yes,both
+get+,Response,"{""type"": ""string"", ""enum"": [""True"", ""False""]}
+{""type"": ""string"", ""enum"": [""True"", ""False""], ""example"": ""True""} schema: {""type"": ""string"", ""enum"": [""True"", ""False""], ""example"": ""True""}",1,satisfied,yes,both
+get+,Runtime,"{""type"": ""string"", ""example"": ""107 min""}",1,mismatched,yes,both
+get+,Title,Attribute t is responded to by parameter Response with a description: Title of movie or series,1,satisfied,yes,both
+get+,Type,"Attribute type is responded to by parameter Response with a description: Return movie, series or episode",1,satisfied,yes,both
+get+,Year,"{""type"": ""string"", ""example"": 2013} schema: {""type"": ""string"", ""example"": 2013}",1,mismatched,yes,both
+get+,imdbID,"Attribute i is responded to by parameter Response with a description: A valid IMDb ID (e.g. tt0000001)
+{""type"": ""string"", ""example"": ""tt1245492""} schema: {""type"": ""string"", ""example"": ""tt1245492""}",1,satisfied,yes,both
+get+,seriesID,"{""type"": ""string"", ""example"": ""tt0341939""}",1,satisfied,yes,both

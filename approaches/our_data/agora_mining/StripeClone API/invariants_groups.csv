@@ -1,0 +1,243 @@
+endpoint,group,invariant,invariantType,variables,postmanAssertion,pptname
+get+v1_apple_pay_domains,data,input.limit >= size(return.data[]),daikon.inv.binary.twoScalar.IntGreaterEqual,"(input.limit, size(return.data[..]))",pm.expect(input_limit).to.be.at.least(return_data_size_array),/v1/apple_pay/domains&GetApplePayDomains&200():::EXIT
+get+v1_apple_pay_domains,data.id,LENGTH(return.id)==29,daikon.inv.unary.string.FixedLengthString,(return.id),pm.expect(return_id).to.have.length(29),/v1/apple_pay/domains&GetApplePayDomains&200&data():::EXIT
+get+v1_apple_pay_domains,data.object,"return.object == ""apple_pay_domain""
+LENGTH(return.object)==16","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""apple_pay_domain""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(16)","/v1/apple_pay/domains&GetApplePayDomains&200&data():::EXIT
+/v1/apple_pay/domains&GetApplePayDomains&200&data():::EXIT"
+get+v1_apple_pay_domains,object,"return.object == ""list""
+LENGTH(return.object)==4","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""list""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(4)","/v1/apple_pay/domains&GetApplePayDomains&200():::EXIT
+/v1/apple_pay/domains&GetApplePayDomains&200():::EXIT"
+get+v1_apple_pay_domains,url,"return.url == ""/v1/apple_pay/domains""
+LENGTH(return.url)==21","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.url)
+(return.url)","pm.expect([""/v1/apple_pay/domains""].includes(return_url)).to.be.true
+pm.expect(return_url).to.have.length(21)","/v1/apple_pay/domains&GetApplePayDomains&200():::EXIT
+/v1/apple_pay/domains&GetApplePayDomains&200():::EXIT"
+get+v1_radar_value_list_items,data,input.limit > size(return.data[]),daikon.inv.binary.twoScalar.IntGreaterThan,"(input.limit, size(return.data[..]))",pm.expect(input_limit).to.be.greaterThan(return_data_size_array),/v1/radar/value_list_items&GetRadarValueListItems&200():::EXIT
+get+v1_radar_value_list_items,data.created_by,"return.created_by == ""API""
+LENGTH(return.created_by)==3","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.created_by)
+(return.created_by)","pm.expect([""API""].includes(return_created_by)).to.be.true
+pm.expect(return_created_by).to.have.length(3)","/v1/radar/value_list_items&GetRadarValueListItems&200&data():::EXIT
+/v1/radar/value_list_items&GetRadarValueListItems&200&data():::EXIT"
+get+v1_radar_value_list_items,data.id,LENGTH(return.id)==29,daikon.inv.unary.string.FixedLengthString,(return.id),pm.expect(return_id).to.have.length(29),/v1/radar/value_list_items&GetRadarValueListItems&200&data():::EXIT
+get+v1_radar_value_list_items,data.object,"return.object == ""radar.value_list_item""
+LENGTH(return.object)==21","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""radar.value_list_item""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(21)","/v1/radar/value_list_items&GetRadarValueListItems&200&data():::EXIT
+/v1/radar/value_list_items&GetRadarValueListItems&200&data():::EXIT"
+get+v1_radar_value_list_items,data.value_list,input.value_list == return.value_list,daikon.inv.binary.twoString.StringEqual,"(input.value_list, return.value_list)",pm.expect(input_value_list).to.eql(return_value_list),/v1/radar/value_list_items&GetRadarValueListItems&200&data():::EXIT
+get+v1_radar_value_list_items,object,"return.object == ""list""
+LENGTH(return.object)==4
+return.object == ""list""
+LENGTH(return.object)==4","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)
+(return.object)
+(return.object)","pm.expect([""list""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(4)
+pm.expect([""list""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(4)","/v1/radar/value_list_items&GetRadarValueListItems&200():::EXIT
+/v1/radar/value_list_items&GetRadarValueListItems&200():::EXIT
+/v1/radar/value_list_items&PostRadarValueListItems&200():::EXIT
+/v1/radar/value_list_items&PostRadarValueListItems&200():::EXIT"
+get+v1_radar_value_list_items,url,"return.url == ""/v1/radar/value_list_items""
+LENGTH(return.url)==26","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.url)
+(return.url)","pm.expect([""/v1/radar/value_list_items""].includes(return_url)).to.be.true
+pm.expect(return_url).to.have.length(26)","/v1/radar/value_list_items&GetRadarValueListItems&200():::EXIT
+/v1/radar/value_list_items&GetRadarValueListItems&200():::EXIT"
+get+v1_reporting_report_types,data.data_available_end,return.data_available_end <= return.updated,daikon.inv.binary.twoScalar.IntLessEqual,"(return.data_available_end, return.updated)",pm.expect(return_data_available_end).to.be.lte(return_updated),/v1/reporting/report_types&GetReportingReportTypes&200&data():::EXIT
+get+v1_reporting_report_types,data.object,"return.object == ""reporting.report_type""
+LENGTH(return.object)==21","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""reporting.report_type""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(21)","/v1/reporting/report_types&GetReportingReportTypes&200&data():::EXIT
+/v1/reporting/report_types&GetReportingReportTypes&200&data():::EXIT"
+get+v1_reporting_report_types,data.version,return.version >= 1,daikon.inv.unary.scalar.LowerBound,(return.version),pm.expect(return_version).to.be.at.least(1),/v1/reporting/report_types&GetReportingReportTypes&200&data():::EXIT
+get+v1_reporting_report_types,object,"return.object == ""list""
+LENGTH(return.object)==4","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""list""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(4)","/v1/reporting/report_types&GetReportingReportTypes&200():::EXIT
+/v1/reporting/report_types&GetReportingReportTypes&200():::EXIT"
+get+v1_reporting_report_types,url,"return.url == ""/v1/reporting/report_types""
+LENGTH(return.url)==26","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.url)
+(return.url)","pm.expect([""/v1/reporting/report_types""].includes(return_url)).to.be.true
+pm.expect(return_url).to.have.length(26)","/v1/reporting/report_types&GetReportingReportTypes&200():::EXIT
+/v1/reporting/report_types&GetReportingReportTypes&200():::EXIT"
+get+v1_tax_rates,data,input.limit >= size(return.data[]),daikon.inv.binary.twoScalar.IntGreaterEqual,"(input.limit, size(return.data[..]))",pm.expect(input_limit).to.be.at.least(return_data_size_array),/v1/tax_rates&GetTaxRates&200():::EXIT
+get+v1_tax_rates,data.active,input.active == return.active,daikon.inv.binary.twoScalar.IntEqual,"(input.active, return.active)",pm.expect(input_active).to.eql(return_active),/v1/tax_rates&GetTaxRates&200&data():::EXIT
+get+v1_tax_rates,data.country,LENGTH(return.country)==2,daikon.inv.unary.string.FixedLengthString,(return.country),pm.expect(return_country).to.have.length(2),/v1/tax_rates&GetTaxRates&200&data():::EXIT
+get+v1_tax_rates,data.id,LENGTH(return.id)==28,daikon.inv.unary.string.FixedLengthString,(return.id),pm.expect(return_id).to.have.length(28),/v1/tax_rates&GetTaxRates&200&data():::EXIT
+get+v1_tax_rates,data.inclusive,input.inclusive == return.inclusive,daikon.inv.binary.twoScalar.IntEqual,"(input.inclusive, return.inclusive)",pm.expect(input_inclusive).to.eql(return_inclusive),/v1/tax_rates&GetTaxRates&200&data():::EXIT
+get+v1_tax_rates,data.object,"return.object == ""tax_rate""
+LENGTH(return.object)==8","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""tax_rate""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(8)","/v1/tax_rates&GetTaxRates&200&data():::EXIT
+/v1/tax_rates&GetTaxRates&200&data():::EXIT"
+get+v1_tax_rates,data.state,LENGTH(return.state)==2,daikon.inv.unary.string.FixedLengthString,(return.state),pm.expect(return_state).to.have.length(2),/v1/tax_rates&GetTaxRates&200&data():::EXIT
+get+v1_tax_rates,object,"return.object == ""list""
+LENGTH(return.object)==4","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""list""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(4)","/v1/tax_rates&GetTaxRates&200():::EXIT
+/v1/tax_rates&GetTaxRates&200():::EXIT"
+get+v1_tax_rates,url,"return.url == ""/v1/tax_rates""
+LENGTH(return.url)==13","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.url)
+(return.url)","pm.expect([""/v1/tax_rates""].includes(return_url)).to.be.true
+pm.expect(return_url).to.have.length(13)","/v1/tax_rates&GetTaxRates&200():::EXIT
+/v1/tax_rates&GetTaxRates&200():::EXIT"
+get+v1_test_helpers_test_clocks,data.id,LENGTH(return.id)==30,daikon.inv.unary.string.FixedLengthString,(return.id),pm.expect(return_id).to.have.length(30),/v1/test_helpers/test_clocks&GetTestHelpersTestClocks&200&data():::EXIT
+get+v1_test_helpers_test_clocks,data.object,"return.object == ""test_helpers.test_clock""
+LENGTH(return.object)==23","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""test_helpers.test_clock""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(23)","/v1/test_helpers/test_clocks&GetTestHelpersTestClocks&200&data():::EXIT
+/v1/test_helpers/test_clocks&GetTestHelpersTestClocks&200&data():::EXIT"
+get+v1_test_helpers_test_clocks,data.status,"return.status == ""ready""
+LENGTH(return.status)==5","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.status)
+(return.status)","pm.expect([""ready""].includes(return_status)).to.be.true
+pm.expect(return_status).to.have.length(5)","/v1/test_helpers/test_clocks&GetTestHelpersTestClocks&200&data():::EXIT
+/v1/test_helpers/test_clocks&GetTestHelpersTestClocks&200&data():::EXIT"
+get+v1_test_helpers_test_clocks,object,"return.object == ""list""
+LENGTH(return.object)==4","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""list""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(4)","/v1/test_helpers/test_clocks&GetTestHelpersTestClocks&200():::EXIT
+/v1/test_helpers/test_clocks&GetTestHelpersTestClocks&200():::EXIT"
+get+v1_test_helpers_test_clocks,url,"return.url == ""/v1/test_helpers/test_clocks""
+LENGTH(return.url)==28","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.url)
+(return.url)","pm.expect([""/v1/test_helpers/test_clocks""].includes(return_url)).to.be.true
+pm.expect(return_url).to.have.length(28)","/v1/test_helpers/test_clocks&GetTestHelpersTestClocks&200():::EXIT
+/v1/test_helpers/test_clocks&GetTestHelpersTestClocks&200():::EXIT"
+get+v1_webhook_endpoints,data,input.limit >= size(return.data[]),daikon.inv.binary.twoScalar.IntGreaterEqual,"(input.limit, size(return.data[..]))",pm.expect(input_limit).to.be.at.least(return_data_size_array),/v1/webhook_endpoints&GetWebhookEndpoints&200():::EXIT
+get+v1_webhook_endpoints,data.api_version,"return.api_version one of { ""2013-12-03"", ""2015-07-28"", ""2018-09-24"" }
+return.api_version is a Date. Format: YYYY/MM/DD","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.dates.IsDateYYYYMMDD","(return.api_version)
+(return.api_version)","pm.expect([""2013-12-03"", ""2015-07-28"", ""2018-09-24""].includes(return_api_version)).to.be.true
+pm.expect(return_api_version).to.match(/^(?:1\d{3}|20[01234][0-9]|2050|9999)[-/.](?:0[1-9]|1[012])[-/.](?:0[1-9]|[12][0-9]|3[01])$/)","/v1/webhook_endpoints&GetWebhookEndpoints&200&data():::EXIT
+/v1/webhook_endpoints&GetWebhookEndpoints&200&data():::EXIT"
+get+v1_webhook_endpoints,data.id,LENGTH(return.id)==27,daikon.inv.unary.string.FixedLengthString,(return.id),pm.expect(return_id).to.have.length(27),/v1/webhook_endpoints&GetWebhookEndpoints&200&data():::EXIT
+get+v1_webhook_endpoints,data.object,"return.object == ""webhook_endpoint""
+LENGTH(return.object)==16","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""webhook_endpoint""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(16)","/v1/webhook_endpoints&GetWebhookEndpoints&200&data():::EXIT
+/v1/webhook_endpoints&GetWebhookEndpoints&200&data():::EXIT"
+get+v1_webhook_endpoints,data.status,"return.status == ""enabled""
+LENGTH(return.status)==7","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.status)
+(return.status)","pm.expect([""enabled""].includes(return_status)).to.be.true
+pm.expect(return_status).to.have.length(7)","/v1/webhook_endpoints&GetWebhookEndpoints&200&data():::EXIT
+/v1/webhook_endpoints&GetWebhookEndpoints&200&data():::EXIT"
+get+v1_webhook_endpoints,object,"return.object == ""list""
+LENGTH(return.object)==4","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""list""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(4)","/v1/webhook_endpoints&GetWebhookEndpoints&200():::EXIT
+/v1/webhook_endpoints&GetWebhookEndpoints&200():::EXIT"
+get+v1_webhook_endpoints,url,"return.url == ""/v1/webhook_endpoints""
+LENGTH(return.url)==21","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.url)
+(return.url)","pm.expect([""/v1/webhook_endpoints""].includes(return_url)).to.be.true
+pm.expect(return_url).to.have.length(21)","/v1/webhook_endpoints&GetWebhookEndpoints&200():::EXIT
+/v1/webhook_endpoints&GetWebhookEndpoints&200():::EXIT"
+post+v1_account_links,created,return.created < return.expires_at,daikon.inv.binary.twoScalar.IntLessThan,"(return.created, return.expires_at)",pm.expect(return_created).to.be.lessThan(return_expires_at),/v1/account_links&PostAccountLinks&200():::EXIT
+post+v1_account_links,object,"return.object == ""account_link""
+LENGTH(return.object)==12","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""account_link""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(12)","/v1/account_links&PostAccountLinks&200():::EXIT
+/v1/account_links&PostAccountLinks&200():::EXIT"
+post+v1_account_links,url,"return.url is Url
+input.account is a substring of return.url","daikon.inv.unary.string.IsUrl
+daikon.inv.binary.twoString.StdString$SubString","(return.url)
+(input.account, return.url)","pm.expect(return_url).to.match(/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[\w\u00a1-\uffff0-9]+-?)*[\w\u00a1-\uffff0-9]+)(?:\.(?:[\w\u00a1-\uffff0-9]+-)*[\w\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/)
+pm.expect(return_url.includes(input_account)).to.be.true","/v1/account_links&PostAccountLinks&200():::EXIT
+/v1/account_links&PostAccountLinks&200():::EXIT"
+post+v1_apple_pay_domains,domain_name,return.domain_name is a substring of input.domain_name,daikon.inv.binary.twoString.StdString$SubString,"(input.domain_name, return.domain_name)",pm.expect(input_domain_name.includes(return_domain_name)).to.be.true,/v1/apple_pay/domains&PostApplePayDomains&200():::EXIT
+post+v1_apple_pay_domains,id,LENGTH(return.id)==29,daikon.inv.unary.string.FixedLengthString,(return.id),pm.expect(return_id).to.have.length(29),/v1/apple_pay/domains&PostApplePayDomains&200():::EXIT
+post+v1_apple_pay_domains,object,"return.object == ""apple_pay_domain""
+LENGTH(return.object)==16","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""apple_pay_domain""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(16)","/v1/apple_pay/domains&PostApplePayDomains&200():::EXIT
+/v1/apple_pay/domains&PostApplePayDomains&200():::EXIT"
+post+v1_ephemeral_keys,id,LENGTH(return.id)==31,daikon.inv.unary.string.FixedLengthString,(return.id),pm.expect(return_id).to.have.length(31),/v1/ephemeral_keys&PostEphemeralKeys&200():::EXIT
+post+v1_ephemeral_keys,object,"return.object == ""ephemeral_key""
+LENGTH(return.object)==13","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""ephemeral_key""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(13)","/v1/ephemeral_keys&PostEphemeralKeys&200():::EXIT
+/v1/ephemeral_keys&PostEphemeralKeys&200():::EXIT"
+post+v1_ephemeral_keys,secret,LENGTH(return.secret)==90,daikon.inv.unary.string.FixedLengthString,(return.secret),pm.expect(return_secret).to.have.length(90),/v1/ephemeral_keys&PostEphemeralKeys&200():::EXIT
+post+v1_radar_value_list_items,created_by,"return.created_by == ""API""
+LENGTH(return.created_by)==3","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.created_by)
+(return.created_by)","pm.expect([""API""].includes(return_created_by)).to.be.true
+pm.expect(return_created_by).to.have.length(3)","/v1/radar/value_list_items&PostRadarValueListItems&200():::EXIT
+/v1/radar/value_list_items&PostRadarValueListItems&200():::EXIT"
+post+v1_radar_value_list_items,id,LENGTH(return.id)==29,daikon.inv.unary.string.FixedLengthString,(return.id),pm.expect(return_id).to.have.length(29),/v1/radar/value_list_items&PostRadarValueListItems&200():::EXIT
+post+v1_radar_value_list_items,object,"return.object == ""radar.value_list_item""
+LENGTH(return.object)==21","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""radar.value_list_item""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(21)","/v1/radar/value_list_items&PostRadarValueListItems&200():::EXIT
+/v1/radar/value_list_items&PostRadarValueListItems&200():::EXIT"
+post+v1_radar_value_list_items,value,input.value == return.value,daikon.inv.binary.twoString.StringEqual,"(input.value, return.value)",pm.expect(input_value).to.eql(return_value),/v1/radar/value_list_items&PostRadarValueListItems&200():::EXIT
+post+v1_radar_value_list_items,value_list,input.value_list == return.value_list,daikon.inv.binary.twoString.StringEqual,"(input.value_list, return.value_list)",pm.expect(input_value_list).to.eql(return_value_list),/v1/radar/value_list_items&PostRadarValueListItems&200():::EXIT
+post+v1_tax_rates,active,input.active == return.active,daikon.inv.binary.twoScalar.IntEqual,"(input.active, return.active)",pm.expect(input_active).to.eql(return_active),/v1/tax_rates&PostTaxRates&200():::EXIT
+post+v1_tax_rates,country,input.country == return.country,daikon.inv.binary.twoString.StringEqual,"(input.country, return.country)",pm.expect(input_country).to.eql(return_country),/v1/tax_rates&PostTaxRates&200():::EXIT
+post+v1_tax_rates,description,input.description == return.description,daikon.inv.binary.twoString.StringEqual,"(input.description, return.description)",pm.expect(input_description).to.eql(return_description),/v1/tax_rates&PostTaxRates&200():::EXIT
+post+v1_tax_rates,display_name,input.display_name == return.display_name,daikon.inv.binary.twoString.StringEqual,"(input.display_name, return.display_name)",pm.expect(input_display_name).to.eql(return_display_name),/v1/tax_rates&PostTaxRates&200():::EXIT
+post+v1_tax_rates,id,LENGTH(return.id)==28,daikon.inv.unary.string.FixedLengthString,(return.id),pm.expect(return_id).to.have.length(28),/v1/tax_rates&PostTaxRates&200():::EXIT
+post+v1_tax_rates,inclusive,input.inclusive == return.inclusive,daikon.inv.binary.twoScalar.IntEqual,"(input.inclusive, return.inclusive)",pm.expect(input_inclusive).to.eql(return_inclusive),/v1/tax_rates&PostTaxRates&200():::EXIT
+post+v1_tax_rates,jurisdiction,input.jurisdiction == return.jurisdiction,daikon.inv.binary.twoString.StringEqual,"(input.jurisdiction, return.jurisdiction)",pm.expect(input_jurisdiction).to.eql(return_jurisdiction),/v1/tax_rates&PostTaxRates&200():::EXIT
+post+v1_tax_rates,object,"return.object == ""tax_rate""
+LENGTH(return.object)==8","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""tax_rate""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(8)","/v1/tax_rates&PostTaxRates&200():::EXIT
+/v1/tax_rates&PostTaxRates&200():::EXIT"
+post+v1_tax_rates,percentage,input.percentage == return.percentage,daikon.inv.binary.twoScalar.FloatEqual,"(input.percentage, return.percentage)",pm.expect(input_percentage).to.eql(return_percentage),/v1/tax_rates&PostTaxRates&200():::EXIT
+post+v1_tax_rates,tax_type,input.tax_type == return.tax_type,daikon.inv.binary.twoString.StringEqual,"(input.tax_type, return.tax_type)",pm.expect(input_tax_type).to.eql(return_tax_type),/v1/tax_rates&PostTaxRates&200():::EXIT
+post+v1_test_helpers_test_clocks,frozen_time,input.frozen_time == return.frozen_time,daikon.inv.binary.twoScalar.IntEqual,"(input.frozen_time, return.frozen_time)",pm.expect(input_frozen_time).to.eql(return_frozen_time),/v1/test_helpers/test_clocks&PostTestHelpersTestClocks&200():::EXIT
+post+v1_test_helpers_test_clocks,id,LENGTH(return.id)==30,daikon.inv.unary.string.FixedLengthString,(return.id),pm.expect(return_id).to.have.length(30),/v1/test_helpers/test_clocks&PostTestHelpersTestClocks&200():::EXIT
+post+v1_test_helpers_test_clocks,name,input.name == return.name,daikon.inv.binary.twoString.StringEqual,"(input.name, return.name)",pm.expect(input_name).to.eql(return_name),/v1/test_helpers/test_clocks&PostTestHelpersTestClocks&200():::EXIT
+post+v1_test_helpers_test_clocks,object,"return.object == ""test_helpers.test_clock""
+LENGTH(return.object)==23","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""test_helpers.test_clock""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(23)","/v1/test_helpers/test_clocks&PostTestHelpersTestClocks&200():::EXIT
+/v1/test_helpers/test_clocks&PostTestHelpersTestClocks&200():::EXIT"
+post+v1_test_helpers_test_clocks,status,"return.status == ""ready""
+LENGTH(return.status)==5","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.status)
+(return.status)","pm.expect([""ready""].includes(return_status)).to.be.true
+pm.expect(return_status).to.have.length(5)","/v1/test_helpers/test_clocks&PostTestHelpersTestClocks&200():::EXIT
+/v1/test_helpers/test_clocks&PostTestHelpersTestClocks&200():::EXIT"
+post+v1_webhook_endpoints,api_version,input.api_version == return.api_version,daikon.inv.binary.twoString.StringEqual,"(input.api_version, return.api_version)",pm.expect(input_api_version).to.eql(return_api_version),/v1/webhook_endpoints&PostWebhookEndpoints&200():::EXIT
+post+v1_webhook_endpoints,id,LENGTH(return.id)==27,daikon.inv.unary.string.FixedLengthString,(return.id),pm.expect(return_id).to.have.length(27),/v1/webhook_endpoints&PostWebhookEndpoints&200():::EXIT
+post+v1_webhook_endpoints,object,"return.object == ""webhook_endpoint""
+LENGTH(return.object)==16","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.object)
+(return.object)","pm.expect([""webhook_endpoint""].includes(return_object)).to.be.true
+pm.expect(return_object).to.have.length(16)","/v1/webhook_endpoints&PostWebhookEndpoints&200():::EXIT
+/v1/webhook_endpoints&PostWebhookEndpoints&200():::EXIT"
+post+v1_webhook_endpoints,secret,LENGTH(return.secret)==38,daikon.inv.unary.string.FixedLengthString,(return.secret),pm.expect(return_secret).to.have.length(38),/v1/webhook_endpoints&PostWebhookEndpoints&200():::EXIT
+post+v1_webhook_endpoints,url,input.url == return.url,daikon.inv.binary.twoString.StringEqual,"(input.url, return.url)",pm.expect(input_url).to.eql(return_url),/v1/webhook_endpoints&PostWebhookEndpoints&200():::EXIT

@@ -1,0 +1,251 @@
+endpoint,group,description
+get+projects,archived,Attribute archived is responded to by parameter BasicProjectDetails with a description: Limit by archived status
+get+projects,avatar_url,"{""type"": ""string""}"
+get+projects,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+projects,http_url_to_repo,"{""type"": ""string""}"
+get+projects,id,"Attribute id_after is responded to by parameter BasicProjectDetails with a description: Limit results to projects with IDs greater than the specified ID
+Attribute id_before is responded to by parameter BasicProjectDetails with a description: Limit results to projects with IDs less than the specified ID"
+get+projects,issues_enabled,Attribute with_issues_enabled is responded to by parameter BasicProjectDetails with a description: Limit by enabled issues feature
+get+projects,last_activity_at,"Attribute last_activity_after is responded to by parameter BasicProjectDetails with a description: Limit results to projects with last_activity after specified time.ISO 8601 YYYY-MM-DDTHH:MM:SSZ
+Attribute last_activity_before is responded to by parameter BasicProjectDetails with a description: Limit results to projects with last_activity before specified time. ISO 8601 YYYY-MM-DDTHH:MM:SSZ
+{""type"": ""string"", ""format"": ""date-time""}"
+get+projects,marked_for_deletion_at,"{""type"": ""string"", ""format"": ""date""}"
+get+projects,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}"
+get+projects,merge_requests_enabled,Attribute with_merge_requests_enabled is responded to by parameter BasicProjectDetails with a description: Limit by enabled merge requests feature
+get+projects,owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+projects,readme_url,"{""type"": ""string""}"
+get+projects,repository_storage,Attribute repository_storage is responded to by parameter BasicProjectDetails with a description: Limit results to projects stored on repository_storage. (admins only)
+get+projects,ssh_url_to_repo,"{""type"": ""string""}"
+get+projects,visibility,Attribute visibility is responded to by parameter BasicProjectDetails with a description: Limit by visibility
+get+projects,web_url,"{""type"": ""string""}"
+get+projects_{id},container_expiration_policy.next_run_at,"{""type"": ""string"", ""format"": ""date-time""}_x000D_"
+get+projects_{id},created_at,"{""type"": ""string"", ""format"": ""date-time""}_x000D_"
+get+projects_{id},last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}_x000D_"
+get+projects_{id},marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}_x000D_"
+get+projects_{id}_forks,archived,Attribute archived is responded to by parameter Project with a description: Limit by archived status
+get+projects_{id}_forks,avatar_url,"{""type"": ""string""}"
+get+projects_{id}_forks,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+projects_{id}_forks,http_url_to_repo,"{""type"": ""string""}"
+get+projects_{id}_forks,id,Attribute id is responded to by parameter Project with a description: The ID orURL-encoded path of the project
+get+projects_{id}_forks,issues_enabled,Attribute with_issues_enabled is responded to by parameter Project with a description: Limit by enabled issues feature
+get+projects_{id}_forks,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}
+{""type"": ""string"", ""format"": ""date-time""}_x000D_"
+get+projects_{id}_forks,merge_requests_enabled,Attribute with_merge_requests_enabled is responded to by parameter Project with a description: Limit by enabled merge requests feature
+get+projects_{id}_forks,readme_url,"{""type"": ""string""}"
+get+projects_{id}_forks,visibility,"Attribute visibility is responded to by parameter Project with a description: Limit by visibilitypublic,internal, orprivate"
+get+projects_{id}_forks,web_url,"{""type"": ""string""}"
+get+projects_{id}_starrers,starred_since,"{""type"": ""string"", ""format"": ""date-time""}"
+get+projects_{id}_starrers,user.avatar_url,"{""type"": ""string""}"
+get+projects_{id}_starrers,user.web_url,"{""type"": ""string""}"
+get+projects_{id}_users,avatar_url,"{""type"": ""string""}"
+get+projects_{id}_users,web_url,"{""type"": ""string""}"
+get+users_{user_id}_projects,archived,Attribute archived is responded to by parameter BasicProjectDetails with a description: Limit by archived status
+get+users_{user_id}_projects,avatar_url,"{""type"": ""string""}"
+get+users_{user_id}_projects,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+users_{user_id}_projects,http_url_to_repo,"{""type"": ""string""}"
+get+users_{user_id}_projects,id,"Attribute id_before is responded to by parameter BasicProjectDetails with a description: Limit results to projects with IDs less than the specified ID
+Attribute id_after is responded to by parameter BasicProjectDetails with a description: Limit results to projects with IDs greater than the specified ID"
+get+users_{user_id}_projects,issues_enabled,Attribute with_issues_enabled is responded to by parameter BasicProjectDetails with a description: Limit by enabled issues feature
+get+users_{user_id}_projects,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+users_{user_id}_projects,marked_for_deletion_at,"{""type"": ""string"", ""format"": ""date""}"
+get+users_{user_id}_projects,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}"
+get+users_{user_id}_projects,merge_requests_enabled,Attribute with_merge_requests_enabled is responded to by parameter BasicProjectDetails with a description: Limit by enabled merge requests feature
+get+users_{user_id}_projects,owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+users_{user_id}_projects,readme_url,"{""type"": ""string""}"
+get+users_{user_id}_projects,visibility,Attribute visibility is responded to by parameter BasicProjectDetails with a description: Limit by visibility
+get+users_{user_id}_projects,web_url,"{""type"": ""string""}"
+get+users_{user_id}_starred_projects,archived,Attribute archived is responded to by parameter BasicProjectDetails with a description: Limit by archived status
+get+users_{user_id}_starred_projects,avatar_url,"{""type"": ""string""}"
+get+users_{user_id}_starred_projects,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+users_{user_id}_starred_projects,http_url_to_repo,"{""type"": ""string""}"
+get+users_{user_id}_starred_projects,issues_enabled,Attribute with_issues_enabled is responded to by parameter BasicProjectDetails with a description: Limit by enabled issues feature
+get+users_{user_id}_starred_projects,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+users_{user_id}_starred_projects,marked_for_deletion_at,"{""type"": ""string"", ""format"": ""date""}"
+get+users_{user_id}_starred_projects,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}"
+get+users_{user_id}_starred_projects,merge_requests_enabled,Attribute with_merge_requests_enabled is responded to by parameter BasicProjectDetails with a description: Limit by enabled merge requests feature
+get+users_{user_id}_starred_projects,owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+users_{user_id}_starred_projects,readme_url,"{""type"": ""string""}"
+get+users_{user_id}_starred_projects,visibility,Attribute visibility is responded to by parameter BasicProjectDetails with a description: Limit by visibility
+get+users_{user_id}_starred_projects,web_url,"{""type"": ""string""}"
+post+projects,allow_merge_on_skipped_pipeline,Attribute allow_merge_on_skipped_pipeline is responded to by parameter BasicProjectDetails with a description: Set whether or not merge requests can be merged with skipped jobs
+post+projects,auto_devops_deploy_strategy,Attribute auto_devops_deploy_strategy is responded to by parameter BasicProjectDetails with a description: Auto Deploy strategy
+post+projects,auto_devops_enabled,Attribute auto_devops_enabled is responded to by parameter BasicProjectDetails with a description: Enable Auto DevOps for this project
+post+projects,autoclose_referenced_issues,Attribute autoclose_referenced_issues is responded to by parameter BasicProjectDetails with a description: Set whether auto-closing referenced issues on default branch
+post+projects,avatar_url,"{""type"": ""string""}"
+post+projects,container_registry_enabled,"Attribute container_registry_enabled is responded to by parameter BasicProjectDetails with a description: Enable container registry for this project
+Attribute emails_disabled is responded to by parameter BasicProjectDetails with a description: Disable email notifications"
+post+projects,default_branch,Attribute default_branch is responded to by parameter BasicProjectDetails with a description: master by default
+post+projects,description,Attribute description is responded to by parameter BasicProjectDetails with a description: Short project description
+post+projects,http_url_to_repo,"{""type"": ""string""}"
+post+projects,issues_enabled,Attribute issues_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable issues for this project. Use issues_access_level instead
+post+projects,jobs_enabled,Attribute jobs_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable jobs for this project. Use builds_access_level instead
+post+projects,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects,marked_for_deletion_at,"{""type"": ""string"", ""format"": ""date""}"
+post+projects,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}"
+post+projects,merge_method,Attribute merge_method is responded to by parameter BasicProjectDetails with a description: Set the merge method used
+post+projects,merge_requests_enabled,Attribute merge_requests_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable merge requests for this project. Use merge_requests_access_level instead
+post+projects,name,"Attribute name is responded to by parameter BasicProjectDetails with a description: The name of the new project. Either path or name is required, not both"
+post+projects,only_allow_merge_if_all_discussions_are_resolved,Attribute only_allow_merge_if_all_discussions_are_resolved is responded to by parameter BasicProjectDetails with a description: Set whether merge requests can only be merged when all the discussions are resolved
+post+projects,only_allow_merge_if_pipeline_succeeds,Attribute only_allow_merge_if_pipeline_succeeds is responded to by parameter BasicProjectDetails with a description: Set whether merge requests can only be merged with successful jobs
+post+projects,packages_enabled,Attribute packages_enabled is responded to by parameter BasicProjectDetails with a description: Enable or disable packages repository feature
+post+projects,path,Attribute path is responded to by parameter BasicProjectDetails with a description: Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes)
+post+projects,public_jobs,"Attribute public_builds is responded to by parameter BasicProjectDetails with a description: If true, jobs can be viewed by non-project members"
+post+projects,readme_url,"{""type"": ""string""}"
+post+projects,remove_source_branch_after_merge,Attribute remove_source_branch_after_merge is responded to by parameter BasicProjectDetails with a description: Enable Delete source branch option by default for all new merge requests
+post+projects,repository_storage,Attribute repository_storage is responded to by parameter BasicProjectDetails with a description: Which storage shard the repository is on.(admins only)
+post+projects,request_access_enabled,Attribute request_access_enabled is responded to by parameter BasicProjectDetails with a description: Allow users to request member access
+post+projects,resolve_outdated_diff_discussions,Attribute resolve_outdated_diff_discussions is responded to by parameter BasicProjectDetails with a description: Automatically resolve merge request diffs discussions on lines changed with a push
+post+projects,shared_runners_enabled,Attribute shared_runners_enabled is responded to by parameter BasicProjectDetails with a description: Enable shared runners for this project
+post+projects,snippets_enabled,Attribute snippets_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable snippets for this project. Use snippets_access_level instead
+post+projects,tag_list,"Attribute tag_list is responded to by parameter BasicProjectDetails with a description: The list of tags for a project; put array of tags, that should be finally assigned to a project"
+post+projects,visibility,Attribute visibility is responded to by parameter BasicProjectDetails with a description: See project visibility level
+post+projects,web_url,"{""type"": ""string""}"
+post+projects,wiki_enabled,Attribute wiki_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable wiki for this project. Use wiki_access_levelinstead
+post+projects_user_{user_id},allow_merge_on_skipped_pipeline,Attribute allow_merge_on_skipped_pipeline is responded to by parameter BasicProjectDetails with a description: Set whether or not merge requests can be merged with skipped jobs
+post+projects_user_{user_id},auto_devops_deploy_strategy,Attribute auto_devops_deploy_strategy is responded to by parameter BasicProjectDetails with a description: Auto Deploy strategy
+post+projects_user_{user_id},auto_devops_enabled,Attribute auto_devops_enabled is responded to by parameter BasicProjectDetails with a description: Enable Auto DevOps for this project
+post+projects_user_{user_id},autoclose_referenced_issues,Attribute autoclose_referenced_issues is responded to by parameter BasicProjectDetails with a description: Set whether auto-closing referenced issues on default branch
+post+projects_user_{user_id},avatar_url,"{""type"": ""string""}"
+post+projects_user_{user_id},container_registry_enabled,Attribute container_registry_enabled is responded to by parameter BasicProjectDetails with a description: Enable container registry for this project
+post+projects_user_{user_id},created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_user_{user_id},description,Attribute description is responded to by parameter BasicProjectDetails with a description: Short project description
+post+projects_user_{user_id},http_url_to_repo,"{""type"": ""string""}"
+post+projects_user_{user_id},issues_enabled,Attribute issues_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable issues for this project. Use issues_access_level instead
+post+projects_user_{user_id},jobs_enabled,Attribute jobs_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable jobs for this project. Use builds_access_level instead
+post+projects_user_{user_id},last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_user_{user_id},marked_for_deletion_at,"{""type"": ""string"", ""format"": ""date""}"
+post+projects_user_{user_id},marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}"
+post+projects_user_{user_id},merge_method,Attribute merge_method is responded to by parameter BasicProjectDetails with a description: Set the merge method used
+post+projects_user_{user_id},merge_requests_enabled,Attribute merge_requests_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable merge requests for this project. Use merge_requests_access_level instead
+post+projects_user_{user_id},name,Attribute name is responded to by parameter BasicProjectDetails with a description: The name of the new project. Equals path if not provided
+post+projects_user_{user_id},only_allow_merge_if_all_discussions_are_resolved,Attribute only_allow_merge_if_all_discussions_are_resolved is responded to by parameter BasicProjectDetails with a description: Set whether merge requests can only be merged when all the discussions are resolved
+post+projects_user_{user_id},only_allow_merge_if_pipeline_succeeds,Attribute only_allow_merge_if_pipeline_succeeds is responded to by parameter BasicProjectDetails with a description: Set whether merge requests can only be merged with successful jobs
+post+projects_user_{user_id},packages_enabled,Attribute packages_enabled is responded to by parameter BasicProjectDetails with a description: Enable or disable packages repository feature
+post+projects_user_{user_id},path,"Attribute path is responded to by parameter BasicProjectDetails with a description: Repository name for new project. Either path or name is required, not both"
+post+projects_user_{user_id},public_jobs,"Attribute public_builds is responded to by parameter BasicProjectDetails with a description: If true, jobs can be viewed by non-project members"
+post+projects_user_{user_id},readme_url,"{""type"": ""string""}"
+post+projects_user_{user_id},remove_source_branch_after_merge,Attribute remove_source_branch_after_merge is responded to by parameter BasicProjectDetails with a description: Enable Delete source branch option by default for all new merge requests
+post+projects_user_{user_id},repository_storage,Attribute repository_storage is responded to by parameter BasicProjectDetails with a description: Which storage shard the repository is on.(admins only)
+post+projects_user_{user_id},request_access_enabled,Attribute request_access_enabled is responded to by parameter BasicProjectDetails with a description: Allow users to request member access
+post+projects_user_{user_id},resolve_outdated_diff_discussions,Attribute resolve_outdated_diff_discussions is responded to by parameter BasicProjectDetails with a description: Automatically resolve merge request diffs discussions on lines changed with a push
+post+projects_user_{user_id},shared_runners_enabled,Attribute shared_runners_enabled is responded to by parameter BasicProjectDetails with a description: Enable shared runners for this project
+post+projects_user_{user_id},snippets_enabled,Attribute snippets_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable snippets for this project. Use snippets_access_level instead
+post+projects_user_{user_id},tag_list,"Attribute tag_list is responded to by parameter BasicProjectDetails with a description: The list of tags for a project; put array of tags, that should be finally assigned to a project"
+post+projects_user_{user_id},visibility,Attribute visibility is responded to by parameter BasicProjectDetails with a description: See project visibility level
+post+projects_user_{user_id},web_url,"{""type"": ""string""}"
+post+projects_user_{user_id},wiki_enabled,Attribute wiki_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable wiki for this project. Use wiki_access_levelinstead
+post+projects_{id}_archive,avatar_url,"{""type"": ""string""}"
+post+projects_{id}_archive,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_archive,http_url_to_repo,"{""type"": ""string""}"
+post+projects_{id}_archive,id,Attribute id is responded to by parameter ArchiveProject with a description: The ID or URL-encoded path of the project
+post+projects_{id}_archive,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_archive,license.html_url,"{""type"": ""string""}"
+post+projects_{id}_archive,license.source_url,"{""type"": ""string""}"
+post+projects_{id}_archive,license_url,"{""type"": ""string""}"
+post+projects_{id}_archive,owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_archive,readme_url,"{""type"": ""string""}"
+post+projects_{id}_archive,ssh_url_to_repo,"{""type"": ""string""}"
+post+projects_{id}_archive,web_url,"{""type"": ""string""}"
+post+projects_{id}_fork,avatar_url,"{""type"": ""string""}"
+post+projects_{id}_fork,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_fork,http_url_to_repo,"{""type"": ""string""}"
+post+projects_{id}_fork,id,Attribute id is responded to by parameter BasicProjectDetails with a description: The ID orURL-encoded path of the project
+post+projects_{id}_fork,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_fork,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}"
+post+projects_{id}_fork,name,Attribute name is responded to by parameter BasicProjectDetails with a description: The name assigned to the resultant project after forking
+post+projects_{id}_fork,owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_fork,path,"Attribute path is responded to by parameter BasicProjectDetails with a description: The path assigned to the resultant project after forking. Either path or name is required, not both"
+post+projects_{id}_fork,readme_url,"{""type"": ""string""}"
+post+projects_{id}_fork,web_url,"{""type"": ""string""}"
+post+projects_{id}_hooks,url,"{""type"": ""string""}"
+post+projects_{id}_share,expires_at,Attribute expires_at is responded to by parameter ProjectGroupLink with a description: Share expiration date in ISO 8601 format: 2016-09-26
+post+projects_{id}_star,avatar_url,"{""type"": ""string""}"
+post+projects_{id}_star,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_star,http_url_to_repo,"{""type"": ""string""}"
+post+projects_{id}_star,id,Attribute id is responded to by parameter StarProject with a description: The ID or URL-encoded path of the project
+post+projects_{id}_star,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_star,license_url,"{""type"": ""string""}"
+post+projects_{id}_star,readme_url,"{""type"": ""string""}"
+post+projects_{id}_star,web_url,"{""type"": ""string""}"
+post+projects_{id}_unarchive,avatar_url,"{""type"": ""string""}"
+post+projects_{id}_unarchive,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_unarchive,http_url_to_repo,"{""type"": ""string""}"
+post+projects_{id}_unarchive,id,Attribute id is responded to by parameter ArchiveProject with a description: The ID or URL-encoded path of the project
+post+projects_{id}_unarchive,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_unarchive,license.html_url,"{""type"": ""string""}"
+post+projects_{id}_unarchive,license.source_url,"{""type"": ""string""}"
+post+projects_{id}_unarchive,license_url,"{""type"": ""string""}"
+post+projects_{id}_unarchive,owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_unarchive,readme_url,"{""type"": ""string""}"
+post+projects_{id}_unarchive,web_url,"{""type"": ""string""}"
+post+projects_{id}_unstar,created_at,"{""type"": ""string"", ""format"": ""date-time""}
+{""type"": ""string"", ""format"": ""date-time""}_x000D_"
+post+projects_{id}_unstar,http_url_to_repo,"{""type"": ""string""}"
+post+projects_{id}_unstar,id,Attribute id is responded to by parameter StarProject with a description: The ID or URL-encoded path of the project
+post+projects_{id}_unstar,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}
+{""type"": ""string"", ""format"": ""date-time""}_x000D_"
+post+projects_{id}_unstar,readme_url,"{""type"": ""string""}"
+post+projects_{id}_unstar,web_url,"{""type"": ""string""}"
+put+projects_{id},allow_merge_on_skipped_pipeline,Attribute allow_merge_on_skipped_pipeline is responded to by parameter BasicProjectDetails with a description: Set whether or not merge requests can be merged with skipped jobs
+put+projects_{id},auto_devops_deploy_strategy,Attribute auto_devops_deploy_strategy is responded to by parameter BasicProjectDetails with a description: Auto Deploy strategy
+put+projects_{id},auto_devops_enabled,Attribute auto_devops_enabled is responded to by parameter BasicProjectDetails with a description: Enable Auto DevOps for this project
+put+projects_{id},autoclose_referenced_issues,Attribute autoclose_referenced_issues is responded to by parameter BasicProjectDetails with a description: Set whether auto-closing referenced issues on default branch
+put+projects_{id},avatar_url,"{""type"": ""string""}"
+put+projects_{id},ci_default_git_depth,Attribute ci_default_git_depth is responded to by parameter BasicProjectDetails with a description: Default number of revisions forshallow cloning
+put+projects_{id},ci_forward_deployment_enabled,"Attribute ci_forward_deployment_enabled is responded to by parameter BasicProjectDetails with a description: When a new deployment job starts,skip older deployment jobsthat are still pending"
+put+projects_{id},container_registry_enabled,Attribute container_registry_enabled is responded to by parameter BasicProjectDetails with a description: Enable container registry for this project
+put+projects_{id},created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+put+projects_{id},default_branch,Attribute default_branch is responded to by parameter BasicProjectDetails with a description: master by default
+put+projects_{id},description,Attribute description is responded to by parameter BasicProjectDetails with a description: Short project description
+put+projects_{id},http_url_to_repo,"{""type"": ""string""}"
+put+projects_{id},id,Attribute id is responded to by parameter BasicProjectDetails with a description: The ID or URL-encoded path of the project
+put+projects_{id},issues_enabled,Attribute issues_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable issues for this project. Use issues_access_level instead
+put+projects_{id},jobs_enabled,Attribute jobs_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable jobs for this project. Use builds_access_level instead
+put+projects_{id},last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}"
+put+projects_{id},marked_for_deletion_at,"{""type"": ""string"", ""format"": ""date""}"
+put+projects_{id},marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}"
+put+projects_{id},merge_method,Attribute merge_method is responded to by parameter BasicProjectDetails with a description: Set the merge method used
+put+projects_{id},merge_requests_enabled,Attribute merge_requests_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable merge requests for this project. Use merge_requests_access_level instead
+put+projects_{id},name,Attribute name is responded to by parameter BasicProjectDetails with a description: The name of the new project. Equals path if not provided
+put+projects_{id},only_allow_merge_if_all_discussions_are_resolved,Attribute only_allow_merge_if_all_discussions_are_resolved is responded to by parameter BasicProjectDetails with a description: Set whether merge requests can only be merged when all the discussions are resolved
+put+projects_{id},only_allow_merge_if_pipeline_succeeds,Attribute only_allow_merge_if_pipeline_succeeds is responded to by parameter BasicProjectDetails with a description: Set whether merge requests can only be merged with successful jobs
+put+projects_{id},owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+put+projects_{id},packages_enabled,Attribute packages_enabled is responded to by parameter BasicProjectDetails with a description: Enable or disable packages repository feature
+put+projects_{id},path,"Attribute path is responded to by parameter BasicProjectDetails with a description: Repository name for new project.Either path or name is required, not both. Generated based on name if not provided (generated as lowercase with dashes)"
+put+projects_{id},public_jobs,"Attribute public_builds is responded to by parameter BasicProjectDetails with a description: If true, jobs can be viewed by non-project members"
+put+projects_{id},readme_url,"{""type"": ""string""}"
+put+projects_{id},remove_source_branch_after_merge,Attribute remove_source_branch_after_merge is responded to by parameter BasicProjectDetails with a description: Enable Delete source branch option by default for all new merge requests
+put+projects_{id},repository_storage,Attribute repository_storage is responded to by parameter BasicProjectDetails with a description: Which storage shard the repository is on.(admins only)
+put+projects_{id},request_access_enabled,Attribute request_access_enabled is responded to by parameter BasicProjectDetails with a description: Allow users to request member access
+put+projects_{id},resolve_outdated_diff_discussions,Attribute resolve_outdated_diff_discussions is responded to by parameter BasicProjectDetails with a description: Automatically resolve merge request diffs discussions on lines changed with a push
+put+projects_{id},service_desk_enabled,Attribute service_desk_enabled is responded to by parameter BasicProjectDetails with a description: Enable or disable Service Desk feature
+put+projects_{id},shared_runners_enabled,Attribute shared_runners_enabled is responded to by parameter BasicProjectDetails with a description: Enable shared runners for this project
+put+projects_{id},snippets_enabled,Attribute snippets_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable snippets for this project. Use snippets_access_level instead
+put+projects_{id},tag_list,"Attribute tag_list is responded to by parameter BasicProjectDetails with a description: The list of tags for a project; put array of tags, that should be finally assigned to a project"
+put+projects_{id},visibility,Attribute visibility is responded to by parameter BasicProjectDetails with a description: See project visibility level
+put+projects_{id},web_url,"{""type"": ""string""}"
+put+projects_{id},wiki_enabled,Attribute wiki_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable wiki for this project. Use wiki_access_levelinstead
+put+projects_{id}_hooks_{hook_id},url,"{""type"": ""string""}"
+put+projects_{id}_transfer,avatar_url,"{""type"": ""string""}"
+put+projects_{id}_transfer,container_expiration_policy.next_run_at,"{""type"": ""string"", ""format"": ""date-time""}"
+put+projects_{id}_transfer,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+put+projects_{id}_transfer,forked_from_project.avatar_url,"{""type"": ""string""}"
+put+projects_{id}_transfer,forked_from_project.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+put+projects_{id}_transfer,forked_from_project.last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}"
+put+projects_{id}_transfer,forked_from_project.license.html_url,"{""type"": ""string""}"
+put+projects_{id}_transfer,forked_from_project.license.source_url,"{""type"": ""string""}"
+put+projects_{id}_transfer,forked_from_project.license_url,"{""type"": ""string""}"
+put+projects_{id}_transfer,forked_from_project.web_url,"{""type"": ""string""}"
+put+projects_{id}_transfer,http_url_to_repo,"{""type"": ""string""}"
+put+projects_{id}_transfer,id,Attribute id is responded to by parameter ProjectWithAcess with a description: The ID or URL-encoded path of the project
+put+projects_{id}_transfer,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}
+{""type"": ""string"", ""format"": ""date-time""}_x000D_"
+put+projects_{id}_transfer,license.html_url,"{""type"": ""string""}"
+put+projects_{id}_transfer,license.source_url,"{""type"": ""string""}"
+put+projects_{id}_transfer,license_url,"{""type"": ""string""}"
+put+projects_{id}_transfer,marked_for_deletion_at,"{""type"": ""string"", ""format"": ""date""}"
+put+projects_{id}_transfer,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}
+{""type"": ""string"", ""format"": ""date""}_x000D_"
+put+projects_{id}_transfer,owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+put+projects_{id}_transfer,readme_url,"{""type"": ""string""}"
+put+projects_{id}_transfer,web_url,"{""type"": ""string""}"

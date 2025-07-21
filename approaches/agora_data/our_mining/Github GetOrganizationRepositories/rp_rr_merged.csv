@@ -1,0 +1,136 @@
+endpoint,group,response resource,attribute,description,tp
+get+orgs_{org}_repos,template_repository.git_refs_url,repository,git_refs_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}""}",1
+get+orgs_{org}_repos,template_repository.template_repository.git_refs_url,repository,git_refs_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}""}",1
+get+orgs_{org}_repos,template_repository.template_repository.allow_merge_commit,repository,allow_merge_commit,"Whether to allow merge commits for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0
+get+orgs_{org}_repos,template_repository.allow_merge_commit,repository,allow_merge_commit,"Whether to allow merge commits for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0
+get+orgs_{org}_repos,issues_url,minimal-repository,issues_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues{/number}""}",1
+get+orgs_{org}_repos,template_repository.languages_url,repository,languages_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.languages_url,repository,languages_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,subscription_url,minimal-repository,subscription_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,owner.received_events_url,simple-user,received_events_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,owner.subscriptions_url,simple-user,subscriptions_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.teams_url,repository,teams_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.teams_url,repository,teams_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.clone_url,repository,clone_url,"{""type"": ""string"", ""example"": ""https://github.com/octocat/Hello-World.git""}",1
+get+orgs_{org}_repos,template_repository.template_repository.clone_url,repository,clone_url,"{""type"": ""string"", ""example"": ""https://github.com/octocat/Hello-World.git""}",1
+get+orgs_{org}_repos,archive_url,minimal-repository,archive_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}""}",1
+get+orgs_{org}_repos,updated_at,minimal-repository,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+orgs_{org}_repos,compare_url,minimal-repository,compare_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}""}",1
+get+orgs_{org}_repos,downloads_url,minimal-repository,downloads_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.deployments_url,repository,deployments_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.deployments_url,repository,deployments_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.starred_at,repository,starred_at,"{""type"": ""string"", ""example"": ""\""2020-07-09T00:17:42Z\""""}",1
+get+orgs_{org}_repos,git_refs_url,minimal-repository,git_refs_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}""}",1
+get+orgs_{org}_repos,template_repository.visibility,repository,visibility,"The repository visibility: public, private, or internal",0
+get+orgs_{org}_repos,template_repository.template_repository.visibility,repository,visibility,"The repository visibility: public, private, or internal",0
+get+orgs_{org}_repos,template_repository.milestones_url,repository,milestones_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/milestones{/number}""}",1
+get+orgs_{org}_repos,template_repository.template_repository.milestones_url,repository,milestones_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/milestones{/number}""}",1
+get+orgs_{org}_repos,languages_url,minimal-repository,languages_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,pulls_url,minimal-repository,pulls_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/pulls{/number}""}",1
+get+orgs_{org}_repos,owner.gists_url,simple-user,gists_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/gists{/gist_id}""}",1
+get+orgs_{org}_repos,owner.starred_at,simple-user,starred_at,"{""type"": ""string"", ""example"": ""\""2020-07-09T00:17:55Z\""""}",1
+get+orgs_{org}_repos,teams_url,minimal-repository,teams_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,statuses_url,minimal-repository,statuses_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/statuses/{sha}""}",1
+get+orgs_{org}_repos,template_repository.ssh_url,repository,ssh_url,"{""type"": ""string"", ""example"": ""git@github.com:octocat/Hello-World.git""}",1
+get+orgs_{org}_repos,template_repository.template_repository.ssh_url,repository,ssh_url,"{""type"": ""string"", ""example"": ""git@github.com:octocat/Hello-World.git""}",1
+get+orgs_{org}_repos,template_repository.collaborators_url,repository,collaborators_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}""}",1
+get+orgs_{org}_repos,template_repository.template_repository.collaborators_url,repository,collaborators_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}""}",1
+get+orgs_{org}_repos,template_repository.events_url,repository,events_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.owner.events_url,repository,events_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.events_url,repository,events_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.subscribers_url,repository,subscribers_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.subscribers_url,repository,subscribers_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.has_projects,repository,has_projects,"Whether projects are enabled, schema: {""type"": ""boolean"", ""example"": true}",1
+get+orgs_{org}_repos,template_repository.template_repository.has_projects,repository,has_projects,"Whether projects are enabled, schema: {""type"": ""boolean"", ""example"": true}",1
+get+orgs_{org}_repos,template_repository.hooks_url,repository,hooks_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.hooks_url,repository,hooks_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.has_downloads,repository,has_downloads,"Whether downloads are enabled, schema: {""type"": ""boolean"", ""example"": true}",1
+get+orgs_{org}_repos,template_repository.template_repository.has_downloads,repository,has_downloads,"Whether downloads are enabled, schema: {""type"": ""boolean"", ""example"": true}",1
+get+orgs_{org}_repos,forks_url,minimal-repository,forks_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.issue_events_url,repository,issue_events_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues/events{/number}""}",1
+get+orgs_{org}_repos,template_repository.template_repository.issue_events_url,repository,issue_events_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues/events{/number}""}",1
+get+orgs_{org}_repos,template_repository.assignees_url,repository,assignees_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/assignees{/user}""}",1
+get+orgs_{org}_repos,template_repository.template_repository.assignees_url,repository,assignees_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/assignees{/user}""}",1
+get+orgs_{org}_repos,owner.events_url,simple-user,events_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/events{/privacy}""}",1
+get+orgs_{org}_repos,collaborators_url,minimal-repository,collaborators_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}""}",1
+get+orgs_{org}_repos,comments_url,minimal-repository,comments_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/comments{/number}""}",1
+get+orgs_{org}_repos,events_url,minimal-repository,events_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,subscribers_url,minimal-repository,subscribers_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.blobs_url,repository,blobs_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}""}",1
+get+orgs_{org}_repos,template_repository.template_repository.blobs_url,repository,blobs_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}""}",1
+get+orgs_{org}_repos,template_repository.branches_url,repository,branches_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/branches{/branch}""}",1
+get+orgs_{org}_repos,template_repository.template_repository.branches_url,repository,branches_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/branches{/branch}""}",1
+get+orgs_{org}_repos,hooks_url,minimal-repository,hooks_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.svn_url,repository,svn_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.svn_url,repository,svn_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.has_issues,repository,has_issues,"Whether issues are enabled, schema: {""type"": ""boolean"", ""example"": true}",1
+get+orgs_{org}_repos,template_repository.template_repository.has_issues,repository,has_issues,"Whether issues are enabled, schema: {""type"": ""boolean"", ""example"": true}",1
+get+orgs_{org}_repos,issue_events_url,minimal-repository,issue_events_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues/events{/number}""}",1
+get+orgs_{org}_repos,template_repository.allow_rebase_merge,repository,allow_rebase_merge,"Whether to allow rebase merges for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0
+get+orgs_{org}_repos,template_repository.template_repository.allow_rebase_merge,repository,allow_rebase_merge,"Whether to allow rebase merges for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0
+get+orgs_{org}_repos,owner.repos_url,simple-user,repos_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.tags_url,repository,tags_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.tags_url,repository,tags_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.created_at,repository,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+orgs_{org}_repos,template_repository.template_repository.created_at,repository,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+orgs_{org}_repos,template_repository.stargazers_url,repository,stargazers_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.stargazers_url,repository,stargazers_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,deployments_url,minimal-repository,deployments_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,blobs_url,minimal-repository,blobs_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}""}",1
+get+orgs_{org}_repos,owner.html_url,simple-user,html_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,owner.url,simple-user,url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,created_at,minimal-repository,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+orgs_{org}_repos,stargazers_url,minimal-repository,stargazers_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.git_commits_url,repository,git_commits_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}""}",1
+get+orgs_{org}_repos,template_repository.template_repository.git_commits_url,repository,git_commits_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}""}",1
+get+orgs_{org}_repos,template_repository.template_repository.allow_squash_merge,repository,allow_squash_merge,"Whether to allow squash merges for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0
+get+orgs_{org}_repos,template_repository.allow_squash_merge,repository,allow_squash_merge,"Whether to allow squash merges for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0
+get+orgs_{org}_repos,template_repository.updated_at,repository,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+orgs_{org}_repos,template_repository.template_repository.updated_at,repository,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+orgs_{org}_repos,template_repository.compare_url,repository,compare_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}""}",1
+get+orgs_{org}_repos,template_repository.template_repository.compare_url,repository,compare_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}""}",1
+get+orgs_{org}_repos,template_repository.private,repository,private,Whether the repository is private or public,1
+get+orgs_{org}_repos,template_repository.template_repository.private,repository,private,Whether the repository is private or public,1
+get+orgs_{org}_repos,template_repository.comments_url,repository,comments_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/comments{/number}""}",1
+get+orgs_{org}_repos,template_repository.template_repository.comments_url,repository,comments_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/comments{/number}""}",1
+get+orgs_{org}_repos,owner.starred_url,simple-user,starred_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/starred{/owner}{/repo}""}",1
+get+orgs_{org}_repos,template_repository.id,repository,id,"Unique identifier of the repository, schema: {""type"": ""integer"", ""example"": 42}",1
+get+orgs_{org}_repos,template_repository.template_repository.id,repository,id,"Unique identifier of the repository, schema: {""type"": ""integer"", ""example"": 42}",1
+get+orgs_{org}_repos,template_repository.template_repository.owner.id,repository,id,"Unique identifier of the repository, schema: {""type"": ""integer"", ""example"": 42}",1
+get+orgs_{org}_repos,owner.following_url,simple-user,following_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/following{/other_user}""}",1
+get+orgs_{org}_repos,template_repository.downloads_url,repository,downloads_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.downloads_url,repository,downloads_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.pulls_url,repository,pulls_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/pulls{/number}""}",1
+get+orgs_{org}_repos,template_repository.template_repository.pulls_url,repository,pulls_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/pulls{/number}""}",1
+get+orgs_{org}_repos,assignees_url,minimal-repository,assignees_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/assignees{/user}""}",1
+get+orgs_{org}_repos,template_repository.html_url,repository,html_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.owner.html_url,repository,html_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.html_url,repository,html_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.mirror_url,repository,mirror_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.mirror_url,repository,mirror_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.url,repository,url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.owner.url,repository,url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.url,repository,url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,license.url,repository,url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,git_commits_url,minimal-repository,git_commits_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}""}",1
+get+orgs_{org}_repos,milestones_url,minimal-repository,milestones_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/milestones{/number}""}",1
+get+orgs_{org}_repos,template_repository.statuses_url,repository,statuses_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/statuses/{sha}""}",1
+get+orgs_{org}_repos,template_repository.template_repository.statuses_url,repository,statuses_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/statuses/{sha}""}",1
+get+orgs_{org}_repos,branches_url,minimal-repository,branches_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/branches{/branch}""}",1
+get+orgs_{org}_repos,template_repository.issues_url,repository,issues_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues{/number}""}",1
+get+orgs_{org}_repos,template_repository.template_repository.issues_url,repository,issues_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues{/number}""}",1
+get+orgs_{org}_repos,template_repository.is_template,repository,is_template,"Whether this repository acts as a template that can be used to generate new repositories, schema: {""type"": ""boolean"", ""example"": true}",1
+get+orgs_{org}_repos,template_repository.template_repository.is_template,repository,is_template,"Whether this repository acts as a template that can be used to generate new repositories, schema: {""type"": ""boolean"", ""example"": true}",1
+get+orgs_{org}_repos,html_url,minimal-repository,html_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,url,minimal-repository,url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,tags_url,minimal-repository,tags_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,owner.followers_url,simple-user,followers_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.subscription_url,repository,subscription_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.subscription_url,repository,subscription_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.forks_url,repository,forks_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.forks_url,repository,forks_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.archive_url,repository,archive_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}""}",1
+get+orgs_{org}_repos,template_repository.template_repository.archive_url,repository,archive_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}""}",1
+get+orgs_{org}_repos,owner.organizations_url,simple-user,organizations_url,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.homepage,repository,homepage,"{""type"": ""string"", ""format"": ""uri""}",1
+get+orgs_{org}_repos,template_repository.template_repository.homepage,repository,homepage,"{""type"": ""string"", ""format"": ""uri""}",1

@@ -1,0 +1,66 @@
+endpoint,group,description,tp,status,check_verify,_merge
+get+shopping_hotel-offers,data.hotel.dupeId,"Unique Property identifier of the physical hotel.
+One physical hotel can be represented by different Providers, each one having its own `hotelID`.
+This attribute allows a client application to group together hotels that are actually the same, schema: {""type"": ""string"", ""example"": ""501132260""}",0,satisfied,yes,both
+get+shopping_hotel-offers,data.hotel.hotelId,Amadeus Property Code (8 chars,1,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.category,"Special Rate Category
+Examples:
+  ASSOCIATION
+  FAMILY_PLAN, schema: {""type"": ""string"", ""example"": ""FAMILY_PLAN""}",1,unknown,yes,both
+get+shopping_hotel-offers,data.offers.checkInDate,"Attribute checkInDate is responded to by parameter HotelOffer with a description: Check-in date of the stay (hotel local date). Format YYYY-MM-DD. The lowest accepted value is the present date (no dates in the past). If not present, the default value will be today's date in the GMT time zone",0,satisfied,yes,left_only
+get+shopping_hotel-offers,data.offers.checkOutDate,"Attribute checkOutDate is responded to by parameter HotelOffer with a description: Check-out date of the stay (hotel local date). Format YYYY-MM-DD. The lowest accepted value is checkInDate+1. If not present, it will default to checkInDate +1
+check-out date of the stay (hotel local date",1,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.commission.percentage,Percentage of the commission paid to the travel seller. Value is between 0 and 100,1,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.guests.adults,Attribute adults is responded to by parameter HotelProduct_Guests with a description: Number of adult guests (1-9) per room,1,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.guests.childAges,"Comma separated list of ages of each child at the time of check-out from the hotel. If several children have the same age, the ages will be repeated, schema: {""type"": ""array"", ""minimum"": 0, ""maximum"": 20}",1,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.id,"Unique identifier of this offer. Might be valid for a temporary period only, schema: {""type"": ""string"", ""minLength"": 2, ""maxLength"": 100}",1,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.policies.cancellation.deadline,"Represents the deadline after which the penalty applies. DateTime is in ISO 8601 [https://www.w3.org/TR/NOTE-datetime].
+Example: 2010-08-14T12:00:00+01:00
+Example: 2010-08-14T12:00:00Z
+Example: 2010-08-14T12:00:00-01:00
+The value is expressed in the hotel local time zone, with the added time zone difference. So you can compute the deadline in UTC(GMT",0,satisfied,no,both
+get+shopping_hotel-offers,data.offers.policies.cancellation.numberOfNights,"Number of nights due as fee in case of cancellation, schema: {""type"": ""integer"", ""format"": ""int32""}",1,mismatched,yes,both
+get+shopping_hotel-offers,data.offers.policies.cancellation.percentage,Percentage of the total stay amount to be paid in case of cancellation. Value is between 0 and 100,1,mismatched,yes,both
+get+shopping_hotel-offers,data.offers.policies.checkInOut.checkIn,"Check-in From time limit in ISO-8601 format [http://www.w3.org/TR/xmlschema-2/#time], schema: {""type"": ""string"", ""example"": ""13:00:00""}",1,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.policies.checkInOut.checkOut,"Check-out Until time limit in ISO-8601 format [http://www.w3.org/TR/xmlschema-2/#time], schema: {""type"": ""string"", ""example"": ""11:00:00""}",1,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.policies.deposit.acceptedPayments.creditCards,"Accepted Payment Card Types for the `method` CREDIT_CARD, schema: {""type"": ""array"", ""minLength"": 2, ""maxLength"": 2}",1,satisfied,no,both
+get+shopping_hotel-offers,data.offers.policies.deposit.deadline,"The date and time of the deadline in ISO 8601[https://www.w3.org/TR/NOTE-datetime]. 
+ Example: 2010-08-14T13:00:00
+ Please note that this value is expressed in the hotels local time zone",0,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.policies.guarantee.acceptedPayments.creditCards,"Accepted Payment Card Types for the `method` CREDIT_CARD, schema: {""type"": ""array"", ""minLength"": 2, ""maxLength"": 2}",1,satisfied,no,both
+get+shopping_hotel-offers,data.offers.policies.holdTime.deadline,"The date and time of the deadline in ISO 8601[https://www.w3.org/TR/NOTE-datetime]. 
+ Example: 2010-08-14T13:00:00
+ Please note that this value is expressed in the hotels local time zone",0,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.policies.prepay.acceptedPayments.creditCards,"Accepted Payment Card Types for the `method` CREDIT_CARD, schema: {""type"": ""array"", ""minLength"": 2, ""maxLength"": 2}",1,satisfied,no,both
+get+shopping_hotel-offers,data.offers.policies.prepay.deadline,"The date and time of the deadline in ISO 8601[https://www.w3.org/TR/NOTE-datetime]. 
+ Example: 2010-08-14T13:00:00
+ Please note that this value is expressed in the hotels local time zone",0,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.price.currency,"Attribute currency is responded to by parameter HotelProduct_HotelPrice with a description: Use this parameter to request a specific currency. ISO currency code (http://www.iso.org/iso/home/standards/currency_codes.htm).
+If a hotel does not support the requested currency, the prices for the hotel will be returned in the local currency of the hotel
+currency Code apply to all elements of the price",0.5,unknown,no,both
+get+shopping_hotel-offers,data.offers.price.sellingTotal,sellingTotal = Total + margins + markup + totalFees - discounts,1,unknown,yes,both
+get+shopping_hotel-offers,data.offers.price.taxes.currency,Defines a monetary unit. It is a three alpha code (iata code,1,unknown,yes,both
+get+shopping_hotel-offers,data.offers.price.taxes.pricingMode,"Specifies if the tax applies per occupant or per room
+  - PER_OCCUPANT
+  - PER_PRODUCT",0,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.price.total,"Attribute priceRange is responded to by parameter HotelProduct_HotelPrice with a description: Filter hotel offers by price per night interval (ex: 200-300 or -300 or 100).
+It is mandatory to include a currency when this field is set",1,unknown,yes,both
+get+shopping_hotel-offers,data.offers.price.variations.average.currency,currency Code apply to all elements of the price,1,satisfied,no,both
+get+shopping_hotel-offers,data.offers.price.variations.average.sellingTotal,sellingTotal = Total + margins + markup + totalFees - discounts,1,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.price.variations.changes.currency,currency Code apply to all elements of the price,1,unknown,no,both
+get+shopping_hotel-offers,data.offers.price.variations.changes.endDate,"End date of the period
+Format: YYYY-MM-DD, schema: {""type"": ""string"", ""format"": ""date""}",1,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.price.variations.changes.sellingTotal,sellingTotal = Total + margins + markup + totalFees - discounts,1,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.price.variations.changes.startDate,"Begin date of the period
+Format: YYYY-MM-DD, schema: {""type"": ""string"", ""format"": ""date""}",1,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.rateCode,Special Rate - Provider Response Code (3 chars,1,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.rateFamilyEstimated.type,"The type of the rate (public=P, negotiated=N, conditional=C",1,satisfied,no,both
+get+shopping_hotel-offers,data.offers.room.type,"Room type code, 3 character identifier of the room.
+The first character identifies the room type category. 
+The second numeric character identifies the number of beds. 
+The third character identifies the bed type. 
+There is a special case where ROH is returned, this value stands for Run Of House",1,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.room.typeEstimated.beds,Number of beds in the room (1-9,1,satisfied,yes,both
+get+shopping_hotel-offers,data.offers.roomQuantity,number of rooms (1-9,1,unknown,yes,both
+get+shopping_hotel-offers,data.offers.self,"A self link to the object. Use this to refresh the Offer price, schema: {""type"": ""string"", ""example"": ""https://test.travel.api.amadeus.com/v2/shopping/hotel-offers/63A93695B58821ABB0EC2B33FE9FAB24D72BF34B1BD7D707293763D8D9378FC3""}",0,satisfied,no,both
+get+shopping_hotel-offers,data.type,the type of the object (hotel-offers,1,satisfied,yes,both

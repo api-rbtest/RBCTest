@@ -1,0 +1,5 @@
+operation,response resource,attribute,group,description,part,corresponding attribute,corresponding attribute description
+post-/users/{user_id}/playlists,playlist,name,name,The name of the playlist,requestBody,name,
+post-/users/{user_id}/playlists,playlist,description,description,"The playlist description. Only returned for modified, verified playlists, otherwise null",requestBody,description,
+post-/users/{user_id}/playlists,playlist,public,public,"The playlist's public/private status: true the playlist is public, false the playlist is private, null the playlist status is not relevant. For more about public/private status, see Working with Playlists",requestBody,public,
+post-/users/{user_id}/playlists,playlist,collaborative,collaborative,True if the owner allows other users to modify the playlist,requestBody,collaborative,

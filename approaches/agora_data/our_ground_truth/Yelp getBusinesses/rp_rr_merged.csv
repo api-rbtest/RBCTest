@@ -1,0 +1,5 @@
+endpoint,group,response resource,attribute,description
+get+businesses_search,businesses.is_closed,BusinessesResult,is_closed,nan
+get+businesses_search,businesses.price,BusinessesResult,price,"{""type"": ""string"", ""enum"": [""$"", ""$$"", ""$$$"", ""$$$$"", ""Â£"", ""Â£Â£"", ""Â£Â£Â£"", ""Â£Â£Â£Â£"", ""â‚¬"", ""â‚¬â‚¬"", ""â‚¬â‚¬â‚¬"", ""â‚¬â‚¬â‚¬â‚¬"", ""ï¿¥"", ""ï¿¥ï¿¥"", ""ï¿¥ï¿¥ï¿¥"", ""ï¿¥ï¿¥ï¿¥ï¿¥""]} schema: {""type"": ""string"", ""enum"": [""$"", ""$$"", ""$$$"", ""$$$$"", ""Â£"", ""Â£Â£"", ""Â£Â£Â£"", ""Â£Â£Â£Â£"", ""â‚¬"", ""â‚¬â‚¬"", ""â‚¬â‚¬â‚¬"", ""â‚¬â‚¬â‚¬â‚¬"", ""ï¿¥"", ""ï¿¥ï¿¥"", ""ï¿¥ï¿¥ï¿¥"", ""ï¿¥ï¿¥ï¿¥ï¿¥""]}"
+get+businesses_search,businesses.rating,BusinessesResult,rating,"{""type"": ""number"", ""minimum"": 1, ""maximum"": 5} schema: {""type"": ""number"", ""minimum"": 1, ""maximum"": 5}"
+get+businesses_search,businesses.url,BusinessesResult,url,"{""type"": ""string""} schema: {""type"": ""string""}"

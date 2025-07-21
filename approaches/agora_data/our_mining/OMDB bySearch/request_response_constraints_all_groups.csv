@@ -1,0 +1,57 @@
+operation,response resource,attribute,group,kio,description,part,corresponding attribute,corresponding attribute description,verification script,Example_value,verify_result,tp
+get-/,Response,Title,Search.Title,1,,parameters,s,Title of movie or series,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'Search' key exists in the response
+        if 'Search' not in latest_response:
+            return 0
+        
+        # Check if 'Search' contains a list of objects
+        search_results = latest_response['Search']
+        if not isinstance(search_results, list):
+            return 0
+        
+        # Extract the 's' parameter from request_info and ensure it's a string
+        s = request_info.get('s')
+        if not isinstance(s, str):
+            return -1
+        
+        # Verify that each object in 'Search' contains the 'Title' attribute and it matches the 's' parameter
+        for item in search_results:
+            if 'Title' not in item:
+                return 0
+            if item['Title'] != s:
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",,,0
+get-/,Response,Type,Search.Type,2,,parameters,type,Return movie or series,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'type' parameter from request_info
+        requested_type = request_info.get('type', None)
+        
+        # If 'type' is not in request_info, we cannot verify the constraint
+        if requested_type is None:
+            return 0
+        
+        # Check if the 'Search' key exists in the response
+        if 'Search' not in latest_response:
+            return 0
+        
+        # Iterate through each item in the 'Search' array
+        for item in latest_response['Search']:
+            # Check if 'Type' key exists in the item
+            if 'Type' not in item:
+                return 0
+            
+            # Verify if the 'Type' in the response matches the requested 'type'
+            if item['Type'] != requested_type:
+                return -1
+        
+        # If all items match the requested 'type', return 1
+        return 1
+    except Exception as e:
+        # In case of any exception, return -1 indicating the constraint is not satisfied
+        return -1
+",,,1

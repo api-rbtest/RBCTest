@@ -1,0 +1,5 @@
+operation,response resource,attribute,group,description,part,corresponding attribute,corresponding attribute description
+get-/,Response,Title,Title,,parameters,t,Title of movie or series
+get-/,Response,imdbID,imdbID,,parameters,i,A valid IMDb ID (e.g. tt0000001)
+get-/,Response,Type,Type,,parameters,type,"Return movie, series or episode"
+get-/,Response,Plot,Plot,,parameters,plot,Return short or full plot

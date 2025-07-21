@@ -1,0 +1,50 @@
+endpoint,group,description,tp
+get+projects,archived,Attribute archived is responded to by parameter archived with a description: Limit by archived status,1.0
+get+projects,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+get+projects,id,Attribute id is responded to by parameter id_after with a description: Limit results to projects with IDs greater than the specified ID,1.0
+get+projects,issues_enabled,Attribute issues_enabled is responded to by parameter with_issues_enabled with a description: Limit by enabled issues feature,1.0
+get+projects,last_activity_at,"Attribute last_activity_at is responded to by parameter last_activity_after with a description: Limit results to projects with last_activity after specified time.ISO 8601 YYYY-MM-DDTHH:MM:SSZ
+Attribute last_activity_at is responded to by parameter last_activity_before with a description: Limit results to projects with last_activity before specified time. ISO 8601 YYYY-MM-DDTHH:MM:SSZ
+{""type"": ""string"", ""format"": ""date-time""}",1.0
+get+projects,marked_for_deletion_at,"{""type"": ""string"", ""format"": ""date""}",1.0
+get+projects,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1.0
+get+projects,merge_requests_enabled,Attribute merge_requests_enabled is responded to by parameter with_merge_requests_enabled with a description: Limit by enabled merge requests feature,1.0
+get+projects,owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+get+projects,repository_storage,Attribute repository_storage is responded to by parameter repository_storage with a description: Limit results to projects stored on repository_storage. (admins only),1.0
+get+projects,visibility,Attribute visibility is responded to by parameter visibility with a description: Limit by visibility,1.0
+get+projects,web_url,"{""type"": ""string""}",1.0
+post+projects,auto_devops_deploy_strategy,Attribute auto_devops_deploy_strategy is responded to by parameter auto_devops_deploy_strategy with a description: Auto Deploy strategy,1.0
+post+projects,auto_devops_enabled,Attribute auto_devops_enabled is responded to by parameter auto_devops_enabled with a description: Enable Auto DevOps for this project,1.0
+post+projects,autoclose_referenced_issues,Attribute autoclose_referenced_issues is responded to by parameter autoclose_referenced_issues with a description: Set whether auto-closing referenced issues on default branch,1.0
+post+projects,container_registry_enabled,Attribute container_registry_enabled is responded to by parameter container_registry_enabled with a description: Enable container registry for this project,1.0
+post+projects,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+post+projects,default_branch,Attribute default_branch is responded to by parameter default_branch with a description: master by default,1.0
+post+projects,description,Attribute description is responded to by parameter description with a description: Short project description,1.0
+post+projects,http_url_to_repo,"{""type"": ""string""}",1.0
+post+projects,issues_enabled,Attribute issues_enabled is responded to by parameter issues_enabled with a description: (Deprecated)Enable issues for this project. Use issues_access_level instead,1.0
+post+projects,jobs_enabled,Attribute jobs_enabled is responded to by parameter jobs_enabled with a description: (Deprecated)Enable jobs for this project. Use builds_access_level instead,1.0
+post+projects,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+post+projects,marked_for_deletion_at,"{""type"": ""string"", ""format"": ""date""}",1.0
+post+projects,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1.0
+post+projects,merge_method,Attribute merge_method is responded to by parameter merge_method with a description: Set the merge method used,1.0
+post+projects,merge_requests_enabled,Attribute merge_requests_enabled is responded to by parameter merge_requests_enabled with a description: (Deprecated)Enable merge requests for this project. Use merge_requests_access_level instead,1.0
+post+projects,name,"Attribute name is responded to by parameter name with a description: The name of the new project. Either path or name is required, not both",1.0
+post+projects,only_allow_merge_if_all_discussions_are_resolved,Attribute only_allow_merge_if_all_discussions_are_resolved is responded to by parameter only_allow_merge_if_all_discussions_are_resolved with a description: Set whether merge requests can only be merged when all the discussions are resolved,1.0
+post+projects,only_allow_merge_if_pipeline_succeeds,Attribute only_allow_merge_if_pipeline_succeeds is responded to by parameter only_allow_merge_if_pipeline_succeeds with a description: Set whether merge requests can only be merged with successful jobs,1.0
+post+projects,owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+post+projects,packages_enabled,Attribute packages_enabled is responded to by parameter packages_enabled with a description: Enable or disable packages repository feature,1.0
+post+projects,path,Attribute path is responded to by parameter path with a description: Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes),1.0
+post+projects,readme_url,"{""type"": ""string""}",1.0
+post+projects,remove_source_branch_after_merge,Attribute remove_source_branch_after_merge is responded to by parameter remove_source_branch_after_merge with a description: Enable Delete source branch option by default for all new merge requests,1.0
+post+projects,repository_storage,Attribute repository_storage is responded to by parameter repository_storage with a description: Which storage shard the repository is on.(admins only),1.0
+post+projects,request_access_enabled,Attribute request_access_enabled is responded to by parameter request_access_enabled with a description: Allow users to request member access,1.0
+post+projects,resolve_outdated_diff_discussions,Attribute resolve_outdated_diff_discussions is responded to by parameter resolve_outdated_diff_discussions with a description: Automatically resolve merge request diffs discussions on lines changed with a push,1.0
+post+projects,shared_runners_enabled,Attribute shared_runners_enabled is responded to by parameter shared_runners_enabled with a description: Enable shared runners for this project,1.0
+post+projects,snippets_enabled,Attribute snippets_enabled is responded to by parameter snippets_enabled with a description: (Deprecated)Enable snippets for this project. Use snippets_access_level instead,1.0
+post+projects,tag_list,"Attribute tag_list is responded to by parameter tag_list with a description: The list of tags for a project; put array of tags, that should be finally assigned to a project",1.0
+post+projects,visibility,Attribute visibility is responded to by parameter visibility with a description: See project visibility level,1.0
+post+projects,web_url,"{""type"": ""string""}",1.0
+post+projects,wiki_enabled,Attribute wiki_enabled is responded to by parameter wiki_enabled with a description: (Deprecated)Enable wiki for this project. Use wiki_access_levelinstead,1.0
+post+projects_{id}_protected_branches,allow_force_push,Attribute allow_force_push is responded to by parameter allow_force_push with a description: Allow force push for all users with push access,1.0
+post+projects_{id}_protected_branches,name,Attribute name is responded to by parameter name with a description: The name of the branch or wildcard,1.0
+post+projects_{id}_repository_branches,name,Attribute name is responded to by parameter branch with a description: The name of the branch,1.0

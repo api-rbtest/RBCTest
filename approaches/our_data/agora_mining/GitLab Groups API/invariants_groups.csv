@@ -1,0 +1,1081 @@
+endpoint,group,invariant,invariantType,variables,postmanAssertion,pptname
+get+groups,array,input.per_page >= size(return.array[]),daikon.inv.binary.twoScalar.IntGreaterEqual,"(input.per_page, size(return.array[..]))",pm.expect(input_per_page).to.be.at.least(return_array_size_array),/groups&/groups&get&200%array():::EXIT
+get+groups,auto_devops_enabled,"return.auto_devops_enabled one of { ""false"", ""true"" }",daikon.inv.unary.string.OneOfString,(return.auto_devops_enabled),"pm.expect([""false"", ""true""].includes(return_auto_devops_enabled)).to.be.true",/groups&/groups&get&200():::EXIT
+get+groups,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups&/groups&get&200():::EXIT
+/groups&/groups&get&200():::EXIT"
+get+groups,default_branch_protection,"return.default_branch_protection one of { 0, 1, 2 }
+return.default_branch_protection >= return.statistics.job_artifacts_size","daikon.inv.unary.scalar.OneOfScalar
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.default_branch_protection)
+(return.default_branch_protection, return.statistics.job_artifacts_size)","pm.expect([0, 1, 2].includes(return_default_branch_protection)).to.be.true
+pm.expect(return_default_branch_protection).to.be.at.least(return_statistics_job_artifacts_size)","/groups&/groups&get&200():::EXIT
+/groups&/groups&get&200():::EXIT"
+get+groups,emails_disabled,"return.emails_disabled one of { ""false"", ""true"" }",daikon.inv.unary.string.OneOfString,(return.emails_disabled),"pm.expect([""false"", ""true""].includes(return_emails_disabled)).to.be.true",/groups&/groups&get&200():::EXIT
+get+groups,full_name,return.name is a substring of return.full_name,daikon.inv.binary.twoString.StdString$SubString,"(return.full_name, return.name)",pm.expect(return_full_name.includes(return_name)).to.be.true,/groups&/groups&get&200():::EXIT
+get+groups,full_path,"return.path is a substring of return.full_path
+return.full_path is a substring of return.web_url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return.full_path, return.path)
+(return.full_path, return.web_url)","pm.expect(return_full_path.includes(return_path)).to.be.true
+pm.expect(return_web_url.includes(return_full_path)).to.be.true","/groups&/groups&get&200():::EXIT
+/groups&/groups&get&200():::EXIT"
+get+groups,mentions_disabled,"return.mentions_disabled one of { ""false"", ""true"" }",daikon.inv.unary.string.OneOfString,(return.mentions_disabled),"pm.expect([""false"", ""true""].includes(return_mentions_disabled)).to.be.true",/groups&/groups&get&200():::EXIT
+get+groups,parent_id,return.parent_id is Numeric,daikon.inv.unary.string.IsNumeric,(return.parent_id),"pm.expect(return_parent_id).to.match(/^[+-]{0,1}(0|([0-9](\d*|\d{0,2}(,\d{3})*)))?(\.\d*[0-9])?$/)",/groups&/groups&get&200():::EXIT
+get+groups,project_creation_level,"return.project_creation_level one of { ""developer"", ""maintainer"", ""noone"" }",daikon.inv.unary.string.OneOfString,(return.project_creation_level),"pm.expect([""developer"", ""maintainer"", ""noone""].includes(return_project_creation_level)).to.be.true",/groups&/groups&get&200():::EXIT
+get+groups,statistics.job_artifacts_size,"return.statistics.job_artifacts_size == return.statistics.lfs_objects_size
+return.statistics.job_artifacts_size == return.statistics.packages_size
+return.statistics.job_artifacts_size == return.statistics.snippets_size
+return.statistics.job_artifacts_size == 0
+return.statistics.job_artifacts_size <= return.statistics.repository_size
+return.statistics.job_artifacts_size <= return.statistics.storage_size
+return.statistics.job_artifacts_size <= return.statistics.wiki_size
+return.statistics.job_artifacts_size <= return.two_factor_grace_period","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.unary.scalar.OneOfScalar
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual","(return.statistics.job_artifacts_size, return.statistics.lfs_objects_size)
+(return.statistics.job_artifacts_size, return.statistics.packages_size)
+(return.statistics.job_artifacts_size, return.statistics.snippets_size)
+(return.statistics.job_artifacts_size)
+(return.statistics.job_artifacts_size, return.statistics.repository_size)
+(return.statistics.job_artifacts_size, return.statistics.storage_size)
+(return.statistics.job_artifacts_size, return.statistics.wiki_size)
+(return.statistics.job_artifacts_size, return.two_factor_grace_period)","pm.expect(return_statistics_job_artifacts_size).to.eql(return_statistics_lfs_objects_size)
+pm.expect(return_statistics_job_artifacts_size).to.eql(return_statistics_packages_size)
+pm.expect(return_statistics_job_artifacts_size).to.eql(return_statistics_snippets_size)
+pm.expect([0].includes(return_statistics_job_artifacts_size)).to.be.true
+pm.expect(return_statistics_job_artifacts_size).to.be.lte(return_statistics_repository_size)
+pm.expect(return_statistics_job_artifacts_size).to.be.lte(return_statistics_storage_size)
+pm.expect(return_statistics_job_artifacts_size).to.be.lte(return_statistics_wiki_size)
+pm.expect(return_statistics_job_artifacts_size).to.be.lte(return_two_factor_grace_period)","/groups&/groups&get&200():::EXIT
+/groups&/groups&get&200():::EXIT
+/groups&/groups&get&200():::EXIT
+/groups&/groups&get&200():::EXIT
+/groups&/groups&get&200():::EXIT
+/groups&/groups&get&200():::EXIT
+/groups&/groups&get&200():::EXIT
+/groups&/groups&get&200():::EXIT"
+get+groups,statistics.repository_size,"return.statistics.repository_size >= 0
+return.statistics.repository_size <= return.statistics.storage_size
+return.statistics.repository_size >= return.statistics.wiki_size","daikon.inv.unary.scalar.LowerBound
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.statistics.repository_size)
+(return.statistics.repository_size, return.statistics.storage_size)
+(return.statistics.repository_size, return.statistics.wiki_size)","pm.expect(return_statistics_repository_size).to.be.at.least(0)
+pm.expect(return_statistics_repository_size).to.be.lte(return_statistics_storage_size)
+pm.expect(return_statistics_repository_size).to.be.at.least(return_statistics_wiki_size)","/groups&/groups&get&200():::EXIT
+/groups&/groups&get&200():::EXIT
+/groups&/groups&get&200():::EXIT"
+get+groups,statistics.storage_size,"return.statistics.storage_size >= 0
+return.statistics.storage_size >= return.statistics.wiki_size","daikon.inv.unary.scalar.LowerBound
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.statistics.storage_size)
+(return.statistics.storage_size, return.statistics.wiki_size)","pm.expect(return_statistics_storage_size).to.be.at.least(0)
+pm.expect(return_statistics_storage_size).to.be.at.least(return_statistics_wiki_size)","/groups&/groups&get&200():::EXIT
+/groups&/groups&get&200():::EXIT"
+get+groups,statistics.wiki_size,return.statistics.wiki_size >= 0,daikon.inv.unary.scalar.LowerBound,(return.statistics.wiki_size),pm.expect(return_statistics_wiki_size).to.be.at.least(0),/groups&/groups&get&200():::EXIT
+get+groups,subgroup_creation_level,"return.subgroup_creation_level one of { ""maintainer"", ""owner"" }",daikon.inv.unary.string.OneOfString,(return.subgroup_creation_level),"pm.expect([""maintainer"", ""owner""].includes(return_subgroup_creation_level)).to.be.true",/groups&/groups&get&200():::EXIT
+get+groups,two_factor_grace_period,return.two_factor_grace_period >= 0,daikon.inv.unary.scalar.LowerBound,(return.two_factor_grace_period),pm.expect(return_two_factor_grace_period).to.be.at.least(0),/groups&/groups&get&200():::EXIT
+get+groups,visibility,"return.visibility one of { ""internal"", ""private"", ""public"" }",daikon.inv.unary.string.OneOfString,(return.visibility),"pm.expect([""internal"", ""private"", ""public""].includes(return_visibility)).to.be.true",/groups&/groups&get&200():::EXIT
+get+groups_{id},created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}&/groups/{id}&get&200():::EXIT
+/groups/{id}&/groups/{id}&get&200():::EXIT"
+get+groups_{id},full_path,return.full_path is a substring of return.web_url,daikon.inv.binary.twoString.StdString$SubString,"(return.full_path, return.web_url)",pm.expect(return_web_url.includes(return_full_path)).to.be.true,/groups/{id}&/groups/{id}&get&200():::EXIT
+get+groups_{id},id,input.id == return.id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.id)",pm.expect(input_id).to.eql(return_id),/groups/{id}&/groups/{id}&get&200():::EXIT
+get+groups_{id},projects,size(return.projects[]) >= size(return.shared_with_groups[]),daikon.inv.binary.twoScalar.IntGreaterEqual,"(size(return.projects[..]), size(return.shared_with_groups[..]))",pm.expect(return_projects_size_array).to.be.at.least(return_shared_with_groups_size_array),/groups/{id}&/groups/{id}&get&200():::EXIT
+get+groups_{id},projects._links.self,"return._links.self is a substring of return._links.issues
+return._links.self is a substring of return._links.merge_requests
+return._links.self is a substring of return._links.repo_branches
+return._links.self is a substring of return._links.labels
+return._links.self is a substring of return._links.events
+return._links.self is a substring of return._links.members","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return._links.self, return._links.issues)
+(return._links.self, return._links.merge_requests)
+(return._links.self, return._links.repo_branches)
+(return._links.self, return._links.labels)
+(return._links.self, return._links.events)
+(return._links.self, return._links.members)","pm.expect(return__links_issues.includes(return__links_self)).to.be.true
+pm.expect(return__links_merge_requests.includes(return__links_self)).to.be.true
+pm.expect(return__links_repo_branches.includes(return__links_self)).to.be.true
+pm.expect(return__links_labels.includes(return__links_self)).to.be.true
+pm.expect(return__links_events.includes(return__links_self)).to.be.true
+pm.expect(return__links_members.includes(return__links_self)).to.be.true","/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+/groups/{id}&/groups/{id}&get&200&projects():::EXIT"
+get+groups_{id},projects.created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+/groups/{id}&/groups/{id}&get&200&projects():::EXIT"
+get+groups_{id},projects.default_branch,return.default_branch is a substring of return.readme_url,daikon.inv.binary.twoString.StdString$SubString,"(return.default_branch, return.readme_url)",pm.expect(return_readme_url.includes(return_default_branch)).to.be.true,/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+get+groups_{id},projects.forks_count,return.forks_count >= size(return.shared_with_groups[]),daikon.inv.binary.twoScalar.IntGreaterEqual,"(return.forks_count, size(return.shared_with_groups[..]))",pm.expect(return_forks_count).to.be.at.least(return_shared_with_groups_size_array),/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+get+groups_{id},projects.http_url_to_repo,return.web_url is a substring of return.http_url_to_repo,daikon.inv.binary.twoString.StdString$SubString,"(return.http_url_to_repo, return.web_url)",pm.expect(return_http_url_to_repo.includes(return_web_url)).to.be.true,/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+get+groups_{id},projects.last_activity_at,"LENGTH(return.last_activity_at)==24
+return.last_activity_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.last_activity_at)
+(return.last_activity_at)","pm.expect(return_last_activity_at).to.have.length(24)
+pm.expect(return_last_activity_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+/groups/{id}&/groups/{id}&get&200&projects():::EXIT"
+get+groups_{id},projects.merge_method,"return.merge_method one of { ""ff"", ""merge"", ""rebase_merge"" }",daikon.inv.unary.string.OneOfString,(return.merge_method),"pm.expect([""ff"", ""merge"", ""rebase_merge""].includes(return_merge_method)).to.be.true",/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+get+groups_{id},projects.name,return.name is a substring of return.name_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.name, return.name_with_namespace)",pm.expect(return_name_with_namespace.includes(return_name)).to.be.true,/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+get+groups_{id},projects.name_with_namespace,return.namespace.name is a substring of return.name_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.name_with_namespace, return.namespace.name)",pm.expect(return_name_with_namespace.includes(return_namespace_name)).to.be.true,/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+get+groups_{id},projects.namespace.id,input.id == return.namespace.id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.namespace.id)",pm.expect(input_id).to.eql(return_namespace_id),/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+get+groups_{id},projects.namespace.kind,"return.namespace.kind == ""group""
+LENGTH(return.namespace.kind)==5","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.namespace.kind)
+(return.namespace.kind)","pm.expect([""group""].includes(return_namespace_kind)).to.be.true
+pm.expect(return_namespace_kind).to.have.length(5)","/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+/groups/{id}&/groups/{id}&get&200&projects():::EXIT"
+get+groups_{id},projects.path,return.path is a substring of return.path_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.path, return.path_with_namespace)",pm.expect(return_path_with_namespace.includes(return_path)).to.be.true,/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+get+groups_{id},projects.path_with_namespace,return.namespace.path is a substring of return.path_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.path_with_namespace, return.namespace.path)",pm.expect(return_path_with_namespace.includes(return_namespace_path)).to.be.true,/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+get+groups_{id},projects.ssh_url_to_repo,return.path_with_namespace is a substring of return.ssh_url_to_repo,daikon.inv.binary.twoString.StdString$SubString,"(return.ssh_url_to_repo, return.path_with_namespace)",pm.expect(return_ssh_url_to_repo.includes(return_path_with_namespace)).to.be.true,/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+get+groups_{id},projects.star_count,return.star_count >= size(return.tag_list[]),daikon.inv.binary.twoScalar.IntGreaterEqual,"(return.star_count, size(return.tag_list[..]))",pm.expect(return_star_count).to.be.at.least(return_tag_list_size_array),/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+get+groups_{id},projects.tag_list,"size(return.tag_list[]) one of { 0, 1 }",daikon.inv.unary.scalar.OneOfScalar,(size(return.tag_list[..])),"pm.expect([0, 1, 0].includes(return_tag_list_size_array)).to.be.true",/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+get+groups_{id},projects.web_url,"return.web_url is a substring of return.readme_url
+return.path_with_namespace is a substring of return.web_url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return.web_url, return.readme_url)
+(return.web_url, return.path_with_namespace)","pm.expect(return_readme_url.includes(return_web_url)).to.be.true
+pm.expect(return_web_url.includes(return_path_with_namespace)).to.be.true","/groups/{id}&/groups/{id}&get&200&projects():::EXIT
+/groups/{id}&/groups/{id}&get&200&projects():::EXIT"
+get+groups_{id},shared_projects,size(return.shared_projects[]) >= size(return.shared_with_groups[]),daikon.inv.binary.twoScalar.IntGreaterEqual,"(size(return.shared_projects[..]), size(return.shared_with_groups[..]))",pm.expect(return_shared_projects_size_array).to.be.at.least(return_shared_with_groups_size_array),/groups/{id}&/groups/{id}&get&200():::EXIT
+get+groups_{id},visibility,"return.visibility one of { ""internal"", ""private"", ""public"" }",daikon.inv.unary.string.OneOfString,(return.visibility),"pm.expect([""internal"", ""private"", ""public""].includes(return_visibility)).to.be.true",/groups/{id}&/groups/{id}&get&200():::EXIT
+get+groups_{id}_descendant_groups,array,input.per_page >= size(return.array[]),daikon.inv.binary.twoScalar.IntGreaterEqual,"(input.per_page, size(return.array[..]))",pm.expect(input_per_page).to.be.at.least(return_array_size_array),/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200%array():::EXIT
+get+groups_{id}_descendant_groups,auto_devops_enabled,"return.auto_devops_enabled one of { ""false"", ""true"" }",daikon.inv.unary.string.OneOfString,(return.auto_devops_enabled),"pm.expect([""false"", ""true""].includes(return_auto_devops_enabled)).to.be.true",/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+get+groups_{id}_descendant_groups,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT"
+get+groups_{id}_descendant_groups,default_branch_protection,"return.default_branch_protection one of { 0, 1, 2 }
+return.default_branch_protection >= return.statistics.job_artifacts_size","daikon.inv.unary.scalar.OneOfScalar
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.default_branch_protection)
+(return.default_branch_protection, return.statistics.job_artifacts_size)","pm.expect([0, 1, 2].includes(return_default_branch_protection)).to.be.true
+pm.expect(return_default_branch_protection).to.be.at.least(return_statistics_job_artifacts_size)","/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT"
+get+groups_{id}_descendant_groups,emails_disabled,"return.emails_disabled one of { ""false"", ""true"" }",daikon.inv.unary.string.OneOfString,(return.emails_disabled),"pm.expect([""false"", ""true""].includes(return_emails_disabled)).to.be.true",/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+get+groups_{id}_descendant_groups,full_name,return.name is a substring of return.full_name,daikon.inv.binary.twoString.StdString$SubString,"(return.full_name, return.name)",pm.expect(return_full_name.includes(return_name)).to.be.true,/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+get+groups_{id}_descendant_groups,full_path,"return.path is a substring of return.full_path
+return.full_path is a substring of return.web_url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return.full_path, return.path)
+(return.full_path, return.web_url)","pm.expect(return_full_path.includes(return_path)).to.be.true
+pm.expect(return_web_url.includes(return_full_path)).to.be.true","/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT"
+get+groups_{id}_descendant_groups,id,input.id < return.id,daikon.inv.binary.twoScalar.IntLessThan,"(input.id, return.id)",pm.expect(input_id).to.be.lessThan(return_id),/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+get+groups_{id}_descendant_groups,input.skip_groups[statistics.job_artifacts_size],input.skip_groups[] elements == input.skip_groups[return.statistics.job_artifacts_size],daikon.inv.binary.sequenceScalar.SeqIntEqual,"(input.skip_groups[..], input.skip_groups[return.statistics.job_artifacts_size])",pm.expect(input_skip_groups_array.every(element => element == input_skip_groups_return_statistics_job_artifacts_size)).to.be.true,/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+get+groups_{id}_descendant_groups,mentions_disabled,"return.mentions_disabled one of { ""false"", ""true"" }",daikon.inv.unary.string.OneOfString,(return.mentions_disabled),"pm.expect([""false"", ""true""].includes(return_mentions_disabled)).to.be.true",/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+get+groups_{id}_descendant_groups,parent_id,return.parent_id is Numeric,daikon.inv.unary.string.IsNumeric,(return.parent_id),"pm.expect(return_parent_id).to.match(/^[+-]{0,1}(0|([0-9](\d*|\d{0,2}(,\d{3})*)))?(\.\d*[0-9])?$/)",/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+get+groups_{id}_descendant_groups,project_creation_level,"return.project_creation_level one of { ""developer"", ""maintainer"", ""noone"" }",daikon.inv.unary.string.OneOfString,(return.project_creation_level),"pm.expect([""developer"", ""maintainer"", ""noone""].includes(return_project_creation_level)).to.be.true",/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+get+groups_{id}_descendant_groups,statistics.job_artifacts_size,"return.statistics.job_artifacts_size == return.statistics.lfs_objects_size
+return.statistics.job_artifacts_size == return.statistics.packages_size
+return.statistics.job_artifacts_size == return.statistics.snippets_size
+return.statistics.job_artifacts_size == 0
+return.statistics.job_artifacts_size <= return.statistics.repository_size
+return.statistics.job_artifacts_size <= return.statistics.storage_size
+return.statistics.job_artifacts_size <= return.statistics.wiki_size
+return.statistics.job_artifacts_size <= return.two_factor_grace_period","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.unary.scalar.OneOfScalar
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual","(return.statistics.job_artifacts_size, return.statistics.lfs_objects_size)
+(return.statistics.job_artifacts_size, return.statistics.packages_size)
+(return.statistics.job_artifacts_size, return.statistics.snippets_size)
+(return.statistics.job_artifacts_size)
+(return.statistics.job_artifacts_size, return.statistics.repository_size)
+(return.statistics.job_artifacts_size, return.statistics.storage_size)
+(return.statistics.job_artifacts_size, return.statistics.wiki_size)
+(return.statistics.job_artifacts_size, return.two_factor_grace_period)","pm.expect(return_statistics_job_artifacts_size).to.eql(return_statistics_lfs_objects_size)
+pm.expect(return_statistics_job_artifacts_size).to.eql(return_statistics_packages_size)
+pm.expect(return_statistics_job_artifacts_size).to.eql(return_statistics_snippets_size)
+pm.expect([0].includes(return_statistics_job_artifacts_size)).to.be.true
+pm.expect(return_statistics_job_artifacts_size).to.be.lte(return_statistics_repository_size)
+pm.expect(return_statistics_job_artifacts_size).to.be.lte(return_statistics_storage_size)
+pm.expect(return_statistics_job_artifacts_size).to.be.lte(return_statistics_wiki_size)
+pm.expect(return_statistics_job_artifacts_size).to.be.lte(return_two_factor_grace_period)","/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT"
+get+groups_{id}_descendant_groups,statistics.repository_size,"return.statistics.repository_size >= 0
+return.statistics.repository_size <= return.statistics.storage_size
+return.statistics.repository_size >= return.statistics.wiki_size","daikon.inv.unary.scalar.LowerBound
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.statistics.repository_size)
+(return.statistics.repository_size, return.statistics.storage_size)
+(return.statistics.repository_size, return.statistics.wiki_size)","pm.expect(return_statistics_repository_size).to.be.at.least(0)
+pm.expect(return_statistics_repository_size).to.be.lte(return_statistics_storage_size)
+pm.expect(return_statistics_repository_size).to.be.at.least(return_statistics_wiki_size)","/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT"
+get+groups_{id}_descendant_groups,statistics.storage_size,"return.statistics.storage_size >= 0
+return.statistics.storage_size >= return.statistics.wiki_size","daikon.inv.unary.scalar.LowerBound
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.statistics.storage_size)
+(return.statistics.storage_size, return.statistics.wiki_size)","pm.expect(return_statistics_storage_size).to.be.at.least(0)
+pm.expect(return_statistics_storage_size).to.be.at.least(return_statistics_wiki_size)","/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT"
+get+groups_{id}_descendant_groups,statistics.wiki_size,return.statistics.wiki_size >= 0,daikon.inv.unary.scalar.LowerBound,(return.statistics.wiki_size),pm.expect(return_statistics_wiki_size).to.be.at.least(0),/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+get+groups_{id}_descendant_groups,subgroup_creation_level,"return.subgroup_creation_level one of { ""maintainer"", ""owner"" }",daikon.inv.unary.string.OneOfString,(return.subgroup_creation_level),"pm.expect([""maintainer"", ""owner""].includes(return_subgroup_creation_level)).to.be.true",/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+get+groups_{id}_descendant_groups,two_factor_grace_period,return.two_factor_grace_period >= 0,daikon.inv.unary.scalar.LowerBound,(return.two_factor_grace_period),pm.expect(return_two_factor_grace_period).to.be.at.least(0),/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+get+groups_{id}_descendant_groups,visibility,"return.visibility one of { ""internal"", ""private"" }",daikon.inv.unary.string.OneOfString,(return.visibility),"pm.expect([""internal"", ""private""].includes(return_visibility)).to.be.true",/groups/{id}/descendant_groups&/groups/{id}/descendant_groups&get&200():::EXIT
+get+groups_{id}_hooks,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}/hooks&/groups/{id}/hooks&get&200():::EXIT
+/groups/{id}/hooks&/groups/{id}/hooks&get&200():::EXIT"
+get+groups_{id}_hooks,group_id,input.id == return.group_id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.group_id)",pm.expect(input_id).to.eql(return_group_id),/groups/{id}/hooks&/groups/{id}/hooks&get&200():::EXIT
+get+groups_{id}_hooks_{hook_id},created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&get&200():::EXIT
+/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&get&200():::EXIT"
+get+groups_{id}_hooks_{hook_id},group_id,input.id == return.group_id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.group_id)",pm.expect(input_id).to.eql(return_group_id),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&get&200():::EXIT
+get+groups_{id}_hooks_{hook_id},id,input.hook_id == return.id,daikon.inv.binary.twoScalar.IntEqual,"(input.hook_id, return.id)",pm.expect(input_hook_id).to.eql(return_id),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&get&200():::EXIT
+get+groups_{id}_projects,_links.self,"return._links.self is a substring of return._links.issues
+return._links.self is a substring of return._links.merge_requests
+return._links.self is a substring of return._links.repo_branches
+return._links.self is a substring of return._links.labels
+return._links.self is a substring of return._links.events
+return._links.self is a substring of return._links.members","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return._links.self, return._links.issues)
+(return._links.self, return._links.merge_requests)
+(return._links.self, return._links.repo_branches)
+(return._links.self, return._links.labels)
+(return._links.self, return._links.events)
+(return._links.self, return._links.members)","pm.expect(return__links_issues.includes(return__links_self)).to.be.true
+pm.expect(return__links_merge_requests.includes(return__links_self)).to.be.true
+pm.expect(return__links_repo_branches.includes(return__links_self)).to.be.true
+pm.expect(return__links_labels.includes(return__links_self)).to.be.true
+pm.expect(return__links_events.includes(return__links_self)).to.be.true
+pm.expect(return__links_members.includes(return__links_self)).to.be.true","/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT"
+get+groups_{id}_projects,archived,input.archived == return.archived,daikon.inv.binary.twoScalar.IntEqual,"(input.archived, return.archived)",pm.expect(input_archived).to.eql(return_archived),/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT"
+get+groups_{id}_projects,creator_id,"return.creator_id >= 1
+input.per_page > return.creator_id
+return.creator_id <= return.namespace.id
+return.creator_id >= size(return.tag_list[])
+return.creator_id >= size(return.shared_with_groups[])","daikon.inv.unary.scalar.LowerBound
+daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntGreaterEqual
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.creator_id)
+(input.per_page, return.creator_id)
+(return.creator_id, return.namespace.id)
+(return.creator_id, size(return.tag_list[..]))
+(return.creator_id, size(return.shared_with_groups[..]))","pm.expect(return_creator_id).to.be.at.least(1)
+pm.expect(input_per_page).to.be.greaterThan(return_creator_id)
+pm.expect(return_creator_id).to.be.lte(return_namespace_id)
+pm.expect(return_creator_id).to.be.at.least(return_tag_list_size_array)
+pm.expect(return_creator_id).to.be.at.least(return_shared_with_groups_size_array)","/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT"
+get+groups_{id}_projects,default_branch,return.default_branch is a substring of return.readme_url,daikon.inv.binary.twoString.StdString$SubString,"(return.default_branch, return.readme_url)",pm.expect(return_readme_url.includes(return_default_branch)).to.be.true,/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,forks_count,return.forks_count >= 0,daikon.inv.unary.scalar.LowerBound,(return.forks_count),pm.expect(return_forks_count).to.be.at.least(0),/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,http_url_to_repo,return.web_url is a substring of return.http_url_to_repo,daikon.inv.binary.twoString.StdString$SubString,"(return.http_url_to_repo, return.web_url)",pm.expect(return_http_url_to_repo.includes(return_web_url)).to.be.true,/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,import_status,"return.import_status one of { ""finished"", ""none"" }",daikon.inv.unary.string.OneOfString,(return.import_status),"pm.expect([""finished"", ""none""].includes(return_import_status)).to.be.true",/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,last_activity_at,"LENGTH(return.last_activity_at)==24
+return.last_activity_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.last_activity_at)
+(return.last_activity_at)","pm.expect(return_last_activity_at).to.have.length(24)
+pm.expect(return_last_activity_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT"
+get+groups_{id}_projects,merge_method,"return.merge_method one of { ""ff"", ""merge"", ""rebase_merge"" }",daikon.inv.unary.string.OneOfString,(return.merge_method),"pm.expect([""ff"", ""merge"", ""rebase_merge""].includes(return_merge_method)).to.be.true",/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,name,return.name is a substring of return.name_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.name, return.name_with_namespace)",pm.expect(return_name_with_namespace.includes(return_name)).to.be.true,/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,name_with_namespace,return.namespace.name is a substring of return.name_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.name_with_namespace, return.namespace.name)",pm.expect(return_name_with_namespace.includes(return_namespace_name)).to.be.true,/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,namespace.id,"return.namespace.id >= size(return.tag_list[])
+return.namespace.id >= size(return.shared_with_groups[])","daikon.inv.binary.twoScalar.IntGreaterEqual
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.namespace.id, size(return.tag_list[..]))
+(return.namespace.id, size(return.shared_with_groups[..]))","pm.expect(return_namespace_id).to.be.at.least(return_tag_list_size_array)
+pm.expect(return_namespace_id).to.be.at.least(return_shared_with_groups_size_array)","/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT"
+get+groups_{id}_projects,namespace.kind,"return.namespace.kind one of { ""group"", ""user"" }",daikon.inv.unary.string.OneOfString,(return.namespace.kind),"pm.expect([""group"", ""user""].includes(return_namespace_kind)).to.be.true",/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,namespace.path,return.namespace.path is a substring of return.namespace.full_path,daikon.inv.binary.twoString.StdString$SubString,"(return.namespace.path, return.namespace.full_path)",pm.expect(return_namespace_full_path.includes(return_namespace_path)).to.be.true,/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,open_issues_count,"return.open_issues_count == 0
+return.open_issues_count <= return.forks_count
+return.open_issues_count <= return.star_count
+return.open_issues_count <= size(return.tag_list[])
+return.open_issues_count <= size(return.shared_with_groups[])","daikon.inv.unary.scalar.OneOfScalar
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual","(return.open_issues_count)
+(return.open_issues_count, return.forks_count)
+(return.open_issues_count, return.star_count)
+(return.open_issues_count, size(return.tag_list[..]))
+(return.open_issues_count, size(return.shared_with_groups[..]))","pm.expect([0].includes(return_open_issues_count)).to.be.true
+pm.expect(return_open_issues_count).to.be.lte(return_forks_count)
+pm.expect(return_open_issues_count).to.be.lte(return_star_count)
+pm.expect(return_open_issues_count).to.be.lte(return_tag_list_size_array)
+pm.expect(return_open_issues_count).to.be.lte(return_shared_with_groups_size_array)","/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT"
+get+groups_{id}_projects,path,return.path is a substring of return.path_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.path, return.path_with_namespace)",pm.expect(return_path_with_namespace.includes(return_path)).to.be.true,/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,path_with_namespace,return.namespace.full_path is a substring of return.path_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.path_with_namespace, return.namespace.full_path)",pm.expect(return_path_with_namespace.includes(return_namespace_full_path)).to.be.true,/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,resolve_outdated_diff_discussions,input.simple == return.resolve_outdated_diff_discussions,daikon.inv.binary.twoScalar.IntEqual,"(input.simple, return.resolve_outdated_diff_discussions)",pm.expect(input_simple).to.eql(return_resolve_outdated_diff_discussions),/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,shared_with_groups,"size(return.shared_with_groups[]) one of { 0, 1 }",daikon.inv.unary.scalar.OneOfScalar,(size(return.shared_with_groups[..])),"pm.expect([0, 1, 0].includes(return_shared_with_groups_size_array)).to.be.true",/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,ssh_url_to_repo,return.path_with_namespace is a substring of return.ssh_url_to_repo,daikon.inv.binary.twoString.StdString$SubString,"(return.ssh_url_to_repo, return.path_with_namespace)",pm.expect(return_ssh_url_to_repo.includes(return_path_with_namespace)).to.be.true,/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,star_count,return.star_count >= 0,daikon.inv.unary.scalar.LowerBound,(return.star_count),pm.expect(return_star_count).to.be.at.least(0),/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,tag_list,"size(return.tag_list[]) one of { 0, 1, 2 }",daikon.inv.unary.scalar.OneOfScalar,(size(return.tag_list[..])),"pm.expect([0, 1, 2].includes(return_tag_list_size_array)).to.be.true",/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects,visibility,"input.visibility == return.visibility
+return.visibility one of { ""internal"", ""private"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.visibility, return.visibility)
+(return.visibility)","pm.expect(input_visibility).to.eql(return_visibility)
+pm.expect([""internal"", ""private""].includes(return_visibility)).to.be.true","/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT"
+get+groups_{id}_projects,web_url,"return.web_url is a substring of return.readme_url
+return.path_with_namespace is a substring of return.web_url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return.web_url, return.readme_url)
+(return.web_url, return.path_with_namespace)","pm.expect(return_readme_url.includes(return_web_url)).to.be.true
+pm.expect(return_web_url.includes(return_path_with_namespace)).to.be.true","/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT"
+get+groups_{id}_projects,wiki_enabled,return.wiki_enabled == return.allow_merge_on_skipped_pipeline,daikon.inv.binary.twoScalar.IntEqual,"(return.wiki_enabled, return.allow_merge_on_skipped_pipeline)",pm.expect(return_wiki_enabled).to.eql(return_allow_merge_on_skipped_pipeline),/groups/{id}/projects&/groups/{id}/projects&get&200():::EXIT
+get+groups_{id}_projects_shared,_links.self,"return._links.self is a substring of return._links.issues
+return._links.self is a substring of return._links.merge_requests
+return._links.self is a substring of return._links.repo_branches
+return._links.self is a substring of return._links.labels
+return._links.self is a substring of return._links.events
+return._links.self is a substring of return._links.members","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return._links.self, return._links.issues)
+(return._links.self, return._links.merge_requests)
+(return._links.self, return._links.repo_branches)
+(return._links.self, return._links.labels)
+(return._links.self, return._links.events)
+(return._links.self, return._links.members)","pm.expect(return__links_issues.includes(return__links_self)).to.be.true
+pm.expect(return__links_merge_requests.includes(return__links_self)).to.be.true
+pm.expect(return__links_repo_branches.includes(return__links_self)).to.be.true
+pm.expect(return__links_labels.includes(return__links_self)).to.be.true
+pm.expect(return__links_events.includes(return__links_self)).to.be.true
+pm.expect(return__links_members.includes(return__links_self)).to.be.true","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,archived,input.archived == return.archived,daikon.inv.binary.twoScalar.IntEqual,"(input.archived, return.archived)",pm.expect(input_archived).to.eql(return_archived),/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,array,input.per_page >= size(return.array[]),daikon.inv.binary.twoScalar.IntGreaterEqual,"(input.per_page, size(return.array[..]))",pm.expect(input_per_page).to.be.at.least(return_array_size_array),/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200%array():::EXIT
+get+groups_{id}_projects_shared,auto_cancel_pending_pipelines,"return.auto_cancel_pending_pipelines one of { ""disabled"", ""enabled"" }",daikon.inv.unary.string.OneOfString,(return.auto_cancel_pending_pipelines),"pm.expect([""disabled"", ""enabled""].includes(return_auto_cancel_pending_pipelines)).to.be.true",/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,autoclose_referenced_issues,return.autoclose_referenced_issues == return.request_access_enabled,daikon.inv.binary.twoScalar.IntEqual,"(return.autoclose_referenced_issues, return.request_access_enabled)",pm.expect(return_autoclose_referenced_issues).to.eql(return_request_access_enabled),/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,build_timeout,return.build_timeout == 3600,daikon.inv.unary.scalar.OneOfScalar,(return.build_timeout),pm.expect([3600].includes(return_build_timeout)).to.be.true,/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,builds_access_level,"return.builds_access_level one of { ""disabled"", ""enabled"" }",daikon.inv.unary.string.OneOfString,(return.builds_access_level),"pm.expect([""disabled"", ""enabled""].includes(return_builds_access_level)).to.be.true",/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,ci_default_git_depth,return.ci_default_git_depth == 20,daikon.inv.unary.scalar.OneOfScalar,(return.ci_default_git_depth),pm.expect([20].includes(return_ci_default_git_depth)).to.be.true,/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,container_expiration_policy.cadence,"return.container_expiration_policy.cadence == ""1d""
+LENGTH(return.container_expiration_policy.cadence)==2","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.container_expiration_policy.cadence)
+(return.container_expiration_policy.cadence)","pm.expect([""1d""].includes(return_container_expiration_policy_cadence)).to.be.true
+pm.expect(return_container_expiration_policy_cadence).to.have.length(2)","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,container_expiration_policy.enabled,return.container_expiration_policy.enabled == return.only_allow_merge_if_all_discussions_are_resolved,daikon.inv.binary.twoScalar.IntEqual,"(return.container_expiration_policy.enabled, return.only_allow_merge_if_all_discussions_are_resolved)",pm.expect(return_container_expiration_policy_enabled).to.eql(return_only_allow_merge_if_all_discussions_are_resolved),/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,container_expiration_policy.keep_n,return.container_expiration_policy.keep_n == 10,daikon.inv.unary.scalar.OneOfScalar,(return.container_expiration_policy.keep_n),pm.expect([10].includes(return_container_expiration_policy_keep_n)).to.be.true,/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,container_expiration_policy.name_regex,"return.container_expiration_policy.name_regex == "".*""
+LENGTH(return.container_expiration_policy.name_regex)==2","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.container_expiration_policy.name_regex)
+(return.container_expiration_policy.name_regex)","pm.expect(["".*""].includes(return_container_expiration_policy_name_regex)).to.be.true
+pm.expect(return_container_expiration_policy_name_regex).to.have.length(2)","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,container_expiration_policy.next_run_at,"LENGTH(return.container_expiration_policy.next_run_at)==24
+return.container_expiration_policy.next_run_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.container_expiration_policy.next_run_at)
+(return.container_expiration_policy.next_run_at)","pm.expect(return_container_expiration_policy_next_run_at).to.have.length(24)
+pm.expect(return_container_expiration_policy_next_run_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,container_expiration_policy.older_than,"return.container_expiration_policy.older_than == ""90d""
+LENGTH(return.container_expiration_policy.older_than)==3","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.container_expiration_policy.older_than)
+(return.container_expiration_policy.older_than)","pm.expect([""90d""].includes(return_container_expiration_policy_older_than)).to.be.true
+pm.expect(return_container_expiration_policy_older_than).to.have.length(3)","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,creator_id,"input.page == return.creator_id
+return.creator_id one of { 1, 2, 5 }
+input.per_page >= return.creator_id
+return.creator_id <= return.namespace.id
+return.creator_id >= size(return.shared_with_groups[])
+return.creator_id >= size(return.tag_list[])","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.unary.scalar.OneOfScalar
+daikon.inv.binary.twoScalar.IntGreaterEqual
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntGreaterEqual
+daikon.inv.binary.twoScalar.IntGreaterEqual","(input.page, return.creator_id)
+(return.creator_id)
+(input.per_page, return.creator_id)
+(return.creator_id, return.namespace.id)
+(return.creator_id, size(return.shared_with_groups[..]))
+(return.creator_id, size(return.tag_list[..]))","pm.expect(input_page).to.eql(return_creator_id)
+pm.expect([1, 2, 5].includes(return_creator_id)).to.be.true
+pm.expect(input_per_page).to.be.at.least(return_creator_id)
+pm.expect(return_creator_id).to.be.lte(return_namespace_id)
+pm.expect(return_creator_id).to.be.at.least(return_shared_with_groups_size_array)
+pm.expect(return_creator_id).to.be.at.least(return_tag_list_size_array)","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,default_branch,"return.default_branch one of { ""develop"", ""main"", ""master"" }
+return.default_branch is a substring of return.readme_url","daikon.inv.unary.string.OneOfString
+daikon.inv.binary.twoString.StdString$SubString","(return.default_branch)
+(return.default_branch, return.readme_url)","pm.expect([""develop"", ""main"", ""master""].includes(return_default_branch)).to.be.true
+pm.expect(return_readme_url.includes(return_default_branch)).to.be.true","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,forks_count,"return.forks_count >= 0
+input.per_page > return.forks_count
+return.forks_count >= return.open_issues_count","daikon.inv.unary.scalar.LowerBound
+daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.forks_count)
+(input.per_page, return.forks_count)
+(return.forks_count, return.open_issues_count)","pm.expect(return_forks_count).to.be.at.least(0)
+pm.expect(input_per_page).to.be.greaterThan(return_forks_count)
+pm.expect(return_forks_count).to.be.at.least(return_open_issues_count)","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,http_url_to_repo,return.web_url is a substring of return.http_url_to_repo,daikon.inv.binary.twoString.StdString$SubString,"(return.http_url_to_repo, return.web_url)",pm.expect(return_http_url_to_repo.includes(return_web_url)).to.be.true,/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,import_status,"return.import_status one of { ""finished"", ""none"" }",daikon.inv.unary.string.OneOfString,(return.import_status),"pm.expect([""finished"", ""none""].includes(return_import_status)).to.be.true",/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,issues_access_level,"return.issues_access_level one of { ""enabled"", ""private"" }
+LENGTH(return.issues_access_level)==7","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.issues_access_level)
+(return.issues_access_level)","pm.expect([""enabled"", ""private""].includes(return_issues_access_level)).to.be.true
+pm.expect(return_issues_access_level).to.have.length(7)","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,last_activity_at,"LENGTH(return.last_activity_at)==24
+return.last_activity_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.last_activity_at)
+(return.last_activity_at)","pm.expect(return_last_activity_at).to.have.length(24)
+pm.expect(return_last_activity_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,merge_requests_access_level,"return.merge_requests_access_level one of { ""disabled"", ""enabled"", ""private"" }",daikon.inv.unary.string.OneOfString,(return.merge_requests_access_level),"pm.expect([""disabled"", ""enabled"", ""private""].includes(return_merge_requests_access_level)).to.be.true",/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,name,return.name is a substring of return.name_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.name, return.name_with_namespace)",pm.expect(return_name_with_namespace.includes(return_name)).to.be.true,/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,name_with_namespace,return.namespace.name is a substring of return.name_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.name_with_namespace, return.namespace.name)",pm.expect(return_name_with_namespace.includes(return_namespace_name)).to.be.true,/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,namespace.full_path,return.namespace.full_path is a substring of return.path_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.namespace.full_path, return.path_with_namespace)",pm.expect(return_path_with_namespace.includes(return_namespace_full_path)).to.be.true,/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,namespace.id,"return.namespace.id >= 1
+return.namespace.id >= size(return.shared_with_groups[])
+return.namespace.id >= size(return.tag_list[])","daikon.inv.unary.scalar.LowerBound
+daikon.inv.binary.twoScalar.IntGreaterEqual
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.namespace.id)
+(return.namespace.id, size(return.shared_with_groups[..]))
+(return.namespace.id, size(return.tag_list[..]))","pm.expect(return_namespace_id).to.be.at.least(1)
+pm.expect(return_namespace_id).to.be.at.least(return_shared_with_groups_size_array)
+pm.expect(return_namespace_id).to.be.at.least(return_tag_list_size_array)","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,namespace.kind,"return.namespace.kind one of { ""group"", ""user"" }",daikon.inv.unary.string.OneOfString,(return.namespace.kind),"pm.expect([""group"", ""user""].includes(return_namespace_kind)).to.be.true",/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,namespace.path,return.namespace.path is a substring of return.namespace.full_path,daikon.inv.binary.twoString.StdString$SubString,"(return.namespace.path, return.namespace.full_path)",pm.expect(return_namespace_full_path.includes(return_namespace_path)).to.be.true,/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,only_allow_merge_if_all_discussions_are_resolved,"input.simple == return.only_allow_merge_if_all_discussions_are_resolved
+return.only_allow_merge_if_all_discussions_are_resolved == return.only_allow_merge_if_pipeline_succeeds
+return.only_allow_merge_if_all_discussions_are_resolved == false","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.unary.scalar.OneOfScalar","(input.simple, return.only_allow_merge_if_all_discussions_are_resolved)
+(return.only_allow_merge_if_all_discussions_are_resolved, return.only_allow_merge_if_pipeline_succeeds)
+(return.only_allow_merge_if_all_discussions_are_resolved)","pm.expect(input_simple).to.eql(return_only_allow_merge_if_all_discussions_are_resolved)
+pm.expect(return_only_allow_merge_if_all_discussions_are_resolved).to.eql(return_only_allow_merge_if_pipeline_succeeds)
+pm.expect(return_only_allow_merge_if_all_discussions_are_resolved).to.eql(false)","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,open_issues_count,"return.open_issues_count == 0
+return.open_issues_count <= return.star_count
+return.open_issues_count <= size(return.tag_list[])","daikon.inv.unary.scalar.OneOfScalar
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual","(return.open_issues_count)
+(return.open_issues_count, return.star_count)
+(return.open_issues_count, size(return.tag_list[..]))","pm.expect([0].includes(return_open_issues_count)).to.be.true
+pm.expect(return_open_issues_count).to.be.lte(return_star_count)
+pm.expect(return_open_issues_count).to.be.lte(return_tag_list_size_array)","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,path,return.path is a substring of return.path_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.path, return.path_with_namespace)",pm.expect(return_path_with_namespace.includes(return_path)).to.be.true,/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,path_with_namespace,"return.path_with_namespace is a substring of return.ssh_url_to_repo
+return.path_with_namespace is a substring of return.web_url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return.path_with_namespace, return.ssh_url_to_repo)
+(return.path_with_namespace, return.web_url)","pm.expect(return_ssh_url_to_repo.includes(return_path_with_namespace)).to.be.true
+pm.expect(return_web_url.includes(return_path_with_namespace)).to.be.true","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,readme_url,return.web_url is a substring of return.readme_url,daikon.inv.binary.twoString.StdString$SubString,"(return.readme_url, return.web_url)",pm.expect(return_readme_url.includes(return_web_url)).to.be.true,/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,repository_access_level,"return.repository_access_level one of { ""enabled"", ""private"" }
+LENGTH(return.repository_access_level)==7","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.repository_access_level)
+(return.repository_access_level)","pm.expect([""enabled"", ""private""].includes(return_repository_access_level)).to.be.true
+pm.expect(return_repository_access_level).to.have.length(7)","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,repository_storage,"return.repository_storage == ""default""
+LENGTH(return.repository_storage)==7","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.repository_storage)
+(return.repository_storage)","pm.expect([""default""].includes(return_repository_storage)).to.be.true
+pm.expect(return_repository_storage).to.have.length(7)","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,shared_with_groups,"size(return.shared_with_groups[]) == 1
+input.per_page >= size(return.shared_with_groups[])
+return.shared_with_groups[] elements == return.shared_with_groups[input.page -1]
+return.shared_with_groups[] elements == return.shared_with_groups[return.open_issues_count]
+size(return.shared_with_groups[]) >= size(return.tag_list[])","daikon.inv.unary.scalar.OneOfScalar
+daikon.inv.binary.twoScalar.IntGreaterEqual
+daikon.inv.binary.sequenceScalar.SeqIntEqual
+daikon.inv.binary.sequenceScalar.SeqIntEqual
+daikon.inv.binary.twoScalar.IntGreaterEqual","(size(return.shared_with_groups[..]))
+(input.per_page, size(return.shared_with_groups[..]))
+(return.shared_with_groups[..], return.shared_with_groups[input.page -1])
+(return.shared_with_groups[..], return.shared_with_groups[return.open_issues_count])
+(size(return.shared_with_groups[..]), size(return.tag_list[..]))","pm.expect([1].includes(return_shared_with_groups_size_array)).to.be.true
+pm.expect(input_per_page).to.be.at.least(return_shared_with_groups_size_array)
+pm.expect(return_shared_with_groups_array.every(element => element == return_shared_with_groups_input_page_minus_1)).to.be.true
+pm.expect(return_shared_with_groups_array.every(element => element == return_shared_with_groups_return_open_issues_count)).to.be.true
+pm.expect(return_shared_with_groups_size_array).to.be.at.least(return_tag_list_size_array)","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,shared_with_groups[input.page -1],"return.shared_with_groups[input.page -1] == return.shared_with_groups[return.open_issues_count]
+return.shared_with_groups[input.page -1] has only one value","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.unary.scalar.OneOfScalar","(return.shared_with_groups[input.page -1], return.shared_with_groups[return.open_issues_count])
+(return.shared_with_groups[input.page -1])","pm.expect(return_shared_with_groups_input_page_minus_1).to.eql(return_shared_with_groups_return_open_issues_count)
+//","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,snippets_access_level,"return.snippets_access_level one of { ""disabled"", ""enabled"", ""private"" }",daikon.inv.unary.string.OneOfString,(return.snippets_access_level),"pm.expect([""disabled"", ""enabled"", ""private""].includes(return_snippets_access_level)).to.be.true",/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,star_count,"return.star_count one of { 0, 1, 2 }
+input.per_page > return.star_count","daikon.inv.unary.scalar.OneOfScalar
+daikon.inv.binary.twoScalar.IntGreaterThan","(return.star_count)
+(input.per_page, return.star_count)","pm.expect([0, 1, 2].includes(return_star_count)).to.be.true
+pm.expect(input_per_page).to.be.greaterThan(return_star_count)","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,suggestion_commit_message,"return.suggestion_commit_message == ""formlessly""",daikon.inv.unary.string.OneOfString,(return.suggestion_commit_message),"pm.expect([""formlessly""].includes(return_suggestion_commit_message)).to.be.true",/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_projects_shared,tag_list,"return.tag_list[] elements one of { ""approbative"", ""deep-fry"", ""functionally"" }
+size(return.tag_list[]) one of { 0, 1 }","daikon.inv.unary.stringsequence.EltOneOfString
+daikon.inv.unary.scalar.OneOfScalar","(return.tag_list[..])
+(size(return.tag_list[..]))","pm.expect(return_tag_list_array.every(element => [""approbative"", ""deep-fry"", ""functionally""].includes(element))).to.be.true
+pm.expect([0, 1, 0].includes(return_tag_list_size_array)).to.be.true","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,visibility,"input.visibility == return.visibility
+return.visibility one of { ""private"", ""public"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.visibility, return.visibility)
+(return.visibility)","pm.expect(input_visibility).to.eql(return_visibility)
+pm.expect([""private"", ""public""].includes(return_visibility)).to.be.true","/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT"
+get+groups_{id}_projects_shared,wiki_access_level,"return.wiki_access_level one of { ""disabled"", ""enabled"", ""private"" }",daikon.inv.unary.string.OneOfString,(return.wiki_access_level),"pm.expect([""disabled"", ""enabled"", ""private""].includes(return_wiki_access_level)).to.be.true",/groups/{id}/projects/shared&/groups/{id}/projects/shared&get&200():::EXIT
+get+groups_{id}_subgroups,auto_devops_enabled,"return.auto_devops_enabled one of { ""false"", ""true"" }",daikon.inv.unary.string.OneOfString,(return.auto_devops_enabled),"pm.expect([""false"", ""true""].includes(return_auto_devops_enabled)).to.be.true",/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+get+groups_{id}_subgroups,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT"
+get+groups_{id}_subgroups,default_branch_protection,"return.default_branch_protection one of { 0, 1, 2 }
+return.default_branch_protection >= return.statistics.job_artifacts_size","daikon.inv.unary.scalar.OneOfScalar
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.default_branch_protection)
+(return.default_branch_protection, return.statistics.job_artifacts_size)","pm.expect([0, 1, 2].includes(return_default_branch_protection)).to.be.true
+pm.expect(return_default_branch_protection).to.be.at.least(return_statistics_job_artifacts_size)","/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT"
+get+groups_{id}_subgroups,full_name,return.name is a substring of return.full_name,daikon.inv.binary.twoString.StdString$SubString,"(return.full_name, return.name)",pm.expect(return_full_name.includes(return_name)).to.be.true,/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+get+groups_{id}_subgroups,full_path,"return.path is a substring of return.full_path
+return.full_path is a substring of return.web_url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return.full_path, return.path)
+(return.full_path, return.web_url)","pm.expect(return_full_path.includes(return_path)).to.be.true
+pm.expect(return_web_url.includes(return_full_path)).to.be.true","/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT"
+get+groups_{id}_subgroups,id,input.id < return.id,daikon.inv.binary.twoScalar.IntLessThan,"(input.id, return.id)",pm.expect(input_id).to.be.lessThan(return_id),/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+get+groups_{id}_subgroups,input.skip_groups[statistics.job_artifacts_size],input.skip_groups[] elements == input.skip_groups[return.statistics.job_artifacts_size],daikon.inv.binary.sequenceScalar.SeqIntEqual,"(input.skip_groups[..], input.skip_groups[return.statistics.job_artifacts_size])",pm.expect(input_skip_groups_array.every(element => element == input_skip_groups_return_statistics_job_artifacts_size)).to.be.true,/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+get+groups_{id}_subgroups,parent_id,return.parent_id is Numeric,daikon.inv.unary.string.IsNumeric,(return.parent_id),"pm.expect(return_parent_id).to.match(/^[+-]{0,1}(0|([0-9](\d*|\d{0,2}(,\d{3})*)))?(\.\d*[0-9])?$/)",/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+get+groups_{id}_subgroups,project_creation_level,"return.project_creation_level one of { ""developer"", ""maintainer"", ""noone"" }",daikon.inv.unary.string.OneOfString,(return.project_creation_level),"pm.expect([""developer"", ""maintainer"", ""noone""].includes(return_project_creation_level)).to.be.true",/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+get+groups_{id}_subgroups,statistics.job_artifacts_size,"return.statistics.job_artifacts_size == return.statistics.lfs_objects_size
+return.statistics.job_artifacts_size == return.statistics.packages_size
+return.statistics.job_artifacts_size == return.statistics.snippets_size
+return.statistics.job_artifacts_size == 0
+return.statistics.job_artifacts_size <= return.statistics.repository_size
+return.statistics.job_artifacts_size <= return.statistics.storage_size
+return.statistics.job_artifacts_size <= return.statistics.wiki_size
+return.statistics.job_artifacts_size <= return.two_factor_grace_period","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.unary.scalar.OneOfScalar
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual","(return.statistics.job_artifacts_size, return.statistics.lfs_objects_size)
+(return.statistics.job_artifacts_size, return.statistics.packages_size)
+(return.statistics.job_artifacts_size, return.statistics.snippets_size)
+(return.statistics.job_artifacts_size)
+(return.statistics.job_artifacts_size, return.statistics.repository_size)
+(return.statistics.job_artifacts_size, return.statistics.storage_size)
+(return.statistics.job_artifacts_size, return.statistics.wiki_size)
+(return.statistics.job_artifacts_size, return.two_factor_grace_period)","pm.expect(return_statistics_job_artifacts_size).to.eql(return_statistics_lfs_objects_size)
+pm.expect(return_statistics_job_artifacts_size).to.eql(return_statistics_packages_size)
+pm.expect(return_statistics_job_artifacts_size).to.eql(return_statistics_snippets_size)
+pm.expect([0].includes(return_statistics_job_artifacts_size)).to.be.true
+pm.expect(return_statistics_job_artifacts_size).to.be.lte(return_statistics_repository_size)
+pm.expect(return_statistics_job_artifacts_size).to.be.lte(return_statistics_storage_size)
+pm.expect(return_statistics_job_artifacts_size).to.be.lte(return_statistics_wiki_size)
+pm.expect(return_statistics_job_artifacts_size).to.be.lte(return_two_factor_grace_period)","/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT"
+get+groups_{id}_subgroups,statistics.repository_size,"return.statistics.repository_size >= 0
+return.statistics.repository_size <= return.statistics.storage_size
+return.statistics.repository_size >= return.statistics.wiki_size","daikon.inv.unary.scalar.LowerBound
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.statistics.repository_size)
+(return.statistics.repository_size, return.statistics.storage_size)
+(return.statistics.repository_size, return.statistics.wiki_size)","pm.expect(return_statistics_repository_size).to.be.at.least(0)
+pm.expect(return_statistics_repository_size).to.be.lte(return_statistics_storage_size)
+pm.expect(return_statistics_repository_size).to.be.at.least(return_statistics_wiki_size)","/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT"
+get+groups_{id}_subgroups,statistics.storage_size,"return.statistics.storage_size >= 0
+return.statistics.storage_size >= return.statistics.wiki_size","daikon.inv.unary.scalar.LowerBound
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.statistics.storage_size)
+(return.statistics.storage_size, return.statistics.wiki_size)","pm.expect(return_statistics_storage_size).to.be.at.least(0)
+pm.expect(return_statistics_storage_size).to.be.at.least(return_statistics_wiki_size)","/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT"
+get+groups_{id}_subgroups,statistics.wiki_size,return.statistics.wiki_size >= 0,daikon.inv.unary.scalar.LowerBound,(return.statistics.wiki_size),pm.expect(return_statistics_wiki_size).to.be.at.least(0),/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+get+groups_{id}_subgroups,subgroup_creation_level,"return.subgroup_creation_level one of { ""maintainer"", ""owner"" }",daikon.inv.unary.string.OneOfString,(return.subgroup_creation_level),"pm.expect([""maintainer"", ""owner""].includes(return_subgroup_creation_level)).to.be.true",/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+get+groups_{id}_subgroups,two_factor_grace_period,return.two_factor_grace_period >= 0,daikon.inv.unary.scalar.LowerBound,(return.two_factor_grace_period),pm.expect(return_two_factor_grace_period).to.be.at.least(0),/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+get+groups_{id}_subgroups,visibility,"return.visibility one of { ""internal"", ""private"" }",daikon.inv.unary.string.OneOfString,(return.visibility),"pm.expect([""internal"", ""private""].includes(return_visibility)).to.be.true",/groups/{id}/subgroups&/groups/{id}/subgroups&get&200():::EXIT
+post+groups,auto_devops_enabled,"return.auto_devops_enabled one of { ""false"", ""true"" }",daikon.inv.unary.string.OneOfString,(return.auto_devops_enabled),"pm.expect([""false"", ""true""].includes(return_auto_devops_enabled)).to.be.true",/groups&/groups&post&201():::EXIT
+post+groups,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups&/groups&post&201():::EXIT
+/groups&/groups&post&201():::EXIT"
+post+groups,default_branch_protection,"return.default_branch_protection one of { 0, 1, 2 }",daikon.inv.unary.scalar.OneOfScalar,(return.default_branch_protection),"pm.expect([0, 1, 2].includes(return_default_branch_protection)).to.be.true",/groups&/groups&post&201():::EXIT
+post+groups,description,input.description == return.description,daikon.inv.binary.twoString.StringEqual,"(input.description, return.description)",pm.expect(input_description).to.eql(return_description),/groups&/groups&post&201():::EXIT
+post+groups,emails_disabled,"return.emails_disabled one of { ""false"", ""true"" }",daikon.inv.unary.string.OneOfString,(return.emails_disabled),"pm.expect([""false"", ""true""].includes(return_emails_disabled)).to.be.true",/groups&/groups&post&201():::EXIT
+post+groups,lfs_enabled,input.lfs_enabled == return.lfs_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.lfs_enabled, return.lfs_enabled)",pm.expect(input_lfs_enabled).to.eql(return_lfs_enabled),/groups&/groups&post&201():::EXIT
+post+groups,mentions_disabled,"return.mentions_disabled one of { ""false"", ""true"" }",daikon.inv.unary.string.OneOfString,(return.mentions_disabled),"pm.expect([""false"", ""true""].includes(return_mentions_disabled)).to.be.true",/groups&/groups&post&201():::EXIT
+post+groups,name,input.name == return.name,daikon.inv.binary.twoString.StringEqual,"(input.name, return.name)",pm.expect(input_name).to.eql(return_name),/groups&/groups&post&201():::EXIT
+post+groups,path,input.path == return.path,daikon.inv.binary.twoString.StringEqual,"(input.path, return.path)",pm.expect(input_path).to.eql(return_path),/groups&/groups&post&201():::EXIT
+post+groups,project_creation_level,"input.project_creation_level == return.project_creation_level
+return.project_creation_level one of { ""developer"", ""maintainer"", ""noone"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.project_creation_level, return.project_creation_level)
+(return.project_creation_level)","pm.expect(input_project_creation_level).to.eql(return_project_creation_level)
+pm.expect([""developer"", ""maintainer"", ""noone""].includes(return_project_creation_level)).to.be.true","/groups&/groups&post&201():::EXIT
+/groups&/groups&post&201():::EXIT"
+post+groups,request_access_enabled,input.request_access_enabled == return.request_access_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.request_access_enabled, return.request_access_enabled)",pm.expect(input_request_access_enabled).to.eql(return_request_access_enabled),/groups&/groups&post&201():::EXIT
+post+groups,require_two_factor_authentication,input.require_two_factor_authentication == return.require_two_factor_authentication,daikon.inv.binary.twoScalar.IntEqual,"(input.require_two_factor_authentication, return.require_two_factor_authentication)",pm.expect(input_require_two_factor_authentication).to.eql(return_require_two_factor_authentication),/groups&/groups&post&201():::EXIT
+post+groups,share_with_group_lock,input.share_with_group_lock == return.share_with_group_lock,daikon.inv.binary.twoScalar.IntEqual,"(input.share_with_group_lock, return.share_with_group_lock)",pm.expect(input_share_with_group_lock).to.eql(return_share_with_group_lock),/groups&/groups&post&201():::EXIT
+post+groups,statistics,return.statistics == null,daikon.inv.unary.scalar.OneOfScalar,(return.statistics),pm.expect(return_statistics).to.be.null,/groups&/groups&post&201():::EXIT
+post+groups,subgroup_creation_level,"input.subgroup_creation_level == return.subgroup_creation_level
+return.subgroup_creation_level one of { ""maintainer"", ""owner"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.subgroup_creation_level, return.subgroup_creation_level)
+(return.subgroup_creation_level)","pm.expect(input_subgroup_creation_level).to.eql(return_subgroup_creation_level)
+pm.expect([""maintainer"", ""owner""].includes(return_subgroup_creation_level)).to.be.true","/groups&/groups&post&201():::EXIT
+/groups&/groups&post&201():::EXIT"
+post+groups,two_factor_grace_period,input.two_factor_grace_period == return.two_factor_grace_period,daikon.inv.binary.twoScalar.IntEqual,"(input.two_factor_grace_period, return.two_factor_grace_period)",pm.expect(input_two_factor_grace_period).to.eql(return_two_factor_grace_period),/groups&/groups&post&201():::EXIT
+post+groups,visibility,"input.visibility == return.visibility
+return.visibility one of { ""internal"", ""private"", ""public"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.visibility, return.visibility)
+(return.visibility)","pm.expect(input_visibility).to.eql(return_visibility)
+pm.expect([""internal"", ""private"", ""public""].includes(return_visibility)).to.be.true","/groups&/groups&post&201():::EXIT
+/groups&/groups&post&201():::EXIT"
+post+groups,web_url,input.path is a substring of return.web_url,daikon.inv.binary.twoString.StdString$SubString,"(input.path, return.web_url)",pm.expect(return_web_url.includes(input_path)).to.be.true,/groups&/groups&post&201():::EXIT
+post+groups_{id}_hooks,confidential_issues_events,input.confidential_issues_events == return.confidential_issues_events,daikon.inv.binary.twoScalar.IntEqual,"(input.confidential_issues_events, return.confidential_issues_events)",pm.expect(input_confidential_issues_events).to.eql(return_confidential_issues_events),/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT
+post+groups_{id}_hooks,confidential_note_events,input.confidential_note_events == return.confidential_note_events,daikon.inv.binary.twoScalar.IntEqual,"(input.confidential_note_events, return.confidential_note_events)",pm.expect(input_confidential_note_events).to.eql(return_confidential_note_events),/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT
+post+groups_{id}_hooks,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT
+/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT"
+post+groups_{id}_hooks,deployment_events,input.deployment_events == return.deployment_events,daikon.inv.binary.twoScalar.IntEqual,"(input.deployment_events, return.deployment_events)",pm.expect(input_deployment_events).to.eql(return_deployment_events),/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT
+post+groups_{id}_hooks,enable_ssl_verification,input.enable_ssl_verification == return.enable_ssl_verification,daikon.inv.binary.twoScalar.IntEqual,"(input.enable_ssl_verification, return.enable_ssl_verification)",pm.expect(input_enable_ssl_verification).to.eql(return_enable_ssl_verification),/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT
+post+groups_{id}_hooks,group_id,input.id == return.group_id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.group_id)",pm.expect(input_id).to.eql(return_group_id),/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT
+post+groups_{id}_hooks,issues_events,input.issues_events == return.issues_events,daikon.inv.binary.twoScalar.IntEqual,"(input.issues_events, return.issues_events)",pm.expect(input_issues_events).to.eql(return_issues_events),/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT
+post+groups_{id}_hooks,job_events,input.job_events == return.job_events,daikon.inv.binary.twoScalar.IntEqual,"(input.job_events, return.job_events)",pm.expect(input_job_events).to.eql(return_job_events),/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT
+post+groups_{id}_hooks,merge_requests_events,input.merge_requests_events == return.merge_requests_events,daikon.inv.binary.twoScalar.IntEqual,"(input.merge_requests_events, return.merge_requests_events)",pm.expect(input_merge_requests_events).to.eql(return_merge_requests_events),/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT
+post+groups_{id}_hooks,note_events,input.note_events == return.note_events,daikon.inv.binary.twoScalar.IntEqual,"(input.note_events, return.note_events)",pm.expect(input_note_events).to.eql(return_note_events),/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT
+post+groups_{id}_hooks,pipeline_events,input.pipeline_events == return.pipeline_events,daikon.inv.binary.twoScalar.IntEqual,"(input.pipeline_events, return.pipeline_events)",pm.expect(input_pipeline_events).to.eql(return_pipeline_events),/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT
+post+groups_{id}_hooks,push_events,input.push_events == return.push_events,daikon.inv.binary.twoScalar.IntEqual,"(input.push_events, return.push_events)",pm.expect(input_push_events).to.eql(return_push_events),/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT
+post+groups_{id}_hooks,releases_events,input.releases_events == return.releases_events,daikon.inv.binary.twoScalar.IntEqual,"(input.releases_events, return.releases_events)",pm.expect(input_releases_events).to.eql(return_releases_events),/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT
+post+groups_{id}_hooks,tag_push_events,input.tag_push_events == return.tag_push_events,daikon.inv.binary.twoScalar.IntEqual,"(input.tag_push_events, return.tag_push_events)",pm.expect(input_tag_push_events).to.eql(return_tag_push_events),/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT
+post+groups_{id}_hooks,url,input.url == return.url,daikon.inv.binary.twoString.StringEqual,"(input.url, return.url)",pm.expect(input_url).to.eql(return_url),/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT
+post+groups_{id}_hooks,wiki_page_events,input.wiki_page_events == return.wiki_page_events,daikon.inv.binary.twoScalar.IntEqual,"(input.wiki_page_events, return.wiki_page_events)",pm.expect(input_wiki_page_events).to.eql(return_wiki_page_events),/groups/{id}/hooks&/groups/{id}/hooks&post&201():::EXIT
+post+groups_{id}_projects_{project_id},_links,return._links == null,daikon.inv.unary.scalar.OneOfScalar,(return._links),pm.expect(return__links).to.be.null,/groups/{id}/projects/{project_id}&/groups/{id}/projects/{project_id}&post&201():::EXIT
+post+groups_{id}_projects_{project_id},container_expiration_policy,return.container_expiration_policy == null,daikon.inv.unary.scalar.OneOfScalar,(return.container_expiration_policy),pm.expect(return_container_expiration_policy).to.be.null,/groups/{id}/projects/{project_id}&/groups/{id}/projects/{project_id}&post&201():::EXIT
+post+groups_{id}_projects_{project_id},created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}/projects/{project_id}&/groups/{id}/projects/{project_id}&post&201():::EXIT
+/groups/{id}/projects/{project_id}&/groups/{id}/projects/{project_id}&post&201():::EXIT"
+post+groups_{id}_projects_{project_id},emails_disabled,"return.emails_disabled one of { ""false"", ""true"" }",daikon.inv.unary.string.OneOfString,(return.emails_disabled),"pm.expect([""false"", ""true""].includes(return_emails_disabled)).to.be.true",/groups/{id}/projects/{project_id}&/groups/{id}/projects/{project_id}&post&201():::EXIT
+post+groups_{id}_projects_{project_id},id,input.id == return.id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.id)",pm.expect(input_id).to.eql(return_id),/groups/{id}/projects/{project_id}&/groups/{id}/projects/{project_id}&post&201():::EXIT
+post+groups_{id}_projects_{project_id},namespace,return.namespace == null,daikon.inv.unary.scalar.OneOfScalar,(return.namespace),pm.expect(return_namespace).to.be.null,/groups/{id}/projects/{project_id}&/groups/{id}/projects/{project_id}&post&201():::EXIT
+post+groups_{id}_projects_{project_id},path,return.path is a substring of return.web_url,daikon.inv.binary.twoString.StdString$SubString,"(return.path, return.web_url)",pm.expect(return_web_url.includes(return_path)).to.be.true,/groups/{id}/projects/{project_id}&/groups/{id}/projects/{project_id}&post&201():::EXIT
+post+groups_{id}_projects_{project_id},tag_list,return.tag_list == null,daikon.inv.unary.scalar.OneOfScalar,(return.tag_list),pm.expect(return_tag_list).to.be.null,/groups/{id}/projects/{project_id}&/groups/{id}/projects/{project_id}&post&201():::EXIT
+post+groups_{id}_projects_{project_id},visibility,"return.visibility one of { ""internal"", ""private"", ""public"" }",daikon.inv.unary.string.OneOfString,(return.visibility),"pm.expect([""internal"", ""private"", ""public""].includes(return_visibility)).to.be.true",/groups/{id}/projects/{project_id}&/groups/{id}/projects/{project_id}&post&201():::EXIT
+post+groups_{id}_share,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}/share&/groups/{id}/share&post&201():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201():::EXIT"
+post+groups_{id}_share,full_name,return.name is a substring of return.full_name,daikon.inv.binary.twoString.StdString$SubString,"(return.full_name, return.name)",pm.expect(return_full_name.includes(return_name)).to.be.true,/groups/{id}/share&/groups/{id}/share&post&201():::EXIT
+post+groups_{id}_share,full_path,"return.path is a substring of return.full_path
+return.full_path is a substring of return.web_url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return.full_path, return.path)
+(return.full_path, return.web_url)","pm.expect(return_full_path.includes(return_path)).to.be.true
+pm.expect(return_web_url.includes(return_full_path)).to.be.true","/groups/{id}/share&/groups/{id}/share&post&201():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201():::EXIT"
+post+groups_{id}_share,id,input.id == return.id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.id)",pm.expect(input_id).to.eql(return_id),/groups/{id}/share&/groups/{id}/share&post&201():::EXIT
+post+groups_{id}_share,parent_id,return.parent_id is Numeric,daikon.inv.unary.string.IsNumeric,(return.parent_id),"pm.expect(return_parent_id).to.match(/^[+-]{0,1}(0|([0-9](\d*|\d{0,2}(,\d{3})*)))?(\.\d*[0-9])?$/)",/groups/{id}/share&/groups/{id}/share&post&201():::EXIT
+post+groups_{id}_share,projects,size(return.projects[]) >= size(return.shared_projects[]),daikon.inv.binary.twoScalar.IntGreaterEqual,"(size(return.projects[..]), size(return.shared_projects[..]))",pm.expect(return_projects_size_array).to.be.at.least(return_shared_projects_size_array),/groups/{id}/share&/groups/{id}/share&post&201():::EXIT
+post+groups_{id}_share,projects._links.self,"return._links.self is a substring of return._links.issues
+return._links.self is a substring of return._links.merge_requests
+return._links.self is a substring of return._links.repo_branches
+return._links.self is a substring of return._links.labels
+return._links.self is a substring of return._links.events
+return._links.self is a substring of return._links.members","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return._links.self, return._links.issues)
+(return._links.self, return._links.merge_requests)
+(return._links.self, return._links.repo_branches)
+(return._links.self, return._links.labels)
+(return._links.self, return._links.events)
+(return._links.self, return._links.members)","pm.expect(return__links_issues.includes(return__links_self)).to.be.true
+pm.expect(return__links_merge_requests.includes(return__links_self)).to.be.true
+pm.expect(return__links_repo_branches.includes(return__links_self)).to.be.true
+pm.expect(return__links_labels.includes(return__links_self)).to.be.true
+pm.expect(return__links_events.includes(return__links_self)).to.be.true
+pm.expect(return__links_members.includes(return__links_self)).to.be.true","/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT"
+post+groups_{id}_share,projects.created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT"
+post+groups_{id}_share,projects.creator_id,"return.creator_id >= 1
+return.creator_id >= size(return.tag_list[])
+return.creator_id >= size(return.shared_with_groups[])","daikon.inv.unary.scalar.LowerBound
+daikon.inv.binary.twoScalar.IntGreaterEqual
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.creator_id)
+(return.creator_id, size(return.tag_list[..]))
+(return.creator_id, size(return.shared_with_groups[..]))","pm.expect(return_creator_id).to.be.at.least(1)
+pm.expect(return_creator_id).to.be.at.least(return_tag_list_size_array)
+pm.expect(return_creator_id).to.be.at.least(return_shared_with_groups_size_array)","/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT"
+post+groups_{id}_share,projects.default_branch,return.default_branch is a substring of return.readme_url,daikon.inv.binary.twoString.StdString$SubString,"(return.default_branch, return.readme_url)",pm.expect(return_readme_url.includes(return_default_branch)).to.be.true,/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+post+groups_{id}_share,projects.forks_count,return.forks_count >= 0,daikon.inv.unary.scalar.LowerBound,(return.forks_count),pm.expect(return_forks_count).to.be.at.least(0),/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+post+groups_{id}_share,projects.http_url_to_repo,return.web_url is a substring of return.http_url_to_repo,daikon.inv.binary.twoString.StdString$SubString,"(return.http_url_to_repo, return.web_url)",pm.expect(return_http_url_to_repo.includes(return_web_url)).to.be.true,/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+post+groups_{id}_share,projects.import_status,"return.import_status one of { ""finished"", ""none"" }",daikon.inv.unary.string.OneOfString,(return.import_status),"pm.expect([""finished"", ""none""].includes(return_import_status)).to.be.true",/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+post+groups_{id}_share,projects.last_activity_at,"LENGTH(return.last_activity_at)==24
+return.last_activity_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.last_activity_at)
+(return.last_activity_at)","pm.expect(return_last_activity_at).to.have.length(24)
+pm.expect(return_last_activity_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT"
+post+groups_{id}_share,projects.merge_method,"return.merge_method one of { ""ff"", ""merge"", ""rebase_merge"" }",daikon.inv.unary.string.OneOfString,(return.merge_method),"pm.expect([""ff"", ""merge"", ""rebase_merge""].includes(return_merge_method)).to.be.true",/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+post+groups_{id}_share,projects.name,return.name is a substring of return.name_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.name, return.name_with_namespace)",pm.expect(return_name_with_namespace.includes(return_name)).to.be.true,/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+post+groups_{id}_share,projects.name_with_namespace,return.namespace.name is a substring of return.name_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.name_with_namespace, return.namespace.name)",pm.expect(return_name_with_namespace.includes(return_namespace_name)).to.be.true,/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+post+groups_{id}_share,projects.namespace.id,input.id == return.namespace.id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.namespace.id)",pm.expect(input_id).to.eql(return_namespace_id),/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+post+groups_{id}_share,projects.namespace.kind,"return.namespace.kind == ""group""
+LENGTH(return.namespace.kind)==5","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.namespace.kind)
+(return.namespace.kind)","pm.expect([""group""].includes(return_namespace_kind)).to.be.true
+pm.expect(return_namespace_kind).to.have.length(5)","/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT"
+post+groups_{id}_share,projects.namespace.path,return.namespace.path is a substring of return.namespace.full_path,daikon.inv.binary.twoString.StdString$SubString,"(return.namespace.path, return.namespace.full_path)",pm.expect(return_namespace_full_path.includes(return_namespace_path)).to.be.true,/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+post+groups_{id}_share,projects.open_issues_count,"return.open_issues_count == 0
+return.open_issues_count <= return.forks_count
+return.open_issues_count <= return.star_count
+return.open_issues_count <= size(return.tag_list[])
+return.open_issues_count <= size(return.shared_with_groups[])","daikon.inv.unary.scalar.OneOfScalar
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual","(return.open_issues_count)
+(return.open_issues_count, return.forks_count)
+(return.open_issues_count, return.star_count)
+(return.open_issues_count, size(return.tag_list[..]))
+(return.open_issues_count, size(return.shared_with_groups[..]))","pm.expect([0].includes(return_open_issues_count)).to.be.true
+pm.expect(return_open_issues_count).to.be.lte(return_forks_count)
+pm.expect(return_open_issues_count).to.be.lte(return_star_count)
+pm.expect(return_open_issues_count).to.be.lte(return_tag_list_size_array)
+pm.expect(return_open_issues_count).to.be.lte(return_shared_with_groups_size_array)","/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT"
+post+groups_{id}_share,projects.path,return.path is a substring of return.path_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.path, return.path_with_namespace)",pm.expect(return_path_with_namespace.includes(return_path)).to.be.true,/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+post+groups_{id}_share,projects.path_with_namespace,return.namespace.full_path is a substring of return.path_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.path_with_namespace, return.namespace.full_path)",pm.expect(return_path_with_namespace.includes(return_namespace_full_path)).to.be.true,/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+post+groups_{id}_share,projects.shared_with_groups,"size(return.shared_with_groups[]) one of { 0, 1 }",daikon.inv.unary.scalar.OneOfScalar,(size(return.shared_with_groups[..])),"pm.expect([0, 1, 0].includes(return_shared_with_groups_size_array)).to.be.true",/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+post+groups_{id}_share,projects.shared_with_groups.group_access_level,"return.group_access_level one of { 10, 20, 30 }",daikon.inv.unary.scalar.OneOfScalar,(return.group_access_level),"pm.expect([10, 20, 30].includes(return_group_access_level)).to.be.true",/groups/{id}/share&/groups/{id}/share&post&201&projects&shared_with_groups():::EXIT
+post+groups_{id}_share,projects.ssh_url_to_repo,return.path_with_namespace is a substring of return.ssh_url_to_repo,daikon.inv.binary.twoString.StdString$SubString,"(return.ssh_url_to_repo, return.path_with_namespace)",pm.expect(return_ssh_url_to_repo.includes(return_path_with_namespace)).to.be.true,/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+post+groups_{id}_share,projects.star_count,return.star_count >= 0,daikon.inv.unary.scalar.LowerBound,(return.star_count),pm.expect(return_star_count).to.be.at.least(0),/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+post+groups_{id}_share,projects.tag_list,"size(return.tag_list[]) one of { 0, 1 }",daikon.inv.unary.scalar.OneOfScalar,(size(return.tag_list[..])),"pm.expect([0, 1, 0].includes(return_tag_list_size_array)).to.be.true",/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+post+groups_{id}_share,projects.web_url,"return.web_url is a substring of return.readme_url
+return.path_with_namespace is a substring of return.web_url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return.web_url, return.readme_url)
+(return.web_url, return.path_with_namespace)","pm.expect(return_readme_url.includes(return_web_url)).to.be.true
+pm.expect(return_web_url.includes(return_path_with_namespace)).to.be.true","/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201&projects():::EXIT"
+post+groups_{id}_share,shared_with_groups.expires_at,"input.expires_at == return.expires_at
+return.expires_at is a Date. Format: YYYY/MM/DD","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.dates.IsDateYYYYMMDD","(input.expires_at, return.expires_at)
+(return.expires_at)","pm.expect(input_expires_at).to.eql(return_expires_at)
+pm.expect(return_expires_at).to.match(/^(?:1\d{3}|20[01234][0-9]|2050|9999)[-/.](?:0[1-9]|1[012])[-/.](?:0[1-9]|[12][0-9]|3[01])$/)","/groups/{id}/share&/groups/{id}/share&post&201&shared_with_groups():::EXIT
+/groups/{id}/share&/groups/{id}/share&post&201&shared_with_groups():::EXIT"
+post+groups_{id}_share,shared_with_groups.group_id,input.group_id >= return.group_id,daikon.inv.binary.twoScalar.IntGreaterEqual,"(input.group_id, return.group_id)",pm.expect(input_group_id).to.be.at.least(return_group_id),/groups/{id}/share&/groups/{id}/share&post&201&shared_with_groups():::EXIT
+post+groups_{id}_share,visibility,"return.visibility one of { ""internal"", ""private"", ""public"" }",daikon.inv.unary.string.OneOfString,(return.visibility),"pm.expect([""internal"", ""private"", ""public""].includes(return_visibility)).to.be.true",/groups/{id}/share&/groups/{id}/share&post&201():::EXIT
+put+groups_{id},created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}&/groups/{id}&put&200():::EXIT
+/groups/{id}&/groups/{id}&put&200():::EXIT"
+put+groups_{id},description,input.description == return.description,daikon.inv.binary.twoString.StringEqual,"(input.description, return.description)",pm.expect(input_description).to.eql(return_description),/groups/{id}&/groups/{id}&put&200():::EXIT
+put+groups_{id},full_name,"input.id == return.id
+return.full_name == return.name","daikon.inv.binary.twoString.StringEqual
+daikon.inv.binary.twoString.StringEqual","(input.name, return.full_name)
+(return.full_name, return.name)","pm.expect(input_name).to.eql(return_full_name)
+pm.expect(return_full_name).to.eql(return_name)","/groups/{id}&/groups/{id}&put&200():::EXIT
+/groups/{id}&/groups/{id}&put&200():::EXIT"
+put+groups_{id},full_path,"input.path == return.full_path
+return.full_path == return.path
+return.full_path is a substring of return.web_url","daikon.inv.binary.twoString.StringEqual
+daikon.inv.binary.twoString.StringEqual
+daikon.inv.binary.twoString.StdString$SubString","(input.path, return.full_path)
+(return.full_path, return.path)
+(return.full_path, return.web_url)","pm.expect(input_path).to.eql(return_full_path)
+pm.expect(return_full_path).to.eql(return_path)
+pm.expect(return_web_url.includes(return_full_path)).to.be.true","/groups/{id}&/groups/{id}&put&200():::EXIT
+/groups/{id}&/groups/{id}&put&200():::EXIT
+/groups/{id}&/groups/{id}&put&200():::EXIT"
+put+groups_{id},id,input.id == return.id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.id)",pm.expect(input_id).to.eql(return_id),/groups/{id}&/groups/{id}&put&200():::EXIT
+put+groups_{id},projects,"size(return.projects[]) >= size(return.shared_projects[])
+size(return.projects[]) >= size(return.shared_with_groups[])","daikon.inv.binary.twoScalar.IntGreaterEqual
+daikon.inv.binary.twoScalar.IntGreaterEqual","(size(return.projects[..]), size(return.shared_projects[..]))
+(size(return.projects[..]), size(return.shared_with_groups[..]))","pm.expect(return_projects_size_array).to.be.at.least(return_shared_projects_size_array)
+pm.expect(return_projects_size_array).to.be.at.least(return_shared_with_groups_size_array)","/groups/{id}&/groups/{id}&put&200():::EXIT
+/groups/{id}&/groups/{id}&put&200():::EXIT"
+put+groups_{id},projects._links.self,"return._links.self is a substring of return._links.issues
+return._links.self is a substring of return._links.merge_requests
+return._links.self is a substring of return._links.repo_branches
+return._links.self is a substring of return._links.labels
+return._links.self is a substring of return._links.events
+return._links.self is a substring of return._links.members","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return._links.self, return._links.issues)
+(return._links.self, return._links.merge_requests)
+(return._links.self, return._links.repo_branches)
+(return._links.self, return._links.labels)
+(return._links.self, return._links.events)
+(return._links.self, return._links.members)","pm.expect(return__links_issues.includes(return__links_self)).to.be.true
+pm.expect(return__links_merge_requests.includes(return__links_self)).to.be.true
+pm.expect(return__links_repo_branches.includes(return__links_self)).to.be.true
+pm.expect(return__links_labels.includes(return__links_self)).to.be.true
+pm.expect(return__links_events.includes(return__links_self)).to.be.true
+pm.expect(return__links_members.includes(return__links_self)).to.be.true","/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT"
+put+groups_{id},projects.allow_merge_on_skipped_pipeline,"input.require_two_factor_authentication == return.allow_merge_on_skipped_pipeline
+input.mentions_disabled == return.allow_merge_on_skipped_pipeline
+return.allow_merge_on_skipped_pipeline == true","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.unary.scalar.OneOfScalar","(input.require_two_factor_authentication, return.allow_merge_on_skipped_pipeline)
+(input.mentions_disabled, return.allow_merge_on_skipped_pipeline)
+(return.allow_merge_on_skipped_pipeline)","pm.expect(input_require_two_factor_authentication).to.eql(return_allow_merge_on_skipped_pipeline)
+pm.expect(input_mentions_disabled).to.eql(return_allow_merge_on_skipped_pipeline)
+pm.expect(return_allow_merge_on_skipped_pipeline).to.eql(true)","/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT"
+put+groups_{id},projects.autoclose_referenced_issues,input.mentions_disabled == return.autoclose_referenced_issues,daikon.inv.binary.twoScalar.IntEqual,"(input.mentions_disabled, return.autoclose_referenced_issues)",pm.expect(input_mentions_disabled).to.eql(return_autoclose_referenced_issues),/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.container_registry_enabled,return.container_registry_enabled == return.allow_merge_on_skipped_pipeline,daikon.inv.binary.twoScalar.IntEqual,"(return.container_registry_enabled, return.allow_merge_on_skipped_pipeline)",pm.expect(return_container_registry_enabled).to.eql(return_allow_merge_on_skipped_pipeline),/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT"
+put+groups_{id},projects.creator_id,return.creator_id >= size(return.tag_list[]),daikon.inv.binary.twoScalar.IntGreaterEqual,"(return.creator_id, size(return.tag_list[..]))",pm.expect(return_creator_id).to.be.at.least(return_tag_list_size_array),/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.default_branch,"return.default_branch one of { ""main"", ""master"" }
+return.default_branch is a substring of return.readme_url","daikon.inv.unary.string.OneOfString
+daikon.inv.binary.twoString.StdString$SubString","(return.default_branch)
+(return.default_branch, return.readme_url)","pm.expect([""main"", ""master""].includes(return_default_branch)).to.be.true
+pm.expect(return_readme_url.includes(return_default_branch)).to.be.true","/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT"
+put+groups_{id},projects.forks_count,"return.forks_count >= 0
+return.forks_count >= size(return.tag_list[])","daikon.inv.unary.scalar.LowerBound
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.forks_count)
+(return.forks_count, size(return.tag_list[..]))","pm.expect(return_forks_count).to.be.at.least(0)
+pm.expect(return_forks_count).to.be.at.least(return_tag_list_size_array)","/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT"
+put+groups_{id},projects.http_url_to_repo,return.web_url is a substring of return.http_url_to_repo,daikon.inv.binary.twoString.StdString$SubString,"(return.http_url_to_repo, return.web_url)",pm.expect(return_http_url_to_repo.includes(return_web_url)).to.be.true,/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.import_status,"return.import_status one of { ""finished"", ""none"" }",daikon.inv.unary.string.OneOfString,(return.import_status),"pm.expect([""finished"", ""none""].includes(return_import_status)).to.be.true",/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.issues_enabled,input.mentions_disabled == return.issues_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.mentions_disabled, return.issues_enabled)",pm.expect(input_mentions_disabled).to.eql(return_issues_enabled),/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.jobs_enabled,return.jobs_enabled == return.allow_merge_on_skipped_pipeline,daikon.inv.binary.twoScalar.IntEqual,"(return.jobs_enabled, return.allow_merge_on_skipped_pipeline)",pm.expect(return_jobs_enabled).to.eql(return_allow_merge_on_skipped_pipeline),/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.last_activity_at,"LENGTH(return.last_activity_at)==24
+return.last_activity_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.last_activity_at)
+(return.last_activity_at)","pm.expect(return_last_activity_at).to.have.length(24)
+pm.expect(return_last_activity_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT"
+put+groups_{id},projects.merge_method,"return.merge_method one of { ""ff"", ""merge"" }",daikon.inv.unary.string.OneOfString,(return.merge_method),"pm.expect([""ff"", ""merge""].includes(return_merge_method)).to.be.true",/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.merge_requests_enabled,input.mentions_disabled == return.merge_requests_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.mentions_disabled, return.merge_requests_enabled)",pm.expect(input_mentions_disabled).to.eql(return_merge_requests_enabled),/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.name,return.name is a substring of return.name_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.name, return.name_with_namespace)",pm.expect(return_name_with_namespace.includes(return_name)).to.be.true,/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.name_with_namespace,"input.name is a substring of return.name_with_namespace
+return.namespace.name is a substring of return.name_with_namespace","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(input.name, return.name_with_namespace)
+(return.name_with_namespace, return.namespace.name)","pm.expect(return_name_with_namespace.includes(input_name)).to.be.true
+pm.expect(return_name_with_namespace.includes(return_namespace_name)).to.be.true","/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT"
+put+groups_{id},projects.namespace.id,input.id == return.namespace.id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.namespace.id)",pm.expect(input_id).to.eql(return_namespace_id),/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.namespace.kind,"return.namespace.kind == ""group""
+LENGTH(return.namespace.kind)==5","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.namespace.kind)
+(return.namespace.kind)","pm.expect([""group""].includes(return_namespace_kind)).to.be.true
+pm.expect(return_namespace_kind).to.have.length(5)","/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT"
+put+groups_{id},projects.namespace.name,input.name == return.namespace.name,daikon.inv.binary.twoString.StringEqual,"(input.name, return.namespace.name)",pm.expect(input_name).to.eql(return_namespace_name),/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.namespace.path,"input.path == return.namespace.path
+return.namespace.path == return.namespace.full_path","daikon.inv.binary.twoString.StringEqual
+daikon.inv.binary.twoString.StringEqual","(input.path, return.namespace.path)
+(return.namespace.path, return.namespace.full_path)","pm.expect(input_path).to.eql(return_namespace_path)
+pm.expect(return_namespace_path).to.eql(return_namespace_full_path)","/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT"
+put+groups_{id},projects.open_issues_count,"return.open_issues_count <= return.forks_count
+return.open_issues_count <= return.star_count
+return.open_issues_count <= size(return.tag_list[])","daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual","(return.open_issues_count, return.forks_count)
+(return.open_issues_count, return.star_count)
+(return.open_issues_count, size(return.tag_list[..]))","pm.expect(return_open_issues_count).to.be.lte(return_forks_count)
+pm.expect(return_open_issues_count).to.be.lte(return_star_count)
+pm.expect(return_open_issues_count).to.be.lte(return_tag_list_size_array)","/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT"
+put+groups_{id},projects.path,return.path is a substring of return.path_with_namespace,daikon.inv.binary.twoString.StdString$SubString,"(return.path, return.path_with_namespace)",pm.expect(return_path_with_namespace.includes(return_path)).to.be.true,/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.path_with_namespace,"input.path is a substring of return.path_with_namespace
+return.namespace.path is a substring of return.path_with_namespace","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(input.path, return.path_with_namespace)
+(return.path_with_namespace, return.namespace.path)","pm.expect(return_path_with_namespace.includes(input_path)).to.be.true
+pm.expect(return_path_with_namespace.includes(return_namespace_path)).to.be.true","/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT"
+put+groups_{id},projects.public_jobs,input.mentions_disabled == return.public_jobs,daikon.inv.binary.twoScalar.IntEqual,"(input.mentions_disabled, return.public_jobs)",pm.expect(input_mentions_disabled).to.eql(return_public_jobs),/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.resolve_outdated_diff_discussions,"input.share_with_group_lock == return.resolve_outdated_diff_discussions
+return.resolve_outdated_diff_discussions == false","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.unary.scalar.OneOfScalar","(input.share_with_group_lock, return.resolve_outdated_diff_discussions)
+(return.resolve_outdated_diff_discussions)","pm.expect(input_share_with_group_lock).to.eql(return_resolve_outdated_diff_discussions)
+pm.expect(return_resolve_outdated_diff_discussions).to.eql(false)","/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT"
+put+groups_{id},projects.shared_runners_enabled,return.shared_runners_enabled == return.allow_merge_on_skipped_pipeline,daikon.inv.binary.twoScalar.IntEqual,"(return.shared_runners_enabled, return.allow_merge_on_skipped_pipeline)",pm.expect(return_shared_runners_enabled).to.eql(return_allow_merge_on_skipped_pipeline),/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.ssh_url_to_repo,return.path_with_namespace is a substring of return.ssh_url_to_repo,daikon.inv.binary.twoString.StdString$SubString,"(return.ssh_url_to_repo, return.path_with_namespace)",pm.expect(return_ssh_url_to_repo.includes(return_path_with_namespace)).to.be.true,/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.star_count,"return.star_count one of { 0, 1, 2 }
+return.star_count >= size(return.tag_list[])","daikon.inv.unary.scalar.OneOfScalar
+daikon.inv.binary.twoScalar.IntGreaterEqual","(return.star_count)
+(return.star_count, size(return.tag_list[..]))","pm.expect([0, 1, 2].includes(return_star_count)).to.be.true
+pm.expect(return_star_count).to.be.at.least(return_tag_list_size_array)","/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT"
+put+groups_{id},projects.suggestion_commit_message,"return.suggestion_commit_message one of { ""federalization"", ""pittsfield"" }",daikon.inv.unary.string.OneOfString,(return.suggestion_commit_message),"pm.expect([""federalization"", ""pittsfield""].includes(return_suggestion_commit_message)).to.be.true",/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+put+groups_{id},projects.tag_list,"return.tag_list[] elements one of { ""audiometric"", ""shrinkwrap"", ""slop"" }
+size(return.tag_list[]) one of { 0, 1 }","daikon.inv.unary.stringsequence.EltOneOfString
+daikon.inv.unary.scalar.OneOfScalar","(return.tag_list[..])
+(size(return.tag_list[..]))","pm.expect(return_tag_list_array.every(element => [""audiometric"", ""shrinkwrap"", ""slop""].includes(element))).to.be.true
+pm.expect([0, 1, 0].includes(return_tag_list_size_array)).to.be.true","/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT"
+put+groups_{id},projects.visibility,"return.visibility == ""private""
+LENGTH(return.visibility)==7","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.visibility)
+(return.visibility)","pm.expect([""private""].includes(return_visibility)).to.be.true
+pm.expect(return_visibility).to.have.length(7)","/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT"
+put+groups_{id},projects.web_url,"return.web_url is a substring of return.readme_url
+return.path_with_namespace is a substring of return.web_url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return.web_url, return.readme_url)
+(return.web_url, return.path_with_namespace)","pm.expect(return_readme_url.includes(return_web_url)).to.be.true
+pm.expect(return_web_url.includes(return_path_with_namespace)).to.be.true","/groups/{id}&/groups/{id}&put&200&projects():::EXIT
+/groups/{id}&/groups/{id}&put&200&projects():::EXIT"
+put+groups_{id},request_access_enabled,input.request_access_enabled == return.request_access_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.request_access_enabled, return.request_access_enabled)",pm.expect(input_request_access_enabled).to.eql(return_request_access_enabled),/groups/{id}&/groups/{id}&put&200():::EXIT
+put+groups_{id},shared_projects,size(return.shared_projects[]) >= size(return.shared_with_groups[]),daikon.inv.binary.twoScalar.IntGreaterEqual,"(size(return.shared_projects[..]), size(return.shared_with_groups[..]))",pm.expect(return_shared_projects_size_array).to.be.at.least(return_shared_with_groups_size_array),/groups/{id}&/groups/{id}&put&200():::EXIT
+put+groups_{id},shared_with_groups,return.shared_with_groups[] == [],daikon.inv.unary.sequence.OneOfSequence,(return.shared_with_groups[..]),pm.expect([[]].some(value => pm.expect(return_shared_with_groups_array).to.deep.equal(value).that)).to.be.true,/groups/{id}&/groups/{id}&put&200():::EXIT
+put+groups_{id},visibility,"input.visibility == return.visibility
+return.visibility one of { ""internal"", ""private"", ""public"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.visibility, return.visibility)
+(return.visibility)","pm.expect(input_visibility).to.eql(return_visibility)
+pm.expect([""internal"", ""private"", ""public""].includes(return_visibility)).to.be.true","/groups/{id}&/groups/{id}&put&200():::EXIT
+/groups/{id}&/groups/{id}&put&200():::EXIT"
+put+groups_{id},web_url,input.path is a substring of return.web_url,daikon.inv.binary.twoString.StdString$SubString,"(input.path, return.web_url)",pm.expect(return_web_url.includes(input_path)).to.be.true,/groups/{id}&/groups/{id}&put&200():::EXIT
+put+groups_{id}_hooks_{hook_id},confidential_issues_events,input.confidential_issues_events == return.confidential_issues_events,daikon.inv.binary.twoScalar.IntEqual,"(input.confidential_issues_events, return.confidential_issues_events)",pm.expect(input_confidential_issues_events).to.eql(return_confidential_issues_events),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT
+put+groups_{id}_hooks_{hook_id},confidential_note_events,input.confidential_note_events == return.confidential_note_events,daikon.inv.binary.twoScalar.IntEqual,"(input.confidential_note_events, return.confidential_note_events)",pm.expect(input_confidential_note_events).to.eql(return_confidential_note_events),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT
+put+groups_{id}_hooks_{hook_id},created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","pm.expect(return_created_at).to.have.length(24)
+pm.expect(return_created_at).to.match(/^[0-9]{4}-((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01])|(0[469]|11)-(0[1-9]|[12][0-9]|30)|(02)-(0[1-9]|[12][0-9]))T(0[0-9]|1[0-9]|2[0-3]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])(\.[0-9]{3}){0,1}(Z|(-|\+)(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])$/)","/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT
+/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT"
+put+groups_{id}_hooks_{hook_id},deployment_events,input.deployment_events == return.deployment_events,daikon.inv.binary.twoScalar.IntEqual,"(input.deployment_events, return.deployment_events)",pm.expect(input_deployment_events).to.eql(return_deployment_events),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT
+put+groups_{id}_hooks_{hook_id},enable_ssl_verification,input.enable_ssl_verification == return.enable_ssl_verification,daikon.inv.binary.twoScalar.IntEqual,"(input.enable_ssl_verification, return.enable_ssl_verification)",pm.expect(input_enable_ssl_verification).to.eql(return_enable_ssl_verification),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT
+put+groups_{id}_hooks_{hook_id},group_id,input.id == return.group_id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.group_id)",pm.expect(input_id).to.eql(return_group_id),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT
+put+groups_{id}_hooks_{hook_id},id,input.hook_id == return.id,daikon.inv.binary.twoScalar.IntEqual,"(input.hook_id, return.id)",pm.expect(input_hook_id).to.eql(return_id),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT
+put+groups_{id}_hooks_{hook_id},issues_events,input.issues_events == return.issues_events,daikon.inv.binary.twoScalar.IntEqual,"(input.issues_events, return.issues_events)",pm.expect(input_issues_events).to.eql(return_issues_events),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT
+put+groups_{id}_hooks_{hook_id},job_events,input.job_events == return.job_events,daikon.inv.binary.twoScalar.IntEqual,"(input.job_events, return.job_events)",pm.expect(input_job_events).to.eql(return_job_events),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT
+put+groups_{id}_hooks_{hook_id},merge_requests_events,input.merge_requests_events == return.merge_requests_events,daikon.inv.binary.twoScalar.IntEqual,"(input.merge_requests_events, return.merge_requests_events)",pm.expect(input_merge_requests_events).to.eql(return_merge_requests_events),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT
+put+groups_{id}_hooks_{hook_id},note_events,input.note_events == return.note_events,daikon.inv.binary.twoScalar.IntEqual,"(input.note_events, return.note_events)",pm.expect(input_note_events).to.eql(return_note_events),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT
+put+groups_{id}_hooks_{hook_id},pipeline_events,input.pipeline_events == return.pipeline_events,daikon.inv.binary.twoScalar.IntEqual,"(input.pipeline_events, return.pipeline_events)",pm.expect(input_pipeline_events).to.eql(return_pipeline_events),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT
+put+groups_{id}_hooks_{hook_id},push_events,input.push_events == return.push_events,daikon.inv.binary.twoScalar.IntEqual,"(input.push_events, return.push_events)",pm.expect(input_push_events).to.eql(return_push_events),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT
+put+groups_{id}_hooks_{hook_id},releases_events,input.releases_events == return.releases_events,daikon.inv.binary.twoScalar.IntEqual,"(input.releases_events, return.releases_events)",pm.expect(input_releases_events).to.eql(return_releases_events),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT
+put+groups_{id}_hooks_{hook_id},tag_push_events,input.tag_push_events == return.tag_push_events,daikon.inv.binary.twoScalar.IntEqual,"(input.tag_push_events, return.tag_push_events)",pm.expect(input_tag_push_events).to.eql(return_tag_push_events),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT
+put+groups_{id}_hooks_{hook_id},url,input.url == return.url,daikon.inv.binary.twoString.StringEqual,"(input.url, return.url)",pm.expect(input_url).to.eql(return_url),/groups/{id}/hooks/{hook_id}&/groups/{id}/hooks/{hook_id}&put&200():::EXIT

@@ -1,0 +1,1873 @@
+attribute inferred from operation,response resource,attribute,group,kio,description,part,corresponding attribute,corresponding attribute description,verification script,Example_value,verify_result,API response,request information,satisfied,mismatched,unknown,code error,tp,constraint_correctness,category
+get-/v1/apple_pay/domains,apple_pay_domain,id,data.id,1,Unique identifier for the object,parameters,ending_before,"A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list","def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'ending_before' is in request_info
+        if 'ending_before' in request_info:
+            ending_before = request_info['ending_before']
+            
+            # Ensure 'ending_before' is a string and its length does not exceed 5000
+            if not isinstance(ending_before, str) or len(ending_before) > 5000:
+                return -1
+            
+            # Check if 'data' and its array of objects exist in the response
+            if 'data' in latest_response and isinstance(latest_response['data'], list):
+                for obj in latest_response['data']:
+                    if 'id' in obj:
+                        # Ensure 'id' is a string and its length does not exceed 5000
+                        if not isinstance(obj['id'], str) or len(obj['id']) > 5000:
+                            return -1
+                        # Check if 'id' matches 'ending_before'
+                        if obj['id'] == ending_before:
+                            return 1
+                return 0  # 'id' not found in the response data
+            else:
+                return 0  # 'data' array not found in the response
+        else:
+            return 1  # 'ending_before' not in request_info, no constraint to verify
+    except Exception as e:
+        return -1  # Any exception is considered a failure to satisfy the constraint
+",balance.summary.1,1.0,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""apwc_1PGScr2NV2M7sbs5FXkEf4VG"",
+            ""object"": ""apple_pay_domain"",
+            ""created"": 1715721069,
+            ""domain_name"": ""appple.com"",
+            ""livemode"": false
+        }
+    ],
+    ""has_more"": false,
+    ""url"": ""/v1/apple_pay/domains""
+}","{        ""ending_before"": ""apwc_1PGScr2NV2M7sbs5FXkEf4VG"",
+        ""starting_after"": ""apwc_1PGScr2NV2M7sbs5FXkEf4VG""}",1,0,0,0,1,TP,logic
+get-/v1/apple_pay/domains,apple_pay_domain,id,data.id,2,Unique identifier for the object,parameters,starting_after,"A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list","def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'starting_after' parameter from the request_info
+        starting_after = request_info.get(""starting_after"", None)
+        
+        # Check if 'starting_after' is provided
+        if starting_after is None:
+            return 1  # No constraint to verify if 'starting_after' is not provided
+        
+        # Ensure 'starting_after' is a string and its length does not exceed 5000
+        if not isinstance(starting_after, str) or len(starting_after) > 5000:
+            return -1  # Constraint not satisfied
+        
+        # Extract the 'id' attribute from the latest_response
+        data = latest_response.get(""data"", [])
+        if not data:
+            return 0  # Insufficient information to verify the constraint
+        
+        # Check if any 'id' in the response matches the 'starting_after' parameter
+        for item in data:
+            if item.get(""id"") == starting_after:
+                return 1  # Constraint satisfied
+        
+        return -1  # Constraint not satisfied if no matching 'id' is found
+    except Exception as e:
+        return -1  # Return -1 in case of any exception
+",balance.summary.1,1.0,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""apwc_1PGScr2NV2M7sbs5FXkEf4VG"",
+            ""object"": ""apple_pay_domain"",
+            ""created"": 1715721069,
+            ""domain_name"": ""appple.com"",
+            ""livemode"": false
+        }
+    ],
+    ""has_more"": false,
+    ""url"": ""/v1/apple_pay/domains""
+}","{        ""ending_before"": ""apwc_1PGScr2NV2M7sbs5FXkEf4VG"",
+        ""starting_after"": ""apwc_1PGScr2NV2M7sbs5FXkEf4VG""}",1,0,0,0,1,TP,logic
+get-/v1/apple_pay/domains,apple_pay_domain,id,data.id,1,Unique identifier for the object,parameters,ending_before,"A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list","def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'ending_before' is in request_info
+        if 'ending_before' in request_info:
+            ending_before = request_info['ending_before']
+            
+            # Ensure 'ending_before' is a string and its length does not exceed 5000
+            if not isinstance(ending_before, str) or len(ending_before) > 5000:
+                return -1
+            
+            # Check if 'data' and its array of objects exist in the response
+            if 'data' in latest_response and isinstance(latest_response['data'], list):
+                for obj in latest_response['data']:
+                    if 'id' in obj:
+                        # Ensure 'id' is a string and its length does not exceed 5000
+                        if not isinstance(obj['id'], str) or len(obj['id']) > 5000:
+                            return -1
+                        # Check if 'id' matches 'ending_before'
+                        if obj['id'] == ending_before:
+                            return 1
+                return 0  # 'id' not found in the response data
+            else:
+                return 0  # 'data' array not found in the response
+        else:
+            return 1  # 'ending_before' not in request_info, no constraint to verify
+    except Exception as e:
+        return -1  # Any exception is considered a failure to satisfy the constraint
+",balance.summary.1,1.0,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""apwc_1PGScr2NV2M7sbs5FXkEf4VG"",
+            ""object"": ""apple_pay_domain"",
+            ""created"": 1715721069,
+            ""domain_name"": ""appple.com"",
+            ""livemode"": false
+        }
+    ],
+    ""has_more"": false,
+    ""url"": ""/v1/apple_pay/domains""
+}","{        ""ending_before"": ""apwc_1PGScr2NV2M7sbs5FXkEf4VG"",
+        ""starting_after"": ""apwc_1PGScr2NV2M7sbs5FXkEf4VG""}",1,0,0,0,1,TP,logic
+get-/v1/apple_pay/domains,apple_pay_domain,id,data.id,2,Unique identifier for the object,parameters,starting_after,"A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list","def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'starting_after' parameter from the request_info
+        starting_after = request_info.get(""starting_after"", None)
+        
+        # Check if 'starting_after' is provided
+        if starting_after is None:
+            return 1  # No constraint to verify if 'starting_after' is not provided
+        
+        # Ensure 'starting_after' is a string and its length does not exceed 5000
+        if not isinstance(starting_after, str) or len(starting_after) > 5000:
+            return -1  # Constraint not satisfied
+        
+        # Extract the 'id' attribute from the latest_response
+        data = latest_response.get(""data"", [])
+        if not data:
+            return 0  # Insufficient information to verify the constraint
+        
+        # Check if any 'id' in the response matches the 'starting_after' parameter
+        for item in data:
+            if item.get(""id"") == starting_after:
+                return 1  # Constraint satisfied
+        
+        return -1  # Constraint not satisfied if no matching 'id' is found
+    except Exception as e:
+        return -1  # Return -1 in case of any exception
+",balance.summary.1,1.0,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""apwc_1PGScr2NV2M7sbs5FXkEf4VG"",
+            ""object"": ""apple_pay_domain"",
+            ""created"": 1715721069,
+            ""domain_name"": ""appple.com"",
+            ""livemode"": false
+        }
+    ],
+    ""has_more"": false,
+    ""url"": ""/v1/apple_pay/domains""
+}","{        ""ending_before"": ""apwc_1PGScr2NV2M7sbs5FXkEf4VG"",
+        ""starting_after"": ""apwc_1PGScr2NV2M7sbs5FXkEf4VG""}",1,0,0,0,1,TP,logic
+get-/v1/radar/value_list_items,radar.value_list_item,id,data.id,3,Unique identifier for the object,parameters,starting_after,"A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list","def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'starting_after' is in request_info
+        if 'starting_after' not in request_info:
+            return 1  # No constraint to verify if 'starting_after' is not provided
+
+        starting_after = request_info['starting_after']
+
+        # Check if 'data' and 'id' are in the response
+        if 'data' not in latest_response or not isinstance(latest_response['data'], list):
+            return 0  # Insufficient information to verify the constraint
+
+        # Iterate through the response data to find the 'id'
+        for item in latest_response['data']:
+            if 'id' not in item:
+                return 0  # Insufficient information to verify the constraint
+
+            # Verify the 'id' against the 'starting_after' constraint
+            if item['id'] == starting_after:
+                if isinstance(item['id'], str) and len(item['id']) <= 5000:
+                    return 1  # Constraint satisfied
+                else:
+                    return -1  # Constraint not satisfied
+
+        return 0  # 'starting_after' id not found in the response data
+
+    except Exception as e:
+        return -1  # Any exception implies the constraint is not satisfied
+",balance.summary.1,1.0,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5v45H4Our"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_domain_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5v45H4Our""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email domain allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5ha7wzBIH"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""email"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5ha7wzBIH""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5Yfq7EVCL"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""customer_id_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""customer_id"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5Yfq7EVCL""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Customer ID allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5f20Rwrkw"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""client_ip_country_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""country"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5f20Rwrkw""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Client IP country allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5CFOV6Jla"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""client_ip_address_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""ip_address"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5CFOV6Jla""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Client IP address allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5czrKcSzt"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""charge_description_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""case_sensitive_string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5czrKcSzt""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Charge description allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5qCLQsNDn"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_country_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""country"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5qCLQsNDn""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card country allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5mxAKEbVA"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_fingerprint_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""card_fingerprint"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5mxAKEbVA""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card fingerprint allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5iOSTa0Ir"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_bin_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""card_bin"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5iOSTa0Ir""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card BIN allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5jhk3aaRi"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_domain_blocklist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5jhk3aaRi""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email domain block list""
+        }
+    ],
+    ""has_more"": true,
+    ""url"": ""/v1/radar/value_lists""
+}",{},0,0,1,0,1,TP,logic
+get-/v1/radar/value_list_items,radar.value_list_item,id,data.id,4,Unique identifier for the object,parameters,ending_before,"A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list","def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'ending_before' parameter from request_info
+        ending_before = request_info.get('ending_before', None)
+        
+        # Check if 'ending_before' is provided
+        if ending_before is None:
+            return 0
+        
+        # Ensure 'ending_before' does not exceed maxLength constraint
+        if len(ending_before) > 5000:
+            return -1
+        
+        # Extract the 'data' array from the response
+        data_array = latest_response.get('data', [])
+        
+        # Check if 'data' array is empty
+        if not data_array:
+            return 0
+        
+        # Verify each 'id' in the 'data' array
+        for item in data_array:
+            item_id = item.get('id', None)
+            
+            # Check if 'id' exists
+            if item_id is None:
+                return 0
+            
+            # Ensure 'id' does not exceed maxLength constraint
+            if len(item_id) > 5000:
+                return -1
+            
+            # Check if 'id' matches 'ending_before'
+            if item_id == ending_before:
+                return 1
+        
+        # If no matching 'id' found
+        return 0
+    
+    except Exception as e:
+        # Handle any unexpected errors
+        return -1
+",balance.summary.1,1.0,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5v45H4Our"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_domain_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5v45H4Our""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email domain allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5ha7wzBIH"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""email"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5ha7wzBIH""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5Yfq7EVCL"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""customer_id_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""customer_id"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5Yfq7EVCL""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Customer ID allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5f20Rwrkw"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""client_ip_country_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""country"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5f20Rwrkw""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Client IP country allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5CFOV6Jla"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""client_ip_address_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""ip_address"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5CFOV6Jla""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Client IP address allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5czrKcSzt"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""charge_description_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""case_sensitive_string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5czrKcSzt""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Charge description allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5qCLQsNDn"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_country_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""country"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5qCLQsNDn""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card country allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5mxAKEbVA"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_fingerprint_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""card_fingerprint"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5mxAKEbVA""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card fingerprint allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5iOSTa0Ir"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_bin_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""card_bin"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5iOSTa0Ir""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card BIN allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5jhk3aaRi"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_domain_blocklist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5jhk3aaRi""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email domain block list""
+        }
+    ],
+    ""has_more"": true,
+    ""url"": ""/v1/radar/value_lists""
+}",{},0,0,1,0,1,TP,logic
+get-/v1/radar/value_list_items,radar.value_list_item,id,data.id,3,Unique identifier for the object,parameters,starting_after,"A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list","def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'starting_after' is in request_info
+        if 'starting_after' not in request_info:
+            return 1  # No constraint to verify if 'starting_after' is not provided
+
+        starting_after = request_info['starting_after']
+
+        # Check if 'data' and 'id' are in the response
+        if 'data' not in latest_response or not isinstance(latest_response['data'], list):
+            return 0  # Insufficient information to verify the constraint
+
+        # Iterate through the response data to find the 'id'
+        for item in latest_response['data']:
+            if 'id' not in item:
+                return 0  # Insufficient information to verify the constraint
+
+            # Verify the 'id' against the 'starting_after' constraint
+            if item['id'] == starting_after:
+                if isinstance(item['id'], str) and len(item['id']) <= 5000:
+                    return 1  # Constraint satisfied
+                else:
+                    return -1  # Constraint not satisfied
+
+        return 0  # 'starting_after' id not found in the response data
+
+    except Exception as e:
+        return -1  # Any exception implies the constraint is not satisfied
+",balance.summary.1,1.0,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5v45H4Our"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_domain_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5v45H4Our""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email domain allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5ha7wzBIH"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""email"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5ha7wzBIH""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5Yfq7EVCL"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""customer_id_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""customer_id"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5Yfq7EVCL""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Customer ID allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5f20Rwrkw"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""client_ip_country_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""country"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5f20Rwrkw""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Client IP country allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5CFOV6Jla"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""client_ip_address_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""ip_address"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5CFOV6Jla""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Client IP address allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5czrKcSzt"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""charge_description_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""case_sensitive_string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5czrKcSzt""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Charge description allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5qCLQsNDn"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_country_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""country"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5qCLQsNDn""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card country allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5mxAKEbVA"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_fingerprint_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""card_fingerprint"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5mxAKEbVA""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card fingerprint allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5iOSTa0Ir"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_bin_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""card_bin"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5iOSTa0Ir""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card BIN allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5jhk3aaRi"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_domain_blocklist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5jhk3aaRi""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email domain block list""
+        }
+    ],
+    ""has_more"": true,
+    ""url"": ""/v1/radar/value_lists""
+}",{},0,0,1,0,1,TP,logic
+get-/v1/radar/value_list_items,radar.value_list_item,id,data.id,4,Unique identifier for the object,parameters,ending_before,"A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list","def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'ending_before' parameter from request_info
+        ending_before = request_info.get('ending_before', None)
+        
+        # Check if 'ending_before' is provided
+        if ending_before is None:
+            return 0
+        
+        # Ensure 'ending_before' does not exceed maxLength constraint
+        if len(ending_before) > 5000:
+            return -1
+        
+        # Extract the 'data' array from the response
+        data_array = latest_response.get('data', [])
+        
+        # Check if 'data' array is empty
+        if not data_array:
+            return 0
+        
+        # Verify each 'id' in the 'data' array
+        for item in data_array:
+            item_id = item.get('id', None)
+            
+            # Check if 'id' exists
+            if item_id is None:
+                return 0
+            
+            # Ensure 'id' does not exceed maxLength constraint
+            if len(item_id) > 5000:
+                return -1
+            
+            # Check if 'id' matches 'ending_before'
+            if item_id == ending_before:
+                return 1
+        
+        # If no matching 'id' found
+        return 0
+    
+    except Exception as e:
+        # Handle any unexpected errors
+        return -1
+",balance.summary.1,1.0,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5v45H4Our"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_domain_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5v45H4Our""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email domain allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5ha7wzBIH"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""email"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5ha7wzBIH""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5Yfq7EVCL"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""customer_id_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""customer_id"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5Yfq7EVCL""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Customer ID allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5f20Rwrkw"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""client_ip_country_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""country"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5f20Rwrkw""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Client IP country allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5CFOV6Jla"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""client_ip_address_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""ip_address"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5CFOV6Jla""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Client IP address allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5czrKcSzt"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""charge_description_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""case_sensitive_string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5czrKcSzt""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Charge description allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5qCLQsNDn"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_country_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""country"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5qCLQsNDn""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card country allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5mxAKEbVA"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_fingerprint_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""card_fingerprint"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5mxAKEbVA""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card fingerprint allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5iOSTa0Ir"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_bin_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""card_bin"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5iOSTa0Ir""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card BIN allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5jhk3aaRi"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_domain_blocklist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5jhk3aaRi""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email domain block list""
+        }
+    ],
+    ""has_more"": true,
+    ""url"": ""/v1/radar/value_lists""
+}",{},0,0,1,0,1,TP,logic
+get-/v1/radar/value_list_items,radar.value_list_item,value,data.value,5,The value of the item,parameters,value,"Return items belonging to the parent list whose value matches the specified value (using an ""is like"" match)","def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'value' is in request_info
+        if 'value' not in request_info:
+            return 0  # No 'value' parameter to verify
+
+        # Extract the 'value' from request_info
+        input_value = request_info['value']
+
+        # Check if the 'data' key exists in the response
+        if 'data' not in latest_response:
+            return 0  # No 'data' key in the response
+
+        # Extract the list of items from the response
+        items = latest_response['data']
+
+        # Iterate through each item to verify the 'value' attribute
+        for item in items:
+            if 'value' not in item:
+                return 0  # 'value' attribute is missing in an item
+
+            response_value = item['value']
+
+            # Check if the response value matches the input value using ""is like"" match
+            if input_value in response_value:
+                return 1  # Constraint is satisfied
+
+        return -1  # No matching value found in the response
+
+    except Exception as e:
+        return -1  # An error occurred during verification
+",,,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5v45H4Our"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_domain_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5v45H4Our""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email domain allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5ha7wzBIH"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""email"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5ha7wzBIH""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5Yfq7EVCL"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""customer_id_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""customer_id"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5Yfq7EVCL""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Customer ID allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5f20Rwrkw"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""client_ip_country_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""country"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5f20Rwrkw""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Client IP country allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5CFOV6Jla"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""client_ip_address_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""ip_address"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5CFOV6Jla""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Client IP address allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5czrKcSzt"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""charge_description_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""case_sensitive_string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5czrKcSzt""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Charge description allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5qCLQsNDn"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_country_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""country"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5qCLQsNDn""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card country allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5mxAKEbVA"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_fingerprint_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""card_fingerprint"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5mxAKEbVA""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card fingerprint allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5iOSTa0Ir"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_bin_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""card_bin"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5iOSTa0Ir""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card BIN allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5jhk3aaRi"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_domain_blocklist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5jhk3aaRi""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email domain block list""
+        }
+    ],
+    ""has_more"": true,
+    ""url"": ""/v1/radar/value_lists""
+}",{},0,0,1,0,1,TP,logic
+get-/v1/radar/value_list_items,radar.value_list_item,value_list,data.value_list,6,The identifier of the value list this item belongs to,parameters,value_list,Identifier for the parent value list this item belongs to,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'data' and 'array of 'radar.value_list_item' objects' exist in the response
+        if 'data' not in latest_response or not isinstance(latest_response['data'], list):
+            return 0
+        
+        for item in latest_response['data']:
+            # Check if 'value_list' exists in each item
+            if 'value_list' not in item:
+                return 0
+            
+            value_list = item['value_list']
+            
+            # Check if 'value_list' is a string
+            if not isinstance(value_list, str):
+                return -1
+            
+            # Check if 'value_list' exceeds maxLength of 5000
+            if len(value_list) > 5000:
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",,,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5v45H4Our"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_domain_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5v45H4Our""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email domain allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5ha7wzBIH"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""email"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5ha7wzBIH""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5Yfq7EVCL"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""customer_id_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""customer_id"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5Yfq7EVCL""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Customer ID allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5f20Rwrkw"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""client_ip_country_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""country"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5f20Rwrkw""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Client IP country allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5CFOV6Jla"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""client_ip_address_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""ip_address"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5CFOV6Jla""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Client IP address allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5czrKcSzt"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""charge_description_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""case_sensitive_string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5czrKcSzt""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Charge description allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5qCLQsNDn"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_country_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""country"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5qCLQsNDn""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card country allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5mxAKEbVA"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_fingerprint_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""card_fingerprint"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5mxAKEbVA""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card fingerprint allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5iOSTa0Ir"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""card_bin_allowlist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""card_bin"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5iOSTa0Ir""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Card BIN allow list""
+        },
+        {
+            ""id"": ""rsl_1PFxFI2NV2M7sbs5jhk3aaRi"",
+            ""object"": ""radar.value_list"",
+            ""alias"": ""email_domain_blocklist"",
+            ""created"": 1715600445,
+            ""created_by"": ""Stripe"",
+            ""item_type"": ""string"",
+            ""list_items"": {
+                ""object"": ""list"",
+                ""data"": [],
+                ""has_more"": false,
+                ""total_count"": 0,
+                ""url"": ""/v1/radar/value_list_items?value_list=rsl_1PFxFI2NV2M7sbs5jhk3aaRi""
+            },
+            ""livemode"": false,
+            ""metadata"": {},
+            ""name"": ""Email domain block list""
+        }
+    ],
+    ""has_more"": true,
+    ""url"": ""/v1/radar/value_lists""
+}",{},0,0,1,0,1,TP,logic
+get-/v1/tax_rates,tax_rate,active,data.active,7,"Defaults to `true`. When set to `false`, this tax rate cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set",parameters,active,Optional flag to filter by tax rates that are either active or inactive (archived),"def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'active' parameter from request_info
+        active_filter = request_info.get('active', None)
+        
+        # Check if 'data' key exists in the response
+        if 'data' not in latest_response:
+            return 0
+        
+        # Iterate through each tax_rate object in the response
+        for tax_rate in latest_response['data']:
+            # Check if 'active' key exists in the tax_rate object
+            if 'active' not in tax_rate:
+                return 0
+            
+            # Compare the 'active' value in the response with the 'active' filter in the request
+            if active_filter is not None and str(tax_rate['active']).lower() != str(active_filter).lower():
+                return -1
+        
+        # If all checks pass
+        return 1
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",True,1.0,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""txr_1PFyWn2NV2M7sbs5CyMds0N6"",
+            ""object"": ""tax_rate"",
+            ""active"": true,
+            ""country"": ""VN"",
+            ""created"": 1715605373,
+            ""description"": ""This is the VAT of VN"",
+            ""display_name"": ""Sales tax"",
+            ""effective_percentage"": 10.0,
+            ""inclusive"": true,
+            ""jurisdiction"": ""VN"",
+            ""jurisdiction_level"": null,
+            ""livemode"": false,
+            ""metadata"": {},
+            ""percentage"": 10.0,
+            ""state"": null,
+            ""tax_type"": null
+        }
+    ],
+    ""has_more"": false,
+    ""url"": ""/v1/tax_rates""
+}","{""active"":true,""inclusive"":true}",1,0,0,0,1,TP,"range of values, logic"
+get-/v1/tax_rates,tax_rate,inclusive,data.inclusive,8,This specifies if the tax rate is inclusive or exclusive,parameters,inclusive,Optional flag to filter by tax rates that are inclusive (or those that are not inclusive),"def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'inclusive' parameter is in the request_info
+        if 'inclusive' in request_info:
+            inclusive_param = request_info['inclusive']
+            
+            # Ensure the 'inclusive' parameter is a boolean
+            if not isinstance(inclusive_param, bool):
+                return -1
+            
+            # Check if 'data' and 'array of tax_rate objects' are in the response
+            if 'data' in latest_response and isinstance(latest_response['data'], list):
+                for tax_rate in latest_response['data']:
+                    if 'inclusive' in tax_rate:
+                        # Ensure the 'inclusive' attribute is a boolean
+                        if not isinstance(tax_rate['inclusive'], bool):
+                            return -1
+                        
+                        # Verify the 'inclusive' attribute matches the 'inclusive' parameter
+                        if tax_rate['inclusive'] != inclusive_param:
+                            return -1
+                return 1
+            else:
+                return 0
+        else:
+            return 1  # No 'inclusive' parameter to verify
+    except Exception as e:
+        return -1
+",False,1.0,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""txr_1PFyWn2NV2M7sbs5CyMds0N6"",
+            ""object"": ""tax_rate"",
+            ""active"": true,
+            ""country"": ""VN"",
+            ""created"": 1715605373,
+            ""description"": ""This is the VAT of VN"",
+            ""display_name"": ""Sales tax"",
+            ""effective_percentage"": 10.0,
+            ""inclusive"": true,
+            ""jurisdiction"": ""VN"",
+            ""jurisdiction_level"": null,
+            ""livemode"": false,
+            ""metadata"": {},
+            ""percentage"": 10.0,
+            ""state"": null,
+            ""tax_type"": null
+        }
+    ],
+    ""has_more"": false,
+    ""url"": ""/v1/tax_rates""
+}","{""active"":true,""inclusive"":true}",1,0,0,0,1,TP,"range of values, logic"
+get-/v1/test_helpers/test_clocks,test_helpers.test_clock,id,data.id,9,Unique identifier for the object,parameters,starting_after,"A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list","def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'starting_after' is in the request_info
+        if 'starting_after' in request_info:
+            starting_after = request_info['starting_after']
+            
+            # Ensure 'starting_after' is a string and its length is within the allowed limit
+            if not isinstance(starting_after, str) or len(starting_after) > 5000:
+                return -1
+            
+            # Check if 'data' is in the latest_response and is a list
+            if 'data' in latest_response and isinstance(latest_response['data'], list):
+                # Iterate through the list to find the 'id' matching 'starting_after'
+                for item in latest_response['data']:
+                    if 'id' in item and item['id'] == starting_after:
+                        return 1
+                # If 'starting_after' is not found in the list
+                return -1
+            else:
+                return 0
+        else:
+            # If 'starting_after' is not in the request_info, no need to verify
+            return 1
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",clock_1Mr3I22eZvKYlo2Ck0rgMqd7,1.0,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""clock_1PGS412NV2M7sbs5VkcviYiy"",
+            ""object"": ""test_helpers.test_clock"",
+            ""created"": 1715718909,
+            ""deletes_after"": 1718310909,
+            ""frozen_time"": 1715718895,
+            ""livemode"": false,
+            ""name"": ""10 days trial"",
+            ""status"": ""ready""
+        }
+    ],
+    ""has_more"": false,
+    ""url"": ""/v1/test_helpers/test_clocks""
+}","{""starting_after"":""clock_1PGS412NV2M7sbs5VkcviYiy""}",1,0,0,0,1,TP,logic
+get-/v1/webhook_endpoints,webhook_endpoint,id,data.id,10,Unique identifier for the object,parameters,ending_before,"A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list","def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'ending_before' parameter from request_info
+        ending_before = request_info.get(""ending_before"")
+        
+        # Check if 'ending_before' is provided
+        if ending_before is None:
+            return 0
+        
+        # Ensure 'ending_before' is a string and its length does not exceed 5000
+        if not isinstance(ending_before, str) or len(ending_before) > 5000:
+            return -1
+        
+        # Extract the 'data' array from the response
+        data_array = latest_response.get(""data"")
+        
+        # Check if 'data' array exists and is a list
+        if data_array is None or not isinstance(data_array, list):
+            return 0
+        
+        # Iterate through the 'data' array to find the 'id' attribute
+        for item in data_array:
+            item_id = item.get(""id"")
+            
+            # Check if 'id' exists and is a string
+            if item_id is None or not isinstance(item_id, str):
+                continue
+            
+            # Ensure 'id' length does not exceed 5000
+            if len(item_id) > 5000:
+                return -1
+            
+            # Check if 'id' matches 'ending_before'
+            if item_id == ending_before:
+                return 1
+        
+        # If 'ending_before' does not match any 'id' in the response
+        return 0
+    except Exception as e:
+        # In case of any unexpected errors
+        return -1
+",we_1Mr5jULkdIwHu7ix1ibLTM0x,1.0,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""we_1PGKED2NV2M7sbs5gIwNtQtB"",
+            ""object"": ""webhook_endpoint"",
+            ""api_version"": null,
+            ""application"": null,
+            ""created"": 1715688789,
+            ""description"": ""google endpoint"",
+            ""enabled_events"": [
+                ""account.updated"",
+                ""account.external_account.created"",
+                ""account.external_account.deleted"",
+                ""account.external_account.updated""
+            ],
+            ""livemode"": false,
+            ""metadata"": {},
+            ""status"": ""enabled"",
+            ""url"": ""https://google.com""
+        }
+    ],
+    ""has_more"": false,
+    ""url"": ""/v1/webhook_endpoints""
+}","{""ending_before"":""we_1PGKED2NV2M7sbs5gIwNtQtB""}",1,0,0,0,1,TP,logic
+get-/v1/webhook_endpoints,webhook_endpoint,id,data.id,11,Unique identifier for the object,parameters,starting_after,"A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list","def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'starting_after' parameter from the request_info
+        starting_after = request_info.get(""starting_after"", None)
+        
+        # If 'starting_after' is not provided, we cannot verify the constraint
+        if starting_after is None:
+            return 0
+        
+        # Check if 'starting_after' exceeds the maxLength constraint
+        if len(starting_after) > 5000:
+            return -1
+        
+        # Extract the 'data' array from the response
+        data_array = latest_response.get(""data"", [])
+        
+        # If 'data' array is empty, we cannot verify the constraint
+        if not data_array:
+            return 0
+        
+        # Check if any 'id' in the 'data' array matches 'starting_after'
+        for obj in data_array:
+            obj_id = obj.get(""id"", """")
+            if obj_id == starting_after:
+                return 1
+        
+        # If no matching 'id' is found, the constraint is not satisfied
+        return -1
+    except Exception as e:
+        # In case of any unexpected errors, return -1
+        return -1
+",we_1Mr5jULkdIwHu7ix1ibLTM0x,1.0,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""we_1PGKED2NV2M7sbs5gIwNtQtB"",
+            ""object"": ""webhook_endpoint"",
+            ""api_version"": null,
+            ""application"": null,
+            ""created"": 1715688789,
+            ""description"": ""google endpoint"",
+            ""enabled_events"": [
+                ""account.updated"",
+                ""account.external_account.created"",
+                ""account.external_account.deleted"",
+                ""account.external_account.updated""
+            ],
+            ""livemode"": false,
+            ""metadata"": {},
+            ""status"": ""enabled"",
+            ""url"": ""https://google.com""
+        }
+    ],
+    ""has_more"": false,
+    ""url"": ""/v1/webhook_endpoints""
+}","{""starting_after"":""we_1PGKED2NV2M7sbs5gIwNtQtB""}",1,0,0,0,1,TP,logic
+get-/v1/webhook_endpoints,webhook_endpoint,id,data.id,10,Unique identifier for the object,parameters,ending_before,"A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list","def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'ending_before' parameter from request_info
+        ending_before = request_info.get(""ending_before"")
+        
+        # Check if 'ending_before' is provided
+        if ending_before is None:
+            return 0
+        
+        # Ensure 'ending_before' is a string and its length does not exceed 5000
+        if not isinstance(ending_before, str) or len(ending_before) > 5000:
+            return -1
+        
+        # Extract the 'data' array from the response
+        data_array = latest_response.get(""data"")
+        
+        # Check if 'data' array exists and is a list
+        if data_array is None or not isinstance(data_array, list):
+            return 0
+        
+        # Iterate through the 'data' array to find the 'id' attribute
+        for item in data_array:
+            item_id = item.get(""id"")
+            
+            # Check if 'id' exists and is a string
+            if item_id is None or not isinstance(item_id, str):
+                continue
+            
+            # Ensure 'id' length does not exceed 5000
+            if len(item_id) > 5000:
+                return -1
+            
+            # Check if 'id' matches 'ending_before'
+            if item_id == ending_before:
+                return 1
+        
+        # If 'ending_before' does not match any 'id' in the response
+        return 0
+    except Exception as e:
+        # In case of any unexpected errors
+        return -1
+",we_1Mr5jULkdIwHu7ix1ibLTM0x,1.0,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""we_1PGKED2NV2M7sbs5gIwNtQtB"",
+            ""object"": ""webhook_endpoint"",
+            ""api_version"": null,
+            ""application"": null,
+            ""created"": 1715688789,
+            ""description"": ""google endpoint"",
+            ""enabled_events"": [
+                ""account.updated"",
+                ""account.external_account.created"",
+                ""account.external_account.deleted"",
+                ""account.external_account.updated""
+            ],
+            ""livemode"": false,
+            ""metadata"": {},
+            ""status"": ""enabled"",
+            ""url"": ""https://google.com""
+        }
+    ],
+    ""has_more"": false,
+    ""url"": ""/v1/webhook_endpoints""
+}","{""ending_before"":""we_1PGKED2NV2M7sbs5gIwNtQtB""}",1,0,0,0,1,TP,logic
+get-/v1/webhook_endpoints,webhook_endpoint,id,data.id,11,Unique identifier for the object,parameters,starting_after,"A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list","def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'starting_after' parameter from the request_info
+        starting_after = request_info.get(""starting_after"", None)
+        
+        # If 'starting_after' is not provided, we cannot verify the constraint
+        if starting_after is None:
+            return 0
+        
+        # Check if 'starting_after' exceeds the maxLength constraint
+        if len(starting_after) > 5000:
+            return -1
+        
+        # Extract the 'data' array from the response
+        data_array = latest_response.get(""data"", [])
+        
+        # If 'data' array is empty, we cannot verify the constraint
+        if not data_array:
+            return 0
+        
+        # Check if any 'id' in the 'data' array matches 'starting_after'
+        for obj in data_array:
+            obj_id = obj.get(""id"", """")
+            if obj_id == starting_after:
+                return 1
+        
+        # If no matching 'id' is found, the constraint is not satisfied
+        return -1
+    except Exception as e:
+        # In case of any unexpected errors, return -1
+        return -1
+",we_1Mr5jULkdIwHu7ix1ibLTM0x,1.0,"{
+    ""object"": ""list"",
+    ""data"": [
+        {
+            ""id"": ""we_1PGKED2NV2M7sbs5gIwNtQtB"",
+            ""object"": ""webhook_endpoint"",
+            ""api_version"": null,
+            ""application"": null,
+            ""created"": 1715688789,
+            ""description"": ""google endpoint"",
+            ""enabled_events"": [
+                ""account.updated"",
+                ""account.external_account.created"",
+                ""account.external_account.deleted"",
+                ""account.external_account.updated""
+            ],
+            ""livemode"": false,
+            ""metadata"": {},
+            ""status"": ""enabled"",
+            ""url"": ""https://google.com""
+        }
+    ],
+    ""has_more"": false,
+    ""url"": ""/v1/webhook_endpoints""
+}","{""starting_after"":""we_1PGKED2NV2M7sbs5gIwNtQtB""}",1,0,0,0,1,TP,logic

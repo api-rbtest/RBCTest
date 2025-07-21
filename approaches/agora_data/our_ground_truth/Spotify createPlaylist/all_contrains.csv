@@ -1,0 +1,22 @@
+endpoint,group,description
+post+users_{user_id}_playlists,collaborative,nan
+post+users_{user_id}_playlists,description,nan
+post+users_{user_id}_playlists,name,nan
+post+users_{user_id}_playlists,owner.href,"A link to the Web API endpoint for this user. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+post+users_{user_id}_playlists,owner.id,"The Spotify ID for this user. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+post+users_{user_id}_playlists,owner.type,"The object type: 'user' schema: {""type"": ""string""} schema: {""type"": ""string""}"
+post+users_{user_id}_playlists,owner.uri,"The Spotify URI for the user. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+post+users_{user_id}_playlists,primary_color,"Primary color schema: {""type"": ""string"", ""x-nullable"": true} schema: {""type"": ""string"", ""x-nullable"": true}"
+post+users_{user_id}_playlists,public,"nan
+The playlist's public/private status: true the playlist is public, false the playlist is private, null the playlist status is not relevant. For more about public/private status, see Working with Playlists. schema: {""type"": ""boolean""} schema: {""type"": ""boolean""}"
+post+users_{user_id}_playlists,tracks.items.added_at,"The date and time the track was added in ISO 8601 format. Note that some very old playlists may return null in this field. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+post+users_{user_id}_playlists,tracks.items.added_by.href,"A link to the Web API endpoint for this user. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+post+users_{user_id}_playlists,tracks.items.added_by.id,"The Spotify ID for this user. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+post+users_{user_id}_playlists,tracks.items.added_by.type,"The object type: 'user' schema: {""type"": ""string""} schema: {""type"": ""string""}"
+post+users_{user_id}_playlists,tracks.items.added_by.uri,"The Spotify URI for the user. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+post+users_{user_id}_playlists,tracks.items.is_local,"Whether this track is a [local file](https://developer.spotify.com/web-api/local-files-spotify-playlists/) or not. schema: {""type"": ""boolean""} schema: {""type"": ""boolean""}"
+post+users_{user_id}_playlists,tracks.limit,"The maximum number of items in the response (as set in the query or by default). schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+post+users_{user_id}_playlists,tracks.next,"URL to the next page of items. (null if none) schema: {""type"": ""string"", ""x-nullable"": true} schema: {""type"": ""string"", ""x-nullable"": true}"
+post+users_{user_id}_playlists,tracks.offset,"The offset of the items returned (as set in the query or by default). schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+post+users_{user_id}_playlists,tracks.previous,"URL to the previous page of items. (null if none) schema: {""type"": ""string"", ""x-nullable"": true} schema: {""type"": ""string"", ""x-nullable"": true}"
+post+users_{user_id}_playlists,uri,"Spotify URI of the playlist. schema: {""type"": ""string""} schema: {""type"": ""string""}"

@@ -1,0 +1,2 @@
+operation,response resource,attribute,group,description,part,corresponding attribute,corresponding attribute description
+get-/businesses/search,BusinessesResult,is_closed,businesses.is_closed,,parameters,open_now,

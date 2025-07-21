@@ -1,0 +1,30 @@
+,group,invariant,endpoint,description,tp
+0,items.contentDetails.caption,"return.contentDetails.caption one of { ""false"", ""true"" }",get+youtube_v3_videos,"The value of captions indicates whether the video has captions or not, schema: {""type"": ""string"", ""enum"": [""true"", ""false""]}",1.0
+1,items.contentDetails.dimension,"LENGTH(return.contentDetails.dimension)==2
+return.contentDetails.dimension one of { ""2d"", ""3d"" }",get+youtube_v3_videos,The value of dimension indicates whether the video is available in 3D or in 2D,1.0
+2,items.kind,"LENGTH(return.kind)==13
+return.kind == ""youtube#video""",get+youtube_v3_videos,"Identifies what kind of resource this is. Value: the fixed string ""youtube#video""",1.0
+3,items.liveStreamingDetails.actualEndTime,"LENGTH(return.liveStreamingDetails.actualEndTime)==20
+return.liveStreamingDetails.actualEndTime is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)",get+youtube_v3_videos,"The time that the broadcast actually ended. This value will not be available until the broadcast is over, schema: {""type"": ""string"", ""format"": ""date-time""}",1.0
+4,items.liveStreamingDetails.actualStartTime,"LENGTH(return.liveStreamingDetails.actualStartTime)==20
+return.liveStreamingDetails.actualStartTime is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)",get+youtube_v3_videos,"The time that the broadcast actually started. This value will not be available until the broadcast begins, schema: {""type"": ""string"", ""format"": ""date-time""}",1.0
+5,items.liveStreamingDetails.scheduledStartTime,"LENGTH(return.liveStreamingDetails.scheduledStartTime)==20
+return.liveStreamingDetails.scheduledStartTime is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)",get+youtube_v3_videos,"The time that the broadcast is scheduled to begin, schema: {""type"": ""string"", ""format"": ""date-time""}",1.0
+6,items.player.embedHeight,"return.player.embedHeight is a substring of return.player.embedHtml
+return.player.embedHeight is Numeric",get+youtube_v3_videos,"{""type"": ""string"", ""format"": ""int64""}",1.0
+7,items.player.embedWidth,return.player.embedWidth is Numeric,get+youtube_v3_videos,"The embed width, schema: {""type"": ""string"", ""format"": ""int64""}",1.0
+8,items.recordingDetails.recordingDate,"LENGTH(return.recordingDetails.recordingDate)==20
+return.recordingDetails.recordingDate is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)",get+youtube_v3_videos,"The date and time when the video was recorded, schema: {""type"": ""string"", ""format"": ""date-time""}",1.0
+9,items.snippet.publishedAt,"LENGTH(return.snippet.publishedAt)==20
+return.snippet.publishedAt is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)",get+youtube_v3_videos,"The date and time when the video was uploaded, schema: {""type"": ""string"", ""format"": ""date-time""}",1.0
+10,items.snippet.thumbnails.default.url,return.snippet.thumbnails.default.url is Url,get+youtube_v3_videos,"The thumbnail image's URL, schema: {""type"": ""string"", ""format"": ""uri""}",1.0
+11,items.snippet.thumbnails.high.url,return.snippet.thumbnails.high.url is Url,get+youtube_v3_videos,"The thumbnail image's URL, schema: {""type"": ""string"", ""format"": ""uri""}",1.0
+12,items.snippet.thumbnails.maxres.url,return.snippet.thumbnails.maxres.url is Url,get+youtube_v3_videos,"The thumbnail image's URL, schema: {""type"": ""string"", ""format"": ""uri""}",1.0
+13,items.snippet.thumbnails.medium.url,return.snippet.thumbnails.medium.url is Url,get+youtube_v3_videos,"The thumbnail image's URL, schema: {""type"": ""string"", ""format"": ""uri""}",1.0
+14,items.snippet.thumbnails.standard.url,return.snippet.thumbnails.standard.url is Url,get+youtube_v3_videos,"The thumbnail image's URL, schema: {""type"": ""string"", ""format"": ""uri""}",1.0
+15,items.statistics.commentCount,return.statistics.commentCount is Numeric,get+youtube_v3_videos,"The number of comments for the video, schema: {""type"": ""string"", ""format"": ""uint64""}",1.0
+16,items.statistics.likeCount,return.statistics.likeCount is Numeric,get+youtube_v3_videos,"The number of users who have indicated that they liked the video by giving it a positive rating, schema: {""type"": ""string"", ""format"": ""uint64""}",1.0
+17,items.statistics.viewCount,return.statistics.viewCount is Numeric,get+youtube_v3_videos,"The number of times the video has been viewed, schema: {""type"": ""string"", ""format"": ""uint64""}",1.0
+18,kind,"LENGTH(return.kind)==25
+return.kind == ""youtube#videoListResponse""",get+youtube_v3_videos,"Identifies what kind of resource this is. Value: the fixed string ""youtube#videoListResponse""",1.0
+19,nextPageToken,LENGTH(return.nextPageToken)==6,get+youtube_v3_videos,"Attribute pageToken is responded to by parameter VideoListResponse with a description: The *pageToken* parameter identifies a specific page in the result set that should be returned. In an API response, the nextPageToken and prevPageToken properties identify other pages that could be retrieved. *Note:* This parameter is supported for use in conjunction with the myRating and chart parameters, but it is not supported for use in conjunction with the id parameter",1.0

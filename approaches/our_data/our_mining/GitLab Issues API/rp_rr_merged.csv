@@ -1,0 +1,198 @@
+endpoint,group,response resource,attribute,description,tp
+get+projects,archived,BasicProjectDetails,archived,Attribute archived is responded to by parameter archived with a description: Limit by archived status,1
+get+projects,id,BasicProjectDetails,id,Attribute id is responded to by parameter id_after with a description: Limit results to projects with IDs greater than the specified ID,1
+get+projects,id,BasicProjectDetails,id,Attribute id is responded to by parameter id_before with a description: Limit results to projects with IDs less than the specified ID,1
+get+projects,last_activity_at,BasicProjectDetails,last_activity_at,Attribute last_activity_at is responded to by parameter last_activity_after with a description: Limit results to projects with last_activity after specified time.ISO 8601 YYYY-MM-DDTHH:MM:SSZ,1
+get+projects,last_activity_at,BasicProjectDetails,last_activity_at,Attribute last_activity_at is responded to by parameter last_activity_before with a description: Limit results to projects with last_activity before specified time. ISO 8601 YYYY-MM-DDTHH:MM:SSZ,1
+post+projects,repository_storage,BasicProjectDetails,repository_storage,Attribute repository_storage is responded to by parameter repository_storage with a description: Which storage shard the repository is on.(admins only),1
+get+projects,repository_storage,BasicProjectDetails,repository_storage,Attribute repository_storage is responded to by parameter repository_storage with a description: Limit results to projects stored on repository_storage. (admins only),1
+post+projects,visibility,BasicProjectDetails,visibility,Attribute visibility is responded to by parameter visibility with a description: See project visibility level,1
+post+projects,visibility,BasicProjectDetails,visibility,"Attribute visibility is responded to by parameter pages_access_level with a description: One of disabled, private,enabled, or public",0
+post+projects,visibility,BasicProjectDetails,visibility,"Attribute visibility is responded to by parameter repository_access_level with a description: One of disabled, private, or enabled",0
+get+projects,visibility,BasicProjectDetails,visibility,Attribute visibility is responded to by parameter visibility with a description: Limit by visibility,1
+get+projects,issues_enabled,BasicProjectDetails,issues_enabled,Attribute issues_enabled is responded to by parameter with_issues_enabled with a description: Limit by enabled issues feature,1
+post+projects,merge_requests_enabled,BasicProjectDetails,merge_requests_enabled,Attribute merge_requests_enabled is responded to by parameter merge_requests_enabled with a description: (Deprecated)Enable merge requests for this project. Use merge_requests_access_level instead,1
+get+projects,merge_requests_enabled,BasicProjectDetails,merge_requests_enabled,Attribute merge_requests_enabled is responded to by parameter with_merge_requests_enabled with a description: Limit by enabled merge requests feature,1
+post+projects,allow_merge_on_skipped_pipeline,BasicProjectDetails,allow_merge_on_skipped_pipeline,Attribute allow_merge_on_skipped_pipeline is responded to by parameter allow_merge_on_skipped_pipeline with a description: Set whether or not merge requests can be merged with skipped jobs,1
+post+projects,auto_devops_deploy_strategy,BasicProjectDetails,auto_devops_deploy_strategy,Attribute auto_devops_deploy_strategy is responded to by parameter auto_devops_deploy_strategy with a description: Auto Deploy strategy,1
+post+projects,auto_devops_enabled,BasicProjectDetails,auto_devops_enabled,Attribute auto_devops_enabled is responded to by parameter auto_devops_enabled with a description: Enable Auto DevOps for this project,1
+post+projects,autoclose_referenced_issues,BasicProjectDetails,autoclose_referenced_issues,Attribute autoclose_referenced_issues is responded to by parameter autoclose_referenced_issues with a description: Set whether auto-closing referenced issues on default branch,1
+post+projects,container_registry_enabled,BasicProjectDetails,container_registry_enabled,Attribute container_registry_enabled is responded to by parameter container_registry_enabled with a description: Enable container registry for this project,1
+post+projects,default_branch,BasicProjectDetails,default_branch,Attribute default_branch is responded to by parameter default_branch with a description: master by default,1
+post+projects,description,BasicProjectDetails,description,Attribute description is responded to by parameter description with a description: Short project description,1
+post+projects,jobs_enabled,BasicProjectDetails,jobs_enabled,Attribute jobs_enabled is responded to by parameter jobs_enabled with a description: (Deprecated)Enable jobs for this project. Use builds_access_level instead,1
+post+projects,merge_method,BasicProjectDetails,merge_method,Attribute merge_method is responded to by parameter merge_method with a description: Set the merge method used,1
+post+projects,name,BasicProjectDetails,name,"Attribute name is responded to by parameter name with a description: The name of the new project. Either path or name is required, not both",1
+post+projects,only_allow_merge_if_all_discussions_are_resolved,BasicProjectDetails,only_allow_merge_if_all_discussions_are_resolved,Attribute only_allow_merge_if_all_discussions_are_resolved is responded to by parameter only_allow_merge_if_all_discussions_are_resolved with a description: Set whether merge requests can only be merged when all the discussions are resolved,1
+post+projects,only_allow_merge_if_pipeline_succeeds,BasicProjectDetails,only_allow_merge_if_pipeline_succeeds,Attribute only_allow_merge_if_pipeline_succeeds is responded to by parameter only_allow_merge_if_pipeline_succeeds with a description: Set whether merge requests can only be merged with successful jobs,1
+post+projects,packages_enabled,BasicProjectDetails,packages_enabled,Attribute packages_enabled is responded to by parameter packages_enabled with a description: Enable or disable packages repository feature,1
+post+projects,path,BasicProjectDetails,path,Attribute path is responded to by parameter path with a description: Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes),1
+post+projects,public_jobs,BasicProjectDetails,public_jobs,"Attribute public_jobs is responded to by parameter public_builds with a description: If true, jobs can be viewed by non-project members",1
+post+projects,remove_source_branch_after_merge,BasicProjectDetails,remove_source_branch_after_merge,Attribute remove_source_branch_after_merge is responded to by parameter remove_source_branch_after_merge with a description: Enable Delete source branch option by default for all new merge requests,1
+post+projects,request_access_enabled,BasicProjectDetails,request_access_enabled,Attribute request_access_enabled is responded to by parameter request_access_enabled with a description: Allow users to request member access,1
+post+projects,resolve_outdated_diff_discussions,BasicProjectDetails,resolve_outdated_diff_discussions,Attribute resolve_outdated_diff_discussions is responded to by parameter resolve_outdated_diff_discussions with a description: Automatically resolve merge request diffs discussions on lines changed with a push,1
+post+projects,shared_runners_enabled,BasicProjectDetails,shared_runners_enabled,Attribute shared_runners_enabled is responded to by parameter shared_runners_enabled with a description: Enable shared runners for this project,1
+post+projects,snippets_enabled,BasicProjectDetails,snippets_enabled,Attribute snippets_enabled is responded to by parameter snippets_enabled with a description: (Deprecated)Enable snippets for this project. Use snippets_access_level instead,1
+post+projects,tag_list,BasicProjectDetails,tag_list,"Attribute tag_list is responded to by parameter tag_list with a description: The list of tags for a project; put array of tags, that should be finally assigned to a project",1
+post+projects,wiki_enabled,BasicProjectDetails,wiki_enabled,Attribute wiki_enabled is responded to by parameter wiki_enabled with a description: (Deprecated)Enable wiki for this project. Use wiki_access_levelinstead,1
+post+projects_{id}_issues,confidential,Issue,confidential,Attribute confidential is responded to by parameter confidential with a description: Set an issue to be confidential. Default is false,1
+get+projects_{id}_issues,confidential,Issue,confidential,Attribute confidential is responded to by parameter confidential with a description: Filter confidential or public issues,1
+get+groups_{id}_issues,confidential,Issue,confidential,Attribute confidential is responded to by parameter confidential with a description: Filter confidential or public issues,1
+put+projects_{id}_issues_{issue_iid},confidential,Issue,confidential,"Attribute confidential is responded to by parameter confidential with a description: Updates an issue to be confidential. At least one of the following parameters is required for the request to be successful: assignee_id, assignee_ids, confidential, created_at, description, discussion_locked, due_date, labels, milestone_id, state_event, title",1
+get+issues,confidential,Issue,confidential,Attribute confidential is responded to by parameter confidential with a description: Filter confidential or public issues,1
+get+issues,due_date,Issue,due_date,"Attribute due_date is responded to by parameter due_date with a description: Return issues that have no due date, are overdue, or whose due date is this week, this month, or between two weeks ago and next month. Accepts: 0 (no due date), overdue , week , month , next_month_and_previous_two_weeks . (Introduced in GitLab 13.3 )",1
+post+projects_{id}_issues,due_date,Issue,due_date,"Attribute due_date is responded to by parameter due_date with a description: The due date. Date time string in the format YYYY-MM-DD , for example 2016-03-11",1
+get+projects_{id}_issues,due_date,Issue,due_date,"Attribute due_date is responded to by parameter due_date with a description: Return issues that have no due date, are overdue, or whose due date is this week, this month, or between two weeks ago and next month. Accepts: 0 (no due date), overdue , week , month , next_month_and_previous_two_weeks . (Introduced in GitLab 13.3 )",1
+get+groups_{id}_issues,due_date,Issue,due_date,"Attribute due_date is responded to by parameter due_date with a description: Return issues that have no due date, are overdue, or whose due date is this week, this month, or between two weeks ago and next month. Accepts: 0 (no due date), overdue , week , month , next_month_and_previous_two_weeks . (Introduced in GitLab 13.3 )",1
+put+projects_{id}_issues_{issue_iid},due_date,Issue,due_date,"Attribute due_date is responded to by parameter due_date with a description: The due date. Date time string in the format YYYY-MM-DD , for example 2016-03-11",1
+get+groups_{id}_issues,state,Issue,state,Attribute state is responded to by parameter state with a description: Return all issues or just those that are opened or closed,1
+get+projects_{id}_issues,state,Issue,state,Attribute state is responded to by parameter state with a description: Return all issues or just those that are opened or closed,1
+get+issues,state,Issue,state,Attribute state is responded to by parameter state with a description: Return all issues or just those that are opened or closed,1
+get+projects_{id}_issues,updated_at,Issue,updated_at,Attribute updated_at is responded to by parameter updated_after with a description: Return issues updated on or after the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z ),1
+get+projects_{id}_issues,updated_at,Issue,updated_at,Attribute updated_at is responded to by parameter updated_before with a description: Return issues updated on or before the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z ),1
+put+projects_{id}_issues_{issue_iid},updated_at,Issue,updated_at,"Attribute updated_at is responded to by parameter updated_at with a description: When the issue was updated. Date time string, ISO 8601 formatted, for example 2016-03-11T03:45:40Z (requires administrator or project owner rights). Empty string or null values are not accepted",1
+get+issues,updated_at,Issue,updated_at,Attribute updated_at is responded to by parameter updated_before with a description: Return issues updated on or before the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z ),1
+get+issues,updated_at,Issue,updated_at,Attribute updated_at is responded to by parameter updated_after with a description: Return issues updated on or after the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z ),1
+get+groups_{id}_issues,updated_at,Issue,updated_at,Attribute updated_at is responded to by parameter updated_after with a description: Return issues updated on or after the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z ),1
+get+groups_{id}_issues,updated_at,Issue,updated_at,Attribute updated_at is responded to by parameter updated_before with a description: Return issues updated on or before the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z ),1
+get+issues_{id},id,Issue,id,Attribute id is responded to by parameter id with a description: The ID of the issue,1
+put+projects_{id}_issues_{issue_iid},project_id,Issue,project_id,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user,1
+post+projects_{id}_issues_{issue_iid}_unsubscribe,project_id,Issue,project_id,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user,1
+get+projects_{id}_issues_{issue_iid},project_id,Issue,project_id,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user,1
+post+projects_{id}_issues_{issue_iid}_move,project_id,Issue,project_id,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user,1
+post+projects_{id}_issues,project_id,Issue,project_id,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user,1
+get+projects_{id}_issues,project_id,Issue,project_id,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user user,1
+post+projects_{id}_issues_{issue_iid}_subscribe,project_id,Issue,project_id,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user,1
+post+projects_{id}_issues,created_at,Issue,created_at,"Attribute created_at is responded to by parameter created_at with a description: When the issue was created. Date time string, ISO 8601 formatted, for example 2016-03-11T03:45:40Z . Requires administrator or project/group owner rights",1
+put+projects_{id}_issues_{issue_iid},description,Issue,description,"Attribute description is responded to by parameter description with a description: The description of an issue. Limited to 1,048,576 characters",1
+post+projects_{id}_issues,description,Issue,description,"Attribute description is responded to by parameter description with a description: The description of an issue. Limited to 1,048,576 characters",1
+post+projects_{id}_issues,title,Issue,title,Attribute title is responded to by parameter title with a description: The title of an issue,1
+put+projects_{id}_issues_{issue_iid},title,Issue,title,Attribute title is responded to by parameter title with a description: The title of an issue,1
+post+projects_{id}_issues_{issue_iid}_unsubscribe,iid,Issue,iid,Attribute iid is responded to by parameter issue_iid with a description: The internal ID of the project's issue,1
+get+projects_{id}_issues_{issue_iid},iid,Issue,iid,Attribute iid is responded to by parameter issue_iid with a description: The internal ID of a project's issue,1
+post+projects_{id}_issues_{issue_iid}_move,iid,Issue,iid,Attribute iid is responded to by parameter issue_iid with a description: The internal ID of the project's issue,1
+post+projects_{id}_issues_{issue_iid}_subscribe,iid,Issue,iid,Attribute iid is responded to by parameter issue_iid with a description: The internal ID of the project's issue,1
+put+projects_{id}_issues_{issue_iid},iid,Issue,iid,Attribute iid is responded to by parameter issue_iid with a description: The internal ID of a project's issue,1
+put+projects_{id}_issues_{issue_iid},discussion_locked,Issue,discussion_locked,Attribute discussion_locked is responded to by parameter discussion_locked with a description: Flag indicating if the issue's discussion is locked. If the discussion is locked only project members can add or edit comments,1
+post+groups,visibility,Group,visibility,"Attribute visibility is responded to by parameter visibility with a description: The group's visibility. Can be private,internal, orpublic",1
+post+groups,share_with_group_lock,Group,share_with_group_lock,Attribute share_with_group_lock is responded to by parameter share_with_group_lock with a description: Prevent sharing a project with another group within this group,1
+post+groups,require_two_factor_authentication,Group,require_two_factor_authentication,Attribute require_two_factor_authentication is responded to by parameter require_two_factor_authentication with a description: Require all users in this group to setup Two-factor authentication,1
+post+groups,two_factor_grace_period,Group,two_factor_grace_period,Attribute two_factor_grace_period is responded to by parameter two_factor_grace_period with a description: Time before Two-factor authentication is enforced (in hours),1
+post+groups,project_creation_level,Group,project_creation_level,"Attribute project_creation_level is responded to by parameter project_creation_level with a description: Determine if developers can create projects in the group. Can benoone(No one),maintainer(Maintainers), or developer(Developers + Maintainers)",1
+post+groups,subgroup_creation_level,Group,subgroup_creation_level,"Attribute subgroup_creation_level is responded to by parameter subgroup_creation_level with a description: Allowed to create subgroups. Can be owner(Owners), or maintainer(Maintainers)",1
+post+groups,lfs_enabled,Group,lfs_enabled,Attribute lfs_enabled is responded to by parameter lfs_enabled with a description: Enable/disable Large File Storage (LFS) for the projects in this group,1
+post+groups,request_access_enabled,Group,request_access_enabled,Attribute request_access_enabled is responded to by parameter request_access_enabled with a description: Allow users to request member access,1
+post+groups,default_branch_protection,Group,default_branch_protection,Attribute default_branch_protection is responded to by parameter default_branch_protection with a description: SeeOptions fordefault_branch_protection. Default to the global level default branch protection setting,1
+post+groups,name,Group,name,Attribute name is responded to by parameter name with a description: The name of the group,1
+post+groups,path,Group,path,Attribute path is responded to by parameter path with a description: The path of the group,1
+post+groups,description,Group,description,Attribute description is responded to by parameter description with a description: The group's description,1
+post+groups,avatar_url,Group,avatar_url,Attribute avatar_url is responded to by parameter avatar with a description: Image file for avatar of the group.Introduced in GitLab 12.9,0
+post+projects_{id}_issues_{issue_iid}_add_spent_time,human_time_estimate,TimeEstimate,human_time_estimate,Attribute human_time_estimate is responded to by parameter duration with a description: The duration in human format. e.g: 3h30m,1
+post+projects_{id}_issues_{issue_iid}_time_estimate,human_time_estimate,TimeEstimate,human_time_estimate,Attribute human_time_estimate is responded to by parameter duration with a description: The duration in human format. e.g: 3h30m,1
+get+projects_{id}_issues_{issue_iid}_related_merge_requests,project_id,MergeRequest,project_id,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user,1
+get+projects_{id}_issues_{issue_iid}_closed_by,project_id,MergeRequest,project_id,Attribute project_id is responded to by parameter id with a description: The ID or URL-encoded path of the project owned by the authenticated user,1
+get+groups,created_at,Group,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+groups_{id}_issues,milestone.updated_at,Milestone,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+groups_{id}_issues,due_date,Issue,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+get+groups_{id}_issues,created_at,Issue,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+groups_{id}_issues,milestone.created_at,Milestone,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+groups_{id}_issues,updated_at,Issue,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+groups_{id}_issues,milestone.closed_at,Milestone,closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+issues,updated_at,Issue,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+issues,due_date,Issue,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+get+issues,milestone.closed_at,Milestone,closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+issues,created_at,Issue,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+issues,milestone.updated_at,Milestone,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+issues,milestone.created_at,Milestone,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+issues_{id},created_at,Issue,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+issues_{id},milestone.updated_at,Milestone,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+issues_{id},updated_at,Issue,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+issues_{id},milestone.closed_at,Milestone,closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+issues_{id},milestone.created_at,Milestone,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+issues_{id},due_date,Issue,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+get+projects,owner.created_at,Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects,marked_for_deletion_on,BasicProjectDetails,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+get+projects,created_at,BasicProjectDetails,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects,last_activity_at,BasicProjectDetails,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",0
+get+projects,http_url_to_repo,BasicProjectDetails,http_url_to_repo,"{""type"": ""string""}",1
+get+projects,web_url,BasicProjectDetails,web_url,"{""type"": ""string""}",1
+get+projects,readme_url,BasicProjectDetails,readme_url,"{""type"": ""string""}",1
+get+projects,avatar_url,BasicProjectDetails,avatar_url,"{""type"": ""string""}",1
+get+projects,marked_for_deletion_at,BasicProjectDetails,marked_for_deletion_at,"{""type"": ""string"", ""format"": ""date""}",1
+get+projects_{id}_issues,milestone.updated_at,Milestone,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects_{id}_issues,updated_at,Issue,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects_{id}_issues,milestone.created_at,Milestone,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects_{id}_issues,due_date,Issue,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+get+projects_{id}_issues,created_at,Issue,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects_{id}_issues,milestone.closed_at,Milestone,closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects_{id}_issues,assignee.web_url,Author,web_url,"{""type"": ""string""}",1
+get+projects_{id}_issues,assignees.web_url,Author,web_url,"{""type"": ""string""}",1
+get+projects_{id}_issues,author.web_url,Author,web_url,"{""type"": ""string""}",1
+get+projects_{id}_issues,assignee.avatar_url,Author,avatar_url,"{""type"": ""string""}",1
+get+projects_{id}_issues,assignees.avatar_url,Author,avatar_url,"{""type"": ""string""}",1
+get+projects_{id}_issues,author.avatar_url,Author,avatar_url,"{""type"": ""string""}",1
+get+projects_{id}_issues,closed_by.avatar_url,ClosedBy,avatar_url,"{""type"": ""string""}",1
+get+projects_{id}_issues,closed_by.web_url,ClosedBy,web_url,"{""type"": ""string""}",1
+get+projects_{id}_issues_{issue_iid},created_at,Issue,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects_{id}_issues_{issue_iid},milestone.closed_at,Milestone,closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects_{id}_issues_{issue_iid},milestone.updated_at,Milestone,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects_{id}_issues_{issue_iid},updated_at,Issue,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects_{id}_issues_{issue_iid},milestone.created_at,Milestone,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects_{id}_issues_{issue_iid},due_date,Issue,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+get+projects_{id}_issues_{issue_iid}_closed_by,milestone.closed_at,Milestone,closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects_{id}_issues_{issue_iid}_closed_by,milestone.updated_at,Milestone,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects_{id}_issues_{issue_iid}_closed_by,milestone.created_at,Milestone,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects_{id}_issues_{issue_iid}_closed_by,pipeline.web_url,Pipeline,web_url,"{""type"": ""string""}",1
+get+projects_{id}_issues_{issue_iid}_closed_by,head_pipeline.web_url,HeadPipeline,web_url,"{""type"": ""string""}",1
+get+projects_{id}_issues_{issue_iid}_related_merge_requests,milestone.created_at,Milestone,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects_{id}_issues_{issue_iid}_related_merge_requests,milestone.closed_at,Milestone,closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects_{id}_issues_{issue_iid}_related_merge_requests,milestone.updated_at,Milestone,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+groups,created_at,Group,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects,owner.created_at,Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects,marked_for_deletion_on,BasicProjectDetails,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+post+projects,created_at,BasicProjectDetails,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects,last_activity_at,BasicProjectDetails,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",0
+post+projects_{id}_issues,created_at,Issue,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues,due_date,Issue,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+post+projects_{id}_issues,milestone.created_at,Milestone,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues,updated_at,Issue,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues,milestone.closed_at,Milestone,closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues,milestone.updated_at,Milestone,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues,milestone.due_date,Milestone,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+post+projects_{id}_issues_{issue_iid}_move,due_date,Issue,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+post+projects_{id}_issues_{issue_iid}_move,milestone.created_at,Milestone,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_move,created_at,Issue,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_move,milestone.closed_at,Milestone,closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_move,milestone.updated_at,Milestone,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_move,updated_at,Issue,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_subscribe,milestone.closed_at,Milestone,closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_subscribe,updated_at,Issue,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_subscribe,milestone.updated_at,Milestone,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_subscribe,due_date,Issue,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+post+projects_{id}_issues_{issue_iid}_subscribe,created_at,Issue,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_subscribe,milestone.created_at,Milestone,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_todo,target.milestone.closed_at,Milestone,closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_todo,target.milestone.created_at,Milestone,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_todo,target.due_date,Issue,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+post+projects_{id}_issues_{issue_iid}_todo,target.created_at,Issue,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_todo,target.milestone.updated_at,Milestone,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_todo,target.updated_at,Issue,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_todo,target_url,Todo,target_url,"{""type"": ""string""}",1
+post+projects_{id}_issues_{issue_iid}_unsubscribe,updated_at,Issue,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_unsubscribe,milestone.created_at,Milestone,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_unsubscribe,milestone.closed_at,Milestone,closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_unsubscribe,due_date,Issue,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+post+projects_{id}_issues_{issue_iid}_unsubscribe,created_at,Issue,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_unsubscribe,milestone.updated_at,Milestone,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects_{id}_issues_{issue_iid}_unsubscribe,assignee.web_url,Author,web_url,"{""type"": ""string""}",1
+post+projects_{id}_issues_{issue_iid}_unsubscribe,assignees.web_url,Author,web_url,"{""type"": ""string""}",1
+post+projects_{id}_issues_{issue_iid}_unsubscribe,author.web_url,Author,web_url,"{""type"": ""string""}",1
+post+projects_{id}_issues_{issue_iid}_unsubscribe,assignee.avatar_url,Author,avatar_url,"{""type"": ""string""}",1
+post+projects_{id}_issues_{issue_iid}_unsubscribe,assignees.avatar_url,Author,avatar_url,"{""type"": ""string""}",1
+post+projects_{id}_issues_{issue_iid}_unsubscribe,author.avatar_url,Author,avatar_url,"{""type"": ""string""}",1
+put+projects_{id}_issues_{issue_iid},created_at,Issue,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put+projects_{id}_issues_{issue_iid},milestone.created_at,Milestone,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put+projects_{id}_issues_{issue_iid},milestone.updated_at,Milestone,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put+projects_{id}_issues_{issue_iid},updated_at,Issue,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put+projects_{id}_issues_{issue_iid},milestone.closed_at,Milestone,closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put+projects_{id}_issues_{issue_iid},due_date,Issue,due_date,"{""type"": ""string"", ""format"": ""date""}",1

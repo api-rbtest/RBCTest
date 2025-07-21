@@ -1,0 +1,37 @@
+endpoint,group,description,tp,status,check_verify,_merge
+get+api_v1_holidays,holidays.date,"ISO date: the literal date of the holiday, schema: {""type"": ""string"", ""format"": ""date""}",1,satisfied,yes,both
+get+api_v1_holidays,holidays.federal,"Whether this holiday is observed by federally-regulated industries, schema: {""type"": ""integer"", ""enum"": [1, 0]}",1,satisfied,yes,both
+get+api_v1_holidays,holidays.observedDate,"ISO date: when this holiday is observed, schema: {""type"": ""string"", ""format"": ""date""}",1,satisfied,yes,both
+get+api_v1_holidays,holidays.optional,"Whether this is a province-wide statutory holiday, or one that is optional for employers, schema: {""type"": ""integer"", ""enum"": [1]}",1,unknown,yes,both
+get+api_v1_holidays,holidays.provinces.id,"Canadian province abbreviations, schema: {""type"": ""string"", ""enum"": [""AB"", ""BC"", ""MB"", ""NB"", ""NL"", ""NS"", ""NT"", ""NU"", ""ON"", ""PE"", ""QC"", ""SK"", ""YT""]}",1,mismatched,yes,both
+get+api_v1_holidays,holidays.provinces.optional,"Whether this province optionally observes a given holiday, schema: {""type"": ""integer"", ""enum"": [1]}",1,unknown,yes,both
+get+api_v1_holidays,holidays.provinces.sourceLink,"URL to public holidays reference for this region, schema: {""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+get+api_v1_holidays_{holidayid},holiday.date,"ISO date: the literal date of the holiday, schema: {""type"": ""string"", ""format"": ""date""}",1,satisfied,yes,both
+get+api_v1_holidays_{holidayid},holiday.federal,"Whether this holiday is observed by federally-regulated industries, schema: {""type"": ""integer"", ""enum"": [1, 0]}",1,satisfied,yes,both
+get+api_v1_holidays_{holidayid},holiday.observedDate,"ISO date: when this holiday is observed, schema: {""type"": ""string"", ""format"": ""date""}",1,unknown,yes,both
+get+api_v1_holidays_{holidayid},holiday.optional,"Whether this is a province-wide statutory holiday, or one that is optional for employers, schema: {""type"": ""integer"", ""enum"": [1]}",1,unknown,yes,both
+get+api_v1_holidays_{holidayid},holiday.provinces.id,"Canadian province abbreviations, schema: {""type"": ""string"", ""enum"": [""AB"", ""BC"", ""MB"", ""NB"", ""NL"", ""NS"", ""NT"", ""NU"", ""ON"", ""PE"", ""QC"", ""SK"", ""YT""]}",1,unknown,yes,both
+get+api_v1_holidays_{holidayid},holiday.provinces.optional,"Whether this province optionally observes a given holiday, schema: {""type"": ""integer"", ""enum"": [1]}",1,unknown,yes,both
+get+api_v1_holidays_{holidayid},holiday.provinces.sourceLink,"URL to public holidays reference for this region, schema: {""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+get+api_v1_provinces,provinces.holidays.date,"ISO date: the literal date of the holiday, schema: {""type"": ""string"", ""format"": ""date""}",1,satisfied,yes,both
+get+api_v1_provinces,provinces.holidays.federal,"Whether this holiday is observed by federally-regulated industries, schema: {""type"": ""integer"", ""enum"": [1, 0]}",1,satisfied,yes,both
+get+api_v1_provinces,provinces.holidays.observedDate,"ISO date: when this holiday is observed, schema: {""type"": ""string"", ""format"": ""date""}",1,satisfied,yes,both
+get+api_v1_provinces,provinces.holidays.optional,"Whether this is a province-wide statutory holiday, or one that is optional for employers, schema: {""type"": ""integer"", ""enum"": [1]}",1,unknown,yes,both
+get+api_v1_provinces,provinces.id,"Canadian province abbreviations, schema: {""type"": ""string"", ""enum"": [""AB"", ""BC"", ""MB"", ""NB"", ""NL"", ""NS"", ""NT"", ""NU"", ""ON"", ""PE"", ""QC"", ""SK"", ""YT""]}",1,satisfied,yes,both
+get+api_v1_provinces,provinces.nextHoliday.date,"ISO date: the literal date of the holiday, schema: {""type"": ""string"", ""format"": ""date""}",1,satisfied,yes,both
+get+api_v1_provinces,provinces.nextHoliday.federal,"Whether this holiday is observed by federally-regulated industries, schema: {""type"": ""integer"", ""enum"": [1, 0]}",1,satisfied,yes,both
+get+api_v1_provinces,provinces.nextHoliday.observedDate,"ISO date: when this holiday is observed, schema: {""type"": ""string"", ""format"": ""date""}",1,satisfied,yes,both
+get+api_v1_provinces,provinces.nextHoliday.optional,"Whether this is a province-wide statutory holiday, or one that is optional for employers, schema: {""type"": ""integer"", ""enum"": [1]}",1,unknown,yes,both
+get+api_v1_provinces,provinces.optional,"Whether this province optionally observes a given holiday, schema: {""type"": ""integer"", ""enum"": [1]}",1,unknown,yes,both
+get+api_v1_provinces,provinces.sourceLink,"URL to public holidays reference for this region, schema: {""type"": ""string"", ""format"": ""uri""}",1,unknown,yes,both
+get+api_v1_provinces_{provinceid},province.holidays.date,"ISO date: the literal date of the holiday, schema: {""type"": ""string"", ""format"": ""date""}",1,satisfied,yes,both
+get+api_v1_provinces_{provinceid},province.holidays.federal,"Whether this holiday is observed by federally-regulated industries, schema: {""type"": ""integer"", ""enum"": [1, 0]}",1,satisfied,yes,both
+get+api_v1_provinces_{provinceid},province.holidays.observedDate,"ISO date: when this holiday is observed, schema: {""type"": ""string"", ""format"": ""date""}",1,satisfied,yes,both
+get+api_v1_provinces_{provinceid},province.holidays.optional,"Whether this is a province-wide statutory holiday, or one that is optional for employers, schema: {""type"": ""integer"", ""enum"": [1]}",1,unknown,yes,both
+get+api_v1_provinces_{provinceid},province.id,"Canadian province abbreviations, schema: {""type"": ""string"", ""enum"": [""AB"", ""BC"", ""MB"", ""NB"", ""NL"", ""NS"", ""NT"", ""NU"", ""ON"", ""PE"", ""QC"", ""SK"", ""YT""]}",1,satisfied,yes,both
+get+api_v1_provinces_{provinceid},province.nextHoliday.date,"ISO date: the literal date of the holiday, schema: {""type"": ""string"", ""format"": ""date""}",1,satisfied,yes,both
+get+api_v1_provinces_{provinceid},province.nextHoliday.federal,"Whether this holiday is observed by federally-regulated industries, schema: {""type"": ""integer"", ""enum"": [1, 0]}",1,satisfied,yes,both
+get+api_v1_provinces_{provinceid},province.nextHoliday.observedDate,"ISO date: when this holiday is observed, schema: {""type"": ""string"", ""format"": ""date""}",1,satisfied,yes,both
+get+api_v1_provinces_{provinceid},province.nextHoliday.optional,"Whether this is a province-wide statutory holiday, or one that is optional for employers, schema: {""type"": ""integer"", ""enum"": [1]}",1,unknown,yes,both
+get+api_v1_provinces_{provinceid},province.optional,"Whether this province optionally observes a given holiday, schema: {""type"": ""integer"", ""enum"": [1]}",1,mismatched,yes,both
+get+api_v1_provinces_{provinceid},province.sourceLink,"URL to public holidays reference for this region, schema: {""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both

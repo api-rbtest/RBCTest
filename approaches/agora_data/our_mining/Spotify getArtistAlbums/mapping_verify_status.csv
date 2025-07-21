@@ -1,0 +1,20 @@
+endpoint,group,description,tp,status,check_verify,_merge
+get+artists_{id}_albums,items.album_type,"The type of the album: one of 'album', 'single', or 'compilation'",1,unknown,yes,both
+get+artists_{id}_albums,items.artists.external_urls,"Known external URLs for this artist, schema: {""type"": ""object"", ""format"": ""uri""}",1,unknown,yes,both
+get+artists_{id}_albums,items.artists.href,A link to the Web API endpoint providing full details of the artist,1,satisfied,yes,both
+get+artists_{id}_albums,items.artists.type,The object type: 'artist',1,satisfied,no,both
+get+artists_{id}_albums,items.artists.uri,"The Spotify URI for the artist, schema: {""type"": ""string"", ""format"": ""uri""}",1,unknown,yes,both
+get+artists_{id}_albums,items.available_markets,"Attribute market is responded to by parameter album-simple with a description: The market (an ISO 3166-1 alpha-2 country code)
+The markets in which the album is available: ISO 3166-1 alpha-2 country codes. Note that an album is considered available in a market when at least 1 of its tracks is available in that market",1,satisfied,yes,both
+get+artists_{id}_albums,items.external_urls.type,The object type: 'album',1,unknown,yes,both
+get+artists_{id}_albums,items.href,A link to the Web API endpoint providing full details of the album,1,satisfied,yes,both
+get+artists_{id}_albums,items.id,Attribute id is responded to by parameter album-simple with a description: The Spotify ID for the artist,1,unknown,yes,both
+get+artists_{id}_albums,items.images.height,The image height in pixels. If unknown: null or not returned,0,satisfied,yes,both
+get+artists_{id}_albums,items.images.url,"The source URL of the image, schema: {""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+get+artists_{id}_albums,items.type,The object type: 'album',1,unknown,yes,both
+get+artists_{id}_albums,items.uri,"The Spotify URI for the album, schema: {""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+get+artists_{id}_albums,limit,Attribute limit is responded to by parameter album-simple-page with a description: The maximum number of items to return,1,satisfied,yes,both
+get+artists_{id}_albums,next,URL to the next page of items. (null if none,1,satisfied,yes,both
+get+artists_{id}_albums,offset,Attribute offset is responded to by parameter album-simple-page with a description: The index of the first item to return,1,mismatched,yes,both
+get+artists_{id}_albums,previous,URL to the previous page of items. (null if none,1,satisfied,yes,both
+get+artists_{id}_albums,total,The total number of items available to return,0,satisfied,yes,both

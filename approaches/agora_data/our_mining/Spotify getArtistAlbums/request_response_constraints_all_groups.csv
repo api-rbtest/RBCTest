@@ -1,0 +1,107 @@
+operation,response resource,attribute,group,kio,description,part,corresponding attribute,corresponding attribute description,verification script,tp,verify_result
+get-/artists/{id}/albums,album-simple,id,items.id,1,,parameters,id,The Spotify ID for the artist,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'items' attribute exists in the response
+        if 'items' not in latest_response:
+            return 0
+        
+        # Extract the 'id' from request_info
+        artist_id = request_info.get('id')
+        if not artist_id:
+            return -1
+        
+        # Verify each album in the 'items' array
+        for album in latest_response['items']:
+            if 'artists' not in album:
+                return 0
+            
+            # Check if the artist ID matches in any of the album's artists
+            artist_found = any(artist['id'] == artist_id for artist in album['artists'])
+            if not artist_found:
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",1,
+get-/artists/{id}/albums,album-simple-page,limit,limit,2,The maximum number of items in the response (as set in the query or by default),parameters,limit,The maximum number of items to return,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'limit' from the response
+        response_limit = latest_response.get('limit')
+        
+        # Check if 'limit' exists in the response
+        if response_limit is None:
+            return 0
+        
+        # Ensure 'limit' is an integer
+        if not isinstance(response_limit, int):
+            return -1
+        
+        # Extract 'limit' from request_info and cast to integer if it exists
+        request_limit = request_info.get('limit')
+        if request_limit is not None:
+            request_limit = int(request_limit)
+        else:
+            request_limit = 20  # Default value
+        
+        # Verify the constraints
+        if request_limit < 0 or request_limit > 50:
+            return -1
+        
+        if response_limit != request_limit:
+            return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",1,
+get-/artists/{id}/albums,album-simple-page,offset,offset,3,The offset of the items returned (as set in the query or by default),parameters,offset,The index of the first item to return,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the offset from the request_info, default to 0 if not provided
+        request_offset = int(request_info.get('offset', 0))
+        
+        # Extract the offset from the latest_response
+        response_offset = latest_response.get('offset')
+        
+        # Check if the response contains the offset attribute
+        if response_offset is None:
+            return 0
+        
+        # Verify that the response offset matches the request offset
+        if response_offset == request_offset:
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        # In case of any exception, return -1 indicating the constraint is not satisfied
+        return -1
+",1,
+get-/artists/{id}/albums,album-simple,available_markets,items.available_markets,4,,parameters,market,The market (an ISO 3166-1 alpha-2 country code),"def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the market parameter from request_info
+        market = request_info.get('market', None)
+        
+        # If market is not provided, we assume the constraint is satisfied
+        if market is None:
+            return 1
+        
+        # Check if 'items' key exists in the response
+        if 'items' not in latest_response:
+            return 0
+        
+        # Iterate through each album-simple object in the items array
+        for album in latest_response['items']:
+            # Check if 'available_markets' key exists in the album object
+            if 'available_markets' not in album:
+                return 0
+            
+            # Check if the market is in the available_markets array
+            if market not in album['available_markets']:
+                return -1
+        
+        # If all checks pass, the constraint is satisfied
+        return 1
+    except Exception as e:
+        # In case of any exception, return -1 indicating the constraint is not satisfied
+        return -1
+",1,

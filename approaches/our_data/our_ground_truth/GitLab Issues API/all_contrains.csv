@@ -1,0 +1,262 @@
+endpoint,group,description
+get+groups,avatar_url,"{""type"": ""string""}"
+get+groups,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+groups,emails_disabled,"{""type"": ""string""}"
+get+groups,web_url,"{""type"": ""string""}"
+get+groups_{id}_issues,assignee.avatar_url,"{""type"": ""string""}"
+get+groups_{id}_issues,assignee.web_url,"{""type"": ""string""}"
+get+groups_{id}_issues,assignees.avatar_url,"{""type"": ""string""}"
+get+groups_{id}_issues,assignees.web_url,"{""type"": ""string""}"
+get+groups_{id}_issues,author.avatar_url,"{""type"": ""string""}"
+get+groups_{id}_issues,author.web_url,"{""type"": ""string""}"
+get+groups_{id}_issues,closed_by.avatar_url,"{""type"": ""string""}"
+get+groups_{id}_issues,closed_by.web_url,"{""type"": ""string""}"
+get+groups_{id}_issues,confidential,Attribute confidential is responded to by parameter Issue with a description: Filter confidential or public issues
+get+groups_{id}_issues,created_at,"Attribute created_after is responded to by parameter Issue with a description: Return issues created on or after the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )
+Attribute created_before is responded to by parameter Issue with a description: Return issues created on or before the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )"
+get+groups_{id}_issues,due_date,"Attribute due_date is responded to by parameter Issue with a description: Return issues that have no due date, are overdue, or whose due date is this week, this month, or between two weeks ago and next month. Accepts: 0 (no due date), overdue , week , month , next_month_and_previous_two_weeks . (Introduced in GitLab 13.3 )"
+get+groups_{id}_issues,id,Attribute id is responded to by parameter Issue with a description: The ID or URL-encoded path of the group owned by the authenticated user
+get+groups_{id}_issues,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+groups_{id}_issues,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+groups_{id}_issues,project_id,Attribute id is responded to by parameter Issue with a description: The ID or URL-encoded path of the group owned by the authenticated user
+get+groups_{id}_issues,state,Attribute state is responded to by parameter Issue with a description: Return all issues or just those that are opened or closed
+get+groups_{id}_issues,updated_at,"Attribute updated_after is responded to by parameter Issue with a description: Return issues updated on or after the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )
+Attribute updated_before is responded to by parameter Issue with a description: Return issues updated on or before the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )"
+get+issues,assignee.avatar_url,"{""type"": ""string""}"
+get+issues,assignee.web_url,"{""type"": ""string""}"
+get+issues,assignees.avatar_url,"{""type"": ""string""}"
+get+issues,assignees.web_url,"{""type"": ""string""}"
+get+issues,author.avatar_url,"{""type"": ""string""}"
+get+issues,author.web_url,"{""type"": ""string""}"
+get+issues,closed_by.avatar_url,"{""type"": ""string""}"
+get+issues,closed_by.web_url,"{""type"": ""string""}"
+get+issues,confidential,Attribute confidential is responded to by parameter Issue with a description: Filter confidential or public issues
+get+issues,created_at,"Attribute created_before is responded to by parameter Issue with a description: Return issues created on or before the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )
+Attribute created_after is responded to by parameter Issue with a description: Return issues created on or after the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )
+{""type"": ""string"", ""format"": ""date-time""}"
+get+issues,due_date,"Attribute due_date is responded to by parameter Issue with a description: Return issues that have no due date, are overdue, or whose due date is this week, this month, or between two weeks ago and next month. Accepts: 0 (no due date), overdue , week , month , next_month_and_previous_two_weeks . (Introduced in GitLab 13.3 )"
+get+issues,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+issues,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+issues,milestone.start_date,"{""type"": ""string""}"
+get+issues,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+issues,state,Attribute state is responded to by parameter Issue with a description: Return all issues or just those that are opened or closed
+get+issues,updated_at,"Attribute updated_before is responded to by parameter Issue with a description: Return issues updated on or before the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )
+Attribute updated_after is responded to by parameter Issue with a description: Return issues updated on or after the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )
+{""type"": ""string"", ""format"": ""date-time""}"
+get+issues_{id},assignee.avatar_url,"{""type"": ""string""}"
+get+issues_{id},assignee.web_url,"{""type"": ""string""}"
+get+issues_{id},assignees.avatar_url,"{""type"": ""string""}"
+get+issues_{id},assignees.web_url,"{""type"": ""string""}"
+get+issues_{id},author.avatar_url,"{""type"": ""string""}"
+get+issues_{id},author.web_url,"{""type"": ""string""}"
+get+issues_{id},closed_by.avatar_url,"{""type"": ""string""}"
+get+issues_{id},closed_by.web_url,"{""type"": ""string""}"
+get+issues_{id},created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+issues_{id},due_date,"{""type"": ""string"", ""format"": ""date""}"
+get+issues_{id},id,Attribute id is responded to by parameter Issue with a description: The ID of the issue
+get+issues_{id},milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+issues_{id},milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+issues_{id},milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+issues_{id},updated_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+issues_{id},web_url,"{""type"": ""string""}"
+get+projects,archived,Attribute archived is responded to by parameter BasicProjectDetails with a description: Limit by archived status
+get+projects,avatar_url,"{""type"": ""string""}"
+get+projects,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+projects,http_url_to_repo,"{""type"": ""string""}"
+get+projects,id,"Attribute id_before is responded to by parameter BasicProjectDetails with a description: Limit results to projects with IDs less than the specified ID
+Attribute id_after is responded to by parameter BasicProjectDetails with a description: Limit results to projects with IDs greater than the specified ID"
+get+projects,issues_enabled,Attribute with_issues_enabled is responded to by parameter BasicProjectDetails with a description: Limit by enabled issues feature
+get+projects,last_activity_at,"Attribute last_activity_after is responded to by parameter BasicProjectDetails with a description: Limit results to projects with last_activity after specified time.ISO 8601 YYYY-MM-DDTHH:MM:SSZ
+Attribute last_activity_before is responded to by parameter BasicProjectDetails with a description: Limit results to projects with last_activity before specified time. ISO 8601 YYYY-MM-DDTHH:MM:SSZ
+{""type"": ""string"", ""format"": ""date-time""}"
+get+projects,marked_for_deletion_at,"{""type"": ""string"", ""format"": ""date""}"
+get+projects,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}"
+get+projects,merge_requests_enabled,Attribute with_merge_requests_enabled is responded to by parameter BasicProjectDetails with a description: Limit by enabled merge requests feature
+get+projects,readme_url,"{""type"": ""string""}"
+get+projects,repository_storage,Attribute repository_storage is responded to by parameter BasicProjectDetails with a description: Limit results to projects stored on repository_storage. (admins only)
+get+projects,visibility,Attribute visibility is responded to by parameter BasicProjectDetails with a description: Limit by visibility
+get+projects,web_url,"{""type"": ""string""}"
+get+projects_{id}_issues,assignee.avatar_url,"{""type"": ""string""}"
+get+projects_{id}_issues,assignee.web_url,"{""type"": ""string""}"
+get+projects_{id}_issues,assignees.avatar_url,"{""type"": ""string""}"
+get+projects_{id}_issues,assignees.web_url,"{""type"": ""string""}"
+get+projects_{id}_issues,author.avatar_url,"{""type"": ""string""}"
+get+projects_{id}_issues,author.web_url,"{""type"": ""string""}"
+get+projects_{id}_issues,closed_by.avatar_url,"{""type"": ""string""}"
+get+projects_{id}_issues,closed_by.web_url,"{""type"": ""string""}"
+get+projects_{id}_issues,confidential,Attribute confidential is responded to by parameter Issue with a description: Filter confidential or public issues
+get+projects_{id}_issues,created_at,"Attribute created_before is responded to by parameter Issue with a description: Return issues created on or before the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )
+Attribute created_after is responded to by parameter Issue with a description: Return issues created on or after the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )"
+get+projects_{id}_issues,due_date,"Attribute due_date is responded to by parameter Issue with a description: Return issues that have no due date, are overdue, or whose due date is this week, this month, or between two weeks ago and next month. Accepts: 0 (no due date), overdue , week , month , next_month_and_previous_two_weeks . (Introduced in GitLab 13.3 )
+{""type"": ""string"", ""format"": ""date""}"
+get+projects_{id}_issues,id,Attribute id is responded to by parameter Issue with a description: The ID or URL-encoded path of the project owned by the authenticated user user
+get+projects_{id}_issues,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+projects_{id}_issues,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+projects_{id}_issues,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+projects_{id}_issues,state,Attribute state is responded to by parameter Issue with a description: Return all issues or just those that are opened or closed
+get+projects_{id}_issues,updated_at,"Attribute updated_before is responded to by parameter Issue with a description: Return issues updated on or before the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )
+Attribute updated_after is responded to by parameter Issue with a description: Return issues updated on or after the given time. Expected in ISO 8601 format ( 2019-03-15T08:00:00Z )
+{""type"": ""string"", ""format"": ""date-time""}"
+get+projects_{id}_issues,web_url,"{""type"": ""string""}"
+get+projects_{id}_issues_{issue_iid},id,Attribute id is responded to by parameter Issue with a description: The ID or URL-encoded path of the project owned by the authenticated user
+get+projects_{id}_issues_{issue_iid},iid,Attribute issue_iid is responded to by parameter Issue with a description: The internal ID of a project's issue
+get+projects_{id}_issues_{issue_iid},project_id,Attribute id is responded to by parameter Issue with a description: The ID or URL-encoded path of the project owned by the authenticated user
+get+projects_{id}_issues_{issue_iid}_closed_by,assignee.avatar_url,"{""type"": ""string""}"
+get+projects_{id}_issues_{issue_iid}_closed_by,assignee.web_url,"{""type"": ""string""}"
+get+projects_{id}_issues_{issue_iid}_closed_by,author.avatar_url,"{""type"": ""string""}"
+get+projects_{id}_issues_{issue_iid}_closed_by,author.web_url,"{""type"": ""string""}"
+get+projects_{id}_issues_{issue_iid}_closed_by,head_pipeline.user.avatar_url,"{""type"": ""string""}"
+get+projects_{id}_issues_{issue_iid}_closed_by,head_pipeline.user.web_url,"{""type"": ""string""}"
+get+projects_{id}_issues_{issue_iid}_closed_by,head_pipeline.web_url,"{""type"": ""string""}"
+get+projects_{id}_issues_{issue_iid}_closed_by,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+projects_{id}_issues_{issue_iid}_closed_by,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+projects_{id}_issues_{issue_iid}_closed_by,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+projects_{id}_issues_{issue_iid}_closed_by,pipeline.web_url,"{""type"": ""string""}"
+get+projects_{id}_issues_{issue_iid}_closed_by,project_id,Attribute id is responded to by parameter MergeRequest with a description: The ID or URL-encoded path of the project owned by the authenticated user
+get+projects_{id}_issues_{issue_iid}_closed_by,web_url,"{""type"": ""string""}"
+get+projects_{id}_issues_{issue_iid}_related_merge_requests,project_id,Attribute id is responded to by parameter MergeRequest with a description: The ID or URL-encoded path of the project owned by the authenticated user
+get+projects_{id}_issues_{issue_iid}_related_merge_requests,target_project_id,Attribute id is responded to by parameter MergeRequest with a description: The ID or URL-encoded path of the project owned by the authenticated user
+post+groups,avatar_url,"{""type"": ""string""}"
+post+groups,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+groups,default_branch_protection,Attribute default_branch_protection is responded to by parameter Group with a description: SeeOptions fordefault_branch_protection. Default to the global level default branch protection setting
+post+groups,description,Attribute description is responded to by parameter Group with a description: The group's description
+post+groups,emails_disabled,"{""type"": ""string""}"
+post+groups,full_name,Attribute name is responded to by parameter Group with a description: The name of the group
+post+groups,full_path,Attribute path is responded to by parameter Group with a description: The path of the group
+post+groups,lfs_enabled,Attribute lfs_enabled is responded to by parameter Group with a description: Enable/disable Large File Storage (LFS) for the projects in this group
+post+groups,name,Attribute name is responded to by parameter Group with a description: The name of the group
+post+groups,path,Attribute path is responded to by parameter Group with a description: The path of the group
+post+groups,project_creation_level,"Attribute project_creation_level is responded to by parameter Group with a description: Determine if developers can create projects in the group. Can benoone(No one),maintainer(Maintainers), or developer(Developers + Maintainers)"
+post+groups,require_two_factor_authentication,Attribute require_two_factor_authentication is responded to by parameter Group with a description: Require all users in this group to setup Two-factor authentication
+post+groups,share_with_group_lock,Attribute share_with_group_lock is responded to by parameter Group with a description: Prevent sharing a project with another group within this group
+post+groups,subgroup_creation_level,"Attribute subgroup_creation_level is responded to by parameter Group with a description: Allowed to create subgroups. Can be owner(Owners), or maintainer(Maintainers)"
+post+groups,two_factor_grace_period,Attribute two_factor_grace_period is responded to by parameter Group with a description: Time before Two-factor authentication is enforced (in hours)
+post+groups,visibility,"Attribute visibility is responded to by parameter Group with a description: The group's visibility. Can be private,internal, orpublic"
+post+groups,web_url,"{""type"": ""string""}"
+post+projects,allow_merge_on_skipped_pipeline,Attribute allow_merge_on_skipped_pipeline is responded to by parameter BasicProjectDetails with a description: Set whether or not merge requests can be merged with skipped jobs
+post+projects,auto_devops_deploy_strategy,Attribute auto_devops_deploy_strategy is responded to by parameter BasicProjectDetails with a description: Auto Deploy strategy
+post+projects,auto_devops_enabled,Attribute auto_devops_enabled is responded to by parameter BasicProjectDetails with a description: Enable Auto DevOps for this project
+post+projects,autoclose_referenced_issues,Attribute autoclose_referenced_issues is responded to by parameter BasicProjectDetails with a description: Set whether auto-closing referenced issues on default branch
+post+projects,avatar_url,"{""type"": ""string""}"
+post+projects,container_registry_enabled,Attribute container_registry_enabled is responded to by parameter BasicProjectDetails with a description: Enable container registry for this project
+post+projects,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects,default_branch,Attribute default_branch is responded to by parameter BasicProjectDetails with a description: master by default
+post+projects,description,Attribute description is responded to by parameter BasicProjectDetails with a description: Short project description
+post+projects,http_url_to_repo,"{""type"": ""string""}"
+post+projects,issues_enabled,Attribute issues_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable issues for this project. Use issues_access_level instead
+post+projects,jobs_enabled,Attribute jobs_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable jobs for this project. Use builds_access_level instead
+post+projects,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects,marked_for_deletion_at,"{""type"": ""string"", ""format"": ""date""}"
+post+projects,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}"
+post+projects,merge_method,Attribute merge_method is responded to by parameter BasicProjectDetails with a description: Set the merge method used
+post+projects,merge_requests_enabled,Attribute merge_requests_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable merge requests for this project. Use merge_requests_access_level instead
+post+projects,name,"Attribute name is responded to by parameter BasicProjectDetails with a description: The name of the new project. Either path or name is required, not both"
+post+projects,only_allow_merge_if_all_discussions_are_resolved,Attribute only_allow_merge_if_all_discussions_are_resolved is responded to by parameter BasicProjectDetails with a description: Set whether merge requests can only be merged when all the discussions are resolved
+post+projects,only_allow_merge_if_pipeline_succeeds,Attribute only_allow_merge_if_pipeline_succeeds is responded to by parameter BasicProjectDetails with a description: Set whether merge requests can only be merged with successful jobs
+post+projects,owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects,packages_enabled,Attribute packages_enabled is responded to by parameter BasicProjectDetails with a description: Enable or disable packages repository feature
+post+projects,path,Attribute path is responded to by parameter BasicProjectDetails with a description: Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes)
+post+projects,public_jobs,"Attribute public_builds is responded to by parameter BasicProjectDetails with a description: If true, jobs can be viewed by non-project members"
+post+projects,readme_url,"{""type"": ""string""}"
+post+projects,remove_source_branch_after_merge,Attribute remove_source_branch_after_merge is responded to by parameter BasicProjectDetails with a description: Enable Delete source branch option by default for all new merge requests
+post+projects,repository_storage,Attribute repository_storage is responded to by parameter BasicProjectDetails with a description: Which storage shard the repository is on.(admins only)
+post+projects,request_access_enabled,Attribute request_access_enabled is responded to by parameter BasicProjectDetails with a description: Allow users to request member access
+post+projects,resolve_outdated_diff_discussions,Attribute resolve_outdated_diff_discussions is responded to by parameter BasicProjectDetails with a description: Automatically resolve merge request diffs discussions on lines changed with a push
+post+projects,shared_runners_enabled,Attribute shared_runners_enabled is responded to by parameter BasicProjectDetails with a description: Enable shared runners for this project
+post+projects,snippets_enabled,Attribute snippets_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable snippets for this project. Use snippets_access_level instead
+post+projects,tag_list,"Attribute tag_list is responded to by parameter BasicProjectDetails with a description: The list of tags for a project; put array of tags, that should be finally assigned to a project"
+post+projects,visibility,Attribute visibility is responded to by parameter BasicProjectDetails with a description: See project visibility level
+post+projects,web_url,"{""type"": ""string""}"
+post+projects,wiki_enabled,Attribute wiki_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable wiki for this project. Use wiki_access_levelinstead
+post+projects_{id}_issues,assignee.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues,assignee.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues,assignees.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues,assignees.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues,author.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues,author.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues,closed_by.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues,closed_by.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues,confidential,Attribute confidential is responded to by parameter Issue with a description: Set an issue to be confidential. Default is false
+post+projects_{id}_issues,created_at,"Attribute created_at is responded to by parameter Issue with a description: When the issue was created. Date time string, ISO 8601 formatted, for example 2016-03-11T03:45:40Z . Requires administrator or project/group owner rights
+{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues,description,"Attribute description is responded to by parameter Issue with a description: The description of an issue. Limited to 1,048,576 characters"
+post+projects_{id}_issues,due_date,"Attribute due_date is responded to by parameter Issue with a description: The due date. Date time string in the format YYYY-MM-DD , for example 2016-03-11
+{""type"": ""string"", ""format"": ""date""}"
+post+projects_{id}_issues,iid,Attribute iid is responded to by parameter Issue with a description: The internal ID of the project's issue (requires administratoror project owner rights)
+post+projects_{id}_issues,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues,project_id,Attribute id is responded to by parameter Issue with a description: The ID or URL-encoded path of the project owned by the authenticated user
+post+projects_{id}_issues,title,Attribute title is responded to by parameter Issue with a description: The title of an issue
+post+projects_{id}_issues,updated_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues,web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_add_spent_time,human_time_estimate,Attribute duration is responded to by parameter TimeEstimate with a description: The duration in human format. e.g: 3h30m
+post+projects_{id}_issues_{issue_iid}_move,assignee.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_move,assignee.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_move,assignees.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_move,assignees.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_move,author.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_move,author.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_move,closed_by.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_move,closed_by.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_move,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues_{issue_iid}_move,due_date,"{""type"": ""string"", ""format"": ""date""}"
+post+projects_{id}_issues_{issue_iid}_move,iid,Attribute issue_iid is responded to by parameter Issue with a description: The internal ID of the project's issue
+post+projects_{id}_issues_{issue_iid}_move,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues_{issue_iid}_move,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues_{issue_iid}_move,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues_{issue_iid}_move,project_id,"Attribute id is responded to by parameter Issue with a description: The ID or URL-encoded path of the project owned by the authenticated user
+Attribute to_project_id is responded to by parameter Issue with a description: The ID of the new project"
+post+projects_{id}_issues_{issue_iid}_move,updated_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues_{issue_iid}_move,web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_subscribe,assignee.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_subscribe,assignee.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_subscribe,assignees.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_subscribe,assignees.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_subscribe,author.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_subscribe,author.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_subscribe,closed_by.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_subscribe,closed_by.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_subscribe,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues_{issue_iid}_subscribe,due_date,"{""type"": ""string"", ""format"": ""date""}"
+post+projects_{id}_issues_{issue_iid}_subscribe,iid,Attribute issue_iid is responded to by parameter Issue with a description: The internal ID of the project's issue
+post+projects_{id}_issues_{issue_iid}_subscribe,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues_{issue_iid}_subscribe,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues_{issue_iid}_subscribe,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues_{issue_iid}_subscribe,project_id,Attribute id is responded to by parameter Issue with a description: The ID or URL-encoded path of the project owned by the authenticated user
+post+projects_{id}_issues_{issue_iid}_subscribe,web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_time_estimate,human_time_estimate,Attribute duration is responded to by parameter TimeEstimate with a description: The duration in human format. e.g: 3h30m
+post+projects_{id}_issues_{issue_iid}_todo,author.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_todo,author.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_todo,target.assignee.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_todo,target.assignee.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_todo,target.assignees.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_todo,target.assignees.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_todo,target.author.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_todo,target.author.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_todo,target.closed_by.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_todo,target.closed_by.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_todo,target.created_at,"{""type"": ""string"", ""format"": ""date""}"
+post+projects_{id}_issues_{issue_iid}_todo,target.due_date,"{""type"": ""string"", ""format"": ""date""}"
+post+projects_{id}_issues_{issue_iid}_todo,target.milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues_{issue_iid}_todo,target.milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues_{issue_iid}_todo,target.milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues_{issue_iid}_todo,target.updated_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects_{id}_issues_{issue_iid}_todo,target.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_todo,target_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_unsubscribe,assignee.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_unsubscribe,assignee.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_unsubscribe,assignees.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_unsubscribe,assignees.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_unsubscribe,author.avatar_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_unsubscribe,author.web_url,"{""type"": ""string""}"
+post+projects_{id}_issues_{issue_iid}_unsubscribe,iid,Attribute issue_iid is responded to by parameter Issue with a description: The internal ID of the project's issue
+post+projects_{id}_issues_{issue_iid}_unsubscribe,project_id,Attribute id is responded to by parameter Issue with a description: The ID or URL-encoded path of the project owned by the authenticated user
+put+projects_{id}_issues_{issue_iid},confidential,"Attribute confidential is responded to by parameter Issue with a description: Updates an issue to be confidential. At least one of the following parameters is required for the request to be successful: assignee_id, assignee_ids, confidential, created_at, description, discussion_locked, due_date, labels, milestone_id, state_event, title"
+put+projects_{id}_issues_{issue_iid},description,"Attribute description is responded to by parameter Issue with a description: The description of an issue. Limited to 1,048,576 characters"
+put+projects_{id}_issues_{issue_iid},discussion_locked,Attribute discussion_locked is responded to by parameter Issue with a description: Flag indicating if the issue's discussion is locked. If the discussion is locked only project members can add or edit comments
+put+projects_{id}_issues_{issue_iid},due_date,"Attribute due_date is responded to by parameter Issue with a description: The due date. Date time string in the format YYYY-MM-DD , for example 2016-03-11"
+put+projects_{id}_issues_{issue_iid},iid,Attribute issue_iid is responded to by parameter Issue with a description: The internal ID of a project's issue
+put+projects_{id}_issues_{issue_iid},project_id,Attribute id is responded to by parameter Issue with a description: The ID or URL-encoded path of the project owned by the authenticated user
+put+projects_{id}_issues_{issue_iid},title,Attribute title is responded to by parameter Issue with a description: The title of an issue
+put+projects_{id}_issues_{issue_iid},updated_at,"Attribute updated_at is responded to by parameter Issue with a description: When the issue was updated. Date time string, ISO 8601 formatted, for example 2016-03-11T03:45:40Z (requires administrator or project owner rights). Empty string or null values are not accepted"

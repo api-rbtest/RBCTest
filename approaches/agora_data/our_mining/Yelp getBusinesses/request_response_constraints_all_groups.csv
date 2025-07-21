@@ -1,0 +1,50 @@
+operation,response resource,attribute,group,kio,description,part,corresponding attribute,corresponding attribute description,verification script,Example_value,verify_result,tp
+get-/businesses/search,BusinessesResult,name,businesses.name,1,,parameters,term,,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'term' parameter from request_info
+        term = request_info.get('term', None)
+        
+        # Check if 'term' is provided and is a string
+        if term is not None and not isinstance(term, str):
+            return -1
+        
+        # Extract the 'businesses' list from the response
+        businesses = latest_response.get('businesses', None)
+        
+        if businesses is None:
+            return 0
+        
+        # Verify each business name against the 'term' parameter
+        for business in businesses:
+            name = business.get('name', None)
+            if name is None:
+                return 0
+            if term is not None and term not in name:
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",,,0
+get-/businesses/search,BusinessesResult,is_closed,businesses.is_closed,2,,parameters,open_now,,"def verify_latest_response(latest_response, request_info):
+    try:
+        open_now = request_info.get('open_now')
+        if open_now is not None:
+            open_now = bool(open_now)
+        
+        if 'businesses' not in latest_response:
+            return 0
+        
+        for business in latest_response['businesses']:
+            if 'is_closed' not in business:
+                return 0
+            if open_now is not None:
+                if open_now and business['is_closed']:
+                    return -1
+                if not open_now and not business['is_closed']:
+                    return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",,,1

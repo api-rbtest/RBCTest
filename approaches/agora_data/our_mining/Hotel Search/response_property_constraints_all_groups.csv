@@ -1,0 +1,916 @@
+operation,response resource,attribute,group,description,tp,verification script,status,script confirmation,revised script,revised executable script,revised status,TP
+get-/shopping/hotel-offers,Tax,pricingMode,data.offers.price.taxes.pricingMode,"Specifies if the tax applies per occupant or per room
+  - PER_OCCUPANT
+  - PER_PRODUCT",0,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of HotelOffers from the response
+        hotel_offers = latest_response.get('data', [])
+        
+        # Iterate over each HotelOffer
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            
+            # Iterate over each HotelOffer's offers
+            for offer in offers:
+                price = offer.get('price', {})
+                taxes = price.get('taxes', [])
+                
+                # Iterate over each tax object
+                for tax in taxes:
+                    pricing_mode = tax.get('pricingMode')
+                    
+                    # Check if pricingMode is either 'PER_OCCUPANT' or 'PER_PRODUCT'
+                    if pricing_mode not in ['PER_OCCUPANT', 'PER_PRODUCT']:
+                        return -1
+        
+        # If all pricingMode values are valid
+        return 1
+    
+    except Exception as e:
+        # Return 0 if there is an exception or missing information
+        return 0
+",unknown,,,,,0
+get-/shopping/hotel-offers,HotelProduct_RoomDetails,type,data.offers.room.type,"Room type code, 3 character identifier of the room.
+The first character identifies the room type category. 
+The second numeric character identifies the number of beds. 
+The third character identifies the bed type. 
+There is a special case where ROH is returned, this value stands for Run Of House",1,"import re
+
+def verify_latest_response(latest_response):
+    try:
+        # Extract the 'type' attribute from the response
+        hotel_offers = latest_response.get('data', [])
+        
+        if not hotel_offers:
+            return 0  # No data to verify
+        
+        for offer in hotel_offers:
+            room_type = offer.get('type')
+            
+            if room_type is None:
+                return 0  # Attribute does not exist
+            
+            # Check if the room_type matches the pattern
+            if not re.match(r'^[A-Z0-9*]{3}$', room_type):
+                return -1  # Constraint not satisfied
+            
+            # Check for special case ""ROH""
+            if room_type == ""ROH"":
+                continue  # Special case is valid
+        
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/shopping/hotel-offers,Hotel,dupeId,data.hotel.dupeId,"Unique Property identifier of the physical hotel.
+One physical hotel can be represented by different Providers, each one having its own `hotelID`.
+This attribute allows a client application to group together hotels that are actually the same, schema: {""type"": ""string"", ""example"": ""501132260""}",0,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', [])
+        if not hotel_offers:
+            return 0
+        
+        for offer in hotel_offers:
+            hotel = offer.get('hotel', {})
+            dupe_id = hotel.get('dupeId')
+            
+            if dupe_id is None:
+                return 0
+            
+            if not isinstance(dupe_id, str):
+                return -1
+            
+            # Additional checks can be added here if more constraints are identified
+            
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,0
+get-/shopping/hotel-offers,HotelOffer,self,data.offers.self,"A self link to the object. Use this to refresh the Offer price, schema: {""type"": ""string"", ""example"": ""https://test.travel.api.amadeus.com/v2/shopping/hotel-offers/63A93695B58821ABB0EC2B33FE9FAB24D72BF34B1BD7D707293763D8D9378FC3""}",0,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', [])
+        if not hotel_offers:
+            return 0  # No hotel offers to verify
+
+        for offer in hotel_offers:
+            self_link = offer.get('self')
+            if self_link is None:
+                return 0  # 'self' attribute does not exist
+
+            if not isinstance(self_link, str):
+                return -1  # 'self' is not a string
+
+            if not self_link.startswith(""https://""):
+                return -1  # 'self' does not start with 'https://'
+
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # An error occurred during verification
+",unknown,,,,,0
+get-/shopping/hotel-offers,HotelProduct_HotelPrice,currency,data.offers.price.currency,currency Code apply to all elements of the price,1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate through the response structure to access the currency attribute
+        hotel_offers = latest_response.get('data', [])
+        if not hotel_offers:
+            return 0  # No data to verify
+
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                price = offer.get('price', {})
+                currency = price.get('currency', None)
+                
+                if currency is None:
+                    return 0  # Currency attribute does not exist
+
+                if not isinstance(currency, str):
+                    return -1  # Currency is not a string
+
+        return 1  # All currency attributes are valid strings
+    except Exception as e:
+        return -1  # An error occurred during verification
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_PriceVariation,startDate,data.offers.price.variations.changes.startDate,"Begin date of the period
+Format: YYYY-MM-DD, schema: {""type"": ""string"", ""format"": ""date""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate through the response structure to find all 'startDate' attributes
+        for hotel_offer in latest_response.get('data', []):
+            for offer in hotel_offer.get('offers', []):
+                for change in offer.get('price', {}).get('variations', {}).get('changes', []):
+                    start_date = change.get('startDate')
+                    if start_date is None:
+                        return 0  # Attribute does not exist
+                    # Check if 'startDate' is in the correct format YYYY-MM-DD
+                    try:
+                        year, month, day = map(int, start_date.split('-'))
+                        if len(start_date) != 10 or start_date[4] != '-' or start_date[7] != '-':
+                            return -1  # Incorrect format
+                    except ValueError:
+                        return -1  # Incorrect format
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # An error occurred, indicating a failure in constraint satisfaction
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_HoldPolicy,deadline,data.offers.policies.holdTime.deadline,"The date and time of the deadline in ISO 8601[https://www.w3.org/TR/NOTE-datetime]. 
+ Example: 2010-08-14T13:00:00
+ Please note that this value is expressed in the hotels local time zone",0,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', [])
+        if not hotel_offers:
+            return 0
+        
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                policies = offer.get('policies', {})
+                deposit_policy = policies.get('deposit', {})
+                deadline = deposit_policy.get('deadline', None)
+                
+                if deadline is None:
+                    return 0
+                
+                try:
+                    # Check if the deadline is in ISO 8601 format
+                    datetime.fromisoformat(deadline)
+                except ValueError:
+                    return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,0
+get-/shopping/hotel-offers,HotelProduct_EstimatedRoomType,beds,data.offers.room.typeEstimated.beds,Number of beds in the room (1-9,1,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get(""data"", [])
+        for offer in hotel_offers:
+            room_offers = offer.get(""offers"", [])
+            for room_offer in room_offers:
+                room_details = room_offer.get(""room"", {})
+                estimated_type = room_details.get(""typeEstimated"", {})
+                beds = estimated_type.get(""beds"")
+                
+                if beds is None:
+                    return 0  # Attribute does not exist
+                
+                if not isinstance(beds, int) or beds < 1 or beds > 9:
+                    return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelOffer,roomQuantity,data.offers.roomQuantity,number of rooms (1-9,1,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                room_quantity = offer.get('roomQuantity')
+                if room_quantity is None:
+                    return 0  # Attribute does not exist
+                if not room_quantity.isdigit() or not (1 <= int(room_quantity) <= 9):
+                    return -1  # Constraint not satisfied
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_PriceVariation,endDate,data.offers.price.variations.changes.endDate,"End date of the period
+Format: YYYY-MM-DD, schema: {""type"": ""string"", ""format"": ""date""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate through the response structure to find all 'endDate' values
+        hotel_offers = latest_response.get('data', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                price = offer.get('price', {})
+                variations = price.get('variations', {})
+                changes = variations.get('changes', [])
+                for change in changes:
+                    end_date = change.get('endDate', None)
+                    if end_date is None:
+                        return 0  # Attribute does not exist
+                    # Check if 'endDate' is in the correct format YYYY-MM-DD
+                    try:
+                        from datetime import datetime
+                        datetime.strptime(end_date, '%Y-%m-%d')
+                    except ValueError:
+                        return -1  # Constraint not satisfied
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_PaymentPolicy,creditCards,data.offers.policies.guarantee.acceptedPayments.creditCards,"Accepted Payment Card Types for the `method` CREDIT_CARD, schema: {""type"": ""array"", ""minLength"": 2, ""maxLength"": 2}",1,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', {}).get('array of \'HotelOffers\' objects', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                policies = offer.get('policies', {})
+                guarantee = policies.get('guarantee', {})
+                accepted_payments = guarantee.get('acceptedPayments', {})
+                credit_cards = accepted_payments.get('creditCards', None)
+                
+                if credit_cards is None:
+                    return 0
+                
+                if not isinstance(credit_cards, list):
+                    return -1
+                
+                if len(credit_cards) < 2 or len(credit_cards) > 2:
+                    return -1
+                
+                for card in credit_cards:
+                    if not isinstance(card, str):
+                        return -1
+                    if len(card) != 2:
+                        return -1
+                    if not card.isupper() or not card.isalpha():
+                        return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_PaymentPolicy,creditCards,data.offers.policies.deposit.acceptedPayments.creditCards,"Accepted Payment Card Types for the `method` CREDIT_CARD, schema: {""type"": ""array"", ""minLength"": 2, ""maxLength"": 2}",1,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', {}).get('array of \'HotelOffers\' objects', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                policies = offer.get('policies', {})
+                guarantee = policies.get('guarantee', {})
+                accepted_payments = guarantee.get('acceptedPayments', {})
+                credit_cards = accepted_payments.get('creditCards', None)
+                
+                if credit_cards is None:
+                    return 0
+                
+                if not isinstance(credit_cards, list):
+                    return -1
+                
+                if len(credit_cards) < 2 or len(credit_cards) > 2:
+                    return -1
+                
+                for card in credit_cards:
+                    if not isinstance(card, str):
+                        return -1
+                    if len(card) != 2:
+                        return -1
+                    if not card.isupper() or not card.isalpha():
+                        return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_PaymentPolicy,creditCards,data.offers.policies.prepay.acceptedPayments.creditCards,"Accepted Payment Card Types for the `method` CREDIT_CARD, schema: {""type"": ""array"", ""minLength"": 2, ""maxLength"": 2}",1,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', {}).get('array of \'HotelOffers\' objects', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                policies = offer.get('policies', {})
+                guarantee = policies.get('guarantee', {})
+                accepted_payments = guarantee.get('acceptedPayments', {})
+                credit_cards = accepted_payments.get('creditCards', None)
+                
+                if credit_cards is None:
+                    return 0
+                
+                if not isinstance(credit_cards, list):
+                    return -1
+                
+                if len(credit_cards) < 2 or len(credit_cards) > 2:
+                    return -1
+                
+                for card in credit_cards:
+                    if not isinstance(card, str):
+                        return -1
+                    if len(card) != 2:
+                        return -1
+                    if not card.isupper() or not card.isalpha():
+                        return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelOffers,type,data.type,the type of the object (hotel-offers,1,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', [])
+        if not hotel_offers:
+            return 0  # No data to verify
+
+        for offer in hotel_offers:
+            offer_type = offer.get('type')
+            if offer_type is None:
+                return 0  # Attribute 'type' does not exist
+            if offer_type != 'hotel-offers':
+                return -1  # Constraint not satisfied
+
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Error in processing
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_CancellationPolicy,numberOfNights,data.offers.policies.cancellation.numberOfNights,"Number of nights due as fee in case of cancellation, schema: {""type"": ""integer"", ""format"": ""int32""}",1,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                policies = offer.get('policies', {})
+                cancellation = policies.get('cancellation', {})
+                number_of_nights = cancellation.get('numberOfNights')
+                
+                if number_of_nights is None:
+                    return 0  # Attribute does not exist
+                
+                if not isinstance(number_of_nights, int) or number_of_nights < 0:
+                    return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/shopping/hotel-offers,Hotel,hotelId,data.hotel.hotelId,Amadeus Property Code (8 chars,1,"import re
+
+def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', [])
+        if not hotel_offers:
+            return 0
+        
+        pattern = re.compile(r'^[A-Z0-9]{8}$')
+        
+        for offer in hotel_offers:
+            hotel = offer.get('hotel', {})
+            hotel_id = hotel.get('hotelId')
+            
+            if hotel_id is None:
+                return 0
+            
+            if not pattern.match(hotel_id):
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_Guests,childAges,data.offers.guests.childAges,"Comma separated list of ages of each child at the time of check-out from the hotel. If several children have the same age, the ages will be repeated, schema: {""type"": ""array"", ""minimum"": 0, ""maximum"": 20}",1,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', {}).get('array of \'HotelOffers\' objects', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                guests = offer.get('guests', {})
+                child_ages = guests.get('childAges', None)
+                
+                if child_ages is None:
+                    return 0
+                
+                if not isinstance(child_ages, list):
+                    return -1
+                
+                for age in child_ages:
+                    if not isinstance(age, int) or age < 0 or age > 20:
+                        return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_RateFamily,type,data.offers.rateFamilyEstimated.type,"The type of the rate (public=P, negotiated=N, conditional=C",1,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', [])
+        if not hotel_offers:
+            return 0  # No data to verify
+
+        for offer in hotel_offers:
+            rate_type = offer.get('type')
+            if rate_type is None:
+                return 0  # Attribute 'type' does not exist
+            if not isinstance(rate_type, str) or not rate_type in ['P', 'N', 'C']:
+                return -1  # Constraint not satisfied
+
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Error in processing, constraint not satisfied
+",unknown,,,,,1
+get-/shopping/hotel-offers,Tax,currency,data.offers.price.taxes.currency,Defines a monetary unit. It is a three alpha code (iata code,1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate through the response structure to access the currency attribute
+        hotel_offers = latest_response.get('data', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                price = offer.get('price', {})
+                currency = price.get('currency', None)
+                
+                # Check if currency exists
+                if currency is None:
+                    return 0  # Insufficient information to verify the constraint
+                
+                # Verify the constraints on the currency attribute
+                if isinstance(currency, str) and 1 <= len(currency) <= 3:
+                    continue
+                else:
+                    return -1  # Constraint not satisfied
+        
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelOffer,rateCode,data.offers.rateCode,Special Rate - Provider Response Code (3 chars,1,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get(""data"", [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get(""offers"", [])
+            for offer in offers:
+                rate_code = offer.get(""rateCode"")
+                if rate_code is None:
+                    return 0
+                if not isinstance(rate_code, str):
+                    return -1
+                if len(rate_code) != 3:
+                    return -1
+                if not rate_code.isalnum():
+                    return -1
+                if not rate_code.isupper():
+                    return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/shopping/hotel-offers,Price,sellingTotal,data.offers.price.variations.average.sellingTotal,sellingTotal = Total + margins + markup + totalFees - discounts,1,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                price = offer.get('price', {})
+                selling_total_str = price.get('sellingTotal')
+                
+                if selling_total_str is None:
+                    return 0  # Attribute does not exist
+                
+                # Extract other required values
+                total = price.get('Total')
+                margins = price.get('margins')
+                markup = price.get('markup')
+                total_fees = price.get('totalFees')
+                discounts = price.get('discounts')
+                
+                # Check if all required values are present
+                if None in [total, margins, markup, total_fees, discounts]:
+                    return 0  # Insufficient information to verify
+                
+                # Calculate expected sellingTotal
+                try:
+                    expected_selling_total = float(total) + float(margins) + float(markup) + float(total_fees) - float(discounts)
+                    if float(selling_total_str) == expected_selling_total:
+                        continue
+                    else:
+                        return -1  # Constraint not satisfied
+                except ValueError:
+                    return -1  # Constraint not satisfied due to invalid number format
+                
+        return 1  # Constraint satisfied for all offers
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelOffer,category,data.offers.category,"Special Rate Category
+Examples:
+  ASSOCIATION
+  FAMILY_PLAN, schema: {""type"": ""string"", ""example"": ""FAMILY_PLAN""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of HotelOffers from the response
+        hotel_offers = latest_response.get('data', [])
+        
+        # Check if there are any offers
+        if not hotel_offers:
+            return 0
+        
+        # Iterate through each HotelOffer
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            
+            # Check if there are any offers within the HotelOffer
+            if not offers:
+                continue
+            
+            # Iterate through each offer
+            for offer in offers:
+                category = offer.get('category')
+                
+                # Check if category exists
+                if category is None:
+                    return 0
+                
+                # Verify if category is a string
+                if not isinstance(category, str):
+                    return -1
+                
+                # Check if category is one of the examples provided
+                if category not in [""ASSOCIATION"", ""FAMILY_PLAN""]:
+                    return -1
+        
+        # If all checks are passed
+        return 1
+    
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_CancellationPolicy,deadline,data.offers.policies.cancellation.deadline,"Represents the deadline after which the penalty applies. DateTime is in ISO 8601 [https://www.w3.org/TR/NOTE-datetime].
+Example: 2010-08-14T12:00:00+01:00
+Example: 2010-08-14T12:00:00Z
+Example: 2010-08-14T12:00:00-01:00
+The value is expressed in the hotel local time zone, with the added time zone difference. So you can compute the deadline in UTC(GMT",0,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        # Navigate through the response to find the 'deadline' attribute
+        hotel_offers = latest_response.get('data', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                policies = offer.get('policies', {})
+                deposit = policies.get('deposit', {})
+                deadline = deposit.get('deadline', None)
+                
+                if deadline is None:
+                    return 0  # Attribute does not exist
+                
+                # Check if the deadline is a valid ISO 8601 datetime string
+                try:
+                    datetime.fromisoformat(deadline.replace('Z', '+00:00'))
+                except ValueError:
+                    return -1  # Invalid ISO 8601 format
+
+        return 1  # All deadlines are valid ISO 8601 datetime strings
+    except Exception as e:
+        return -1  # An error occurred during verification
+",unknown,,,,,0
+get-/shopping/hotel-offers,HotelOffer,checkOutDate,data.offers.checkOutDate,check-out date of the stay (hotel local date,1,"from datetime import datetime, timedelta
+
+def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                check_out_date_str = offer.get('checkOutDate')
+                check_in_date_str = offer.get('checkInDate')
+                
+                if check_out_date_str is None or check_in_date_str is None:
+                    return 0
+                
+                check_out_date = datetime.strptime(check_out_date_str, '%Y-%m-%d')
+                check_in_date = datetime.strptime(check_in_date_str, '%Y-%m-%d')
+                
+                if check_out_date > check_in_date + timedelta(days=1):
+                    continue
+                else:
+                    return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_PriceVariation,sellingTotal,data.offers.price.variations.changes.sellingTotal,sellingTotal = Total + margins + markup + totalFees - discounts,1,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                price = offer.get('price', {})
+                selling_total_str = price.get('sellingTotal')
+                
+                if selling_total_str is None:
+                    return 0  # Attribute does not exist
+                
+                # Extract other required values
+                total = price.get('Total')
+                margins = price.get('margins')
+                markup = price.get('markup')
+                total_fees = price.get('totalFees')
+                discounts = price.get('discounts')
+                
+                # Check if all required values are present
+                if None in [total, margins, markup, total_fees, discounts]:
+                    return 0  # Insufficient information to verify
+                
+                # Calculate expected sellingTotal
+                try:
+                    expected_selling_total = float(total) + float(margins) + float(markup) + float(total_fees) - float(discounts)
+                    if float(selling_total_str) == expected_selling_total:
+                        continue
+                    else:
+                        return -1  # Constraint not satisfied
+                except ValueError:
+                    return -1  # Constraint not satisfied due to invalid number format
+                
+        return 1  # Constraint satisfied for all offers
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/shopping/hotel-offers,Price,currency,data.offers.price.variations.average.currency,currency Code apply to all elements of the price,1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate through the response structure to access the currency attribute
+        hotel_offers = latest_response.get('data', [])
+        if not hotel_offers:
+            return 0  # No data to verify
+
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                price = offer.get('price', {})
+                currency = price.get('currency', None)
+                
+                if currency is None:
+                    return 0  # Currency attribute does not exist
+
+                if not isinstance(currency, str):
+                    return -1  # Currency is not a string
+
+        return 1  # All currency attributes are valid strings
+    except Exception as e:
+        return -1  # An error occurred during verification
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_CancellationPolicy,percentage,data.offers.policies.cancellation.percentage,Percentage of the total stay amount to be paid in case of cancellation. Value is between 0 and 100,1,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get(""data"", [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get(""offers"", [])
+            for offer in offers:
+                commission = offer.get(""commission"", {})
+                percentage_str = commission.get(""percentage"", None)
+                if percentage_str is None:
+                    return 0  # Attribute does not exist
+                try:
+                    percentage_value = float(percentage_str)
+                    if not (0 <= percentage_value <= 100):
+                        return -1  # Constraint not satisfied
+                except ValueError:
+                    return -1  # Constraint not satisfied due to invalid number format
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to unexpected error
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_DepositPolicy,deadline,data.offers.policies.deposit.deadline,"The date and time of the deadline in ISO 8601[https://www.w3.org/TR/NOTE-datetime]. 
+ Example: 2010-08-14T13:00:00
+ Please note that this value is expressed in the hotels local time zone",0,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', [])
+        if not hotel_offers:
+            return 0
+        
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                policies = offer.get('policies', {})
+                deposit_policy = policies.get('deposit', {})
+                deadline = deposit_policy.get('deadline', None)
+                
+                if deadline is None:
+                    return 0
+                
+                try:
+                    # Check if the deadline is in ISO 8601 format
+                    datetime.fromisoformat(deadline)
+                except ValueError:
+                    return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,0
+get-/shopping/hotel-offers,HotelProduct_DepositPolicy,deadline,data.offers.policies.prepay.deadline,"The date and time of the deadline in ISO 8601[https://www.w3.org/TR/NOTE-datetime]. 
+ Example: 2010-08-14T13:00:00
+ Please note that this value is expressed in the hotels local time zone",0,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', [])
+        if not hotel_offers:
+            return 0
+        
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                policies = offer.get('policies', {})
+                deposit_policy = policies.get('deposit', {})
+                deadline = deposit_policy.get('deadline', None)
+                
+                if deadline is None:
+                    return 0
+                
+                try:
+                    # Check if the deadline is in ISO 8601 format
+                    datetime.fromisoformat(deadline)
+                except ValueError:
+                    return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,0
+get-/shopping/hotel-offers,HotelOffer,id,data.offers.id,"Unique identifier of this offer. Might be valid for a temporary period only, schema: {""type"": ""string"", ""minLength"": 2, ""maxLength"": 100}",1,"import re
+
+def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                offer_id = offer.get('id')
+                if offer_id is None:
+                    return 0  # Attribute does not exist
+                if not isinstance(offer_id, str):
+                    return -1  # Not a string
+                if not (2 <= len(offer_id) <= 100):
+                    return -1  # Length constraint violated
+                if not re.match(r'^[A-Z0-9]*$', offer_id):
+                    return -1  # Pattern constraint violated
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Error in processing
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_PriceVariation,currency,data.offers.price.variations.changes.currency,currency Code apply to all elements of the price,1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate through the response structure to access the currency attribute
+        hotel_offers = latest_response.get('data', [])
+        if not hotel_offers:
+            return 0  # No data to verify
+
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                price = offer.get('price', {})
+                currency = price.get('currency', None)
+                
+                if currency is None:
+                    return 0  # Currency attribute does not exist
+
+                if not isinstance(currency, str):
+                    return -1  # Currency is not a string
+
+        return 1  # All currency attributes are valid strings
+    except Exception as e:
+        return -1  # An error occurred during verification
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_HotelPrice,sellingTotal,data.offers.price.sellingTotal,sellingTotal = Total + margins + markup + totalFees - discounts,1,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                price = offer.get('price', {})
+                selling_total_str = price.get('sellingTotal')
+                
+                if selling_total_str is None:
+                    return 0  # Attribute does not exist
+                
+                # Extract other required values
+                total = price.get('Total')
+                margins = price.get('margins')
+                markup = price.get('markup')
+                total_fees = price.get('totalFees')
+                discounts = price.get('discounts')
+                
+                # Check if all required values are present
+                if None in [total, margins, markup, total_fees, discounts]:
+                    return 0  # Insufficient information to verify
+                
+                # Calculate expected sellingTotal
+                try:
+                    expected_selling_total = float(total) + float(margins) + float(markup) + float(total_fees) - float(discounts)
+                    if float(selling_total_str) == expected_selling_total:
+                        continue
+                    else:
+                        return -1  # Constraint not satisfied
+                except ValueError:
+                    return -1  # Constraint not satisfied due to invalid number format
+                
+        return 1  # Constraint satisfied for all offers
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_CheckInOutPolicy,checkIn,data.offers.policies.checkInOut.checkIn,"Check-in From time limit in ISO-8601 format [http://www.w3.org/TR/xmlschema-2/#time], schema: {""type"": ""string"", ""example"": ""13:00:00""}",1,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        # Navigate through the response structure to find the 'checkIn' attribute
+        hotel_offers = latest_response.get('data', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                policies = offer.get('policies', {})
+                check_in_out = policies.get('checkInOut', {})
+                check_in = check_in_out.get('checkIn', None)
+                
+                if check_in is None:
+                    continue  # If 'checkIn' is not present, skip to the next item
+                
+                # Verify if 'checkIn' is in ISO-8601 time format
+                try:
+                    datetime.strptime(check_in, ""%H:%M:%S"")
+                except ValueError:
+                    return -1  # Constraint not satisfied if format is incorrect
+
+        return 1  # Constraint satisfied if all 'checkIn' values are correct
+    except Exception as e:
+        return -1  # Return -1 if any unexpected error occurs
+
+    return 0  # Return 0 if 'checkIn' attribute is not found in any of the offers
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_CheckInOutPolicy,checkOut,data.offers.policies.checkInOut.checkOut,"Check-out Until time limit in ISO-8601 format [http://www.w3.org/TR/xmlschema-2/#time], schema: {""type"": ""string"", ""example"": ""11:00:00""}",1,"import re
+
+def verify_latest_response(latest_response):
+    try:
+        # Define the regex pattern for ISO-8601 time format
+        iso8601_time_pattern = re.compile(r""^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$"")
+
+        # Navigate through the response to find the 'checkOut' attribute
+        hotel_offers = latest_response.get('data', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                policies = offer.get('policies', {})
+                check_in_out = policies.get('checkInOut', {})
+                check_out = check_in_out.get('checkOut', None)
+
+                # If 'checkOut' is found, verify its format
+                if check_out is not None:
+                    if iso8601_time_pattern.match(check_out):
+                        return 1  # Constraint satisfied
+                    else:
+                        return -1  # Constraint not satisfied
+
+        return 0  # Attribute does not exist in the response
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/shopping/hotel-offers,HotelProduct_Commission,percentage,data.offers.commission.percentage,Percentage of the commission paid to the travel seller. Value is between 0 and 100,1,"def verify_latest_response(latest_response):
+    try:
+        hotel_offers = latest_response.get('data', [])
+        for hotel_offer in hotel_offers:
+            offers = hotel_offer.get('offers', [])
+            for offer in offers:
+                commission = offer.get('commission', {})
+                percentage_str = commission.get('percentage', None)
+                if percentage_str is None:
+                    return 0
+                try:
+                    percentage_value = float(percentage_str)
+                    if not (0 <= percentage_value <= 100):
+                        return -1
+                except ValueError:
+                    return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1

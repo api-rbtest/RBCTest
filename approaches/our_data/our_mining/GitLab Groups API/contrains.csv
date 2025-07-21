@@ -1,0 +1,114 @@
+endpoint,group,description
+get+groups,avatar_url,"{""type"": ""string""}"
+get+groups,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+groups,web_url,"{""type"": ""string""}"
+get+groups_{id},id,Attribute id is responded to by parameter id with a description: The ID orURL-encoded path of the groupowned by the authenticated user
+get+groups_{id},projects.created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+groups_{id},projects.last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+groups_{id}_descendant_groups,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+groups_{id}_hooks,group_id,Attribute group_id is responded to by parameter id with a description: The ID orURL-encoded path of the groupof the immediate parent group
+get+groups_{id}_hooks_{hook_id},group_id,Attribute group_id is responded to by parameter id with a description: The ID orURL-encoded path of the group
+get+groups_{id}_hooks_{hook_id},id,Attribute id is responded to by parameter hook_id with a description: The ID of a group hook
+get+groups_{id}_projects,archived,Attribute archived is responded to by parameter archived with a description: Limit by archived status
+get+groups_{id}_projects,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+groups_{id}_projects,issues_enabled,Attribute issues_enabled is responded to by parameter with_issues_enabled with a description: Limit by projects with issues feature enabled. Default is false
+get+groups_{id}_projects,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+groups_{id}_projects,merge_requests_enabled,Attribute merge_requests_enabled is responded to by parameter with_merge_requests_enabled with a description: Limit by projects with merge requests feature enabled. Default is false
+get+groups_{id}_projects,visibility,"Attribute visibility is responded to by parameter visibility with a description: Limit by visibilitypublic,internal, orprivate"
+get+groups_{id}_projects_shared,archived,Attribute archived is responded to by parameter archived with a description: Limit by archived status
+get+groups_{id}_projects_shared,avatar_url,"{""type"": ""string""}"
+get+groups_{id}_projects_shared,container_expiration_policy.next_run_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+groups_{id}_projects_shared,created_at,"Attribute created_at is responded to by parameter order_by with a description: Return projects ordered byid,name,path,created_at,updated_at,similarity(1), orlast_activity_atfields. Default iscreated_at"
+get+groups_{id}_projects_shared,issues_enabled,Attribute issues_enabled is responded to by parameter with_issues_enabled with a description: Limit by projects with issues feature enabled. Default is false
+get+groups_{id}_projects_shared,merge_requests_enabled,Attribute merge_requests_enabled is responded to by parameter with_merge_requests_enabled with a description: Limit by projects with merge requests feature enabled. Default is false
+get+groups_{id}_projects_shared,visibility,"Attribute visibility is responded to by parameter visibility with a description: Limit by visibilitypublic,internal, orprivate"
+get+groups_{id}_subgroups,avatar_url,"{""type"": ""string""}"
+get+groups_{id}_subgroups,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+groups,avatar_url,"{""type"": ""string""}"
+post+groups,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+groups,default_branch_protection,Attribute default_branch_protection is responded to by parameter default_branch_protection with a description: SeeOptions fordefault_branch_protection. Default to the global level default branch protection setting
+post+groups,description,Attribute description is responded to by parameter description with a description: The group's description
+post+groups,full_path,Attribute full_path is responded to by parameter path with a description: The path of the group
+post+groups,lfs_enabled,Attribute lfs_enabled is responded to by parameter lfs_enabled with a description: Enable/disable Large File Storage (LFS) for the projects in this group
+post+groups,name,Attribute name is responded to by parameter name with a description: The name of the group
+post+groups,project_creation_level,"Attribute project_creation_level is responded to by parameter project_creation_level with a description: Determine if developers can create projects in the group. Can benoone(No one),maintainer(Maintainers), or developer(Developers + Maintainers)"
+post+groups,request_access_enabled,Attribute request_access_enabled is responded to by parameter request_access_enabled with a description: Allow users to request member access
+post+groups,require_two_factor_authentication,Attribute require_two_factor_authentication is responded to by parameter require_two_factor_authentication with a description: Require all users in this group to setup Two-factor authentication
+post+groups,share_with_group_lock,Attribute share_with_group_lock is responded to by parameter share_with_group_lock with a description: Prevent sharing a project with another group within this group
+post+groups,subgroup_creation_level,"Attribute subgroup_creation_level is responded to by parameter subgroup_creation_level with a description: Allowed to create subgroups. Can be owner(Owners), or maintainer(Maintainers)"
+post+groups,two_factor_grace_period,Attribute two_factor_grace_period is responded to by parameter two_factor_grace_period with a description: Time before Two-factor authentication is enforced (in hours)
+post+groups,visibility,"Attribute visibility is responded to by parameter visibility with a description: The group's visibility. Can be private,internal, orpublic"
+post+groups,web_url,"{""type"": ""string""}"
+post+groups_{id}_hooks,confidential_issues_events,Attribute confidential_issues_events is responded to by parameter confidential_issues_events with a description: Trigger hook on confidential issues events
+post+groups_{id}_hooks,confidential_note_events,Attribute confidential_note_events is responded to by parameter confidential_note_events with a description: Trigger hook on confidential note events
+post+groups_{id}_hooks,deployment_events,Attribute deployment_events is responded to by parameter deployment_events with a description: Trigger hook on deployment events
+post+groups_{id}_hooks,enable_ssl_verification,Attribute enable_ssl_verification is responded to by parameter enable_ssl_verification with a description: Do SSL verification when triggering the hook
+post+groups_{id}_hooks,group_id,Attribute group_id is responded to by parameter id with a description: The ID orURL-encoded path of the group
+post+groups_{id}_hooks,issues_events,Attribute issues_events is responded to by parameter issues_events with a description: Trigger hook on issues events
+post+groups_{id}_hooks,job_events,Attribute job_events is responded to by parameter job_events with a description: Trigger hook on job events
+post+groups_{id}_hooks,merge_requests_events,Attribute merge_requests_events is responded to by parameter merge_requests_events with a description: Trigger hook on merge requests events
+post+groups_{id}_hooks,note_events,Attribute note_events is responded to by parameter note_events with a description: Trigger hook on note events
+post+groups_{id}_hooks,pipeline_events,Attribute pipeline_events is responded to by parameter pipeline_events with a description: Trigger hook on pipeline events
+post+groups_{id}_hooks,push_events,Attribute push_events is responded to by parameter push_events with a description: Trigger hook on push events
+post+groups_{id}_hooks,releases_events,Attribute releases_events is responded to by parameter releases_events with a description: Trigger hook on release events
+post+groups_{id}_hooks,tag_push_events,Attribute tag_push_events is responded to by parameter tag_push_events with a description: Trigger hook on tag push events
+post+groups_{id}_hooks,url,Attribute url is responded to by parameter url with a description: The hook URL
+post+groups_{id}_hooks,wiki_page_events,Attribute wiki_page_events is responded to by parameter wiki_page_events with a description: Trigger hook on wiki events
+post+groups_{id}_projects_{project_id},avatar_url,"{""type"": ""string""}"
+post+groups_{id}_projects_{project_id},container_expiration_policy.next_run_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+groups_{id}_projects_{project_id},emails_disabled,"{""type"": ""string""}"
+post+groups_{id}_projects_{project_id},http_url_to_repo,"{""type"": ""string""}"
+post+groups_{id}_projects_{project_id},readme_url,"{""type"": ""string""}"
+post+groups_{id}_projects_{project_id},web_url,"{""type"": ""string""}"
+post+groups_{id}_share,avatar_url,"{""type"": ""string""}"
+post+groups_{id}_share,id,"Attribute id is responded to by parameter id with a description: The ID orURL-encoded path of the group
+Attribute id is responded to by parameter group_id with a description: The ID of the group to share with
+Attribute id is responded to by parameter id with a description: The ID orURL-encoded path of the group
+Attribute id is responded to by parameter group_id with a description: The ID of the group to share with"
+post+groups_{id}_share,projects.avatar_url,"{""type"": ""string""}"
+post+groups_{id}_share,projects.created_at,"{""type"": ""string"", ""format"": ""date-time""}
+{""type"": ""string"", ""format"": ""date-time""}
+{""type"": ""string"", ""format"": ""date-time""}
+{""type"": ""string"", ""format"": ""date-time""}"
+post+groups_{id}_share,projects.http_url_to_repo,"{""type"": ""string""}"
+post+groups_{id}_share,projects.last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}
+{""type"": ""string"", ""format"": ""date-time""}
+{""type"": ""string"", ""format"": ""date-time""}
+{""type"": ""string"", ""format"": ""date-time""}"
+post+groups_{id}_share,projects.readme_url,"{""type"": ""string""}"
+post+groups_{id}_share,projects.web_url,"{""type"": ""string""}
+{""type"": ""string""}
+{""type"": ""string""}
+{""type"": ""string""}"
+put+groups_{id},avatar_url,"{""type"": ""string""}"
+put+groups_{id},description,Attribute description is responded to by parameter description with a description: The description of the group
+put+groups_{id},full_path,Attribute full_path is responded to by parameter path with a description: The path of the group
+put+groups_{id},id,Attribute id is responded to by parameter id with a description: The ID of the group
+put+groups_{id},name,Attribute name is responded to by parameter name with a description: The name of the group
+put+groups_{id},projects.created_at,"{""type"": ""string"", ""format"": ""date-time""}
+{""type"": ""string"", ""format"": ""date-time""}
+{""type"": ""string"", ""format"": ""date-time""}
+{""type"": ""string"", ""format"": ""date-time""}"
+put+groups_{id},projects.http_url_to_repo,"{""type"": ""string""}"
+put+groups_{id},projects.last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}
+{""type"": ""string"", ""format"": ""date-time""}
+{""type"": ""string"", ""format"": ""date-time""}
+{""type"": ""string"", ""format"": ""date-time""}"
+put+groups_{id},projects.web_url,"{""type"": ""string""}"
+put+groups_{id},request_access_enabled,Attribute request_access_enabled is responded to by parameter request_access_enabled with a description: Allow users to request member access
+put+groups_{id},visibility,"Attribute visibility is responded to by parameter visibility with a description: The visibility level of the group. Can beprivate,internal, orpublic"
+put+groups_{id}_hooks_{hook_id},confidential_issues_events,Attribute confidential_issues_events is responded to by parameter confidential_issues_events with a description: Trigger hook on confidential issues events
+put+groups_{id}_hooks_{hook_id},confidential_note_events,Attribute confidential_note_events is responded to by parameter confidential_note_events with a description: Trigger hook on confidential note events
+put+groups_{id}_hooks_{hook_id},deployment_events,Attribute deployment_events is responded to by parameter deployment_events with a description: Trigger hook on deployment events
+put+groups_{id}_hooks_{hook_id},enable_ssl_verification,Attribute enable_ssl_verification is responded to by parameter enable_ssl_verification with a description: Do SSL verification when triggering the hook
+put+groups_{id}_hooks_{hook_id},group_id,Attribute group_id is responded to by parameter id with a description: The ID orURL-encoded path of the group
+put+groups_{id}_hooks_{hook_id},id,Attribute id is responded to by parameter hook_id with a description: The ID of the group hook
+put+groups_{id}_hooks_{hook_id},issues_events,Attribute issues_events is responded to by parameter issues_events with a description: Trigger hook on issues events
+put+groups_{id}_hooks_{hook_id},job_events,Attribute job_events is responded to by parameter job_events with a description: Trigger hook on job events
+put+groups_{id}_hooks_{hook_id},merge_requests_events,Attribute merge_requests_events is responded to by parameter merge_requests_events with a description: Trigger hook on merge requests events
+put+groups_{id}_hooks_{hook_id},note_events,Attribute note_events is responded to by parameter note_events with a description: Trigger hook on note events
+put+groups_{id}_hooks_{hook_id},pipeline_events,Attribute pipeline_events is responded to by parameter pipeline_events with a description: Trigger hook on pipeline events
+put+groups_{id}_hooks_{hook_id},push_events,Attribute push_events is responded to by parameter push_events with a description: Trigger hook on push events
+put+groups_{id}_hooks_{hook_id},releases_events,Attribute releases_events is responded to by parameter releases_events with a description: Trigger hook on release events
+put+groups_{id}_hooks_{hook_id},tag_push_events,Attribute tag_push_events is responded to by parameter tag_push_events with a description: Trigger hook on tag push events
+put+groups_{id}_hooks_{hook_id},url,Attribute url is responded to by parameter url with a description: The hook URL

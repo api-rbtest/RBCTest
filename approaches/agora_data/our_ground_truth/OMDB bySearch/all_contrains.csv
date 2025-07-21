@@ -1,0 +1,8 @@
+endpoint,group,description
+get+,Response,"{""type"": ""string"", ""enum"": [""True"", ""False""], ""example"": ""True""} schema: {""type"": ""string"", ""enum"": [""True"", ""False""], ""example"": ""True""}"
+get+,Search.Poster,"{""type"": ""string"", ""example"": ""https://m.media-amazon.com/images/M/MV5BMTQxODE3NjM1Ml5BMl5BanBnXkFtZTcwMzkzNjc4OA@@._V1_SX300.jpg""} schema: {""type"": ""string"", ""example"": ""https://m.media-amazon.com/images/M/MV5BMTQxODE3NjM1Ml5BMl5BanBnXkFtZTcwMzkzNjc4OA@@._V1_SX300.jpg""}"
+get+,Search.Type,"Attribute type is responded to by parameter Response with a description: Return movie or series
+{""type"": ""string"", ""example"": ""movie""} schema: {""type"": ""string"", ""example"": ""movie""}"
+get+,Search.Year,"{""type"": ""string"", ""example"": 2013} schema: {""type"": ""string"", ""example"": 2013}"
+get+,Search.imdbID,"{""type"": ""string"", ""example"": ""tt1245492""} schema: {""type"": ""string"", ""example"": ""tt1245492""}"
+get+,totalResults,"{""type"": ""string"", ""example"": 2} schema: {""type"": ""string"", ""example"": 2}"

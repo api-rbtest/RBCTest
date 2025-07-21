@@ -1,0 +1,21 @@
+operation,response resource,attribute,group,description
+get-/artists/{id}/albums,album-simple-page,href,href,"A link to the Web API endpoint returning the full result of the request. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get-/artists/{id}/albums,album-simple,album_type,items.album_type,"The type of the album: one of 'album', 'single', or 'compilation'. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get-/artists/{id}/albums,album-simple,available_markets,items.available_markets,"The markets in which the album is available: ISO 3166-1 alpha-2 country codes. Note that an album is considered available in a market when at least 1 of its tracks is available in that market. schema: {""type"": ""array""} schema: {""type"": ""array""}"
+get-/artists/{id}/albums,album-simple,available_markets,items.available_markets,The markets in which the album is available: ISO 3166-1 alpha-2 country codes. Note that an album is considered available in a market when at least 1 of its tracks is available in that market
+get-/artists/{id}/albums,album-simple,href,items.href,"A link to the Web API endpoint providing full details of the album. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get-/artists/{id}/albums,album-simple,href,items.href,"A link to the Web API endpoint providing full details of the album schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+get-/artists/{id}/albums,image,url,items.images.url,"The source URL of the image. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get-/artists/{id}/albums,album-simple,uri,items.uri,"The Spotify URI for the album. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get-/artists/{id}/albums,album-simple,uri,items.uri,"The Spotify URI for the album, schema: {""type"": ""string"", ""format"": ""uri""} schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+get-/artists/{id}/albums,artist-simple,type,items.artists.type,"The object type: 'artist' schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get-/artists/{id}/albums,album-simple-page,limit,limit,"The maximum number of items in the response (as set in the query or by default). schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+get-/artists/{id}/albums,album-simple-page,previous,previous,"URL to the previous page of items. (null if none schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+get-/artists/{id}/albums,album-simple,href,items.href,"A link to the Web API endpoint providing full details of the album. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get-/artists/{id}/albums,album-simple,href,items.href,"A link to the Web API endpoint providing full details of the album schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+get-/artists/{id}/albums,album-simple,uri,items.uri,"The Spotify URI for the album. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get-/artists/{id}/albums,album-simple,uri,items.uri,"The Spotify URI for the album, schema: {""type"": ""string"", ""format"": ""uri""} schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+get-/artists/{id}/albums,artist-simple,href,items.artists.href,"A link to the Web API endpoint providing full details of the artist schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+get-/artists/{id}/albums,album-simple-page,next,next,"URL to the next page of items. (null if none schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+get-/artists/{id}/albums,album-simple,available_markets,items.available_markets,"The markets in which the album is available: ISO 3166-1 alpha-2 country codes. Note that an album is considered available in a market when at least 1 of its tracks is available in that market. schema: {""type"": ""array""} schema: {""type"": ""array""}"
+get-/artists/{id}/albums,album-simple,available_markets,items.available_markets,The markets in which the album is available: ISO 3166-1 alpha-2 country codes. Note that an album is considered available in a market when at least 1 of its tracks is available in that market
