@@ -1,0 +1,22 @@
+,group,invariant,endpoint,description,tp
+0,collaborative,input.collaborative == return.collaborative,post+users_{user_id}_playlists,,1.0
+1,description,input.description == return.description,post+users_{user_id}_playlists,,1.0
+2,href,"return.id is a substring of return.href
+return.href is a substring of return.tracks.href
+return.type is a substring of return.href
+return.href is Url
+LENGTH(return.href)==59",post+users_{user_id}_playlists,A link to the Web API endpoint providing full details of the playlist,1.0
+3,name,input.name == return.name,post+users_{user_id}_playlists,,1.0
+4,owner.href,"input.user_id is a substring of return.owner.href
+return.owner.type is a substring of return.owner.href
+return.owner.href is Url",post+users_{user_id}_playlists,A link to the Web API endpoint for this user,1.0
+5,owner.type,"return.owner.type is a substring of return.owner.uri
+LENGTH(return.owner.type)==4
+return.owner.type == ""user""",post+users_{user_id}_playlists,The object type: 'user',1.0
+6,owner.uri,input.user_id is a substring of return.owner.uri,post+users_{user_id}_playlists,"The Spotify URI for the user, schema: {""type"": ""string"", ""format"": ""uri""}",1.0
+7,public,input.public == return.public,post+users_{user_id}_playlists,"nan
+The playlist's public/private status: true the playlist is public, false the playlist is private, null the playlist status is not relevant. For more about public/private status, see Working with Playlists",1.0
+8,type,"return.type is a substring of return.uri
+LENGTH(return.type)==8
+return.type == ""playlist""",post+users_{user_id}_playlists,The object type: 'playlist',1.0
+9,uri,LENGTH(return.uri)==39,post+users_{user_id}_playlists,"Spotify URI of the playlist, schema: {""type"": ""string"", ""format"": ""uri""}",1.0

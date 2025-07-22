@@ -1,0 +1,75 @@
+operation,response resource,attribute,group,kio,description,part,corresponding attribute,corresponding attribute description,verification script,tp,verify_result
+post-/users/{user_id}/playlists,playlist,name,name,1,The name of the playlist,requestBody,name,,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'name' exists in the response
+        if 'name' not in latest_response:
+            return 0
+        
+        # Extract the 'name' from the response
+        response_name = latest_response['name']
+        
+        # Ensure 'name' is a string
+        if not isinstance(response_name, str):
+            return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",1,
+post-/users/{user_id}/playlists,playlist,description,description,2,"The playlist description. Only returned for modified, verified playlists, otherwise null",requestBody,description,,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the description from the response
+        description = latest_response.get('description', None)
+        
+        # Check if the description is present in the response
+        if description is None:
+            return 0  # Insufficient information to verify the constraint
+        
+        # Check if the description is a string
+        if isinstance(description, str):
+            return 1  # Constraint satisfied
+        else:
+            return -1  # Constraint not satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",1,
+post-/users/{user_id}/playlists,playlist,public,public,3,"The playlist's public/private status: true the playlist is public, false the playlist is private, null the playlist status is not relevant. For more about public/private status, see Working with Playlists",requestBody,public,,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'public' attribute from the response
+        response_public = latest_response.get('public', None)
+        
+        # Extract the 'public' parameter from the request info and cast it to boolean
+        request_public = request_info.get('public', None)
+
+        # Check if the 'public' attribute exists in the response
+        if response_public is None:
+            return 0
+        
+        # Verify the 'public' attribute against the request parameter
+        if response_public == request_public:
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1",1,
+post-/users/{user_id}/playlists,playlist,collaborative,collaborative,4,True if the owner allows other users to modify the playlist,requestBody,collaborative,,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'collaborative' value from the request_info and cast it to boolean
+        request_collaborative = bool(request_info.get(""collaborative"", False))
+        
+        # Check if 'collaborative' attribute exists in the response
+        if 'collaborative' not in latest_response:
+            return 0
+        
+        # Extract the 'collaborative' value from the response
+        response_collaborative = latest_response['collaborative']
+        
+        # Verify if the response 'collaborative' matches the request 'collaborative'
+        if response_collaborative == request_collaborative:
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        # In case of any exception, return -1 indicating the constraint is not satisfied
+        return -1
+",1,

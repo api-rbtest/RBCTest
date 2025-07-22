@@ -1,0 +1,12 @@
+group,invariant,invariantType,variables,pptname,tp
+businesses.id,LENGTH(return.id)==22,daikon.inv.unary.string.FixedLengthString,(return.id),main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,1.0
+businesses.image_url,"return.image_url is Url
+LENGTH(return.image_url)==68","daikon.inv.unary.string.IsUrl
+daikon.inv.unary.string.FixedLengthString","(return.image_url)
+(return.image_url)","main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT
+main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT",1.0
+businesses.location.address1,return.location.address1 in return.location.display_address[],daikon.inv.binary.sequenceString.MemberString,"(return.location.address1, return.location.display_address[..])",main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,1.0
+businesses.location.address2,return.location.address2 in return.location.display_address[],daikon.inv.binary.sequenceString.MemberString,"(return.location.address2, return.location.display_address[..])",main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,1.0
+businesses.location.address3,return.location.address3 in return.location.display_address[],daikon.inv.binary.sequenceString.MemberString,"(return.location.address3, return.location.display_address[..])",main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,1.0
+businesses.location.country,LENGTH(return.location.country)==2,daikon.inv.unary.string.FixedLengthString,(return.location.country),main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,1.0
+businesses.url,return.url is Url,daikon.inv.unary.string.IsUrl,(return.url),main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,1.0

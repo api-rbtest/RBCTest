@@ -1,0 +1,71 @@
+operation,response resource,attribute,group,description,part,corresponding attribute,corresponding attribute description
+get-/groups/{id},GroupDetails,id,id,,parameters,id,The ID orURL-encoded path of the groupowned by the authenticated user
+get-/groups/{id}/hooks,Hook,group_id,group_id,,parameters,id,The ID orURL-encoded path of the groupof the immediate parent group
+get-/groups/{id}/hooks/{hook_id},Hook,group_id,group_id,,parameters,id,The ID orURL-encoded path of the group
+get-/groups/{id}/hooks/{hook_id},Hook,id,id,,parameters,hook_id,The ID of a group hook
+get-/groups/{id}/projects,Project,id,id,,parameters,id,The ID orURL-encoded path of the groupowned by the authenticated user
+get-/groups/{id}/projects,Project,issues_enabled,issues_enabled,,parameters,with_issues_enabled,Limit by projects with issues feature enabled. Default is false
+get-/groups/{id}/projects,Project,merge_requests_enabled,merge_requests_enabled,,parameters,with_merge_requests_enabled,Limit by projects with merge requests feature enabled. Default is false
+get-/groups/{id}/projects,Project,archived,archived,,parameters,archived,Limit by archived status
+get-/groups/{id}/projects,Project,visibility,visibility,,parameters,visibility,"Limit by visibilitypublic,internal, orprivate"
+get-/groups/{id}/projects/shared,SharedProject,archived,archived,,parameters,archived,Limit by archived status
+get-/groups/{id}/projects/shared,SharedProject,issues_enabled,issues_enabled,,parameters,with_issues_enabled,Limit by projects with issues feature enabled. Default is false
+get-/groups/{id}/projects/shared,SharedProject,merge_requests_enabled,merge_requests_enabled,,parameters,with_merge_requests_enabled,Limit by projects with merge requests feature enabled. Default is false
+get-/groups/{id}/projects/shared,SharedProject,visibility,visibility,,parameters,visibility,"Limit by visibilitypublic,internal, orprivate"
+get-/groups/{id}/subgroups,Group,id,id,,parameters,id,The ID orURL-encoded path of the groupof the immediate parent group
+post-/groups,Group,default_branch_protection,default_branch_protection,,parameters,default_branch_protection,SeeOptions fordefault_branch_protection. Default to the global level default branch protection setting
+post-/groups,Group,two_factor_grace_period,two_factor_grace_period,,parameters,two_factor_grace_period,Time before Two-factor authentication is enforced (in hours)
+post-/groups,Group,lfs_enabled,lfs_enabled,,parameters,lfs_enabled,Enable/disable Large File Storage (LFS) for the projects in this group
+post-/groups,Group,require_two_factor_authentication,require_two_factor_authentication,,parameters,require_two_factor_authentication,Require all users in this group to setup Two-factor authentication
+post-/groups,Group,share_with_group_lock,share_with_group_lock,,parameters,share_with_group_lock,Prevent sharing a project with another group within this group
+post-/groups,Group,description,description,,requestBody,description,The group's description
+post-/groups,Group,full_name,full_name,,requestBody,name,The name of the group
+post-/groups,Group,full_path,full_path,,requestBody,path,The path of the group
+post-/groups,Group,name,name,,requestBody,name,The name of the group
+post-/groups,Group,path,path,,requestBody,path,The path of the group
+post-/groups,Group,project_creation_level,project_creation_level,,parameters,project_creation_level,"Determine if developers can create projects in the group. Can benoone(No one),maintainer(Maintainers), or developer(Developers + Maintainers)"
+post-/groups,Group,subgroup_creation_level,subgroup_creation_level,,parameters,subgroup_creation_level,"Allowed to create subgroups. Can be owner(Owners), or maintainer(Maintainers)"
+post-/groups,Group,visibility,visibility,,parameters,visibility,"The group's visibility. Can be private,internal, orpublic"
+post-/groups/{id}/hooks,Hook,group_id,group_id,,parameters,id,The ID orURL-encoded path of the group
+post-/groups/{id}/hooks,Hook,url,url,,parameters,url,The hook URL
+post-/groups/{id}/hooks,Hook,confidential_issues_events,confidential_issues_events,,parameters,confidential_issues_events,Trigger hook on confidential issues events
+post-/groups/{id}/hooks,Hook,confidential_note_events,confidential_note_events,,parameters,confidential_note_events,Trigger hook on confidential note events
+post-/groups/{id}/hooks,Hook,deployment_events,deployment_events,,parameters,deployment_events,Trigger hook on deployment events
+post-/groups/{id}/hooks,Hook,enable_ssl_verification,enable_ssl_verification,,parameters,enable_ssl_verification,Do SSL verification when triggering the hook
+post-/groups/{id}/hooks,Hook,issues_events,issues_events,,parameters,issues_events,Trigger hook on issues events
+post-/groups/{id}/hooks,Hook,job_events,job_events,,parameters,job_events,Trigger hook on job events
+post-/groups/{id}/hooks,Hook,merge_requests_events,merge_requests_events,,parameters,merge_requests_events,Trigger hook on merge requests events
+post-/groups/{id}/hooks,Hook,note_events,note_events,,parameters,note_events,Trigger hook on note events
+post-/groups/{id}/hooks,Hook,pipeline_events,pipeline_events,,parameters,pipeline_events,Trigger hook on pipeline events
+post-/groups/{id}/hooks,Hook,push_events,push_events,,parameters,push_events,Trigger hook on push events
+post-/groups/{id}/hooks,Hook,releases_events,releases_events,,parameters,releases_events,Trigger hook on release events
+post-/groups/{id}/hooks,Hook,tag_push_events,tag_push_events,,parameters,tag_push_events,Trigger hook on tag push events
+post-/groups/{id}/hooks,Hook,wiki_page_events,wiki_page_events,,parameters,wiki_page_events,Trigger hook on wiki events
+post-/groups/{id}/projects/{project_id},SharedProject,id,id,,parameters,project_id,The ID orURL-encoded path of the project
+post-/groups/{id}/share,GroupDetails,id,id,,parameters,group_id,The ID of the group to share with
+post-/groups/{id}/share,GroupDetails,id,id,,parameters,id,The ID orURL-encoded path of the group
+post-/groups/{id}/share,GroupDetails,id,id,,parameters,group_id,The ID of the group to share with
+post-/groups/{id}/share,GroupDetails,id,id,,parameters,id,The ID orURL-encoded path of the group
+put-/groups/{id},GroupDetails,id,id,,parameters,id,The ID of the group
+put-/groups/{id},GroupDetails,request_access_enabled,request_access_enabled,,parameters,request_access_enabled,Allow users to request member access
+put-/groups/{id},GroupDetails,description,description,,parameters,description,The description of the group
+put-/groups/{id},GroupDetails,full_name,full_name,,parameters,name,The name of the group
+put-/groups/{id},GroupDetails,full_path,full_path,,parameters,path,The path of the group
+put-/groups/{id},GroupDetails,name,name,,parameters,name,The name of the group
+put-/groups/{id},GroupDetails,path,path,,parameters,path,The path of the group
+put-/groups/{id},GroupDetails,visibility,visibility,,parameters,visibility,"The visibility level of the group. Can beprivate,internal, orpublic"
+put-/groups/{id}/hooks/{hook_id},Hook,group_id,group_id,,parameters,id,The ID orURL-encoded path of the group
+put-/groups/{id}/hooks/{hook_id},Hook,id,id,,parameters,hook_id,The ID of the group hook
+put-/groups/{id}/hooks/{hook_id},Hook,url,url,,parameters,url,The hook URL
+put-/groups/{id}/hooks/{hook_id},Hook,confidential_issues_events,confidential_issues_events,,parameters,confidential_issues_events,Trigger hook on confidential issues events
+put-/groups/{id}/hooks/{hook_id},Hook,confidential_note_events,confidential_note_events,,parameters,confidential_note_events,Trigger hook on confidential note events
+put-/groups/{id}/hooks/{hook_id},Hook,deployment_events,deployment_events,,parameters,deployment_events,Trigger hook on deployment events
+put-/groups/{id}/hooks/{hook_id},Hook,enable_ssl_verification,enable_ssl_verification,,parameters,enable_ssl_verification,Do SSL verification when triggering the hook
+put-/groups/{id}/hooks/{hook_id},Hook,issues_events,issues_events,,parameters,issues_events,Trigger hook on issues events
+put-/groups/{id}/hooks/{hook_id},Hook,job_events,job_events,,parameters,job_events,Trigger hook on job events
+put-/groups/{id}/hooks/{hook_id},Hook,merge_requests_events,merge_requests_events,,parameters,merge_requests_events,Trigger hook on merge requests events
+put-/groups/{id}/hooks/{hook_id},Hook,note_events,note_events,,parameters,note_events,Trigger hook on note events
+put-/groups/{id}/hooks/{hook_id},Hook,pipeline_events,pipeline_events,,parameters,pipeline_events,Trigger hook on pipeline events
+put-/groups/{id}/hooks/{hook_id},Hook,push_events,push_events,,parameters,push_events,Trigger hook on push events
+put-/groups/{id}/hooks/{hook_id},Hook,releases_events,releases_events,,parameters,releases_events,Trigger hook on release events
+put-/groups/{id}/hooks/{hook_id},Hook,tag_push_events,tag_push_events,,parameters,tag_push_events,Trigger hook on tag push events

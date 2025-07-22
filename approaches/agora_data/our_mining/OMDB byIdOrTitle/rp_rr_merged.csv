@@ -1,0 +1,15 @@
+endpoint,group,response resource,attribute,description,tp
+get+,Title,Response,Title,Attribute t is responded to by parameter Response with a description: Title of movie or series,1
+get+,imdbID,Response,imdbID,Attribute i is responded to by parameter Response with a description: A valid IMDb ID (e.g. tt0000001),1
+get+,Type,Response,Type,"Attribute type is responded to by parameter Response with a description: Return movie, series or episode",1
+get+,Plot,Response,Plot,Attribute plot is responded to by parameter Response with a description: Return short or full plot,1
+get+,Runtime,Response,Runtime,"{""type"": ""string"", ""example"": ""107 min""}",1
+get+,DVD,Response,DVD,"{""type"": ""string"", ""example"": ""01 Oct 2013""}",1
+get+,Response,Response,Response,"{""type"": ""string"", ""enum"": [""True"", ""False""]}",1
+get+,Response,Response,Response,"{""type"": ""string"", ""enum"": [""True"", ""False""], ""example"": ""True""} schema: {""type"": ""string"", ""enum"": [""True"", ""False""], ""example"": ""True""}",1
+get+,BoxOffice,Response,BoxOffice,"{""type"": ""string"", ""example"": ""$96,200,000""}",1
+get+,Poster,Response,Poster,"{""type"": ""string"", ""example"": ""https://m.media-amazon.com/images/M/MV5BMTQxODE3NjM1Ml5BMl5BanBnXkFtZTcwMzkzNjc4OA@@._V1_SX300.jpg""}",1
+get+,seriesID,Response,seriesID,"{""type"": ""string"", ""example"": ""tt0341939""}",1
+get+,Released,Response,Released,"{""type"": ""string"", ""example"": ""12 Jun 2013""}",1
+get+,Year,Response,Year,"{""type"": ""string"", ""example"": 2013} schema: {""type"": ""string"", ""example"": 2013}",1
+get+,imdbID,Response,imdbID,"{""type"": ""string"", ""example"": ""tt1245492""} schema: {""type"": ""string"", ""example"": ""tt1245492""}",1

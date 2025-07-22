@@ -1,0 +1,17 @@
+endpoint,group,response resource,attribute,description
+get+,Title,Response,Title,Attribute t is responded to by parameter Response with a description: Title of movie or series
+get+,imdbID,Response,imdbID,Attribute i is responded to by parameter Response with a description: A valid IMDb ID (e.g. tt0000001)
+get+,Type,Response,Type,"Attribute type is responded to by parameter Response with a description: Return movie, series or episode"
+get+,Plot,Response,Plot,Attribute plot is responded to by parameter Response with a description: Return short or full plot
+get+,Response,Response,Response,"{""type"": ""string"", ""enum"": [""True"", ""False""], ""example"": ""True""} schema: {""type"": ""string"", ""enum"": [""True"", ""False""], ""example"": ""True""}"
+get+,Year,Response,Year,"{""type"": ""string"", ""example"": 2013} schema: {""type"": ""string"", ""example"": 2013}"
+get+,Released,Response,Released,"{""type"": ""string"", ""example"": ""12 Jun 2013""} schema: {""type"": ""string"", ""example"": ""12 Jun 2013""}"
+get+,Ratings.Value,Response,Value,"{""type"": ""string"", ""example"": ""6.6/10""} schema: {""type"": ""string"", ""example"": ""6.6/10""}"
+get+,Metascore,Response,Metascore,"{""type"": ""string"", ""example"": 67} schema: {""type"": ""string"", ""example"": 67}"
+get+,imdbVotes,Response,imdbVotes,"{""type"": ""string"", ""example"": ""370,080""} schema: {""type"": ""string"", ""example"": ""370,080""}"
+get+,imdbID,Response,imdbID,"{""type"": ""string"", ""example"": ""tt1245492""} schema: {""type"": ""string"", ""example"": ""tt1245492""}"
+get+,DVD,Response,DVD,"{""type"": ""string"", ""example"": ""01 Oct 2013""} schema: {""type"": ""string"", ""example"": ""01 Oct 2013""}"
+get+,BoxOffice,Response,BoxOffice,"{""type"": ""string"", ""example"": ""$96,200,000""} schema: {""type"": ""string"", ""example"": ""$96,200,000""}"
+get+,Runtime,Response,Runtime,"{""type"": ""string"", ""example"": ""107 min""} schema: {""type"": ""string"", ""example"": ""107 min""}"
+get+,Poster,Response,Poster,"{""type"": ""string"", ""example"": ""https://m.media-amazon.com/images/M/MV5BMTQxODE3NjM1Ml5BMl5BanBnXkFtZTcwMzkzNjc4OA@@._V1_SX300.jpg""}"
+get+,seriesID,Response,seriesID,"{""type"": ""string"", ""example"": ""tt0341939""}"

@@ -1,0 +1,81 @@
+endpoint,group,response resource,attribute,description,tp
+get+projects,archived,BasicProjectDetails,archived,Attribute archived is responded to by parameter archived with a description: Limit by archived status,1
+get+projects,id,BasicProjectDetails,id,Attribute id is responded to by parameter id_after with a description: Limit results to projects with IDs greater than the specified ID,1
+get+projects,id,BasicProjectDetails,id,Attribute id is responded to by parameter id_before with a description: Limit results to projects with IDs less than the specified ID,1
+get+projects,last_activity_at,BasicProjectDetails,last_activity_at,Attribute last_activity_at is responded to by parameter last_activity_after with a description: Limit results to projects with last_activity after specified time.ISO 8601 YYYY-MM-DDTHH:MM:SSZ,1
+get+projects,last_activity_at,BasicProjectDetails,last_activity_at,Attribute last_activity_at is responded to by parameter last_activity_before with a description: Limit results to projects with last_activity before specified time. ISO 8601 YYYY-MM-DDTHH:MM:SSZ,1
+post+projects,repository_storage,BasicProjectDetails,repository_storage,Attribute repository_storage is responded to by parameter repository_storage with a description: Which storage shard the repository is on.(admins only),1
+get+projects,repository_storage,BasicProjectDetails,repository_storage,Attribute repository_storage is responded to by parameter repository_storage with a description: Limit results to projects stored on repository_storage. (admins only),1
+post+projects,visibility,BasicProjectDetails,visibility,Attribute visibility is responded to by parameter visibility with a description: See project visibility level,1
+post+projects,visibility,BasicProjectDetails,visibility,"Attribute visibility is responded to by parameter pages_access_level with a description: One of disabled, private,enabled, or public",0
+post+projects,visibility,BasicProjectDetails,visibility,"Attribute visibility is responded to by parameter repository_access_level with a description: One of disabled, private, or enabled",0
+get+projects,visibility,BasicProjectDetails,visibility,Attribute visibility is responded to by parameter visibility with a description: Limit by visibility,1
+post+projects,issues_enabled,BasicProjectDetails,issues_enabled,Attribute issues_enabled is responded to by parameter issues_enabled with a description: (Deprecated)Enable issues for this project. Use issues_access_level instead,1
+get+projects,issues_enabled,BasicProjectDetails,issues_enabled,Attribute issues_enabled is responded to by parameter with_issues_enabled with a description: Limit by enabled issues feature,1
+post+projects,merge_requests_enabled,BasicProjectDetails,merge_requests_enabled,Attribute merge_requests_enabled is responded to by parameter merge_requests_enabled with a description: (Deprecated)Enable merge requests for this project. Use merge_requests_access_level instead,1
+get+projects,merge_requests_enabled,BasicProjectDetails,merge_requests_enabled,Attribute merge_requests_enabled is responded to by parameter with_merge_requests_enabled with a description: Limit by enabled merge requests feature,1
+post+projects,allow_merge_on_skipped_pipeline,BasicProjectDetails,allow_merge_on_skipped_pipeline,Attribute allow_merge_on_skipped_pipeline is responded to by parameter allow_merge_on_skipped_pipeline with a description: Set whether or not merge requests can be merged with skipped jobs,1
+post+projects,auto_devops_deploy_strategy,BasicProjectDetails,auto_devops_deploy_strategy,Attribute auto_devops_deploy_strategy is responded to by parameter auto_devops_deploy_strategy with a description: Auto Deploy strategy,1
+post+projects,auto_devops_enabled,BasicProjectDetails,auto_devops_enabled,Attribute auto_devops_enabled is responded to by parameter auto_devops_enabled with a description: Enable Auto DevOps for this project,1
+post+projects,autoclose_referenced_issues,BasicProjectDetails,autoclose_referenced_issues,Attribute autoclose_referenced_issues is responded to by parameter autoclose_referenced_issues with a description: Set whether auto-closing referenced issues on default branch,1
+post+projects,avatar_url,BasicProjectDetails,avatar_url,Attribute avatar_url is responded to by parameter avatar with a description: Image file for avatar of the project,0
+post+projects,container_registry_enabled,BasicProjectDetails,container_registry_enabled,Attribute container_registry_enabled is responded to by parameter container_registry_enabled with a description: Enable container registry for this project,1
+post+projects,default_branch,BasicProjectDetails,default_branch,Attribute default_branch is responded to by parameter default_branch with a description: master by default,1
+post+projects,description,BasicProjectDetails,description,Attribute description is responded to by parameter description with a description: Short project description,1
+post+projects,jobs_enabled,BasicProjectDetails,jobs_enabled,Attribute jobs_enabled is responded to by parameter jobs_enabled with a description: (Deprecated)Enable jobs for this project. Use builds_access_level instead,1
+post+projects,merge_method,BasicProjectDetails,merge_method,Attribute merge_method is responded to by parameter merge_method with a description: Set the merge method used,1
+post+projects,name,BasicProjectDetails,name,"Attribute name is responded to by parameter name with a description: The name of the new project. Either path or name is required, not both",1
+post+projects,only_allow_merge_if_all_discussions_are_resolved,BasicProjectDetails,only_allow_merge_if_all_discussions_are_resolved,Attribute only_allow_merge_if_all_discussions_are_resolved is responded to by parameter only_allow_merge_if_all_discussions_are_resolved with a description: Set whether merge requests can only be merged when all the discussions are resolved,1
+post+projects,only_allow_merge_if_pipeline_succeeds,BasicProjectDetails,only_allow_merge_if_pipeline_succeeds,Attribute only_allow_merge_if_pipeline_succeeds is responded to by parameter only_allow_merge_if_pipeline_succeeds with a description: Set whether merge requests can only be merged with successful jobs,1
+post+projects,packages_enabled,BasicProjectDetails,packages_enabled,Attribute packages_enabled is responded to by parameter packages_enabled with a description: Enable or disable packages repository feature,1
+post+projects,path,BasicProjectDetails,path,Attribute path is responded to by parameter path with a description: Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes),1
+post+projects,remove_source_branch_after_merge,BasicProjectDetails,remove_source_branch_after_merge,Attribute remove_source_branch_after_merge is responded to by parameter remove_source_branch_after_merge with a description: Enable Delete source branch option by default for all new merge requests,1
+post+projects,request_access_enabled,BasicProjectDetails,request_access_enabled,Attribute request_access_enabled is responded to by parameter request_access_enabled with a description: Allow users to request member access,1
+post+projects,resolve_outdated_diff_discussions,BasicProjectDetails,resolve_outdated_diff_discussions,Attribute resolve_outdated_diff_discussions is responded to by parameter resolve_outdated_diff_discussions with a description: Automatically resolve merge request diffs discussions on lines changed with a push,1
+post+projects,shared_runners_enabled,BasicProjectDetails,shared_runners_enabled,Attribute shared_runners_enabled is responded to by parameter shared_runners_enabled with a description: Enable shared runners for this project,1
+post+projects,snippets_enabled,BasicProjectDetails,snippets_enabled,Attribute snippets_enabled is responded to by parameter snippets_enabled with a description: (Deprecated)Enable snippets for this project. Use snippets_access_level instead,1
+post+projects,tag_list,BasicProjectDetails,tag_list,"Attribute tag_list is responded to by parameter tag_list with a description: The list of tags for a project; put array of tags, that should be finally assigned to a project",1
+post+projects,wiki_enabled,BasicProjectDetails,wiki_enabled,Attribute wiki_enabled is responded to by parameter wiki_enabled with a description: (Deprecated)Enable wiki for this project. Use wiki_access_levelinstead,1
+get+projects_{id}_repository_commits,created_at,RepoCommit,created_at,Attribute created_at is responded to by parameter since with a description: Only commits after or on this date will be returned in ISO 8601 format YYYY-MM-DDTHH:MM:SSZ,1
+get+projects_{id}_repository_commits,created_at,RepoCommit,created_at,Attribute created_at is responded to by parameter until with a description: Only commits before or on this date will be returned in ISO 8601 format YYYY-MM-DDTHH:MM:SSZ,1
+post+projects_{id}_repository_commits,author_email,RepoCommitDetail,author_email,Attribute author_email is responded to by parameter author_email with a description: Author email for commit,1
+post+projects_{id}_repository_commits,author_name,RepoCommitDetail,author_name,Attribute author_name is responded to by parameter author_name with a description: Author name for commit,1
+get+projects_{id}_repository_commits_{sha}_refs,type,RepoCommitRefs,type,Attribute type is responded to by parameter type with a description: The scope of commits,1
+get+projects_{id}_repository_commits_{sha}_comments,note,RepoCommitComment,note,Attribute note is responded to by parameter note with a description: The text of the comment,1
+get+projects_{id}_repository_commits_{sha}_comments,path,RepoCommitComment,path,Attribute path is responded to by parameter path with a description: The file path relative to the repository,1
+get+projects_{id}_repository_commits_{sha}_comments,line,RepoCommitComment,line,Attribute line is responded to by parameter line with a description: The line number where the comment should be placed,1
+get+projects_{id}_repository_commits_{sha}_comments,line_type,RepoCommitComment,line_type,Attribute line_type is responded to by parameter line_type with a description: The line type,1
+post+projects_{id}_statuses_{sha},sha,CommitStatus,sha,Attribute sha is responded to by parameter sha with a description: The commit SHA,1
+get+projects_{id}_repository_commits_{sha}_statuses,sha,CommitStatus,sha,Attribute sha is responded to by parameter sha with a description: The commit hash or name of a repository branch or tag,1
+post+projects_{id}_statuses_{sha},ref,CommitStatus,ref,Attribute ref is responded to by parameter ref with a description: The ref (branch or tag) to which the status refers,1
+get+projects_{id}_repository_commits_{sha}_statuses,ref,CommitStatus,ref,"Attribute ref is responded to by parameter ref with a description: The name of a repository branch or tag or, if not given, the default branch",1
+post+projects_{id}_statuses_{sha},name,CommitStatus,name,Attribute name is responded to by parameter name with a description: The label to differentiate this status from the status of other systems,1
+post+projects_{id}_statuses_{sha},name,CommitStatus,name,Attribute name is responded to by parameter context with a description: The label to differentiate this status from the status of other systems,1
+get+projects_{id}_repository_commits_{sha}_statuses,name,CommitStatus,name,"Attribute name is responded to by parameter name with a description: Filter by job name, e.g., bundler:audit",1
+post+projects_{id}_statuses_{sha},status,CommitStatus,status,Attribute status is responded to by parameter state with a description: The state of the status,1
+post+projects_{id}_statuses_{sha},target_url,CommitStatus,target_url,Attribute target_url is responded to by parameter target_url with a description: The target URL to associate with this status,1
+post+projects_{id}_statuses_{sha},description,CommitStatus,description,Attribute description is responded to by parameter description with a description: A short description of the status,1
+get+projects_{id}_repository_commits_{sha}_merge_requests,sha,MergeRequests,sha,Attribute sha is responded to by parameter sha with a description: The commit SHA,1
+post+projects,last_activity_at,BasicProjectDetails,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects,owner.created_at,Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects,marked_for_deletion_on,BasicProjectDetails,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+get+projects_{id}_repository_commits_{sha}_refs,type,RepoCommitRefs,type,"{""type"": ""string"", ""enum"": [""branch"", ""tag"", ""all""]}",1
+get+projects,marked_for_deletion_on,BasicProjectDetails,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+get+projects,owner.created_at,Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects,created_at,BasicProjectDetails,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects,last_activity_at,BasicProjectDetails,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post+projects,created_at,BasicProjectDetails,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get+projects_{id}_repository_commits_{sha}_comments,author.web_url,Author,web_url,"{""type"": ""string""}",1
+get+projects_{id}_repository_commits_{sha}_comments,author.avatar_url,Author,avatar_url,"{""type"": ""string""}",1
+get+projects_{id}_repository_commits_{sha}_statuses,target_url,CommitStatus,target_url,"{""type"": ""string""}",1
+post+projects_{id}_statuses_{sha},author.web_url,Author,web_url,"{""type"": ""string""}",1
+post+projects_{id}_statuses_{sha},author.avatar_url,Author,avatar_url,"{""type"": ""string""}",1
+post+projects_{id}_statuses_{sha},target_url,CommitStatus,target_url,"{""type"": ""string""}",1
+get+projects_{id}_repository_commits_{sha}_merge_requests,author.avatar_url,Author,avatar_url,"{""type"": ""string""}",1
+get+projects_{id}_repository_commits_{sha}_merge_requests,web_url,MergeRequests,web_url,"{""type"": ""string""}",1
+get+projects,http_url_to_repo,BasicProjectDetails,http_url_to_repo,"{""type"": ""string""}",1
+get+projects,web_url,BasicProjectDetails,web_url,"{""type"": ""string""}",1
+get+projects,readme_url,BasicProjectDetails,readme_url,"{""type"": ""string""}",1
+post+projects,web_url,BasicProjectDetails,web_url,"{""type"": ""string""}",1
+post+projects,readme_url,BasicProjectDetails,readme_url,"{""type"": ""string""}",1
+get+projects_{id}_repository_commits_{sha}_signature,x509_certificate.x509_issuer.crl_url,X509Issuer,crl_url,"{ ""type"": ""string"" }",1

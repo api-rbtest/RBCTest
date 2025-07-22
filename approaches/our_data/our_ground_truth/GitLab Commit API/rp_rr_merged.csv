@@ -1,0 +1,89 @@
+endpoint,group,response resource,attribute,description
+get+projects,archived,BasicProjectDetails,archived,Attribute archived is responded to by parameter BasicProjectDetails with a description: Limit by archived status
+get+projects,id,BasicProjectDetails,id,Attribute id_before is responded to by parameter BasicProjectDetails with a description: Limit results to projects with IDs less than the specified ID
+get+projects,id,BasicProjectDetails,id,Attribute id_after is responded to by parameter BasicProjectDetails with a description: Limit results to projects with IDs greater than the specified ID
+get+projects,visibility,BasicProjectDetails,visibility,Attribute visibility is responded to by parameter BasicProjectDetails with a description: Limit by visibility
+get+projects,last_activity_at,BasicProjectDetails,last_activity_at,Attribute last_activity_after is responded to by parameter BasicProjectDetails with a description: Limit results to projects with last_activity after specified time.ISO 8601 YYYY-MM-DDTHH:MM:SSZ
+get+projects,last_activity_at,BasicProjectDetails,last_activity_at,Attribute last_activity_before is responded to by parameter BasicProjectDetails with a description: Limit results to projects with last_activity before specified time. ISO 8601 YYYY-MM-DDTHH:MM:SSZ
+get+projects,repository_storage,BasicProjectDetails,repository_storage,Attribute repository_storage is responded to by parameter BasicProjectDetails with a description: Limit results to projects stored on repository_storage. (admins only)
+get+projects_{id}_repository_commits,committer_date,RepoCommit,committer_date,Attribute since is responded to by parameter RepoCommit with a description: Only commits after or on this date will be returned in ISO 8601 format YYYY-MM-DDTHH:MM:SSZ
+get+projects_{id}_repository_commits,id,RepoCommit,id,Attribute id is responded to by parameter RepoCommit with a description: The ID or URL-encoded path of the project owned by the authenticated user
+get+projects_{id}_repository_commits_{sha}_comments,line_type,RepoCommitComment,line_type,Attribute line_type is responded to by parameter RepoCommitComment with a description: The line type
+get+projects_{id}_repository_commits_{sha}_comments,path,RepoCommitComment,path,Attribute path is responded to by parameter RepoCommitComment with a description: The file path relative to the repository
+get+projects_{id}_repository_commits_{sha}_comments,note,RepoCommitComment,note,Attribute note is responded to by parameter RepoCommitComment with a description: The text of the comment
+get+projects_{id}_repository_commits_{sha}_comments,line,RepoCommitComment,line,Attribute line is responded to by parameter RepoCommitComment with a description: The line number where the comment should be placed
+get+projects_{id}_repository_commits_{sha}_merge_requests,sha,MergeRequests,sha,Attribute sha is responded to by parameter MergeRequests with a description: The commit SHA
+get+projects_{id}_repository_commits_{sha}_refs,type,RepoCommitRefs,type,Attribute type is responded to by parameter RepoCommitRefs with a description: The scope of commits
+get+projects_{id}_repository_commits_{sha}_statuses,id,CommitStatus,id,Attribute id is responded to by parameter CommitStatus with a description: The ID or URL-encoded path of the project owned by the authenticated user
+get+projects_{id}_repository_commits_{sha}_statuses,name,CommitStatus,name,"Attribute name is responded to by parameter CommitStatus with a description: Filter by job name, e.g., bundler:audit"
+get+projects_{id}_repository_commits_{sha}_statuses,ref,CommitStatus,ref,"Attribute ref is responded to by parameter CommitStatus with a description: The name of a repository branch or tag or, if not given, the default branch"
+get+projects_{id}_repository_commits_{sha}_statuses,sha,CommitStatus,sha,Attribute sha is responded to by parameter CommitStatus with a description: The commit hash or name of a repository branch or tag
+post+projects,issues_enabled,BasicProjectDetails,issues_enabled,Attribute issues_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable issues for this project. Use issues_access_level instead
+post+projects,merge_requests_enabled,BasicProjectDetails,merge_requests_enabled,Attribute merge_requests_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable merge requests for this project. Use merge_requests_access_level instead
+post+projects,jobs_enabled,BasicProjectDetails,jobs_enabled,Attribute jobs_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable jobs for this project. Use builds_access_level instead
+post+projects,wiki_enabled,BasicProjectDetails,wiki_enabled,Attribute wiki_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable wiki for this project. Use wiki_access_levelinstead
+post+projects,snippets_enabled,BasicProjectDetails,snippets_enabled,Attribute snippets_enabled is responded to by parameter BasicProjectDetails with a description: (Deprecated)Enable snippets for this project. Use snippets_access_level instead
+post+projects,resolve_outdated_diff_discussions,BasicProjectDetails,resolve_outdated_diff_discussions,Attribute resolve_outdated_diff_discussions is responded to by parameter BasicProjectDetails with a description: Automatically resolve merge request diffs discussions on lines changed with a push
+post+projects,container_registry_enabled,BasicProjectDetails,container_registry_enabled,Attribute container_registry_enabled is responded to by parameter BasicProjectDetails with a description: Enable container registry for this project
+post+projects,shared_runners_enabled,BasicProjectDetails,shared_runners_enabled,Attribute shared_runners_enabled is responded to by parameter BasicProjectDetails with a description: Enable shared runners for this project
+post+projects,public_jobs,BasicProjectDetails,public_jobs,"Attribute public_builds is responded to by parameter BasicProjectDetails with a description: If true, jobs can be viewed by non-project members"
+post+projects,only_allow_merge_if_pipeline_succeeds,BasicProjectDetails,only_allow_merge_if_pipeline_succeeds,Attribute only_allow_merge_if_pipeline_succeeds is responded to by parameter BasicProjectDetails with a description: Set whether merge requests can only be merged with successful jobs
+post+projects,allow_merge_on_skipped_pipeline,BasicProjectDetails,allow_merge_on_skipped_pipeline,Attribute allow_merge_on_skipped_pipeline is responded to by parameter BasicProjectDetails with a description: Set whether or not merge requests can be merged with skipped jobs
+post+projects,only_allow_merge_if_all_discussions_are_resolved,BasicProjectDetails,only_allow_merge_if_all_discussions_are_resolved,Attribute only_allow_merge_if_all_discussions_are_resolved is responded to by parameter BasicProjectDetails with a description: Set whether merge requests can only be merged when all the discussions are resolved
+post+projects,remove_source_branch_after_merge,BasicProjectDetails,remove_source_branch_after_merge,Attribute remove_source_branch_after_merge is responded to by parameter BasicProjectDetails with a description: Enable Delete source branch option by default for all new merge requests
+post+projects,request_access_enabled,BasicProjectDetails,request_access_enabled,Attribute request_access_enabled is responded to by parameter BasicProjectDetails with a description: Allow users to request member access
+post+projects,auto_devops_enabled,BasicProjectDetails,auto_devops_enabled,Attribute auto_devops_enabled is responded to by parameter BasicProjectDetails with a description: Enable Auto DevOps for this project
+post+projects,packages_enabled,BasicProjectDetails,packages_enabled,Attribute packages_enabled is responded to by parameter BasicProjectDetails with a description: Enable or disable packages repository feature
+post+projects,autoclose_referenced_issues,BasicProjectDetails,autoclose_referenced_issues,Attribute autoclose_referenced_issues is responded to by parameter BasicProjectDetails with a description: Set whether auto-closing referenced issues on default branch
+post+projects,description,BasicProjectDetails,description,Attribute description is responded to by parameter BasicProjectDetails with a description: Short project description
+post+projects,default_branch,BasicProjectDetails,default_branch,Attribute default_branch is responded to by parameter BasicProjectDetails with a description: master by default
+post+projects,visibility,BasicProjectDetails,visibility,Attribute visibility is responded to by parameter BasicProjectDetails with a description: See project visibility level
+post+projects,name,BasicProjectDetails,name,"Attribute name is responded to by parameter BasicProjectDetails with a description: The name of the new project. Either path or name is required, not both"
+post+projects,path,BasicProjectDetails,path,Attribute path is responded to by parameter BasicProjectDetails with a description: Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes)
+post+projects,merge_method,BasicProjectDetails,merge_method,Attribute merge_method is responded to by parameter BasicProjectDetails with a description: Set the merge method used
+post+projects,auto_devops_deploy_strategy,BasicProjectDetails,auto_devops_deploy_strategy,Attribute auto_devops_deploy_strategy is responded to by parameter BasicProjectDetails with a description: Auto Deploy strategy
+post+projects,repository_storage,BasicProjectDetails,repository_storage,Attribute repository_storage is responded to by parameter BasicProjectDetails with a description: Which storage shard the repository is on.(admins only)
+post+projects,tag_list,BasicProjectDetails,tag_list,"Attribute tag_list is responded to by parameter BasicProjectDetails with a description: The list of tags for a project; put array of tags, that should be finally assigned to a project"
+post+projects_{id}_repository_commits,author_email,RepoCommitDetail,author_email,Attribute author_email is responded to by parameter RepoCommitDetail with a description: Author email for commit
+post+projects_{id}_repository_commits,author_name,RepoCommitDetail,author_name,Attribute author_name is responded to by parameter RepoCommitDetail with a description: Author name for commit
+post+projects_{id}_repository_commits,message,RepoCommitDetail,message,Attribute commit_message is responded to by parameter RepoCommitDetail with a description: Commit message
+post+projects_{id}_statuses_{sha},description,CommitStatus,description,Attribute description is responded to by parameter CommitStatus with a description: A short description of the status
+post+projects_{id}_statuses_{sha},id,CommitStatus,id,Attribute id is responded to by parameter CommitStatus with a description: The ID or URL-encoded path of the project owned by the authenticated user
+post+projects_{id}_statuses_{sha},name,CommitStatus,name,Attribute name is responded to by parameter CommitStatus with a description: The label to differentiate this status from the status of other systems
+post+projects_{id}_statuses_{sha},ref,CommitStatus,ref,Attribute ref is responded to by parameter CommitStatus with a description: The ref (branch or tag) to which the status refers
+post+projects_{id}_statuses_{sha},sha,CommitStatus,sha,Attribute sha is responded to by parameter CommitStatus with a description: The commit SHA
+post+projects_{id}_statuses_{sha},target_url,CommitStatus,target_url,Attribute target_url is responded to by parameter CommitStatus with a description: The target URL to associate with this status
+get+projects,http_url_to_repo,BasicProjectDetails,http_url_to_repo,"{""type"": ""string""}"
+get+projects,web_url,BasicProjectDetails,web_url,"{""type"": ""string""}"
+get+projects,readme_url,BasicProjectDetails,readme_url,"{""type"": ""string""}"
+get+projects,owner.created_at,Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+projects,created_at,BasicProjectDetails,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+projects,last_activity_at,BasicProjectDetails,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}"
+get+projects,avatar_url,BasicProjectDetails,avatar_url,"{""type"": ""string""}"
+get+projects,marked_for_deletion_at,BasicProjectDetails,marked_for_deletion_at,"{""type"": ""string"", ""format"": ""date""}"
+get+projects,marked_for_deletion_on,BasicProjectDetails,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}"
+get+projects_{id}_repository_commits,author_email,RepoCommit,author_email,"{""type"": ""string""}"
+get+projects_{id}_repository_commits,committer_email,RepoCommit,committer_email,"{""type"": ""string""}"
+get+projects_{id}_repository_commits_{sha}_comments,author.web_url,Author,web_url,"{""type"": ""string""}"
+get+projects_{id}_repository_commits_{sha}_comments,author.avatar_url,Author,avatar_url,"{""type"": ""string""}"
+get+projects_{id}_repository_commits_{sha}_merge_requests,author.avatar_url,Author,avatar_url,"{""type"": ""string""}"
+get+projects_{id}_repository_commits_{sha}_merge_requests,web_url,MergeRequests,web_url,"{""type"": ""string""}"
+get+projects_{id}_repository_commits_{sha}_refs,type,RepoCommitRefs,type,"{""type"": ""string"", ""enum"": [""branch"", ""tag"", ""all""]}"
+get+projects_{id}_repository_commits_{sha}_signature,gpg_key_user_email,Signature,gpg_key_user_email,"{""type"": ""string""}"
+get+projects_{id}_repository_commits_{sha}_statuses,author.web_url,Author,web_url,"{""type"": ""string""}"
+get+projects_{id}_repository_commits_{sha}_statuses,author.avatar_url,Author,avatar_url,"{""type"": ""string""}"
+get+projects_{id}_repository_commits_{sha}_statuses,target_url,CommitStatus,target_url,"{""type"": ""string""}"
+post+projects,http_url_to_repo,BasicProjectDetails,http_url_to_repo,"{""type"": ""string""}"
+post+projects,web_url,BasicProjectDetails,web_url,"{""type"": ""string""}"
+post+projects,readme_url,BasicProjectDetails,readme_url,"{""type"": ""string""}"
+post+projects,owner.created_at,Owner,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects,created_at,BasicProjectDetails,created_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects,last_activity_at,BasicProjectDetails,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}"
+post+projects,avatar_url,BasicProjectDetails,avatar_url,"{""type"": ""string""}"
+post+projects,marked_for_deletion_on,BasicProjectDetails,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}"
+post+projects_{id}_repository_commits,author_email,RepoCommitDetail,author_email,"{""type"": ""string""}"
+post+projects_{id}_repository_commits,committer_email,RepoCommitDetail,committer_email,"{""type"": ""string""}"
+post+projects_{id}_repository_commits,web_url,RepoCommitDetail,web_url,"{""type"": ""string""}"
+post+projects_{id}_statuses_{sha},author.web_url,Author,web_url,"{""type"": ""string""}"
+post+projects_{id}_statuses_{sha},author.avatar_url,Author,avatar_url,"{""type"": ""string""}"
+post+projects_{id}_statuses_{sha},target_url,CommitStatus,target_url,"{""type"": ""string""}"

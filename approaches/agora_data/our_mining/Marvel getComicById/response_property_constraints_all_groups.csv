@@ -1,0 +1,513 @@
+operation,response resource,attribute,group,description,tp,verification script,status,script confirmation,revised script,revised executable script,revised status,TP
+get-/v1/public/comics/{comicid},Comic,pageCount,data.results.pageCount,"The number of story pages in the comic, schema: {""type"": ""integer"", ""format"": ""int32""}",1,"def verify_latest_response(latest_response):
+    try:
+        comic_data_container = latest_response.get('data', {}).get('results', [])
+        if not comic_data_container:
+            return 0  # Insufficient information to verify the constraint
+
+        for comic in comic_data_container:
+            page_count = comic.get('pageCount')
+            if page_count is None:
+                return 0  # Insufficient information to verify the constraint
+            if not isinstance(page_count, int):
+                return -1  # Constraint not satisfied: pageCount must be an integer
+
+        return 1  # Constraint satisfied for all comics
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},Comic,ean,data.results.ean,The EAN barcode for the comic,1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate to the 'results' array of 'Comic' objects
+        comics = latest_response['data']['results']
+        
+        # Check each comic object for the 'ean' attribute
+        for comic in comics:
+            ean = comic.get('ean')
+            if ean is None:
+                return 0  # Attribute does not exist
+            if not isinstance(ean, str):
+                return -1  # Constraint not satisfied: 'ean' is not a string
+        
+        return 1  # All constraints satisfied
+    except (KeyError, TypeError):
+        return 0  # Response lacks sufficient information to verify the constraint
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},StoryList,returned,data.results.stories.returned,The number of stories returned in this collection (up to 20,1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate to the 'returned' attribute within the response
+        returned_value = latest_response['data']['results'][0]['creators']['returned']
+        
+        # Check if the 'returned' value is an integer and does not exceed 20
+        if isinstance(returned_value, int) and returned_value <= 20:
+            return 1
+        else:
+            return -1
+    except KeyError:
+        # Return 0 if the 'returned' attribute is not found in the response
+        return 0
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},TextObject,language,data.results.textObjects.language,The IETF language tag denoting the language the text object is written in,1,"import re
+
+def verify_latest_response(latest_response):
+    try:
+        # Define a regex pattern for IETF language tags
+        ietf_language_tag_pattern = re.compile(r'^[a-zA-Z]{2,3}(-[a-zA-Z]{2,3})?$')
+        
+        # Navigate through the response to find the language attribute
+        comic_data_container = latest_response.get('data', {})
+        results = comic_data_container.get('results', [])
+        
+        for comic in results:
+            text_objects = comic.get('textObjects', [])
+            for text_object in text_objects:
+                language = text_object.get('language')
+                if language is None:
+                    return 0  # Insufficient information to verify the constraint
+                if not ietf_language_tag_pattern.match(language):
+                    return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},Comic,digitalId,data.results.digitalId,"The ID of the digital comic representation of this comic. Will be 0 if the comic is not available digitally, schema: {""type"": ""integer"", ""format"": ""int32""}",1,"def verify_latest_response(latest_response):
+    try:
+        comics = latest_response['data']['results']
+        for comic in comics:
+            digital_id = comic.get('digitalId', None)
+            if digital_id is None:
+                return 0
+            if not isinstance(digital_id, int):
+                return -1
+            if digital_id < 0:
+                return -1
+        return 1
+    except KeyError:
+        return 0
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},CreatorList,available,data.results.creators.available,"The number of total available creators in this list. Will always be greater than or equal to the ""returned"" value, schema: {""type"": ""integer"", ""format"": ""int32""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate to the list of Comic objects
+        comics = latest_response['data']['results']
+        
+        for comic in comics:
+            # Check if 'creators' and 'available' exist in the current comic object
+            if 'creators' in comic and 'available' in comic['creators']:
+                available = comic['creators']['available']
+                
+                # Check if 'returned' exists in the current comic object
+                if 'returned' in comic['creators']:
+                    returned = comic['creators']['returned']
+                    
+                    # Verify the constraint: available >= returned
+                    if available < returned:
+                        return -1
+                else:
+                    # 'returned' is missing, cannot verify the constraint
+                    return 0
+            else:
+                # 'creators' or 'available' is missing, cannot verify the constraint
+                return 0
+        
+        # If all constraints are satisfied
+        return 1
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},EventList,available,data.results.events.available,"The number of total available events in this list. Will always be greater than or equal to the ""returned"" value, schema: {""type"": ""integer"", ""format"": ""int32""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate to the 'results' array in the response
+        results = latest_response['data']['results']
+        
+        # Iterate over each 'Comic' object in the 'results' array
+        for comic in results:
+            # Access the 'creators' object
+            creators = comic.get('creators', {})
+            
+            # Get the 'available' and 'returned' values
+            available = creators.get('available')
+            returned = creators.get('returned')
+            
+            # Check if both 'available' and 'returned' are present
+            if available is None or returned is None:
+                return 0
+            
+            # Verify the constraint: available >= returned
+            if available < returned:
+                return -1
+        
+        # If all constraints are satisfied
+        return 1
+    except KeyError:
+        # Return 0 if the response lacks sufficient information
+        return 0
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},ComicDataContainer,limit,data.limit,"The requested result limit, schema: {""type"": ""integer"", ""format"": ""int32""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'limit' exists in the response
+        if 'data' in latest_response and 'limit' in latest_response['data']:
+            limit_value = latest_response['data']['limit']
+            # Verify that 'limit' is an integer
+            if isinstance(limit_value, int):
+                return 1
+            else:
+                return -1
+        else:
+            return 0
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},Comic,id,data.results.id,"The unique ID of the comic resource, schema: {""type"": ""integer"", ""format"": ""int32""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate to the 'results' array within the response
+        results = latest_response['data']['results']
+        
+        # Check each 'Comic' object in the 'results' array
+        for comic in results:
+            # Ensure 'id' exists and is an integer
+            if 'id' not in comic:
+                return 0  # Attribute does not exist
+            if not isinstance(comic['id'], int):
+                return -1  # Constraint not satisfied: 'id' is not an integer
+        
+        return 1  # All constraints satisfied
+    except (KeyError, TypeError):
+        return 0  # Response lacks sufficient information to verify the constraint
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},TextObject,type,data.results.textObjects.type,"The canonical type of the text object (e.g. solicit text, preview text, etc.",1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate through the response structure to access the 'type' attribute
+        comic_data_container = latest_response.get('data', {})
+        results = comic_data_container.get('results', [])
+        
+        # Check each 'Comic' object in the results
+        for comic in results:
+            text_objects = comic.get('textObjects', [])
+            
+            # Check each 'TextObject' in the textObjects array
+            for text_object in text_objects:
+                text_type = text_object.get('type')
+                
+                # Verify that 'type' is a string
+                if not isinstance(text_type, str):
+                    return -1
+        
+        # If all checks pass, return 1
+        return 1
+    except Exception as e:
+        # Return -1 if any exception occurs during verification
+        return -1
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},ComicDataWrapper,code,code,"The HTTP status code of the returned result, schema: {""type"": ""integer"", ""format"": ""int32""}",0,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'code' exists in the response
+        if 'code' not in latest_response:
+            return 0
+        
+        # Check if 'code' is an integer
+        if not isinstance(latest_response['code'], int):
+            return -1
+        
+        # Check if 'code' is within the valid range for int32
+        if not (-2147483648 <= latest_response['code'] <= 2147483647):
+            return -1
+        
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,0
+get-/v1/public/comics/{comicid},Url,type,data.results.urls.type,"A text identifier for the URL, schema: {""type"": ""string"", ""format"": ""uri""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate through the response structure to access the 'type' attribute
+        results = latest_response.get('data', {}).get('results', [])
+        
+        # Check if 'results' is a list of 'Comic' objects
+        if not isinstance(results, list):
+            return 0
+        
+        for comic in results:
+            text_objects = comic.get('textObjects', [])
+            
+            # Check if 'textObjects' is a list of 'TextObject' objects
+            if not isinstance(text_objects, list):
+                return 0
+            
+            for text_object in text_objects:
+                type_value = text_object.get('type')
+                
+                # Check if 'type' is a string
+                if type_value is None:
+                    return 0
+                if not isinstance(type_value, str):
+                    return -1
+        
+        # If all 'type' attributes are strings, return 1
+        return 1
+    except Exception as e:
+        # In case of any unexpected error, return -1
+        return -1
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},CreatorList,returned,data.results.creators.returned,The number of creators returned in this collection (up to 20,1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate through the response to find the 'returned' attribute
+        results = latest_response.get('data', {}).get('results', [])
+        
+        for comic in results:
+            creators = comic.get('creators', {})
+            returned = creators.get('returned')
+            
+            # Check if 'returned' exists and satisfies the constraint
+            if returned is None:
+                return 0  # Attribute does not exist
+            if isinstance(returned, int) and 0 <= returned <= 20:
+                continue
+            else:
+                return -1  # Constraint not satisfied
+        
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},Comic,resourceURI,data.results.resourceURI,"The canonical URL identifier for this resource, schema: {""type"": ""string"", ""format"": ""uri""}",1,"def verify_latest_response(latest_response):
+    try:
+        results = latest_response.get('data', {}).get('results', [])
+        if not results:
+            return 0
+        
+        for comic in results:
+            resource_uri = comic.get('resourceURI')
+            if resource_uri is None:
+                return 0
+            if not isinstance(resource_uri, str):
+                return -1
+            # Additional checks for URL format can be added here if needed
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},EventList,returned,data.results.events.returned,The number of events returned in this collection (up to 20,1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate to the 'returned' attribute within the response
+        returned_value = latest_response['data']['results'][0]['creators']['returned']
+        
+        # Check if the 'returned' value is an integer and up to 20
+        if isinstance(returned_value, int) and 0 <= returned_value <= 20:
+            return 1
+        else:
+            return -1
+    except KeyError:
+        # Return 0 if the attribute does not exist in the response
+        return 0
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},CharacterList,collectionURI,data.results.characters.collectionURI,The path to the full list of characters in this collection,0,"def verify_latest_response(latest_response):
+    try:
+        # Navigate to the 'collectionURI' attribute in the response
+        creators_list = latest_response['data']['results']
+        
+        # Check if 'creators' and 'collectionURI' exist in each 'Comic' object
+        for comic in creators_list:
+            if 'creators' in comic and 'collectionURI' in comic['creators']:
+                collection_uri = comic['creators']['collectionURI']
+                
+                # Verify that 'collectionURI' is a non-empty string
+                if isinstance(collection_uri, str) and collection_uri.strip():
+                    continue
+                else:
+                    return -1
+            else:
+                return 0
+        
+        return 1
+    except (KeyError, TypeError):
+        return 0
+",unknown,,,,,0
+get-/v1/public/comics/{comicid},EventList,collectionURI,data.results.events.collectionURI,The path to the full list of events in this collection,0,"def verify_latest_response(latest_response):
+    try:
+        # Navigate through the response to find the collectionURI attribute
+        collection_uri = latest_response['data']['results'][0]['creators']['collectionURI']
+        
+        # Check if collectionURI is a non-empty string
+        if isinstance(collection_uri, str) and collection_uri.strip():
+            return 1
+        else:
+            return -1
+    except KeyError:
+        # Return 0 if the attribute does not exist in the response
+        return 0
+",unknown,,,,,0
+get-/v1/public/comics/{comicid},CreatorList,collectionURI,data.results.creators.collectionURI,The path to the full list of creators in this collection,0,"def verify_latest_response(latest_response):
+    try:
+        # Navigate to the 'collectionURI' attribute in the response
+        results = latest_response.get('data', {}).get('results', [])
+        
+        # Check if 'results' is a list and iterate over it
+        for comic in results:
+            creators = comic.get('creators', {})
+            collection_uri = creators.get('collectionURI', None)
+            
+            # Check if 'collectionURI' is a string
+            if collection_uri is None:
+                return 0  # Attribute does not exist
+            if not isinstance(collection_uri, str):
+                return -1  # Constraint not satisfied: 'collectionURI' is not a string
+        
+        return 1  # Constraint satisfied for all items in 'results'
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,0
+get-/v1/public/comics/{comicid},Comic,format,data.results.format,"The publication format of the comic e.g. comic, hardcover, trade paperback",1,"def verify_latest_response(latest_response):
+    try:
+        valid_formats = {""comic"", ""hardcover"", ""trade paperback""}
+        comic_objects = latest_response.get(""data"", {}).get(""results"", [])
+        
+        if not comic_objects:
+            return 0
+        
+        for comic in comic_objects:
+            format_value = comic.get(""format"")
+            if format_value is None:
+                return 0
+            if format_value not in valid_formats:
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},CharacterList,available,data.results.characters.available,"The number of total available characters in this list. Will always be greater than or equal to the ""returned"" value, schema: {""type"": ""integer"", ""format"": ""int32""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate to the 'available' and 'returned' values in the response
+        results = latest_response.get('data', {}).get('results', [])
+        
+        for comic in results:
+            creators = comic.get('creators', {})
+            available = creators.get('available')
+            returned = creators.get('returned')
+            
+            # Check if both 'available' and 'returned' are present
+            if available is None or returned is None:
+                return 0
+            
+            # Verify the constraint: available >= returned
+            if available < returned:
+                return -1
+        
+        # If all constraints are satisfied
+        return 1
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},ComicDataContainer,count,data.count,"The total number of results returned by this call, schema: {""type"": ""integer"", ""format"": ""int32""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'data' and 'count' exist in the response
+        if 'data' in latest_response and 'count' in latest_response['data']:
+            count_value = latest_response['data']['count']
+            # Verify that 'count' is an integer
+            if isinstance(count_value, int):
+                return 1
+            else:
+                return -1
+        else:
+            return 0
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},CharacterList,returned,data.results.characters.returned,The number of characters returned in this collection (up to 20,1,"def verify_latest_response(latest_response):
+    try:
+        # Navigate to the 'returned' attribute in the response
+        results = latest_response.get('data', {}).get('results', [])
+        
+        # Check each 'Comic' object in the results array
+        for comic in results:
+            creators = comic.get('creators', {})
+            returned = creators.get('returned', None)
+            
+            # Verify the constraint: 'returned' should be an integer up to 20
+            if returned is None:
+                return 0  # Attribute does not exist
+            if not isinstance(returned, int) or returned < 0 or returned > 20:
+                return -1  # Constraint not satisfied
+        
+        return 1  # Constraint satisfied for all items
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},CreatorSummary,resourceURI,data.results.creators.items.resourceURI,The path to the individual creator resource,1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the list of comic objects from the response
+        comic_objects = latest_response['data']['results']
+        
+        # Check if 'resourceURI' exists and is a string for each comic object
+        for comic in comic_objects:
+            if 'resourceURI' not in comic:
+                return 0  # Attribute does not exist
+            if not isinstance(comic['resourceURI'], str):
+                return -1  # Constraint not satisfied: 'resourceURI' is not a string
+        
+        return 1  # Constraint satisfied for all comic objects
+    except KeyError:
+        return 0  # Response lacks sufficient information to verify the constraint
+    except Exception as e:
+        return -1  # General failure in constraint verification
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},Comic,issn,data.results.issn,The ISSN barcode for the comic,1,"def verify_latest_response(latest_response):
+    try:
+        comics = latest_response.get('data', {}).get('results', [])
+        if not comics:
+            return 0  # No comics to verify
+
+        for comic in comics:
+            issn = comic.get('issn')
+            if issn is None:
+                return 0  # ISSN attribute does not exist
+
+            if not isinstance(issn, str):
+                return -1  # ISSN is not a string
+
+        return 1  # All ISSN attributes are valid strings
+    except Exception as e:
+        return -1  # An error occurred during verification
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},StoryList,available,data.results.stories.available,"The number of total available stories in this list. Will always be greater than or equal to the ""returned"" value, schema: {""type"": ""integer"", ""format"": ""int32""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Extract the 'available' and 'returned' values from the response
+        available = latest_response['data']['results'][0]['creators']['available']
+        returned = latest_response['data']['results'][0]['creators'].get('returned', None)
+        
+        # Check if 'returned' is present in the response
+        if returned is None:
+            return 0
+        
+        # Verify the constraint: available >= returned
+        if available >= returned:
+            return 1
+        else:
+            return -1
+    except KeyError:
+        # Return 0 if the necessary keys are not present in the response
+        return 0
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},ComicDataContainer,total,data.total,"The total number of resources available given the current filter set, schema: {""type"": ""integer"", ""format"": ""int32""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'total' exists in the response
+        total = latest_response['data']['total']
+        
+        # Verify that 'total' is an integer
+        if isinstance(total, int):
+            return 1
+        else:
+            return -1
+    except KeyError:
+        # Return 0 if 'total' is not present in the response
+        return 0
+    except Exception as e:
+        # Return -1 for any other exceptions
+        return -1
+",unknown,,,,,1
+get-/v1/public/comics/{comicid},ComicDate,date,data.results.dates.date,"The date. schema: {""type"": ""string""} schema: {""type"": ""string""}",1,,,,,,,1
+get-/v1/public/comics/{comicid},Url,url,data.results.urls.url,"A set of public web site URLs for the resource. schema: {""type"": ""array""} schema: {""type"": ""array""}",1,,,,,,,1
+get-/v1/public/comics/{comicid},Comic,diamondCode,data.results.diamondCode,"The Diamond code for the comic. schema: {""type"": ""string""} schema: {""type"": ""string""}",1,,,,,,,1
+get-/v1/public/comics/{comicid},Comic,upc,data.results.upc,"The UPC barcode number for the comic (generally only populated for periodical formats). schema: {""type"": ""string""} schema: {""type"": ""string""}",1,,,,,,,1

@@ -1,0 +1,6 @@
+endpoint,group,response resource,attribute,description,tp
+get+businesses_search,businesses.name,BusinessesResult,name,nan,0
+get+businesses_search,businesses.is_closed,BusinessesResult,is_closed,nan,1
+get+businesses_search,businesses.price,BusinessesResult,price,"{""""type"""": """"string"""", """"enum"""": [""""$"""", """"$$"""", """"$$$"""", """"$$$$"""", """"¬£"""", """"¬£¬£"""", """"¬£¬£¬£"""", """"¬£¬£¬£¬£"""", """"‚Ç¨"""", """"‚Ç¨‚Ç¨"""", """"‚Ç¨‚Ç¨‚Ç¨"""", """"‚Ç¨‚Ç¨‚Ç¨‚Ç¨"""", """"Ôø•"""", """"Ôø•Ôø•"""", """"Ôø•Ôø•Ôø•"""", """"Ôø•Ôø•Ôø•Ôø•""""]}",1
+get+businesses_search,businesses.rating,BusinessesResult,rating,"{""type"": ""number"", ""minimum"": 1, ""maximum"": 5} schema: {""type"": ""number"", ""minimum"": 1, ""maximum"": 5}",1
+get+businesses_search,businesses.url,BusinessesResult,url,"{""type"": ""string""} schema: {""type"": ""string""}",1

@@ -1,0 +1,28 @@
+,group,invariant,endpoint,description,tp
+0,items.album_type,"return.album_type one of { ""album"", ""compilation"", ""single"" }",get+artists_{id}_albums,"The type of the album: one of 'album', 'single', or 'compilation'",1.0
+1,items.artists.href,"return.id is a substring of return.href
+return.type is a substring of return.href
+return.href is Url
+LENGTH(return.href)==57",get+artists_{id}_albums,A link to the Web API endpoint providing full details of the artist,1.0
+2,items.artists.type,"return.type is a substring of return.uri
+LENGTH(return.type)==6
+return.type == ""artist""",get+artists_{id}_albums,The object type: 'artist',1.0
+3,items.artists.uri,LENGTH(return.uri)==37,get+artists_{id}_albums,"The Spotify URI for the artist, schema: {""type"": ""string"", ""format"": ""uri""}",1.0
+4,items.href,"return.id is a substring of return.href
+return.type is a substring of return.href
+return.href is Url
+LENGTH(return.href)==56",get+artists_{id}_albums,A link to the Web API endpoint providing full details of the album,1.0
+5,items.id,"return.id is a substring of return.uri
+LENGTH(return.id)==22",get+artists_{id}_albums,Attribute id is responded to by parameter album-simple with a description: The Spotify ID for the artist,1.0
+6,items.images.url,"return.url is Url
+LENGTH(return.url)==64",get+artists_{id}_albums,"The source URL of the image, schema: {""type"": ""string"", ""format"": ""uri""}",1.0
+7,items.type,"return.type is a substring of return.uri
+LENGTH(return.type)==5
+return.type == ""album""",get+artists_{id}_albums,The object type: 'album',1.0
+8,items.uri,LENGTH(return.uri)==36,get+artists_{id}_albums,"The Spotify URI for the album, schema: {""type"": ""string"", ""format"": ""uri""}",1.0
+9,next,"input.id is a substring of return.next
+input.market is a substring of return.next
+return.next is Url",get+artists_{id}_albums,URL to the next page of items. (null if none,1.0
+10,previous,"input.id is a substring of return.previous
+input.market is a substring of return.previous
+return.previous is Url",get+artists_{id}_albums,URL to the previous page of items. (null if none,1.0

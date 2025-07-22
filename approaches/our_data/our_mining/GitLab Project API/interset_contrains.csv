@@ -1,0 +1,275 @@
+,endpoint,group,invariant,invariantType,variables,pptname,tp_x,description,tp_y
+0,get+projects,archived,input.archived == return.archived,daikon.inv.binary.twoScalar.IntEqual,"(input.archived, return.archived)",/projects&/projects&get&200():::EXIT,1.0,Attribute archived is responded to by parameter archived with a description: Limit by archived status,1.0
+1,get+projects,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+2,get+projects,last_activity_at,"LENGTH(return.last_activity_at)==24
+return.last_activity_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.last_activity_at)
+(return.last_activity_at)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0,"Attribute last_activity_at is responded to by parameter last_activity_before with a description: Limit results to projects with last_activity before specified time. ISO 8601 YYYY-MM-DDTHH:MM:SSZ
+Attribute last_activity_at is responded to by parameter last_activity_after with a description: Limit results to projects with last_activity after specified time.ISO 8601 YYYY-MM-DDTHH:MM:SSZ
+{""type"": ""string"", ""format"": ""date-time""}",1.0
+3,get+projects,repository_storage,"return.repository_storage == ""default""
+LENGTH(return.repository_storage)==7","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.repository_storage)
+(return.repository_storage)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0,Attribute repository_storage is responded to by parameter repository_storage with a description: Limit results to projects stored on repository_storage. (admins only),1.0
+4,get+projects,visibility,"input.visibility == return.visibility
+return.visibility one of { ""internal"", ""private"", ""public"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.visibility, return.visibility)
+(return.visibility)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0,Attribute visibility is responded to by parameter visibility with a description: Limit by visibility,1.0
+5,get+projects_{id},container_expiration_policy.next_run_at,"LENGTH(return.container_expiration_policy.next_run_at)==24
+return.container_expiration_policy.next_run_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.container_expiration_policy.next_run_at)
+(return.container_expiration_policy.next_run_at)","/projects/{id}&/projects/{id}&get&200():::EXIT
+/projects/{id}&/projects/{id}&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+6,get+projects_{id}_forks,created_at,"return.created_at == return.last_activity_at
+LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at, return.last_activity_at)
+(return.created_at)
+(return.created_at)","/projects/{id}/forks&/projects/{id}/forks&get&200():::EXIT
+/projects/{id}/forks&/projects/{id}/forks&get&200():::EXIT
+/projects/{id}/forks&/projects/{id}/forks&get&200():::EXIT",1.0,"Attribute created_at is responded to by parameter order_by with a description: Return projects ordered byid,name,path,created_at,updated_at, orlast_activity_atfields. Default iscreated_at
+{""type"": ""string"", ""format"": ""date-time""}",1.0
+7,get+projects_{id}_forks,id,input.id < return.id,daikon.inv.binary.twoScalar.IntLessThan,"(input.id, return.id)",/projects/{id}/forks&/projects/{id}/forks&get&200():::EXIT,1.0,Attribute id is responded to by parameter id with a description: The ID orURL-encoded path of the project,1.0
+8,get+projects_{id}_forks,merge_requests_enabled,return.merge_requests_enabled == return.can_create_merge_request_in,daikon.inv.binary.twoScalar.IntEqual,"(return.merge_requests_enabled, return.can_create_merge_request_in)",/projects/{id}/forks&/projects/{id}/forks&get&200():::EXIT,1.0,Attribute merge_requests_enabled is responded to by parameter with_merge_requests_enabled with a description: Limit by enabled merge requests feature,1.0
+9,get+projects_{id}_forks,visibility,"input.visibility == return.visibility
+return.visibility one of { ""internal"", ""private"", ""public"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.visibility, return.visibility)
+(return.visibility)","/projects/{id}/forks&/projects/{id}/forks&get&200():::EXIT
+/projects/{id}/forks&/projects/{id}/forks&get&200():::EXIT",1.0,"Attribute visibility is responded to by parameter visibility with a description: Limit by visibilitypublic,internal, orprivate",1.0
+10,get+projects_{id}_starrers,starred_since,"LENGTH(return.starred_since)==24
+return.starred_since is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.starred_since)
+(return.starred_since)","/projects/{id}/starrers&/projects/{id}/starrers&get&200():::EXIT
+/projects/{id}/starrers&/projects/{id}/starrers&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+11,get+projects_{id}_users,web_url,return.username is a substring of return.web_url,daikon.inv.binary.twoString.StdString$SubString,"(return.web_url, return.username)",/projects/{id}/users&/projects/{id}/users&get&200():::EXIT,1.0,"{""type"": ""string""}_x000D_",1.0
+12,get+users_{user_id}_projects,created_at,"return.created_at == return.last_activity_at
+LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at, return.last_activity_at)
+(return.created_at)
+(return.created_at)","/users/{user_id}/projects&/users/{user_id}/projects&get&200():::EXIT
+/users/{user_id}/projects&/users/{user_id}/projects&get&200():::EXIT
+/users/{user_id}/projects&/users/{user_id}/projects&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+13,get+users_{user_id}_projects,id,"input.id_after < return.id
+input.id_before > return.id
+return.id > return.owner.id
+return.id > return.creator_id
+return.id > return.star_count","daikon.inv.binary.twoScalar.IntLessThan
+daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntGreaterThan
+daikon.inv.binary.twoScalar.IntGreaterThan","(input.id_after, return.id)
+(input.id_before, return.id)
+(return.id, return.owner.id)
+(return.id, return.creator_id)
+(return.id, return.star_count)","/users/{user_id}/projects&/users/{user_id}/projects&get&200():::EXIT
+/users/{user_id}/projects&/users/{user_id}/projects&get&200():::EXIT
+/users/{user_id}/projects&/users/{user_id}/projects&get&200():::EXIT
+/users/{user_id}/projects&/users/{user_id}/projects&get&200():::EXIT
+/users/{user_id}/projects&/users/{user_id}/projects&get&200():::EXIT",1.0,Attribute id is responded to by parameter id_after with a description: Limit results to projects with IDs greater than the specified ID,1.0
+14,get+users_{user_id}_projects,visibility,"input.visibility == return.visibility
+return.visibility one of { ""internal"", ""private"", ""public"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.visibility, return.visibility)
+(return.visibility)","/users/{user_id}/projects&/users/{user_id}/projects&get&200():::EXIT
+/users/{user_id}/projects&/users/{user_id}/projects&get&200():::EXIT",1.0,Attribute visibility is responded to by parameter visibility with a description: Limit by visibility,1.0
+15,get+users_{user_id}_starred_projects,archived,input.archived == return.archived,daikon.inv.binary.twoScalar.IntEqual,"(input.archived, return.archived)",/users/{user_id}/starred_projects&/users/{user_id}/starred_projects&get&200():::EXIT,1.0,Attribute archived is responded to by parameter archived with a description: Limit by archived status,1.0
+16,get+users_{user_id}_starred_projects,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/users/{user_id}/starred_projects&/users/{user_id}/starred_projects&get&200():::EXIT
+/users/{user_id}/starred_projects&/users/{user_id}/starred_projects&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+17,get+users_{user_id}_starred_projects,last_activity_at,"LENGTH(return.last_activity_at)==24
+return.last_activity_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.last_activity_at)
+(return.last_activity_at)","/users/{user_id}/starred_projects&/users/{user_id}/starred_projects&get&200():::EXIT
+/users/{user_id}/starred_projects&/users/{user_id}/starred_projects&get&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+18,get+users_{user_id}_starred_projects,visibility,"input.visibility == return.visibility
+return.visibility one of { ""internal"", ""private"", ""public"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.visibility, return.visibility)
+(return.visibility)","/users/{user_id}/starred_projects&/users/{user_id}/starred_projects&get&200():::EXIT
+/users/{user_id}/starred_projects&/users/{user_id}/starred_projects&get&200():::EXIT",1.0,Attribute visibility is responded to by parameter visibility with a description: Limit by visibility,1.0
+19,post+projects,allow_merge_on_skipped_pipeline,input.allow_merge_on_skipped_pipeline == return.allow_merge_on_skipped_pipeline,daikon.inv.binary.twoScalar.IntEqual,"(input.allow_merge_on_skipped_pipeline, return.allow_merge_on_skipped_pipeline)",/projects&/projects&post&201():::EXIT,1.0,Attribute allow_merge_on_skipped_pipeline is responded to by parameter allow_merge_on_skipped_pipeline with a description: Set whether or not merge requests can be merged with skipped jobs,1.0
+20,post+projects,auto_devops_deploy_strategy,"input.auto_devops_deploy_strategy == return.auto_devops_deploy_strategy
+return.auto_devops_deploy_strategy one of { ""continuous"", ""manual"", ""timed_incremental"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.auto_devops_deploy_strategy, return.auto_devops_deploy_strategy)
+(return.auto_devops_deploy_strategy)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0,Attribute auto_devops_deploy_strategy is responded to by parameter auto_devops_deploy_strategy with a description: Auto Deploy strategy,1.0
+21,post+projects,auto_devops_enabled,input.auto_devops_enabled == return.auto_devops_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.auto_devops_enabled, return.auto_devops_enabled)",/projects&/projects&post&201():::EXIT,1.0,Attribute auto_devops_enabled is responded to by parameter auto_devops_enabled with a description: Enable Auto DevOps for this project,1.0
+22,post+projects,autoclose_referenced_issues,input.autoclose_referenced_issues == return.autoclose_referenced_issues,daikon.inv.binary.twoScalar.IntEqual,"(input.autoclose_referenced_issues, return.autoclose_referenced_issues)",/projects&/projects&post&201():::EXIT,1.0,Attribute autoclose_referenced_issues is responded to by parameter autoclose_referenced_issues with a description: Set whether auto-closing referenced issues on default branch,1.0
+23,post+projects,container_registry_enabled,input.container_registry_enabled == return.container_registry_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.container_registry_enabled, return.container_registry_enabled)",/projects&/projects&post&201():::EXIT,1.0,Attribute container_registry_enabled is responded to by parameter container_registry_enabled with a description: Enable container registry for this project,1.0
+24,post+projects,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+25,post+projects,default_branch,return.default_branch is a substring of return.readme_url,daikon.inv.binary.twoString.StdString$SubString,"(return.default_branch, return.readme_url)",/projects&/projects&post&201():::EXIT,1.0,Attribute default_branch is responded to by parameter default_branch with a description: master by default,1.0
+26,post+projects,description,input.description == return.description,daikon.inv.binary.twoString.StringEqual,"(input.description, return.description)",/projects&/projects&post&201():::EXIT,1.0,Attribute description is responded to by parameter description with a description: Short project description,1.0
+27,post+projects,last_activity_at,"LENGTH(return.last_activity_at)==24
+return.last_activity_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.last_activity_at)
+(return.last_activity_at)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+28,post+projects,merge_method,"input.merge_method == return.merge_method
+return.merge_method one of { ""ff"", ""merge"", ""rebase_merge"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.merge_method, return.merge_method)
+(return.merge_method)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0,Attribute merge_method is responded to by parameter merge_method with a description: Set the merge method used,1.0
+29,post+projects,name,input.name == return.name,daikon.inv.binary.twoString.StringEqual,"(input.name, return.name)",/projects&/projects&post&201():::EXIT,1.0,"Attribute name is responded to by parameter name with a description: The name of the new project. Either path or name is required, not both",1.0
+30,post+projects,only_allow_merge_if_all_discussions_are_resolved,input.only_allow_merge_if_all_discussions_are_resolved == return.only_allow_merge_if_all_discussions_are_resolved,daikon.inv.binary.twoScalar.IntEqual,"(input.only_allow_merge_if_all_discussions_are_resolved, return.only_allow_merge_if_all_discussions_are_resolved)",/projects&/projects&post&201():::EXIT,1.0,Attribute only_allow_merge_if_all_discussions_are_resolved is responded to by parameter only_allow_merge_if_all_discussions_are_resolved with a description: Set whether merge requests can only be merged when all the discussions are resolved,1.0
+31,post+projects,only_allow_merge_if_pipeline_succeeds,input.only_allow_merge_if_pipeline_succeeds == return.only_allow_merge_if_pipeline_succeeds,daikon.inv.binary.twoScalar.IntEqual,"(input.only_allow_merge_if_pipeline_succeeds, return.only_allow_merge_if_pipeline_succeeds)",/projects&/projects&post&201():::EXIT,1.0,Attribute only_allow_merge_if_pipeline_succeeds is responded to by parameter only_allow_merge_if_pipeline_succeeds with a description: Set whether merge requests can only be merged with successful jobs,1.0
+32,post+projects,packages_enabled,input.packages_enabled == return.packages_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.packages_enabled, return.packages_enabled)",/projects&/projects&post&201():::EXIT,1.0,Attribute packages_enabled is responded to by parameter packages_enabled with a description: Enable or disable packages repository feature,1.0
+33,post+projects,path,input.path == return.path,daikon.inv.binary.twoString.StringEqual,"(input.path, return.path)",/projects&/projects&post&201():::EXIT,1.0,Attribute path is responded to by parameter path with a description: Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes),1.0
+34,post+projects,remove_source_branch_after_merge,input.remove_source_branch_after_merge == return.remove_source_branch_after_merge,daikon.inv.binary.twoScalar.IntEqual,"(input.remove_source_branch_after_merge, return.remove_source_branch_after_merge)",/projects&/projects&post&201():::EXIT,1.0,Attribute remove_source_branch_after_merge is responded to by parameter remove_source_branch_after_merge with a description: Enable Delete source branch option by default for all new merge requests,1.0
+35,post+projects,repository_storage,"input.repository_storage == return.repository_storage
+return.repository_storage == ""default""
+LENGTH(return.repository_storage)==7","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(input.repository_storage, return.repository_storage)
+(return.repository_storage)
+(return.repository_storage)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0,Attribute repository_storage is responded to by parameter repository_storage with a description: Which storage shard the repository is on.(admins only),1.0
+36,post+projects,request_access_enabled,input.request_access_enabled == return.request_access_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.request_access_enabled, return.request_access_enabled)",/projects&/projects&post&201():::EXIT,1.0,Attribute request_access_enabled is responded to by parameter request_access_enabled with a description: Allow users to request member access,1.0
+37,post+projects,resolve_outdated_diff_discussions,input.resolve_outdated_diff_discussions == return.resolve_outdated_diff_discussions,daikon.inv.binary.twoScalar.IntEqual,"(input.resolve_outdated_diff_discussions, return.resolve_outdated_diff_discussions)",/projects&/projects&post&201():::EXIT,1.0,Attribute resolve_outdated_diff_discussions is responded to by parameter resolve_outdated_diff_discussions with a description: Automatically resolve merge request diffs discussions on lines changed with a push,1.0
+38,post+projects,shared_runners_enabled,input.shared_runners_enabled == return.shared_runners_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.shared_runners_enabled, return.shared_runners_enabled)",/projects&/projects&post&201():::EXIT,1.0,Attribute shared_runners_enabled is responded to by parameter shared_runners_enabled with a description: Enable shared runners for this project,1.0
+39,post+projects,tag_list,"size(input.tag_list[]) == size(return.tag_list[])
+return.open_issues_count <= size(return.tag_list[])
+return.forks_count <= size(return.tag_list[])","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual","(size(input.tag_list[..]), size(return.tag_list[..]))
+(return.open_issues_count, size(return.tag_list[..]))
+(return.forks_count, size(return.tag_list[..]))","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0,"Attribute tag_list is responded to by parameter tag_list with a description: The list of tags for a project; put array of tags, that should be finally assigned to a project",1.0
+40,post+projects_user_{user_id},allow_merge_on_skipped_pipeline,input.allow_merge_on_skipped_pipeline == return.allow_merge_on_skipped_pipeline,daikon.inv.binary.twoScalar.IntEqual,"(input.allow_merge_on_skipped_pipeline, return.allow_merge_on_skipped_pipeline)",/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT,1.0,Attribute allow_merge_on_skipped_pipeline is responded to by parameter allow_merge_on_skipped_pipeline with a description: Set whether or not merge requests can be merged with skipped jobs,1.0
+41,post+projects_user_{user_id},auto_devops_deploy_strategy,"input.auto_devops_deploy_strategy == return.auto_devops_deploy_strategy
+return.auto_devops_deploy_strategy one of { ""continuous"", ""manual"", ""timed_incremental"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.auto_devops_deploy_strategy, return.auto_devops_deploy_strategy)
+(return.auto_devops_deploy_strategy)","/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT
+/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT",1.0,Attribute auto_devops_deploy_strategy is responded to by parameter auto_devops_deploy_strategy with a description: Auto Deploy strategy,1.0
+42,post+projects_user_{user_id},auto_devops_enabled,input.auto_devops_enabled == return.auto_devops_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.auto_devops_enabled, return.auto_devops_enabled)",/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT,1.0,Attribute auto_devops_enabled is responded to by parameter auto_devops_enabled with a description: Enable Auto DevOps for this project,1.0
+43,post+projects_user_{user_id},autoclose_referenced_issues,input.autoclose_referenced_issues == return.autoclose_referenced_issues,daikon.inv.binary.twoScalar.IntEqual,"(input.autoclose_referenced_issues, return.autoclose_referenced_issues)",/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT,1.0,Attribute autoclose_referenced_issues is responded to by parameter autoclose_referenced_issues with a description: Set whether auto-closing referenced issues on default branch,1.0
+44,post+projects_user_{user_id},container_registry_enabled,input.container_registry_enabled == return.container_registry_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.container_registry_enabled, return.container_registry_enabled)",/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT,1.0,Attribute container_registry_enabled is responded to by parameter container_registry_enabled with a description: Enable container registry for this project,1.0
+45,post+projects_user_{user_id},created_at,"return.created_at == return.last_activity_at
+LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at, return.last_activity_at)
+(return.created_at)
+(return.created_at)","/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT
+/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT
+/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+46,post+projects_user_{user_id},description,input.description == return.description,daikon.inv.binary.twoString.StringEqual,"(input.description, return.description)",/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT,1.0,Attribute description is responded to by parameter description with a description: Short project description,1.0
+47,post+projects_user_{user_id},jobs_enabled,input.jobs_enabled == return.jobs_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.jobs_enabled, return.jobs_enabled)",/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT,1.0,Attribute jobs_enabled is responded to by parameter jobs_enabled with a description: (Deprecated)Enable jobs for this project. Use builds_access_level instead,1.0
+48,post+projects_user_{user_id},merge_method,"input.merge_method == return.merge_method
+return.merge_method one of { ""ff"", ""merge"", ""rebase_merge"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.merge_method, return.merge_method)
+(return.merge_method)","/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT
+/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT",1.0,Attribute merge_method is responded to by parameter merge_method with a description: Set the merge method used,1.0
+49,post+projects_user_{user_id},merge_requests_enabled,return.merge_requests_enabled == return.can_create_merge_request_in,daikon.inv.binary.twoScalar.IntEqual,"(return.merge_requests_enabled, return.can_create_merge_request_in)",/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT,1.0,Attribute merge_requests_enabled is responded to by parameter merge_requests_enabled with a description: (Deprecated)Enable merge requests for this project. Use merge_requests_access_level instead,1.0
+50,post+projects_user_{user_id},name,input.name == return.name,daikon.inv.binary.twoString.StringEqual,"(input.name, return.name)",/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT,1.0,Attribute name is responded to by parameter name with a description: The name of the new project. Equals path if not provided,1.0
+51,post+projects_user_{user_id},only_allow_merge_if_all_discussions_are_resolved,input.only_allow_merge_if_all_discussions_are_resolved == return.only_allow_merge_if_all_discussions_are_resolved,daikon.inv.binary.twoScalar.IntEqual,"(input.only_allow_merge_if_all_discussions_are_resolved, return.only_allow_merge_if_all_discussions_are_resolved)",/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT,1.0,Attribute only_allow_merge_if_all_discussions_are_resolved is responded to by parameter only_allow_merge_if_all_discussions_are_resolved with a description: Set whether merge requests can only be merged when all the discussions are resolved,1.0
+52,post+projects_user_{user_id},only_allow_merge_if_pipeline_succeeds,input.only_allow_merge_if_pipeline_succeeds == return.only_allow_merge_if_pipeline_succeeds,daikon.inv.binary.twoScalar.IntEqual,"(input.only_allow_merge_if_pipeline_succeeds, return.only_allow_merge_if_pipeline_succeeds)",/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT,1.0,Attribute only_allow_merge_if_pipeline_succeeds is responded to by parameter only_allow_merge_if_pipeline_succeeds with a description: Set whether merge requests can only be merged with successful jobs,1.0
+53,post+projects_user_{user_id},packages_enabled,input.packages_enabled == return.packages_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.packages_enabled, return.packages_enabled)",/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT,1.0,Attribute packages_enabled is responded to by parameter packages_enabled with a description: Enable or disable packages repository feature,1.0
+54,post+projects_user_{user_id},path,input.path == return.path,daikon.inv.binary.twoString.StringEqual,"(input.path, return.path)",/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT,1.0,"Attribute path is responded to by parameter path with a description: Repository name for new project. Either path or name is required, not both",1.0
+55,post+projects_user_{user_id},remove_source_branch_after_merge,input.remove_source_branch_after_merge == return.remove_source_branch_after_merge,daikon.inv.binary.twoScalar.IntEqual,"(input.remove_source_branch_after_merge, return.remove_source_branch_after_merge)",/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT,1.0,Attribute remove_source_branch_after_merge is responded to by parameter remove_source_branch_after_merge with a description: Enable Delete source branch option by default for all new merge requests,1.0
+56,post+projects_user_{user_id},repository_storage,"return.repository_storage == ""default""
+LENGTH(return.repository_storage)==7","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.repository_storage)
+(return.repository_storage)","/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT
+/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT",1.0,Attribute repository_storage is responded to by parameter repository_storage with a description: Which storage shard the repository is on.(admins only),1.0
+57,post+projects_user_{user_id},request_access_enabled,input.request_access_enabled == return.request_access_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.request_access_enabled, return.request_access_enabled)",/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT,1.0,Attribute request_access_enabled is responded to by parameter request_access_enabled with a description: Allow users to request member access,1.0
+58,post+projects_user_{user_id},resolve_outdated_diff_discussions,input.resolve_outdated_diff_discussions == return.resolve_outdated_diff_discussions,daikon.inv.binary.twoScalar.IntEqual,"(input.resolve_outdated_diff_discussions, return.resolve_outdated_diff_discussions)",/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT,1.0,Attribute resolve_outdated_diff_discussions is responded to by parameter resolve_outdated_diff_discussions with a description: Automatically resolve merge request diffs discussions on lines changed with a push,1.0
+59,post+projects_user_{user_id},shared_runners_enabled,input.shared_runners_enabled == return.shared_runners_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.shared_runners_enabled, return.shared_runners_enabled)",/projects/user/{user_id}&/projects/user/{user_id}&post&201():::EXIT,1.0,Attribute shared_runners_enabled is responded to by parameter shared_runners_enabled with a description: Enable shared runners for this project,1.0
+60,post+projects_{id}_archive,created_at,"return.created_at == return.last_activity_at
+LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at, return.last_activity_at)
+(return.created_at)
+(return.created_at)","/projects/{id}/archive&/projects/{id}/archive&post&201():::EXIT
+/projects/{id}/archive&/projects/{id}/archive&post&201():::EXIT
+/projects/{id}/archive&/projects/{id}/archive&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+61,post+projects_{id}_archive,id,input.id == return.id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.id)",/projects/{id}/archive&/projects/{id}/archive&post&201():::EXIT,1.0,Attribute id is responded to by parameter id with a description: The ID or URL-encoded path of the project,1.0
+62,post+projects_{id}_fork,created_at,"return.created_at == return.last_activity_at
+LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at, return.last_activity_at)
+(return.created_at)
+(return.created_at)","/projects/{id}/fork&/projects/{id}/fork&post&201():::EXIT
+/projects/{id}/fork&/projects/{id}/fork&post&201():::EXIT
+/projects/{id}/fork&/projects/{id}/fork&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+63,post+projects_{id}_fork,id,input.id < return.id,daikon.inv.binary.twoScalar.IntLessThan,"(input.id, return.id)",/projects/{id}/fork&/projects/{id}/fork&post&201():::EXIT,1.0,Attribute id is responded to by parameter id with a description: The ID orURL-encoded path of the project,1.0
+64,post+projects_{id}_fork,name,input.name == return.name,daikon.inv.binary.twoString.StringEqual,"(input.name, return.name)",/projects/{id}/fork&/projects/{id}/fork&post&201():::EXIT,1.0,Attribute name is responded to by parameter name with a description: The name assigned to the resultant project after forking,1.0
+65,post+projects_{id}_fork,web_url,return.web_url is a substring of return.http_url_to_repo,daikon.inv.binary.twoString.StdString$SubString,"(return.http_url_to_repo, return.web_url)",/projects/{id}/fork&/projects/{id}/fork&post&201():::EXIT,1.0,"{""type"": ""string""}_x000D_",1.0
+66,post+projects_{id}_share,expires_at,input.expires_at == return.expires_at,daikon.inv.binary.twoString.StringEqual,"(input.expires_at, return.expires_at)",/projects/{id}/share&/projects/{id}/share&post&201():::EXIT,1.0,Attribute expires_at is responded to by parameter expires_at with a description: Share expiration date in ISO 8601 format: 2016-09-26,1.0
+67,post+projects_{id}_star,id,input.id == return.id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.id)",/projects/{id}/star&/projects/{id}/star&post&201():::EXIT,1.0,Attribute id is responded to by parameter id with a description: The ID or URL-encoded path of the project,1.0
+68,post+projects_{id}_unarchive,id,input.id == return.id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.id)",/projects/{id}/unarchive&/projects/{id}/unarchive&post&201():::EXIT,1.0,Attribute id is responded to by parameter id with a description: The ID or URL-encoded path of the project,1.0
+69,post+projects_{id}_unstar,created_at,"return.created_at == return.last_activity_at
+LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at, return.last_activity_at)
+(return.created_at)
+(return.created_at)","/projects/{id}/unstar&/projects/{id}/unstar&post&201():::EXIT
+/projects/{id}/unstar&/projects/{id}/unstar&post&201():::EXIT
+/projects/{id}/unstar&/projects/{id}/unstar&post&201():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+70,post+projects_{id}_unstar,id,input.id == return.id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.id)",/projects/{id}/unstar&/projects/{id}/unstar&post&201():::EXIT,1.0,Attribute id is responded to by parameter id with a description: The ID or URL-encoded path of the project,1.0
+71,put+projects_{id},allow_merge_on_skipped_pipeline,input.allow_merge_on_skipped_pipeline == return.allow_merge_on_skipped_pipeline,daikon.inv.binary.twoScalar.IntEqual,"(input.allow_merge_on_skipped_pipeline, return.allow_merge_on_skipped_pipeline)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute allow_merge_on_skipped_pipeline is responded to by parameter allow_merge_on_skipped_pipeline with a description: Set whether or not merge requests can be merged with skipped jobs,1.0
+72,put+projects_{id},auto_devops_deploy_strategy,"input.auto_devops_deploy_strategy == return.auto_devops_deploy_strategy
+return.auto_devops_deploy_strategy one of { ""continuous"", ""manual"", ""timed_incremental"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.auto_devops_deploy_strategy, return.auto_devops_deploy_strategy)
+(return.auto_devops_deploy_strategy)","/projects/{id}&/projects/{id}&put&200():::EXIT
+/projects/{id}&/projects/{id}&put&200():::EXIT",1.0,Attribute auto_devops_deploy_strategy is responded to by parameter auto_devops_deploy_strategy with a description: Auto Deploy strategy,1.0
+73,put+projects_{id},auto_devops_enabled,input.auto_devops_enabled == return.auto_devops_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.auto_devops_enabled, return.auto_devops_enabled)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute auto_devops_enabled is responded to by parameter auto_devops_enabled with a description: Enable Auto DevOps for this project,1.0
+74,put+projects_{id},autoclose_referenced_issues,input.autoclose_referenced_issues == return.autoclose_referenced_issues,daikon.inv.binary.twoScalar.IntEqual,"(input.autoclose_referenced_issues, return.autoclose_referenced_issues)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute autoclose_referenced_issues is responded to by parameter autoclose_referenced_issues with a description: Set whether auto-closing referenced issues on default branch,1.0
+75,put+projects_{id},ci_default_git_depth,input.ci_default_git_depth == return.ci_default_git_depth,daikon.inv.binary.twoScalar.IntEqual,"(input.ci_default_git_depth, return.ci_default_git_depth)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute ci_default_git_depth is responded to by parameter ci_default_git_depth with a description: Default number of revisions forshallow cloning,1.0
+76,put+projects_{id},ci_forward_deployment_enabled,input.ci_forward_deployment_enabled == return.ci_forward_deployment_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.ci_forward_deployment_enabled, return.ci_forward_deployment_enabled)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,"Attribute ci_forward_deployment_enabled is responded to by parameter ci_forward_deployment_enabled with a description: When a new deployment job starts,skip older deployment jobsthat are still pending",1.0
+77,put+projects_{id},container_registry_enabled,input.container_registry_enabled == return.container_registry_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.container_registry_enabled, return.container_registry_enabled)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute container_registry_enabled is responded to by parameter container_registry_enabled with a description: Enable container registry for this project,1.0
+78,put+projects_{id},description,input.description == return.description,daikon.inv.binary.twoString.StringEqual,"(input.description, return.description)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute description is responded to by parameter description with a description: Short project description,1.0
+79,put+projects_{id},id,input.id == return.id,daikon.inv.binary.twoScalar.IntEqual,"(input.id, return.id)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute id is responded to by parameter id with a description: The ID or URL-encoded path of the project,1.0
+80,put+projects_{id},jobs_enabled,input.jobs_enabled == return.jobs_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.jobs_enabled, return.jobs_enabled)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute jobs_enabled is responded to by parameter jobs_enabled with a description: (Deprecated)Enable jobs for this project. Use builds_access_level instead,1.0
+81,put+projects_{id},merge_method,"input.merge_method == return.merge_method
+return.merge_method one of { ""ff"", ""merge"", ""rebase_merge"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.merge_method, return.merge_method)
+(return.merge_method)","/projects/{id}&/projects/{id}&put&200():::EXIT
+/projects/{id}&/projects/{id}&put&200():::EXIT",1.0,Attribute merge_method is responded to by parameter merge_method with a description: Set the merge method used,1.0
+82,put+projects_{id},merge_requests_enabled,return.merge_requests_enabled == return.can_create_merge_request_in,daikon.inv.binary.twoScalar.IntEqual,"(return.merge_requests_enabled, return.can_create_merge_request_in)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute merge_requests_enabled is responded to by parameter merge_requests_enabled with a description: (Deprecated)Enable merge requests for this project. Use merge_requests_access_level instead,1.0
+83,put+projects_{id},name,input.name == return.name,daikon.inv.binary.twoString.StringEqual,"(input.name, return.name)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute name is responded to by parameter name with a description: The name of the new project. Equals path if not provided,1.0
+84,put+projects_{id},only_allow_merge_if_all_discussions_are_resolved,input.only_allow_merge_if_all_discussions_are_resolved == return.only_allow_merge_if_all_discussions_are_resolved,daikon.inv.binary.twoScalar.IntEqual,"(input.only_allow_merge_if_all_discussions_are_resolved, return.only_allow_merge_if_all_discussions_are_resolved)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute only_allow_merge_if_all_discussions_are_resolved is responded to by parameter only_allow_merge_if_all_discussions_are_resolved with a description: Set whether merge requests can only be merged when all the discussions are resolved,1.0
+85,put+projects_{id},only_allow_merge_if_pipeline_succeeds,input.only_allow_merge_if_pipeline_succeeds == return.only_allow_merge_if_pipeline_succeeds,daikon.inv.binary.twoScalar.IntEqual,"(input.only_allow_merge_if_pipeline_succeeds, return.only_allow_merge_if_pipeline_succeeds)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute only_allow_merge_if_pipeline_succeeds is responded to by parameter only_allow_merge_if_pipeline_succeeds with a description: Set whether merge requests can only be merged with successful jobs,1.0
+86,put+projects_{id},packages_enabled,input.packages_enabled == return.packages_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.packages_enabled, return.packages_enabled)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute packages_enabled is responded to by parameter packages_enabled with a description: Enable or disable packages repository feature,1.0
+87,put+projects_{id},path,input.path == return.path,daikon.inv.binary.twoString.StringEqual,"(input.path, return.path)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,"Attribute path is responded to by parameter path with a description: Repository name for new project.Either path or name is required, not both. Generated based on name if not provided (generated as lowercase with dashes)",1.0
+88,put+projects_{id},remove_source_branch_after_merge,input.remove_source_branch_after_merge == return.remove_source_branch_after_merge,daikon.inv.binary.twoScalar.IntEqual,"(input.remove_source_branch_after_merge, return.remove_source_branch_after_merge)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute remove_source_branch_after_merge is responded to by parameter remove_source_branch_after_merge with a description: Enable Delete source branch option by default for all new merge requests,1.0
+89,put+projects_{id},repository_storage,"return.repository_storage == ""default""
+LENGTH(return.repository_storage)==7","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.repository_storage)
+(return.repository_storage)","/projects/{id}&/projects/{id}&put&200():::EXIT
+/projects/{id}&/projects/{id}&put&200():::EXIT",1.0,Attribute repository_storage is responded to by parameter repository_storage with a description: Which storage shard the repository is on.(admins only),1.0
+90,put+projects_{id},request_access_enabled,input.request_access_enabled == return.request_access_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.request_access_enabled, return.request_access_enabled)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute request_access_enabled is responded to by parameter request_access_enabled with a description: Allow users to request member access,1.0
+91,put+projects_{id},resolve_outdated_diff_discussions,input.resolve_outdated_diff_discussions == return.resolve_outdated_diff_discussions,daikon.inv.binary.twoScalar.IntEqual,"(input.resolve_outdated_diff_discussions, return.resolve_outdated_diff_discussions)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute resolve_outdated_diff_discussions is responded to by parameter resolve_outdated_diff_discussions with a description: Automatically resolve merge request diffs discussions on lines changed with a push,1.0
+92,put+projects_{id},shared_runners_enabled,input.shared_runners_enabled == return.shared_runners_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.shared_runners_enabled, return.shared_runners_enabled)",/projects/{id}&/projects/{id}&put&200():::EXIT,1.0,Attribute shared_runners_enabled is responded to by parameter shared_runners_enabled with a description: Enable shared runners for this project,1.0
+93,put+projects_{id}_transfer,container_expiration_policy.next_run_at,"LENGTH(return.container_expiration_policy.next_run_at)==24
+return.container_expiration_policy.next_run_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.container_expiration_policy.next_run_at)
+(return.container_expiration_policy.next_run_at)","/projects/{id}/transfer&/projects/{id}/transfer&put&200():::EXIT
+/projects/{id}/transfer&/projects/{id}/transfer&put&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0
+94,put+projects_{id}_transfer,forked_from_project.created_at,"return.forked_from_project.created_at == return.forked_from_project.last_activity_at
+LENGTH(return.forked_from_project.created_at)==24
+return.forked_from_project.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.forked_from_project.created_at, return.forked_from_project.last_activity_at)
+(return.forked_from_project.created_at)
+(return.forked_from_project.created_at)","/projects/{id}/transfer&/projects/{id}/transfer&put&200():::EXIT
+/projects/{id}/transfer&/projects/{id}/transfer&put&200():::EXIT
+/projects/{id}/transfer&/projects/{id}/transfer&put&200():::EXIT",1.0,"{""type"": ""string"", ""format"": ""date-time""}",1.0

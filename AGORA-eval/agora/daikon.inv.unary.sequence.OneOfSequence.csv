@@ -1,0 +1,3 @@
+pptname,invariant,invariantType,variables,tp,fp,enter,bug,description,response resource,name_attribute
+main.users{user_id}playlists.createPlaylist&201(main.createPlaylist&Input):::EXIT,return.images[] == [],daikon.inv.unary.sequence.OneOfSequence,(return.images[..]),1,0,0,0,"The cover art for the album in various sizes, widest first.",playlist,"[('playlist', 'images')]"
+main.users{user_id}playlists.createPlaylist&201(main.createPlaylist&Input):::EXIT,return.tracks.items[] == [],daikon.inv.unary.sequence.OneOfSequence,(return.tracks.items[..]),1,0,0,0,The requested data.,playlist-track-page,"[('playlist-track-page', 'items')]"

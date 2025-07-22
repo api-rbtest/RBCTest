@@ -1,0 +1,106 @@
+operation,response resource,attribute,group,description,TP
+get-/groups,Group,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/groups/{id}/issues,Milestone,updated_at,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/groups/{id}/issues,Issue,due_date,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+get-/groups/{id}/issues,Issue,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/groups/{id}/issues,Milestone,created_at,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/groups/{id}/issues,Issue,updated_at,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/groups/{id}/issues,Milestone,closed_at,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/issues,Issue,updated_at,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/issues,Issue,due_date,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+get-/issues,Milestone,closed_at,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/issues,Issue,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/issues,Milestone,updated_at,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/issues,Milestone,created_at,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/issues/{id},Issue,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/issues/{id},Milestone,updated_at,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/issues/{id},Issue,updated_at,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/issues/{id},Milestone,closed_at,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/issues/{id},Milestone,created_at,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/issues/{id},Issue,due_date,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+get-/projects,Owner,created_at,owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects,BasicProjectDetails,marked_for_deletion_on,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+get-/projects,BasicProjectDetails,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects,BasicProjectDetails,last_activity_at,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",0
+get-/projects,BasicProjectDetails,http_url_to_repo,http_url_to_repo,"{""type"": ""string""}",1
+get-/projects,BasicProjectDetails,web_url,web_url,"{""type"": ""string""}",1
+get-/projects,BasicProjectDetails,readme_url,readme_url,"{""type"": ""string""}",1
+get-/projects,BasicProjectDetails,avatar_url,avatar_url,"{""type"": ""string""}",1
+get-/projects,BasicProjectDetails,marked_for_deletion_at,marked_for_deletion_at,"{""type"": ""string"", ""format"": ""date""}",1
+get-/projects/{id}/issues,Milestone,updated_at,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/issues,Issue,updated_at,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/issues,Milestone,created_at,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/issues,Issue,due_date,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+get-/projects/{id}/issues,Issue,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/issues,Milestone,closed_at,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/issues,Author,web_url,assignee.web_url,"{""type"": ""string""}",1
+get-/projects/{id}/issues,Author,web_url,assignees.web_url,"{""type"": ""string""}",1
+get-/projects/{id}/issues,Author,web_url,author.web_url,"{""type"": ""string""}",1
+get-/projects/{id}/issues,Author,avatar_url,assignee.avatar_url,"{""type"": ""string""}",1
+get-/projects/{id}/issues,Author,avatar_url,assignees.avatar_url,"{""type"": ""string""}",1
+get-/projects/{id}/issues,Author,avatar_url,author.avatar_url,"{""type"": ""string""}",1
+get-/projects/{id}/issues,ClosedBy,avatar_url,closed_by.avatar_url,"{""type"": ""string""}",1
+get-/projects/{id}/issues,ClosedBy,web_url,closed_by.web_url,"{""type"": ""string""}",1
+get-/projects/{id}/issues/{issue_iid},Issue,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/issues/{issue_iid},Milestone,closed_at,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/issues/{issue_iid},Milestone,updated_at,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/issues/{issue_iid},Issue,updated_at,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/issues/{issue_iid},Milestone,created_at,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/issues/{issue_iid},Issue,due_date,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+get-/projects/{id}/issues/{issue_iid}/closed_by,Milestone,closed_at,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/issues/{issue_iid}/closed_by,Milestone,updated_at,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/issues/{issue_iid}/closed_by,Milestone,created_at,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/issues/{issue_iid}/closed_by,Pipeline,web_url,pipeline.web_url,"{""type"": ""string""}",1
+get-/projects/{id}/issues/{issue_iid}/closed_by,HeadPipeline,web_url,head_pipeline.web_url,"{""type"": ""string""}",1
+get-/projects/{id}/issues/{issue_iid}/related_merge_requests,Milestone,created_at,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/issues/{issue_iid}/related_merge_requests,Milestone,closed_at,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/issues/{issue_iid}/related_merge_requests,Milestone,updated_at,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/groups,Group,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects,Owner,created_at,owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects,BasicProjectDetails,marked_for_deletion_on,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+post-/projects,BasicProjectDetails,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects,BasicProjectDetails,last_activity_at,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",0
+post-/projects/{id}/issues,Issue,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues,Issue,due_date,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+post-/projects/{id}/issues,Milestone,created_at,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues,Issue,updated_at,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues,Milestone,closed_at,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues,Milestone,updated_at,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues,Milestone,due_date,milestone.due_date,"{""type"": ""string"", ""format"": ""date""}",1
+post-/projects/{id}/issues/{issue_iid}/move,Issue,due_date,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+post-/projects/{id}/issues/{issue_iid}/move,Milestone,created_at,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/move,Issue,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/move,Milestone,closed_at,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/move,Milestone,updated_at,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/move,Issue,updated_at,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/subscribe,Milestone,closed_at,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/subscribe,Issue,updated_at,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/subscribe,Milestone,updated_at,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/subscribe,Issue,due_date,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+post-/projects/{id}/issues/{issue_iid}/subscribe,Issue,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/subscribe,Milestone,created_at,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/todo,Milestone,closed_at,target.milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/todo,Milestone,created_at,target.milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/todo,Issue,due_date,target.due_date,"{""type"": ""string"", ""format"": ""date""}",1
+post-/projects/{id}/issues/{issue_iid}/todo,Issue,created_at,target.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/todo,Milestone,updated_at,target.milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/todo,Issue,updated_at,target.updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/todo,Todo,target_url,target_url,"{""type"": ""string""}",1
+post-/projects/{id}/issues/{issue_iid}/unsubscribe,Issue,updated_at,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/unsubscribe,Milestone,created_at,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/unsubscribe,Milestone,closed_at,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/unsubscribe,Issue,due_date,due_date,"{""type"": ""string"", ""format"": ""date""}",1
+post-/projects/{id}/issues/{issue_iid}/unsubscribe,Issue,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/unsubscribe,Milestone,updated_at,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects/{id}/issues/{issue_iid}/unsubscribe,Author,web_url,assignee.web_url,"{""type"": ""string""}",1
+post-/projects/{id}/issues/{issue_iid}/unsubscribe,Author,web_url,assignees.web_url,"{""type"": ""string""}",1
+post-/projects/{id}/issues/{issue_iid}/unsubscribe,Author,web_url,author.web_url,"{""type"": ""string""}",1
+post-/projects/{id}/issues/{issue_iid}/unsubscribe,Author,avatar_url,assignee.avatar_url,"{""type"": ""string""}",1
+post-/projects/{id}/issues/{issue_iid}/unsubscribe,Author,avatar_url,assignees.avatar_url,"{""type"": ""string""}",1
+post-/projects/{id}/issues/{issue_iid}/unsubscribe,Author,avatar_url,author.avatar_url,"{""type"": ""string""}",1
+put-/projects/{id}/issues/{issue_iid},Issue,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/projects/{id}/issues/{issue_iid},Milestone,created_at,milestone.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/projects/{id}/issues/{issue_iid},Milestone,updated_at,milestone.updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/projects/{id}/issues/{issue_iid},Issue,updated_at,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/projects/{id}/issues/{issue_iid},Milestone,closed_at,milestone.closed_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+put-/projects/{id}/issues/{issue_iid},Issue,due_date,due_date,"{""type"": ""string"", ""format"": ""date""}",1

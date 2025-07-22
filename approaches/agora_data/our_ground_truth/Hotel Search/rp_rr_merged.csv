@@ -1,0 +1,99 @@
+endpoint,group,response resource,attribute,description
+get+shopping_hotel-offers,data.offers.guests.adults,HotelProduct_Guests,adults,Attribute adults is responded to by parameter HotelProduct_Guests with a description: Number of adult guests (1-9) per room
+get+shopping_hotel-offers,data.offers.checkInDate,HotelOffer,checkInDate,"Attribute checkInDate is responded to by parameter HotelOffer with a description: Check-in date of the stay (hotel local date). Format YYYY-MM-DD. The lowest accepted value is the present date (no dates in the past). If not present, the default value will be today's date in the GMT time zone"
+get+shopping_hotel-offers,data.offers.checkOutDate,HotelOffer,checkOutDate,"Attribute checkOutDate is responded to by parameter HotelOffer with a description: Check-out date of the stay (hotel local date). Format YYYY-MM-DD. The lowest accepted value is checkInDate+1. If not present, it will default to checkInDate +1"
+get+shopping_hotel-offers,data.offers.price.total,HotelProduct_HotelPrice,total,"Attribute priceRange is responded to by parameter HotelProduct_HotelPrice with a description: Filter hotel offers by price per night interval (ex: 200-300 or -300 or 100).
+It is mandatory to include a currency when this field is set"
+get+shopping_hotel-offers,data.offers.price.currency,HotelProduct_HotelPrice,currency,"Attribute currency is responded to by parameter HotelProduct_HotelPrice with a description: Use this parameter to request a specific currency. ISO currency code (http://www.iso.org/iso/home/standards/currency_codes.htm).
+If a hotel does not support the requested currency, the prices for the hotel will be returned in the local currency of the hotel"
+get+shopping_hotel-offers,data.offers.id,HotelOffer,id,"Unique identifier of this offer. Might be valid for a temporary period only. schema: {""example"": ""63A93695B58821ABB0EC2B33FE9FAB24D72BF34B1BD7D707293763D8D9378FC3"", ""type"": ""string"", ""minLength"": 2, ""maxLength"": 100, ""pattern"": ""^[A-Z0-9]*$""} schema: {""example"": ""63A93695B58821ABB0EC2B33FE9FAB24D72BF34B1BD7D707293763D8D9378FC3"", ""type"": ""string"", ""minLength"": 2, ""maxLength"": 100, ""pattern"": ""^[A-Z0-9]*$""}"
+get+shopping_hotel-offers,data.offers.checkInDate,HotelOffer,checkInDate,"check-in date of the stay (hotel local date). Format YYYY-MM-DD
+The lowest accepted value is today date (no dates in the past). schema: {""example"": ""2020-12-30"", ""type"": ""string"", ""format"": ""date""} schema: {""example"": ""2020-12-30"", ""type"": ""string"", ""format"": ""date""}"
+get+shopping_hotel-offers,data.offers.checkOutDate,HotelOffer,checkOutDate,"check-out date of the stay (hotel local date). Format YYYY-MM-DD
+The lowest accepted value is `checkInDate`+1. schema: {""example"": ""2020-12-31"", ""type"": ""string"", ""format"": ""date""} schema: {""example"": ""2020-12-31"", ""type"": ""string"", ""format"": ""date""}"
+get+shopping_hotel-offers,data.offers.roomQuantity,HotelOffer,roomQuantity,"number of rooms (1-9) schema: {""example"": ""1"", ""type"": ""string""} schema: {""example"": ""1"", ""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.rateCode,HotelOffer,rateCode,"Special Rate - Provider Response Code (3 chars)
+Examples
+
+  * RAC - Rack
+
+  * BAR - Best Available Rate
+
+  * PRO - Promotional
+
+  * COR - Corporate
+
+  * GOV - Government (qualified)
+
+  * AAA - AAA (qualified)
+
+  * BNB - Bed and Breakfast
+
+  * PKG - Package
+
+  * TVL - Travel Industry
+
+  * SPC - Special Promo Rate
+
+  * WKD - Weekend
+
+  * CON - Convention
+
+  * SNR - Senior (Europe) (qualified)
+
+  * ARP - AARP - American Association of Retired People (50+) (qualified)
+
+  * SRS - Senior (qualified)
+
+  * ROR - Room Only Rate (no breakfast)
+
+  * FAM - Family
+
+  * DAY - Day rate schema: {""example"": ""RAC"", ""type"": ""string"", ""minLength"": 3, ""maxLength"": 3, ""pattern"": ""^[A-Z0-9*]{3}$""} schema: {""example"": ""RAC"", ""type"": ""string"", ""minLength"": 3, ""maxLength"": 3, ""pattern"": ""^[A-Z0-9*]{3}$""}"
+get+shopping_hotel-offers,data.offers.rateFamilyEstimated.code,HotelProduct_RateFamily,code,"The estimated rate family (PRO,FAM,GOV) schema: {""type"": ""string"", ""pattern"": ""[A-Z0-9]{3}""} schema: {""type"": ""string"", ""pattern"": ""[A-Z0-9]{3}""}"
+get+shopping_hotel-offers,data.offers.rateFamilyEstimated.type,HotelProduct_RateFamily,type,"The type of the rate (public=P, negotiated=N, conditional=C) schema: {""type"": ""string"", ""pattern"": ""[PNC]""} schema: {""type"": ""string"", ""pattern"": ""[PNC]""}"
+get+shopping_hotel-offers,data.offers.category,HotelOffer,category,"Special Rate Category
+Examples:
+  ASSOCIATION
+  FAMILY_PLAN schema: {""example"": ""FAMILY_PLAN"", ""type"": ""string""} schema: {""example"": ""FAMILY_PLAN"", ""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.description.lang,QualifiedFreeText,lang,"see RFC 5646 schema: {""example"": ""fr-FR"", ""type"": ""string""} schema: {""example"": ""fr-FR"", ""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.commission.description.lang,QualifiedFreeText,lang,"see RFC 5646 schema: {""example"": ""fr-FR"", ""type"": ""string""} schema: {""example"": ""fr-FR"", ""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.room.description.lang,QualifiedFreeText,lang,"see RFC 5646 schema: {""example"": ""fr-FR"", ""type"": ""string""} schema: {""example"": ""fr-FR"", ""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.policies.guarantee.description.lang,QualifiedFreeText,lang,"see RFC 5646 schema: {""example"": ""fr-FR"", ""type"": ""string""} schema: {""example"": ""fr-FR"", ""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.policies.deposit.description.lang,QualifiedFreeText,lang,"see RFC 5646 schema: {""example"": ""fr-FR"", ""type"": ""string""} schema: {""example"": ""fr-FR"", ""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.policies.prepay.description.lang,QualifiedFreeText,lang,"see RFC 5646 schema: {""example"": ""fr-FR"", ""type"": ""string""} schema: {""example"": ""fr-FR"", ""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.policies.cancellation.description.lang,QualifiedFreeText,lang,"see RFC 5646 schema: {""example"": ""fr-FR"", ""type"": ""string""} schema: {""example"": ""fr-FR"", ""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.policies.checkInOut.checkInDescription.lang,QualifiedFreeText,lang,"see RFC 5646 schema: {""example"": ""fr-FR"", ""type"": ""string""} schema: {""example"": ""fr-FR"", ""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.policies.checkInOut.checkOutDescription.lang,QualifiedFreeText,lang,"see RFC 5646 schema: {""example"": ""fr-FR"", ""type"": ""string""} schema: {""example"": ""fr-FR"", ""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.commission.percentage,HotelProduct_Commission,percentage,"Percentage of the commission paid to the travel seller. Value is between 0 and 100 schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.room.type,HotelProduct_RoomDetails,type,"Room type code, 3 character identifier of the room.
+The first character identifies the room type category. 
+The second numeric character identifies the number of beds. 
+The third character identifies the bed type. 
+There is a special case where ROH is returned, this value stands for Run Of House. schema: {""type"": ""string"", ""pattern"": ""^[A-Z0-9*]{3}$""} schema: {""type"": ""string"", ""pattern"": ""^[A-Z0-9*]{3}$""}"
+get+shopping_hotel-offers,data.offers.room.typeEstimated.beds,HotelProduct_EstimatedRoomType,beds,"Number of beds in the room (1-9) schema: {""type"": ""integer"", ""format"": ""int32""} schema: {""type"": ""integer"", ""format"": ""int32""}"
+get+shopping_hotel-offers,data.offers.guests.adults,HotelProduct_Guests,adults,"number of adult guests (1-9) per room schema: {""example"": 2, ""type"": ""integer"", ""minimum"": 1, ""maximum"": 9, ""format"": ""int32""} schema: {""example"": 2, ""type"": ""integer"", ""minimum"": 1, ""maximum"": 9, ""format"": ""int32""}"
+get+shopping_hotel-offers,data.offers.guests.childAges,HotelProduct_Guests,childAges,"Comma separated list of ages of each child at the time of check-out from the hotel. If several children have the same age, the ages will be repeated. schema: {""type"": ""array"", ""minimum"": 0, ""maximum"": 20} schema: {""type"": ""array"", ""minimum"": 0, ""maximum"": 20}"
+get+shopping_hotel-offers,data.offers.price.sellingTotal,HotelProduct_HotelPrice,sellingTotal,"sellingTotal = Total + margins + markup + totalFees - discounts schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.price.total,HotelProduct_HotelPrice,total,"total = base + totalTaxes schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.price.taxes.currency,Tax,currency,"Defines a monetary unit. It is a three alpha code (iata code). Example: EUR for Euros, USD for US dollar, etc. schema: {""type"": ""string"", ""minLength"": 1, ""maxLength"": 3} schema: {""type"": ""string"", ""minLength"": 1, ""maxLength"": 3}"
+get+shopping_hotel-offers,data.offers.price.variations.changes.startDate,HotelProduct_PriceVariation,startDate,"Begin date of the period
+Format: YYYY-MM-DD schema: {""type"": ""string"", ""format"": ""date""} schema: {""type"": ""string"", ""format"": ""date""}"
+get+shopping_hotel-offers,data.offers.price.variations.changes.endDate,HotelProduct_PriceVariation,endDate,"End date of the period
+Format: YYYY-MM-DD schema: {""type"": ""string"", ""format"": ""date""} schema: {""type"": ""string"", ""format"": ""date""}"
+get+shopping_hotel-offers,data.offers.price.variations.changes.currency,HotelProduct_PriceVariation,currency,"currency Code apply to all elements of the price schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.price.variations.changes.sellingTotal,HotelProduct_PriceVariation,sellingTotal,"sellingTotal = Total + margins + markup + totalFees - discounts schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.price.variations.changes.total,HotelProduct_PriceVariation,total,"total = base + totalTaxes schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.policies.guarantee.acceptedPayments.creditCards,HotelProduct_PaymentPolicy,creditCards,"Accepted Payment Card Types for the `method` CREDIT_CARD schema: {""type"": ""array"", ""minLength"": 2, ""maxLength"": 2, ""pattern"": ""^[A-Z]{2}$""} schema: {""type"": ""array"", ""minLength"": 2, ""maxLength"": 2, ""pattern"": ""^[A-Z]{2}$""}"
+get+shopping_hotel-offers,data.offers.policies.deposit.acceptedPayments.creditCards,HotelProduct_PaymentPolicy,creditCards,"Accepted Payment Card Types for the `method` CREDIT_CARD schema: {""type"": ""array"", ""minLength"": 2, ""maxLength"": 2, ""pattern"": ""^[A-Z]{2}$""} schema: {""type"": ""array"", ""minLength"": 2, ""maxLength"": 2, ""pattern"": ""^[A-Z]{2}$""}"
+get+shopping_hotel-offers,data.offers.policies.prepay.acceptedPayments.creditCards,HotelProduct_PaymentPolicy,creditCards,"Accepted Payment Card Types for the `method` CREDIT_CARD schema: {""type"": ""array"", ""minLength"": 2, ""maxLength"": 2, ""pattern"": ""^[A-Z]{2}$""} schema: {""type"": ""array"", ""minLength"": 2, ""maxLength"": 2, ""pattern"": ""^[A-Z]{2}$""}"
+get+shopping_hotel-offers,data.offers.policies.cancellation.numberOfNights,HotelProduct_CancellationPolicy,numberOfNights,"Number of nights due as fee in case of cancellation. schema: {""type"": ""integer"", ""minimum"": 0, ""format"": ""int32""} schema: {""type"": ""integer"", ""minimum"": 0, ""format"": ""int32""}"
+get+shopping_hotel-offers,data.offers.policies.checkInOut.checkIn,HotelProduct_CheckInOutPolicy,checkIn,"Check-in From time limit in ISO-8601 format [http://www.w3.org/TR/xmlschema-2/#time] schema: {""example"": ""13:00:00"", ""type"": ""string""} schema: {""example"": ""13:00:00"", ""type"": ""string""}"
+get+shopping_hotel-offers,data.offers.policies.checkInOut.checkOut,HotelProduct_CheckInOutPolicy,checkOut,"Check-out Until time limit in ISO-8601 format [http://www.w3.org/TR/xmlschema-2/#time] schema: {""example"": ""11:00:00"", ""type"": ""string""} schema: {""example"": ""11:00:00"", ""type"": ""string""}"
+get+shopping_hotel-offers,data.hotel.hotelId,Hotel,hotelId,"Amadeus Property Code (8 chars) schema: {""example"": ""ADPAR001"", ""type"": ""string"", ""pattern"": ""^[A-Z0-9]{8}$""} schema: {""example"": ""ADPAR001"", ""type"": ""string"", ""pattern"": ""^[A-Z0-9]{8}$""}"
+get+shopping_hotel-offers,data.hotel.chainCode,Hotel,chainCode,"Brand (RT...) or Merchant (AD...) (Amadeus 2 chars Code) schema: {""example"": ""AD"", ""type"": ""string"", ""pattern"": ""^[A-Z]{2}$""} schema: {""example"": ""AD"", ""type"": ""string"", ""pattern"": ""^[A-Z]{2}$""}"
+get+shopping_hotel-offers,data.hotel.brandCode,Hotel,brandCode,"Brand (RT...) (Amadeus 2 chars Code). Small Properties distributed by Merchants may not have a Brand.
+Example - AD (Value Hotels) is the Provider/Merchant, and RT (Accor) is the Brand of the Property schema: {""example"": ""RT"", ""type"": ""string"", ""pattern"": ""^[A-Z]{2}$""} schema: {""example"": ""RT"", ""type"": ""string"", ""pattern"": ""^[A-Z]{2}$""}"
+get+shopping_hotel-offers,data.hotel.cityCode,Hotel,cityCode,"Warning: The IATA city code associated to the hotel (not necessary the real Hotel City) schema: {""example"": ""PAR"", ""type"": ""string"", ""pattern"": ""^[A-Z]{3}$""} schema: {""example"": ""PAR"", ""type"": ""string"", ""pattern"": ""^[A-Z]{3}$""}"
+get+shopping_hotel-offers,data.hotel.latitude,Hotel,latitude,"Latitude schema: {""type"": ""number""} schema: {""type"": ""number""}"
+get+shopping_hotel-offers,data.hotel.longitude,Hotel,longitude,"Longitude schema: {""type"": ""number""} schema: {""type"": ""number""}"

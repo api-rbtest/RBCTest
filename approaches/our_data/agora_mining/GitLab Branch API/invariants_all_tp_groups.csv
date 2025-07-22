@@ -1,0 +1,320 @@
+endpoint,group,invariant,invariantType,variables,pptname,tp
+get+projects,_links.self,"return._links.self is a substring of return._links.issues
+return._links.self is a substring of return._links.merge_requests
+return._links.self is a substring of return._links.repo_branches
+return._links.self is a substring of return._links.labels
+return._links.self is a substring of return._links.events
+return._links.self is a substring of return._links.members","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return._links.self, return._links.issues)
+(return._links.self, return._links.merge_requests)
+(return._links.self, return._links.repo_branches)
+(return._links.self, return._links.labels)
+(return._links.self, return._links.events)
+(return._links.self, return._links.members)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0
+get+projects,archived,input.archived == return.archived,daikon.inv.binary.twoScalar.IntEqual,"(input.archived, return.archived)",/projects&/projects&get&200():::EXIT,1.0
+get+projects,auto_devops_deploy_strategy,"return.auto_devops_deploy_strategy one of { ""continuous"", ""manual"", ""timed_incremental"" }",daikon.inv.unary.string.OneOfString,(return.auto_devops_deploy_strategy),/projects&/projects&get&200():::EXIT,1.0
+get+projects,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0
+get+projects,default_branch,return.default_branch is a substring of return.readme_url,daikon.inv.binary.twoString.StdString$SubString,"(return.default_branch, return.readme_url)",/projects&/projects&get&200():::EXIT,1.0
+get+projects,external_authorization_classification_label,"return.external_authorization_classification_label == """"
+LENGTH(return.external_authorization_classification_label)==0","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.external_authorization_classification_label)
+(return.external_authorization_classification_label)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0
+get+projects,last_activity_at,"LENGTH(return.last_activity_at)==24
+return.last_activity_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.last_activity_at)
+(return.last_activity_at)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0
+get+projects,merge_method,"return.merge_method one of { ""ff"", ""merge"", ""rebase_merge"" }",daikon.inv.unary.string.OneOfString,(return.merge_method),/projects&/projects&get&200():::EXIT,1.0
+get+projects,name_with_namespace,"return.owner.name is a substring of return.name_with_namespace
+return.name is a substring of return.name_with_namespace
+return.namespace.name is a substring of return.name_with_namespace","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return.owner.name, return.name_with_namespace)
+(return.name, return.name_with_namespace)
+(return.name_with_namespace, return.namespace.name)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0
+get+projects,namespace.kind,"return.namespace.kind one of { ""group"", ""user"" }",daikon.inv.unary.string.OneOfString,(return.namespace.kind),/projects&/projects&get&200():::EXIT,1.0
+get+projects,namespace.path,return.namespace.path is a substring of return.namespace.full_path,daikon.inv.binary.twoString.StdString$SubString,"(return.namespace.path, return.namespace.full_path)",/projects&/projects&get&200():::EXIT,1.0
+get+projects,path_with_namespace,"return.path_with_namespace is a substring of return.ssh_url_to_repo
+return.path_with_namespace is a substring of return.web_url
+return.path is a substring of return.path_with_namespace
+return.namespace.full_path is a substring of return.path_with_namespace","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return.ssh_url_to_repo, return.path_with_namespace)
+(return.web_url, return.path_with_namespace)
+(return.path, return.path_with_namespace)
+(return.path_with_namespace, return.namespace.full_path)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0
+get+projects,permissions.project_access.notification_level,"return.permissions.project_access.notification_level == return.permissions.group_access.notification_level
+return.permissions.project_access.notification_level == 3","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.unary.scalar.OneOfScalar","(return.permissions.project_access.notification_level, return.permissions.group_access.notification_level)
+(return.permissions.project_access.notification_level)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0
+get+projects,repository_storage,"return.repository_storage == ""default""
+LENGTH(return.repository_storage)==7","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.repository_storage)
+(return.repository_storage)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0
+get+projects,runners_token,LENGTH(return.runners_token)==29,daikon.inv.unary.string.FixedLengthString,(return.runners_token),/projects&/projects&get&200():::EXIT,1.0
+get+projects,visibility,"input.visibility == return.visibility
+return.visibility one of { ""internal"", ""private"", ""public"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.visibility, return.visibility)
+(return.visibility)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0
+get+projects,web_url,"return.web_url is a substring of return.http_url_to_repo
+return.web_url is a substring of return.readme_url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return.http_url_to_repo, return.web_url)
+(return.web_url, return.readme_url)","/projects&/projects&get&200():::EXIT
+/projects&/projects&get&200():::EXIT",1.0
+get+projects_{id}_repository_branches,commit.authored_date,"LENGTH(return.commit.authored_date)==29
+return.commit.authored_date is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.commit.authored_date)
+(return.commit.authored_date)","/projects/{id}/repository/branches&/projects/{id}/repository/branches&get&200():::EXIT
+/projects/{id}/repository/branches&/projects/{id}/repository/branches&get&200():::EXIT",1.0
+get+projects_{id}_repository_branches,commit.created_at,"LENGTH(return.commit.created_at)==29
+return.commit.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.commit.created_at)
+(return.commit.created_at)","/projects/{id}/repository/branches&/projects/{id}/repository/branches&get&200():::EXIT
+/projects/{id}/repository/branches&/projects/{id}/repository/branches&get&200():::EXIT",1.0
+get+projects_{id}_repository_branches,commit.id,"LENGTH(return.commit.id)==40
+return.commit.short_id is a substring of return.commit.id","daikon.inv.unary.string.FixedLengthString
+daikon.inv.binary.twoString.StdString$SubString","(return.commit.id)
+(return.commit.id, return.commit.short_id)","/projects/{id}/repository/branches&/projects/{id}/repository/branches&get&200():::EXIT
+/projects/{id}/repository/branches&/projects/{id}/repository/branches&get&200():::EXIT",1.0
+get+projects_{id}_repository_branches,commit.message,return.commit.title is a substring of return.commit.message,daikon.inv.binary.twoString.StdString$SubString,"(return.commit.message, return.commit.title)",/projects/{id}/repository/branches&/projects/{id}/repository/branches&get&200():::EXIT,1.0
+get+projects_{id}_repository_branches,commit.parent_ids,"All the elements of return.commit.parent_ids[] have LENGTH=40
+size(return.commit.parent_ids[]) one of { 0, 1, 2 }","daikon.inv.unary.stringsequence.SequenceFixedLengthString
+daikon.inv.unary.scalar.OneOfScalar","(return.commit.parent_ids[..])
+(size(return.commit.parent_ids[..]))","/projects/{id}/repository/branches&/projects/{id}/repository/branches&get&200():::EXIT
+/projects/{id}/repository/branches&/projects/{id}/repository/branches&get&200():::EXIT",1.0
+get+projects_{id}_repository_branches,commit.short_id,LENGTH(return.commit.short_id)==8,daikon.inv.unary.string.FixedLengthString,(return.commit.short_id),/projects/{id}/repository/branches&/projects/{id}/repository/branches&get&200():::EXIT,1.0
+get+projects_{id}_repository_branches,name,input.search is a substring of return.name,daikon.inv.binary.twoString.StdString$SubString,"(input.search, return.name)",/projects/{id}/repository/branches&/projects/{id}/repository/branches&get&200():::EXIT,1.0
+get+projects_{id}_repository_branches,web_url,input.search is a substring of return.web_url,daikon.inv.binary.twoString.StdString$SubString,"(input.search, return.web_url)",/projects/{id}/repository/branches&/projects/{id}/repository/branches&get&200():::EXIT,1.0
+post+projects,_links.self,"return._links.self is a substring of return._links.issues
+return._links.self is a substring of return._links.merge_requests
+return._links.self is a substring of return._links.repo_branches
+return._links.self is a substring of return._links.labels
+return._links.self is a substring of return._links.events
+return._links.self is a substring of return._links.members","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return._links.self, return._links.issues)
+(return._links.self, return._links.merge_requests)
+(return._links.self, return._links.repo_branches)
+(return._links.self, return._links.labels)
+(return._links.self, return._links.events)
+(return._links.self, return._links.members)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0
+post+projects,allow_merge_on_skipped_pipeline,input.allow_merge_on_skipped_pipeline == return.allow_merge_on_skipped_pipeline,daikon.inv.binary.twoScalar.IntEqual,"(input.allow_merge_on_skipped_pipeline, return.allow_merge_on_skipped_pipeline)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,archived,"return.archived == return.service_desk_enabled
+return.archived == false","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.unary.scalar.OneOfScalar","(return.archived, return.service_desk_enabled)
+(return.archived)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0
+post+projects,auto_devops_deploy_strategy,"input.auto_devops_deploy_strategy == return.auto_devops_deploy_strategy
+return.auto_devops_deploy_strategy one of { ""continuous"", ""manual"", ""timed_incremental"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.auto_devops_deploy_strategy, return.auto_devops_deploy_strategy)
+(return.auto_devops_deploy_strategy)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0
+post+projects,auto_devops_enabled,input.auto_devops_enabled == return.auto_devops_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.auto_devops_enabled, return.auto_devops_enabled)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,autoclose_referenced_issues,input.autoclose_referenced_issues == return.autoclose_referenced_issues,daikon.inv.binary.twoScalar.IntEqual,"(input.autoclose_referenced_issues, return.autoclose_referenced_issues)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,ci_default_git_depth,return.ci_default_git_depth == 20,daikon.inv.unary.scalar.OneOfScalar,(return.ci_default_git_depth),/projects&/projects&post&201():::EXIT,1.0
+post+projects,ci_forward_deployment_enabled,return.ci_forward_deployment_enabled == true,daikon.inv.unary.scalar.OneOfScalar,(return.ci_forward_deployment_enabled),/projects&/projects&post&201():::EXIT,1.0
+post+projects,container_registry_enabled,input.container_registry_enabled == return.container_registry_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.container_registry_enabled, return.container_registry_enabled)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,created_at,"LENGTH(return.created_at)==24
+return.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.created_at)
+(return.created_at)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0
+post+projects,creator_id,return.creator_id <= return.namespace.id,daikon.inv.binary.twoScalar.IntLessEqual,"(return.creator_id, return.namespace.id)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,default_branch,return.default_branch is a substring of return.readme_url,daikon.inv.binary.twoString.StdString$SubString,"(return.default_branch, return.readme_url)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,description,input.description == return.description,daikon.inv.binary.twoString.StringEqual,"(input.description, return.description)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,forks_count,"return.forks_count == return.star_count
+return.forks_count == size(return.shared_with_groups[])
+return.forks_count == size(return.shared_with_groups[])","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual","(return.forks_count, return.star_count)
+(return.forks_count, size(return.shared_with_groups[..]))
+(return.forks_count, size(return.shared_with_groups[..]))","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0
+post+projects,import_status,"return.import_status == ""none""
+LENGTH(return.import_status)==4","daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(return.import_status)
+(return.import_status)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0
+post+projects,last_activity_at,"LENGTH(return.last_activity_at)==24
+return.last_activity_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.last_activity_at)
+(return.last_activity_at)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0
+post+projects,merge_method,"input.merge_method == return.merge_method
+return.merge_method one of { ""ff"", ""merge"", ""rebase_merge"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.merge_method, return.merge_method)
+(return.merge_method)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0
+post+projects,name,input.name == return.name,daikon.inv.binary.twoString.StringEqual,"(input.name, return.name)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,name_with_namespace,"input.name is a substring of return.name_with_namespace
+return.owner.name is a substring of return.name_with_namespace
+return.name is a substring of return.name_with_namespace
+return.namespace.name is a substring of return.name_with_namespace","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(input.name, return.name_with_namespace)
+(return.owner.name, return.name_with_namespace)
+(return.name, return.name_with_namespace)
+(return.name_with_namespace, return.namespace.name)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0
+post+projects,namespace.id,"input.namespace_id == return.namespace.id
+return.namespace.id >= 1","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.unary.scalar.LowerBound","(input.namespace_id, return.namespace.id)
+(return.namespace.id)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0
+post+projects,namespace.kind,"return.namespace.kind one of { ""group"", ""user"" }",daikon.inv.unary.string.OneOfString,(return.namespace.kind),/projects&/projects&post&201():::EXIT,1.0
+post+projects,namespace.path,return.namespace.path is a substring of return.namespace.full_path,daikon.inv.binary.twoString.StdString$SubString,"(return.namespace.path, return.namespace.full_path)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,only_allow_merge_if_all_discussions_are_resolved,input.only_allow_merge_if_all_discussions_are_resolved == return.only_allow_merge_if_all_discussions_are_resolved,daikon.inv.binary.twoScalar.IntEqual,"(input.only_allow_merge_if_all_discussions_are_resolved, return.only_allow_merge_if_all_discussions_are_resolved)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,only_allow_merge_if_pipeline_succeeds,input.only_allow_merge_if_pipeline_succeeds == return.only_allow_merge_if_pipeline_succeeds,daikon.inv.binary.twoScalar.IntEqual,"(input.only_allow_merge_if_pipeline_succeeds, return.only_allow_merge_if_pipeline_succeeds)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,owner.id,"return.owner.id == return.creator_id
+return.owner.id <= return.namespace.id","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntLessEqual","(return.owner.id, return.creator_id)
+(return.owner.id, return.namespace.id)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0
+post+projects,owner.name,return.owner.name == return.namespace.name,daikon.inv.binary.twoString.StringEqual,"(return.owner.name, return.namespace.name)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,packages_enabled,input.packages_enabled == return.packages_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.packages_enabled, return.packages_enabled)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,path,input.path == return.path,daikon.inv.binary.twoString.StringEqual,"(input.path, return.path)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,path_with_namespace,"input.path is a substring of return.path_with_namespace
+return.path_with_namespace is a substring of return.ssh_url_to_repo
+return.path_with_namespace is a substring of return.web_url
+return.path is a substring of return.path_with_namespace
+return.namespace.full_path is a substring of return.path_with_namespace","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(input.path, return.path_with_namespace)
+(return.ssh_url_to_repo, return.path_with_namespace)
+(return.web_url, return.path_with_namespace)
+(return.path, return.path_with_namespace)
+(return.path_with_namespace, return.namespace.full_path)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0
+post+projects,permissions,return.permissions == null,daikon.inv.unary.scalar.OneOfScalar,(return.permissions),/projects&/projects&post&201():::EXIT,1.0
+post+projects,permissions.group_access,return.permissions.group_access == null,daikon.inv.unary.scalar.OneOfScalar,(return.permissions.group_access),/projects&/projects&post&201():::EXIT,1.0
+post+projects,permissions.project_access,return.permissions.project_access == null,daikon.inv.unary.scalar.OneOfScalar,(return.permissions.project_access),/projects&/projects&post&201():::EXIT,1.0
+post+projects,public_jobs,input.public_builds == return.public_jobs,daikon.inv.binary.twoScalar.IntEqual,"(input.public_builds, return.public_jobs)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,readme_url,input.default_branch is a substring of return.readme_url,daikon.inv.binary.twoString.StdString$SubString,"(input.default_branch, return.readme_url)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,remove_source_branch_after_merge,input.remove_source_branch_after_merge == return.remove_source_branch_after_merge,daikon.inv.binary.twoScalar.IntEqual,"(input.remove_source_branch_after_merge, return.remove_source_branch_after_merge)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,repository_storage,"input.repository_storage == return.repository_storage
+return.repository_storage == ""default""
+LENGTH(return.repository_storage)==7","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString
+daikon.inv.unary.string.FixedLengthString","(input.repository_storage, return.repository_storage)
+(return.repository_storage)
+(return.repository_storage)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0
+post+projects,request_access_enabled,input.request_access_enabled == return.request_access_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.request_access_enabled, return.request_access_enabled)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,resolve_outdated_diff_discussions,input.resolve_outdated_diff_discussions == return.resolve_outdated_diff_discussions,daikon.inv.binary.twoScalar.IntEqual,"(input.resolve_outdated_diff_discussions, return.resolve_outdated_diff_discussions)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,runners_token,LENGTH(return.runners_token)==29,daikon.inv.unary.string.FixedLengthString,(return.runners_token),/projects&/projects&post&201():::EXIT,1.0
+post+projects,shared_runners_enabled,input.shared_runners_enabled == return.shared_runners_enabled,daikon.inv.binary.twoScalar.IntEqual,"(input.shared_runners_enabled, return.shared_runners_enabled)",/projects&/projects&post&201():::EXIT,1.0
+post+projects,shared_with_groups,return.shared_with_groups[] == [],daikon.inv.unary.sequence.OneOfSequence,(return.shared_with_groups[..]),/projects&/projects&post&201():::EXIT,1.0
+post+projects,statistics,return.statistics == null,daikon.inv.unary.scalar.OneOfScalar,(return.statistics),/projects&/projects&post&201():::EXIT,1.0
+post+projects,tag_list,"size(input.tag_list[]) == size(return.tag_list[])
+return.open_issues_count <= size(return.tag_list[])
+return.forks_count <= size(return.tag_list[])","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntLessEqual
+daikon.inv.binary.twoScalar.IntLessEqual","(size(input.tag_list[..]), size(return.tag_list[..]))
+(return.open_issues_count, size(return.tag_list[..]))
+(return.forks_count, size(return.tag_list[..]))","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0
+post+projects,visibility,"input.visibility == return.visibility
+return.visibility one of { ""internal"", ""private"", ""public"" }","daikon.inv.binary.twoString.StringEqual
+daikon.inv.unary.string.OneOfString","(input.visibility, return.visibility)
+(return.visibility)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0
+post+projects,web_url,"return.web_url is a substring of return.http_url_to_repo
+return.web_url is a substring of return.readme_url","daikon.inv.binary.twoString.StdString$SubString
+daikon.inv.binary.twoString.StdString$SubString","(return.http_url_to_repo, return.web_url)
+(return.web_url, return.readme_url)","/projects&/projects&post&201():::EXIT
+/projects&/projects&post&201():::EXIT",1.0
+post+projects_{id}_protected_branches,allow_force_push,input.allow_force_push == return.allow_force_push,daikon.inv.binary.twoScalar.IntEqual,"(input.allow_force_push, return.allow_force_push)",/projects/{id}/protected_branches&/projects/{id}/protected_branches&post&201():::EXIT,1.0
+post+projects_{id}_protected_branches,code_owner_approval_required,return.code_owner_approval_required == false,daikon.inv.unary.scalar.OneOfScalar,(return.code_owner_approval_required),/projects/{id}/protected_branches&/projects/{id}/protected_branches&post&201():::EXIT,1.0
+post+projects_{id}_protected_branches,merge_access_levels,"size(return.merge_access_levels[]) == size(return.push_access_levels[])
+size(return.merge_access_levels[]) == size(return.push_access_levels[])
+size(return.merge_access_levels[]) == size(return.unprotect_access_levels[])
+size(return.merge_access_levels[]) == size(return.unprotect_access_levels[])
+size(return.merge_access_levels[]) == 1","daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.binary.twoScalar.IntEqual
+daikon.inv.unary.scalar.OneOfScalar","(size(return.merge_access_levels[..]), size(return.push_access_levels[..]))
+(size(return.merge_access_levels[..]), size(return.push_access_levels[..]))
+(size(return.merge_access_levels[..]), size(return.unprotect_access_levels[..]))
+(size(return.merge_access_levels[..]), size(return.unprotect_access_levels[..]))
+(size(return.merge_access_levels[..]))","/projects/{id}/protected_branches&/projects/{id}/protected_branches&post&201():::EXIT
+/projects/{id}/protected_branches&/projects/{id}/protected_branches&post&201():::EXIT
+/projects/{id}/protected_branches&/projects/{id}/protected_branches&post&201():::EXIT
+/projects/{id}/protected_branches&/projects/{id}/protected_branches&post&201():::EXIT
+/projects/{id}/protected_branches&/projects/{id}/protected_branches&post&201():::EXIT",1.0
+post+projects_{id}_protected_branches,merge_access_levels.access_level,return.access_level >= 0,daikon.inv.unary.scalar.LowerBound,(return.access_level),/projects/{id}/protected_branches&/projects/{id}/protected_branches&post&201&merge_access_levels():::EXIT,1.0
+post+projects_{id}_protected_branches,merge_access_levels.access_level_description,"return.access_level_description one of { ""Developers + Maintainers"", ""Maintainers"", ""No one"" }",daikon.inv.unary.string.OneOfString,(return.access_level_description),/projects/{id}/protected_branches&/projects/{id}/protected_branches&post&201&merge_access_levels():::EXIT,1.0
+post+projects_{id}_protected_branches,name,input.name == return.name,daikon.inv.binary.twoString.StringEqual,"(input.name, return.name)",/projects/{id}/protected_branches&/projects/{id}/protected_branches&post&201():::EXIT,1.0
+post+projects_{id}_protected_branches,push_access_levels.access_level,return.access_level >= 0,daikon.inv.unary.scalar.LowerBound,(return.access_level),/projects/{id}/protected_branches&/projects/{id}/protected_branches&post&201&push_access_levels():::EXIT,1.0
+post+projects_{id}_protected_branches,push_access_levels.access_level_description,"return.access_level_description one of { ""Developers + Maintainers"", ""Maintainers"", ""No one"" }",daikon.inv.unary.string.OneOfString,(return.access_level_description),/projects/{id}/protected_branches&/projects/{id}/protected_branches&post&201&push_access_levels():::EXIT,1.0
+post+projects_{id}_protected_branches,unprotect_access_levels.access_level,return.access_level >= 0,daikon.inv.unary.scalar.LowerBound,(return.access_level),/projects/{id}/protected_branches&/projects/{id}/protected_branches&post&201&unprotect_access_levels():::EXIT,1.0
+post+projects_{id}_protected_branches,unprotect_access_levels.access_level_description,"return.access_level_description one of { ""Developers + Maintainers"", ""Maintainers"", ""No one"" }",daikon.inv.unary.string.OneOfString,(return.access_level_description),/projects/{id}/protected_branches&/projects/{id}/protected_branches&post&201&unprotect_access_levels():::EXIT,1.0
+post+projects_{id}_repository_branches,can_push,return.can_push == true,daikon.inv.unary.scalar.OneOfScalar,(return.can_push),/projects/{id}/repository/branches&/projects/{id}/repository/branches&post&201():::EXIT,1.0
+post+projects_{id}_repository_branches,commit.author_email,return.commit.author_email is Email,daikon.inv.unary.string.IsEmail,(return.commit.author_email),/projects/{id}/repository/branches&/projects/{id}/repository/branches&post&201():::EXIT,1.0
+post+projects_{id}_repository_branches,commit.authored_date,"LENGTH(return.commit.authored_date)==29
+return.commit.authored_date is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.commit.authored_date)
+(return.commit.authored_date)","/projects/{id}/repository/branches&/projects/{id}/repository/branches&post&201():::EXIT
+/projects/{id}/repository/branches&/projects/{id}/repository/branches&post&201():::EXIT",1.0
+post+projects_{id}_repository_branches,commit.committer_email,return.commit.committer_email is Email,daikon.inv.unary.string.IsEmail,(return.commit.committer_email),/projects/{id}/repository/branches&/projects/{id}/repository/branches&post&201():::EXIT,1.0
+post+projects_{id}_repository_branches,commit.created_at,"LENGTH(return.commit.created_at)==29
+return.commit.created_at is Timestamp. Format: YYYY-MM-DDTHH:MM:SS.mmZ (Miliseconds are optional)","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.dates.IsTimestampYYYYMMHHThhmmssmm","(return.commit.created_at)
+(return.commit.created_at)","/projects/{id}/repository/branches&/projects/{id}/repository/branches&post&201():::EXIT
+/projects/{id}/repository/branches&/projects/{id}/repository/branches&post&201():::EXIT",1.0
+post+projects_{id}_repository_branches,commit.id,"LENGTH(return.commit.id)==40
+return.commit.short_id is a substring of return.commit.id","daikon.inv.unary.string.FixedLengthString
+daikon.inv.binary.twoString.StdString$SubString","(return.commit.id)
+(return.commit.id, return.commit.short_id)","/projects/{id}/repository/branches&/projects/{id}/repository/branches&post&201():::EXIT
+/projects/{id}/repository/branches&/projects/{id}/repository/branches&post&201():::EXIT",1.0
+post+projects_{id}_repository_branches,commit.message,return.commit.title is a substring of return.commit.message,daikon.inv.binary.twoString.StdString$SubString,"(return.commit.message, return.commit.title)",/projects/{id}/repository/branches&/projects/{id}/repository/branches&post&201():::EXIT,1.0
+post+projects_{id}_repository_branches,commit.parent_ids,"All the elements of return.commit.parent_ids[] have LENGTH=40
+size(return.commit.parent_ids[]) one of { 0, 1, 2 }","daikon.inv.unary.stringsequence.SequenceFixedLengthString
+daikon.inv.unary.scalar.OneOfScalar","(return.commit.parent_ids[..])
+(size(return.commit.parent_ids[..]))","/projects/{id}/repository/branches&/projects/{id}/repository/branches&post&201():::EXIT
+/projects/{id}/repository/branches&/projects/{id}/repository/branches&post&201():::EXIT",1.0
+post+projects_{id}_repository_branches,commit.short_id,LENGTH(return.commit.short_id)==8,daikon.inv.unary.string.FixedLengthString,(return.commit.short_id),/projects/{id}/repository/branches&/projects/{id}/repository/branches&post&201():::EXIT,1.0
+post+projects_{id}_repository_branches,name,input.branch == return.name,daikon.inv.binary.twoString.StringEqual,"(input.branch, return.name)",/projects/{id}/repository/branches&/projects/{id}/repository/branches&post&201():::EXIT,1.0
+post+projects_{id}_repository_branches,web_url,input.branch is a substring of return.web_url,daikon.inv.binary.twoString.StdString$SubString,"(input.branch, return.web_url)",/projects/{id}/repository/branches&/projects/{id}/repository/branches&post&201():::EXIT,1.0

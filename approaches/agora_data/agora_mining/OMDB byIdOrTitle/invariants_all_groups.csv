@@ -1,0 +1,20 @@
+group,invariant,invariantType,variables,pptname,tp
+DVD,LENGTH(return.DVD)==11,daikon.inv.unary.string.FixedLengthString,(return.DVD),main..searchByIdOrTitle&200(main.searchByIdOrTitle&Input):::EXIT,1.0
+Episode,return.Episode is Numeric,daikon.inv.unary.string.IsNumeric,(return.Episode),main..searchByIdOrTitle&200(main.searchByIdOrTitle&Input):::EXIT,1.0
+Metascore,return.Metascore is Numeric,daikon.inv.unary.string.IsNumeric,(return.Metascore),main..searchByIdOrTitle&200(main.searchByIdOrTitle&Input):::EXIT,1.0
+Poster,return.Poster is Url,daikon.inv.unary.string.IsUrl,(return.Poster),main..searchByIdOrTitle&200(main.searchByIdOrTitle&Input):::EXIT,1.0
+Ratings,input.y > size(return.Ratings[]),daikon.inv.binary.twoScalar.IntGreaterThan,"(input.y, size(return.Ratings[..]))",main..searchByIdOrTitle&200(main.searchByIdOrTitle&Input):::EXIT,0.0
+Ratings.Source,"return.Source one of { ""Internet Movie Database"", ""Metacritic"", ""Rotten Tomatoes"" }",daikon.inv.unary.string.OneOfString,(return.Source),main..searchByIdOrTitle&200&Ratings(main.searchByIdOrTitle&Input):::EXIT,1.0
+Released,LENGTH(return.Released)==11,daikon.inv.unary.string.FixedLengthString,(return.Released),main..searchByIdOrTitle&200(main.searchByIdOrTitle&Input):::EXIT,1.0
+Response,"LENGTH(return.Response)==4
+return.Response == ""True""","daikon.inv.unary.string.FixedLengthString
+daikon.inv.unary.string.OneOfString","(return.Response)
+(return.Response)","main..searchByIdOrTitle&200(main.searchByIdOrTitle&Input):::EXIT
+main..searchByIdOrTitle&200(main.searchByIdOrTitle&Input):::EXIT",1.0
+Season,return.Season is Numeric,daikon.inv.unary.string.IsNumeric,(return.Season),main..searchByIdOrTitle&200(main.searchByIdOrTitle&Input):::EXIT,1.0
+Type,"return.Type one of { ""episode"", ""movie"", ""series"" }",daikon.inv.unary.string.OneOfString,(return.Type),main..searchByIdOrTitle&200(main.searchByIdOrTitle&Input):::EXIT,1.0
+imdbID,input.i == return.imdbID,daikon.inv.binary.twoString.StringEqual,"(input.i, return.imdbID)",main..searchByIdOrTitle&200(main.searchByIdOrTitle&Input):::EXIT,1.0
+imdbRating,return.imdbRating is Numeric,daikon.inv.unary.string.IsNumeric,(return.imdbRating),main..searchByIdOrTitle&200(main.searchByIdOrTitle&Input):::EXIT,1.0
+imdbVotes,return.imdbVotes is Numeric,daikon.inv.unary.string.IsNumeric,(return.imdbVotes),main..searchByIdOrTitle&200(main.searchByIdOrTitle&Input):::EXIT,1.0
+seriesID,LENGTH(return.seriesID)==9,daikon.inv.unary.string.FixedLengthString,(return.seriesID),main..searchByIdOrTitle&200(main.searchByIdOrTitle&Input):::EXIT,1.0
+totalSeasons,return.totalSeasons is Numeric,daikon.inv.unary.string.IsNumeric,(return.totalSeasons),main..searchByIdOrTitle&200(main.searchByIdOrTitle&Input):::EXIT,1.0

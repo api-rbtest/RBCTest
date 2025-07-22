@@ -1,0 +1,32 @@
+endpoint,group,description,tp
+get+v1_public_comics_{comicid},code,"The HTTP status code of the returned result, schema: {""type"": ""integer"", ""format"": ""int32""}",0.0
+get+v1_public_comics_{comicid},data.count,"The total number of results returned by this call, schema: {""type"": ""integer"", ""format"": ""int32""}",1.0
+get+v1_public_comics_{comicid},data.limit,"The requested result limit, schema: {""type"": ""integer"", ""format"": ""int32""}",1.0
+get+v1_public_comics_{comicid},data.results.characters.available,"The number of total available characters in this list. Will always be greater than or equal to the ""returned"" value, schema: {""type"": ""integer"", ""format"": ""int32""}",1.0
+get+v1_public_comics_{comicid},data.results.characters.collectionURI,The path to the full list of characters in this collection,0.0
+get+v1_public_comics_{comicid},data.results.characters.returned,The number of characters returned in this collection (up to 20,1.0
+get+v1_public_comics_{comicid},data.results.creators.available,"The number of total available creators in this list. Will always be greater than or equal to the ""returned"" value, schema: {""type"": ""integer"", ""format"": ""int32""}",1.0
+get+v1_public_comics_{comicid},data.results.creators.collectionURI,The path to the full list of creators in this collection,0.0
+get+v1_public_comics_{comicid},data.results.creators.items.resourceURI,The path to the individual creator resource,1.0
+get+v1_public_comics_{comicid},data.results.creators.returned,The number of creators returned in this collection (up to 20,1.0
+get+v1_public_comics_{comicid},data.results.dates.date,"The date. schema: {""type"": ""string""} schema: {""type"": ""string""}",1.0
+get+v1_public_comics_{comicid},data.results.diamondCode,"The Diamond code for the comic. schema: {""type"": ""string""} schema: {""type"": ""string""}",1.0
+get+v1_public_comics_{comicid},data.results.digitalId,"The ID of the digital comic representation of this comic. Will be 0 if the comic is not available digitally, schema: {""type"": ""integer"", ""format"": ""int32""}",1.0
+get+v1_public_comics_{comicid},data.results.ean,The EAN barcode for the comic,1.0
+get+v1_public_comics_{comicid},data.results.events.available,"The number of total available events in this list. Will always be greater than or equal to the ""returned"" value, schema: {""type"": ""integer"", ""format"": ""int32""}",1.0
+get+v1_public_comics_{comicid},data.results.events.collectionURI,The path to the full list of events in this collection,0.0
+get+v1_public_comics_{comicid},data.results.events.returned,The number of events returned in this collection (up to 20,1.0
+get+v1_public_comics_{comicid},data.results.format,"The publication format of the comic e.g. comic, hardcover, trade paperback",1.0
+get+v1_public_comics_{comicid},data.results.id,"Attribute comicId is responded to by parameter Comic with a description: A single comic
+The unique ID of the comic resource, schema: {""type"": ""integer"", ""format"": ""int32""}",1.0
+get+v1_public_comics_{comicid},data.results.issn,The ISSN barcode for the comic,1.0
+get+v1_public_comics_{comicid},data.results.pageCount,"The number of story pages in the comic, schema: {""type"": ""integer"", ""format"": ""int32""}",1.0
+get+v1_public_comics_{comicid},data.results.resourceURI,"The canonical URL identifier for this resource, schema: {""type"": ""string"", ""format"": ""uri""}",1.0
+get+v1_public_comics_{comicid},data.results.stories.available,"The number of total available stories in this list. Will always be greater than or equal to the ""returned"" value, schema: {""type"": ""integer"", ""format"": ""int32""}",1.0
+get+v1_public_comics_{comicid},data.results.stories.returned,The number of stories returned in this collection (up to 20,1.0
+get+v1_public_comics_{comicid},data.results.textObjects.language,The IETF language tag denoting the language the text object is written in,1.0
+get+v1_public_comics_{comicid},data.results.textObjects.type,"The canonical type of the text object (e.g. solicit text, preview text, etc.",1.0
+get+v1_public_comics_{comicid},data.results.upc,"The UPC barcode number for the comic (generally only populated for periodical formats). schema: {""type"": ""string""} schema: {""type"": ""string""}",1.0
+get+v1_public_comics_{comicid},data.results.urls.type,"A text identifier for the URL, schema: {""type"": ""string"", ""format"": ""uri""}",1.0
+get+v1_public_comics_{comicid},data.results.urls.url,"A set of public web site URLs for the resource. schema: {""type"": ""array""} schema: {""type"": ""array""}",1.0
+get+v1_public_comics_{comicid},data.total,"The total number of resources available given the current filter set, schema: {""type"": ""integer"", ""format"": ""int32""}",1.0

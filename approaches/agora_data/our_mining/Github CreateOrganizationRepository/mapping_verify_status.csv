@@ -1,0 +1,101 @@
+endpoint,group,description,tp,status,check_verify,_merge
+post+orgs_{org}_repos,allow_merge_commit,"Attribute allow_merge_commit is responded to by parameter repository with a description: Either `true` to allow merging pull requests with a merge commit, or `false` to prevent merging pull requests with merge commits
+Whether to allow merge commits for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0,satisfied,yes,both
+post+orgs_{org}_repos,allow_rebase_merge,"Attribute allow_rebase_merge is responded to by parameter repository with a description: Either `true` to allow rebase-merging pull requests, or `false` to prevent rebase-merging
+Whether to allow rebase merges for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0.5,satisfied,yes,both
+post+orgs_{org}_repos,allow_squash_merge,"Attribute allow_squash_merge is responded to by parameter repository with a description: Either `true` to allow squash-merging pull requests, or `false` to prevent squash-merging
+Whether to allow squash merges for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0.5,satisfied,yes,both
+post+orgs_{org}_repos,archive_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}""}",1,satisfied,yes,both
+post+orgs_{org}_repos,assignees_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/assignees{/user}""}",1,satisfied,yes,both
+post+orgs_{org}_repos,blobs_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}""}",1,satisfied,yes,both
+post+orgs_{org}_repos,branches_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/branches{/branch}""}",1,satisfied,yes,both
+post+orgs_{org}_repos,clone_url,"{""type"": ""string"", ""example"": ""https://github.com/octocat/Hello-World.git""}",1,satisfied,yes,both
+post+orgs_{org}_repos,collaborators_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}""}",1,satisfied,yes,both
+post+orgs_{org}_repos,comments_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/comments{/number}""}",1,satisfied,yes,both
+post+orgs_{org}_repos,compare_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}""}",1,satisfied,yes,both
+post+orgs_{org}_repos,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1,satisfied,yes,both
+post+orgs_{org}_repos,delete_branch_on_merge,"Attribute delete_branch_on_merge is responded to by parameter repository with a description: Either `true` to allow automatically deleting head branches when pull requests are merged, or `false` to prevent automatic deletion",1,satisfied,yes,both
+post+orgs_{org}_repos,deployments_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+post+orgs_{org}_repos,description,Attribute description is responded to by parameter repository with a description: A short description of the repository,1,satisfied,yes,both
+post+orgs_{org}_repos,downloads_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+post+orgs_{org}_repos,events_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+post+orgs_{org}_repos,forks_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+post+orgs_{org}_repos,git_commits_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}""}",1,satisfied,yes,both
+post+orgs_{org}_repos,git_refs_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}""}",1,satisfied,yes,both
+post+orgs_{org}_repos,has_downloads,"Whether downloads are enabled, schema: {""type"": ""boolean"", ""example"": true}",0,satisfied,yes,both
+post+orgs_{org}_repos,has_issues,"Attribute has_issues is responded to by parameter repository with a description: Either `true` to enable issues for this repository or `false` to disable them
+Whether issues are enabled, schema: {""type"": ""boolean"", ""example"": true}",0.5,satisfied,yes,both
+post+orgs_{org}_repos,has_projects,"Attribute has_projects is responded to by parameter repository with a description: Either `true` to enable projects for this repository or `false` to disable them. **Note:** If you're creating a repository in an organization that has disabled repository projects, the default is `false`, and if you pass `true`, the API returns an error
+Whether projects are enabled, schema: {""type"": ""boolean"", ""example"": true}",0.5,satisfied,yes,both
+post+orgs_{org}_repos,has_wiki,Attribute has_wiki is responded to by parameter repository with a description: Either `true` to enable the wiki for this repository or `false` to disable it,1,satisfied,yes,both
+post+orgs_{org}_repos,homepage,"Attribute homepage is responded to by parameter repository with a description: A URL with more information about the repository
+{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+post+orgs_{org}_repos,hooks_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+post+orgs_{org}_repos,html_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+post+orgs_{org}_repos,id,"Unique identifier of the repository, schema: {""type"": ""integer"", ""example"": 42}",0,satisfied,yes,both
+post+orgs_{org}_repos,is_template,"Attribute is_template is responded to by parameter repository with a description: Either `true` to make this repo available as a template repository or `false` to prevent it
+Whether this repository acts as a template that can be used to generate new repositories, schema: {""type"": ""boolean"", ""example"": true}",0.5,satisfied,yes,both
+post+orgs_{org}_repos,issue_events_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues/events{/number}""}",1,satisfied,no,both
+post+orgs_{org}_repos,issues_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues{/number}""}",1,satisfied,yes,both
+post+orgs_{org}_repos,languages_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+post+orgs_{org}_repos,license.html_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,license.key,"Attribute license_template is responded to by parameter license-simple with a description: Choose an [open source license template](https://choosealicense.com/) that best suits your needs, and then use the [license keyword](https://help.github.com/articles/licensing-a-repository/#searching-github-by-license-type) as the `license_template` string. For example, ""mit"" or ""mpl-2.0""",0,satisfied,yes,left_only
+post+orgs_{org}_repos,license.url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,milestones_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/milestones{/number}""}",1,satisfied,yes,both
+post+orgs_{org}_repos,mirror_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+post+orgs_{org}_repos,name,Attribute name is responded to by parameter repository with a description: The name of the repository,0,satisfied,yes,left_only
+post+orgs_{org}_repos,organization.events_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/events{/privacy}""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,organization.followers_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,organization.following_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/following{/other_user}""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,organization.gists_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/gists{/gist_id}""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,organization.html_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,organization.organizations_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,organization.received_events_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,organization.repos_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,organization.starred_at,"{""type"": ""string"", ""example"": ""\""2020-07-09T00:17:55Z\""""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,organization.starred_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/starred{/owner}{/repo}""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,organization.subscriptions_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,organization.url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,owner.events_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/events{/privacy}""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,owner.followers_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,owner.following_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/following{/other_user}""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,owner.gists_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/gists{/gist_id}""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,owner.html_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,owner.organizations_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,owner.received_events_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,owner.repos_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,owner.starred_at,"{""type"": ""string"", ""example"": ""\""2020-07-09T00:17:55Z\""""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,owner.starred_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/starred{/owner}{/repo}""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,owner.subscriptions_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,owner.url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,private,"Attribute private is responded to by parameter repository with a description: Whether the repository is private
+Whether the repository is private or public",0,satisfied,yes,both
+post+orgs_{org}_repos,pulls_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/pulls{/number}""}",1,satisfied,yes,both
+post+orgs_{org}_repos,ssh_url,"{""type"": ""string"", ""example"": ""git@github.com:octocat/Hello-World.git""}",1,satisfied,yes,both
+post+orgs_{org}_repos,stargazers_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+post+orgs_{org}_repos,starred_at,"{""type"": ""string"", ""example"": ""\""2020-07-09T00:17:42Z\""""}",1,unknown,yes,both
+post+orgs_{org}_repos,statuses_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/statuses/{sha}""}",1,satisfied,yes,both
+post+orgs_{org}_repos,subscribers_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+post+orgs_{org}_repos,subscription_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+post+orgs_{org}_repos,svn_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+post+orgs_{org}_repos,tags_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+post+orgs_{org}_repos,teams_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+post+orgs_{org}_repos,template_repository.events_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/events{/privacy}""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,template_repository.html_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,template_repository.owner.events_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/events{/privacy}""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,template_repository.owner.followers_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,template_repository.owner.following_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/following{/other_user}""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,template_repository.owner.gists_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/gists{/gist_id}""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,template_repository.owner.html_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,template_repository.owner.organizations_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,template_repository.owner.received_events_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,template_repository.owner.repos_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,template_repository.owner.starred_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/starred{/owner}{/repo}""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,template_repository.owner.subscriptions_url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,template_repository.owner.url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,template_repository.url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,left_only
+post+orgs_{org}_repos,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1,satisfied,yes,both
+post+orgs_{org}_repos,url,"{""type"": ""string"", ""format"": ""uri""}",1,satisfied,yes,both
+post+orgs_{org}_repos,visibility,"Attribute visibility is responded to by parameter repository with a description: Can be `public` or `private`. If your organization is associated with an enterprise account using GitHub Enterprise Cloud or GitHub Enterprise Server 2.20+, `visibility` can also be `internal`. Note: For GitHub Enterprise Server and GitHub AE, this endpoint will only list repositories available to all users on the enterprise. For more information, see ""[Creating an internal repository](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-repository-visibility#about-internal-repositories)"" in the GitHub Help documentation.  
+The `visibility` parameter overrides the `private` parameter when you use both parameters with the `nebula-preview` preview header
+The repository visibility: public, private, or internal",1,satisfied,yes,both

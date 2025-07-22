@@ -1,0 +1,2 @@
+pptname,invariant,invariantType,variables,tp,fp,enter,bug,description,response resource,name_attribute
+main.v1publiccomics{comicId}.getComicIndividual&200&data&results&prices(main.getComicIndividual&Input):::EXIT,return.price >= 0.0,daikon.inv.unary.scalar.LowerBoundFloat,(return.price),1,0,0,0,The price (all prices in USD).,ComicPrice,"[('ComicPrice', 'price')]"

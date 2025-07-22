@@ -1,0 +1,26 @@
+endpoint,group,description,tp
+post+users_{user_id}_playlists,collaborative,nan,1.0
+post+users_{user_id}_playlists,description,nan,1.0
+post+users_{user_id}_playlists,followers.href,A link to the Web API endpoint providing full details of the playlist,1.0
+post+users_{user_id}_playlists,href,A link to the Web API endpoint providing full details of the playlist,1.0
+post+users_{user_id}_playlists,images.height,The image height in pixels. If unknown: null or not returned,0.0
+post+users_{user_id}_playlists,images.url,"The source URL of the image, schema: {""type"": ""string"", ""format"": ""uri""}",0.0
+post+users_{user_id}_playlists,name,nan,1.0
+post+users_{user_id}_playlists,owner.followers.href,A link to the Web API endpoint providing full details of the followers; null if not available,1.0
+post+users_{user_id}_playlists,owner.followers.total,The total number of followers,0.0
+post+users_{user_id}_playlists,owner.href,A link to the Web API endpoint for this user,1.0
+post+users_{user_id}_playlists,owner.type,The object type: 'user',1.0
+post+users_{user_id}_playlists,owner.uri,"The Spotify URI for the user, schema: {""type"": ""string"", ""format"": ""uri""}",1.0
+post+users_{user_id}_playlists,public,"nan
+The playlist's public/private status: true the playlist is public, false the playlist is private, null the playlist status is not relevant. For more about public/private status, see Working with Playlists",1.0
+post+users_{user_id}_playlists,tracks.items.added_at,The date and time the track was added in ISO 8601 format. Note that some very old playlists may return null in this field,1.0
+post+users_{user_id}_playlists,tracks.items.added_by.followers.href,A link to the Web API endpoint providing full details of the followers; null if not available,1.0
+post+users_{user_id}_playlists,tracks.items.added_by.followers.total,The total number of followers,0.0
+post+users_{user_id}_playlists,tracks.items.added_by.href,A link to the Web API endpoint for this user,1.0
+post+users_{user_id}_playlists,tracks.items.added_by.type,The object type: 'user',1.0
+post+users_{user_id}_playlists,tracks.items.added_by.uri,"The Spotify URI for the user, schema: {""type"": ""string"", ""format"": ""uri""}",1.0
+post+users_{user_id}_playlists,tracks.next,URL to the next page of items. (null if none,1.0
+post+users_{user_id}_playlists,tracks.previous,URL to the previous page of items. (null if none,1.0
+post+users_{user_id}_playlists,tracks.total,The total number of items available to return,0.0
+post+users_{user_id}_playlists,type,The object type: 'playlist',1.0
+post+users_{user_id}_playlists,uri,"Spotify URI of the playlist, schema: {""type"": ""string"", ""format"": ""uri""}",1.0

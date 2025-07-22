@@ -1,0 +1,16 @@
+,group,invariant,endpoint,description,tp
+0,data.results.creators.items.resourceURI,return.resourceURI is Url,get+v1_public_comics_{comicid},The path to the individual creator resource,1.0
+1,data.results.diamondCode,LENGTH(return.diamondCode)==9,get+v1_public_comics_{comicid},"The Diamond code for the comic. schema: {""type"": ""string""} schema: {""type"": ""string""}",1.0
+2,data.results.ean,LENGTH(return.ean)==20,get+v1_public_comics_{comicid},The EAN barcode for the comic,1.0
+3,data.results.id,input.comicId == return.id,get+v1_public_comics_{comicid},"Attribute comicId is responded to by parameter Comic with a description: A single comic
+The unique ID of the comic resource, schema: {""type"": ""integer"", ""format"": ""int32""}",1.0
+4,data.results.resourceURI,"return.resourceURI is a substring of return.creators.collectionURI
+return.resourceURI is a substring of return.characters.collectionURI
+return.resourceURI is a substring of return.stories.collectionURI
+return.resourceURI is a substring of return.events.collectionURI
+return.resourceURI is Url",get+v1_public_comics_{comicid},"The canonical URL identifier for this resource, schema: {""type"": ""string"", ""format"": ""uri""}",1.0
+5,data.results.urls.url,return.url is Url,get+v1_public_comics_{comicid},"A set of public web site URLs for the resource. schema: {""type"": ""array""} schema: {""type"": ""array""}",1.0
+6,data.total,"input.comicId > return.data.total
+return.data.total == return.data.count
+return.data.total == size(return.data.results[])
+return.data.total == 1",get+v1_public_comics_{comicid},"The total number of resources available given the current filter set, schema: {""type"": ""integer"", ""format"": ""int32""}",1.0

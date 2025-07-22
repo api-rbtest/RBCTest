@@ -1,0 +1,2 @@
+pptname,invariant,invariantType,variables,tp,fp,enter,bug,description,response resource,name_attribute
+main.businessessearch.getBusinesses&200&businesses(main.getBusinesses&Input):::EXIT,"return.transactions[] elements one of { ""delivery"", ""pickup"", ""restaurant_reservation"" }",daikon.inv.unary.stringsequence.EltOneOfString,(return.transactions[..]),1,0,0,0,,BusinessesResult,"[('BusinessesResult', 'transactions')]"

@@ -1,0 +1,189 @@
+operation,response resource,attribute,group,kio,description,part,corresponding attribute,corresponding attribute description,verification script,tp,Example_value,verify_result
+get-/shopping/hotel-offers,HotelProduct_Guests,adults,data.offers.guests.adults,1,,parameters,adults,Number of adult guests (1-9) per room,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the number of adults from the request_info and cast it to an integer
+        requested_adults = int(request_info.get(""adults"", 0))
+        
+        # Check if the requested number of adults is within the valid range
+        if not (1 <= requested_adults <= 9):
+            return -1
+        
+        # Extract the data from the latest_response
+        data = latest_response.get(""data"", [])
+        
+        # Iterate through the data to find the 'adults' attribute
+        for hotel_offer in data:
+            offers = hotel_offer.get(""offers"", [])
+            for offer in offers:
+                guests = offer.get(""guests"", {})
+                adults = guests.get(""adults"")
+                
+                # Check if the 'adults' attribute exists
+                if adults is None:
+                    return 0
+                
+                # Verify if the 'adults' attribute satisfies the constraint
+                if not (1 <= adults <= 9):
+                    return -1
+                
+                # Compare the 'adults' attribute with the requested number of adults
+                if adults != requested_adults:
+                    return -1
+        
+        # If all checks pass, return 1
+        return 1
+    except Exception as e:
+        # In case of any exception, return -1
+        return -1
+",1,1,1.0
+get-/shopping/hotel-offers,HotelOffer,checkInDate,data.offers.checkInDate,2,,parameters,checkInDate,"Check-in date of the stay (hotel local date). Format YYYY-MM-DD. The lowest accepted value is the present date (no dates in the past). If not present, the default value will be today's date in the GMT time zone","from datetime import datetime
+
+def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the checkInDate from the request_info
+        check_in_date_request = request_info.get(""checkInDate"", None)
+        
+        # If checkInDate is not provided in the request, use today's date in GMT
+        if check_in_date_request is None:
+            check_in_date_request = datetime.utcnow().strftime('%Y-%m-%d')
+        
+        # Convert the request checkInDate to a datetime object
+        check_in_date_request = datetime.strptime(check_in_date_request, '%Y-%m-%d')
+        
+        # Iterate through the response to verify the checkInDate constraints
+        for hotel_offer in latest_response.get(""data"", []):
+            for offer in hotel_offer.get(""offers"", []):
+                check_in_date_response = offer.get(""checkInDate"", None)
+                
+                if check_in_date_response is None:
+                    return 0  # Insufficient information to verify
+                
+                # Convert the response checkInDate to a datetime object
+                check_in_date_response = datetime.strptime(check_in_date_response, '%Y-%m-%d')
+                
+                # Check if the response checkInDate is not in the past
+                if check_in_date_response < check_in_date_request:
+                    return -1  # Constraint not satisfied
+        
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",0,2021-11-20,1.0
+get-/shopping/hotel-offers,HotelOffer,checkOutDate,data.offers.checkOutDate,3,,parameters,checkOutDate,"Check-out date of the stay (hotel local date). Format YYYY-MM-DD. The lowest accepted value is checkInDate+1. If not present, it will default to checkInDate +1","def verify_latest_response(latest_response, request_info):
+    from datetime import datetime, timedelta
+
+    try:
+        check_in_date_str = request_info.get(""checkInDate"")
+        if not check_in_date_str:
+            return 0  # checkInDate is not provided in request_info
+
+        check_in_date = datetime.strptime(check_in_date_str, ""%Y-%m-%d"")
+        min_check_out_date = check_in_date + timedelta(days=1)
+
+        if ""data"" not in latest_response or not isinstance(latest_response[""data""], list):
+            return 0  # Insufficient information in the response
+
+        for hotel_offer in latest_response[""data""]:
+            if ""offers"" not in hotel_offer or not isinstance(hotel_offer[""offers""], list):
+                continue  # Skip if offers are not present or not a list
+
+            for offer in hotel_offer[""offers""]:
+                check_out_date_str = offer.get(""checkOutDate"")
+                if not check_out_date_str:
+                    return 0  # checkOutDate is not present in the response
+
+                check_out_date = datetime.strptime(check_out_date_str, ""%Y-%m-%d"")
+                if check_out_date < min_check_out_date:
+                    return -1  # Constraint is not satisfied
+
+        return 1  # All constraints are satisfied
+
+    except Exception as e:
+        return -1  # An error occurred during verification
+",1,2021-11-21,1.0
+get-/shopping/hotel-offers,HotelProduct_HotelPrice,total,data.offers.price.total,4,,parameters,priceRange,"Filter hotel offers by price per night interval (ex: 200-300 or -300 or 100).
+It is mandatory to include a currency when this field is set","def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract priceRange and currency from request_info
+        price_range = request_info.get(""priceRange"")
+        if not price_range:
+            return 0  # priceRange is not provided in the request_info
+
+        # Check if currency is provided
+        if ""currency"" not in request_info:
+            return -1  # Currency is mandatory when priceRange is set
+
+        currency = request_info[""currency""]
+
+        # Parse the price range
+        if '-' in price_range:
+            parts = price_range.split('-')
+            if parts[0] == '':
+                min_price = None
+                max_price = float(parts[1])
+            elif parts[1] == '':
+                min_price = float(parts[0])
+                max_price = None
+            else:
+                min_price = float(parts[0])
+                max_price = float(parts[1])
+        else:
+            min_price = float(price_range)
+            max_price = float(price_range)
+
+        # Extract hotel offers from the response
+        hotel_offers = latest_response.get(""data"", [])
+        if not hotel_offers:
+            return 0  # No hotel offers in the response
+
+        for hotel in hotel_offers:
+            offers = hotel.get(""offers"", [])
+            for offer in offers:
+                price_info = offer.get(""price"", {})
+                offer_currency = price_info.get(""currency"")
+                selling_total = price_info.get(""sellingTotal"")
+
+                if not offer_currency or not selling_total:
+                    return 0  # Missing currency or sellingTotal in the response
+
+                if offer_currency != currency:
+                    return -1  # Currency mismatch
+
+                selling_total = float(selling_total)
+
+                if min_price is not None and selling_total < min_price:
+                    return -1  # Price is below the minimum range
+                if max_price is not None and selling_total > max_price:
+                    return -1  # Price is above the maximum range
+
+        return 1  # All constraints are satisfied
+
+    except Exception as e:
+        return -1  # Any exception is considered a failure
+",1,,
+get-/shopping/hotel-offers,HotelProduct_HotelPrice,currency,data.offers.price.currency,5,,parameters,currency,"Use this parameter to request a specific currency. ISO currency code (http://www.iso.org/iso/home/standards/currency_codes.htm).
+If a hotel does not support the requested currency, the prices for the hotel will be returned in the local currency of the hotel","def verify_latest_response(latest_response, request_info):
+    try:
+        requested_currency = request_info.get(""currency"")
+        if not requested_currency:
+            return 0  # No currency requested, cannot verify
+
+        hotels = latest_response.get(""data"", [])
+        if not hotels:
+            return 0  # No hotel data in response
+
+        for hotel in hotels:
+            offers = hotel.get(""offers"", [])
+            for offer in offers:
+                price = offer.get(""price"", {})
+                response_currency = price.get(""currency"")
+                if not response_currency:
+                    return 0  # No currency information in response
+
+                if response_currency != requested_currency:
+                    return -1  # Currency does not match the requested currency
+
+        return 1  # All currencies match the requested currency
+    except Exception as e:
+        return -1  # An error occurred during verification
+",0,GBP,1.0

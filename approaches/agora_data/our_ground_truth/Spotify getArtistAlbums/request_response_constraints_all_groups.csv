@@ -1,0 +1,5 @@
+operation,response resource,attribute,group,description,part,corresponding attribute,corresponding attribute description
+get-/artists/{id}/albums,album-simple,id,items.id,,parameters,id,The Spotify ID for the artist
+get-/artists/{id}/albums,album-simple-page,limit,limit,The maximum number of items in the response (as set in the query or by default),parameters,limit,The maximum number of items to return
+get-/artists/{id}/albums,album-simple-page,offset,offset,The offset of the items returned (as set in the query or by default),parameters,offset,The index of the first item to return
+get-/artists/{id}/albums,album-simple,available_markets,items.available_markets,,parameters,market,The market (an ISO 3166-1 alpha-2 country code)

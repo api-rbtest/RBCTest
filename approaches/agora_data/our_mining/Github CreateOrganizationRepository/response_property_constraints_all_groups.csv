@@ -1,0 +1,1513 @@
+operation,response resource,attribute,group,description,tp,verification script,status,script confirmation,revised script,revised executable script,revised status,TP
+post-/orgs/{org}/repos,repository,has_downloads,has_downloads,"Whether downloads are enabled, schema: {""type"": ""boolean"", ""example"": true}",0,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        # Check if 'has_downloads' exists in the response_x000D_
+        if 'has_downloads' not in latest_response:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if 'has_downloads' is a boolean_x000D_
+        if isinstance(latest_response['has_downloads'], bool):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except Exception as e:_x000D_
+        return -1_x000D_
+",unknown,,,,,0
+post-/orgs/{org}/repos,repository,deployments_url,deployments_url,"{""type"": ""string"", ""format"": ""uri""}",1,"from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        deployments_url = latest_response.get(""deployments_url"")_x000D_
+        if deployments_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        result = urlparse(deployments_url)_x000D_
+        if all([result.scheme, result.netloc]):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,assignees_url,assignees_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/assignees{/user}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        assignees_url = latest_response.get(""assignees_url"")_x000D_
+        if assignees_url is None:_x000D_
+            return 0  # Attribute does not exist in the response_x000D_
+_x000D_
+        if isinstance(assignees_url, str):_x000D_
+            return 1  # Constraint satisfied_x000D_
+        else:_x000D_
+            return -1  # Constraint not satisfied_x000D_
+    except Exception:_x000D_
+        return -1  # Constraint not satisfied due to an error_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,statuses_url,statuses_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/statuses/{sha}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        statuses_url = latest_response.get(""statuses_url"")_x000D_
+        if statuses_url is None:_x000D_
+            return 0  # Attribute does not exist in the response_x000D_
+_x000D_
+        if isinstance(statuses_url, str) and statuses_url.startswith(""http://""):_x000D_
+            return 1  # Constraint is satisfied_x000D_
+        else:_x000D_
+            return -1  # Constraint is not satisfied_x000D_
+    except Exception:_x000D_
+        return -1  # Constraint is not satisfied due to an error_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,has_projects,has_projects,"Whether projects are enabled, schema: {""type"": ""boolean"", ""example"": true}",0,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        if 'has_projects' not in latest_response:_x000D_
+            return 0_x000D_
+        if isinstance(latest_response['has_projects'], bool):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except Exception as e:_x000D_
+        return -1_x000D_
+",unknown,,,,,0
+post-/orgs/{org}/repos,repository,visibility,visibility,"The repository visibility: public, private, or internal",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        visibility = latest_response.get(""visibility"")_x000D_
+        if visibility is None:_x000D_
+            return 0_x000D_
+        if visibility in [""public"", ""private"", ""internal""]:_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,issues_url,issues_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues{/number}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        issues_url = latest_response.get(""issues_url"")_x000D_
+        if issues_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if issues_url is a string_x000D_
+        if not isinstance(issues_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if issues_url starts with ""http://api.github.com/repos/""_x000D_
+        if not issues_url.startswith(""http://api.github.com/repos/""):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if issues_url contains ""/issues""_x000D_
+        if ""/issues"" not in issues_url:_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,html_url,owner.html_url,"{""type"": ""string"", ""format"": ""uri""}",1,"from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        html_url = latest_response.get(""html_url"")_x000D_
+        if html_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if html_url is a valid URI_x000D_
+        result = urlparse(html_url)_x000D_
+        if all([result.scheme, result.netloc]):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,html_url,organization.html_url,"{""type"": ""string"", ""format"": ""uri""}",1,"from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        html_url = latest_response.get(""html_url"")_x000D_
+        if html_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if html_url is a valid URI_x000D_
+        result = urlparse(html_url)_x000D_
+        if all([result.scheme, result.netloc]):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,html_url,template_repository.owner.html_url,"{""type"": ""string"", ""format"": ""uri""}",1,"from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        html_url = latest_response.get(""html_url"")_x000D_
+        if html_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if html_url is a valid URI_x000D_
+        result = urlparse(html_url)_x000D_
+        if all([result.scheme, result.netloc]):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,html_url,template_repository.html_url,"{""type"": ""string"", ""format"": ""uri""}",1,"from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        html_url = latest_response.get(""html_url"")_x000D_
+        if html_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if html_url is a valid URI_x000D_
+        result = urlparse(html_url)_x000D_
+        if all([result.scheme, result.netloc]):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,gists_url,owner.gists_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/gists{/gist_id}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        gists_url = latest_response['owner']['gists_url']_x000D_
+        if isinstance(gists_url, str) and gists_url.startswith(""https://api.github.com/users/""):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,gists_url,organization.gists_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/gists{/gist_id}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        gists_url = latest_response['owner']['gists_url']_x000D_
+        if isinstance(gists_url, str) and gists_url.startswith(""https://api.github.com/users/""):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,gists_url,template_repository.owner.gists_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/gists{/gist_id}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        gists_url = latest_response['owner']['gists_url']_x000D_
+        if isinstance(gists_url, str) and gists_url.startswith(""https://api.github.com/users/""):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,url,owner.url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        url = latest_response.get(""url"")_x000D_
+        if url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if the URL is a valid URI_x000D_
+        parsed_url = urlparse(url)_x000D_
+        if not all([parsed_url.scheme, parsed_url.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,url,organization.url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        url = latest_response.get(""url"")_x000D_
+        if url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if the URL is a valid URI_x000D_
+        parsed_url = urlparse(url)_x000D_
+        if not all([parsed_url.scheme, parsed_url.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,url,template_repository.owner.url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        url = latest_response.get(""url"")_x000D_
+        if url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if the URL is a valid URI_x000D_
+        parsed_url = urlparse(url)_x000D_
+        if not all([parsed_url.scheme, parsed_url.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,url,template_repository.url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        url = latest_response.get(""url"")_x000D_
+        if url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if the URL is a valid URI_x000D_
+        parsed_url = urlparse(url)_x000D_
+        if not all([parsed_url.scheme, parsed_url.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,followers_url,owner.followers_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        followers_url = latest_response['owner']['followers_url']_x000D_
+        if not isinstance(followers_url, str):_x000D_
+            return -1_x000D_
+        # Check if the followers_url is a valid URI_x000D_
+        uri_regex = re.compile(_x000D_
+            r'^(?:http|ftp)s?://' # http:// or https://_x000D_
+            r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' # domain..._x000D_
+            r'localhost|' # localhost..._x000D_
+            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|' # ...or ipv4_x000D_
+            r'\[?[A-F0-9]*:[A-F0-9:]+\]?)' # ...or ipv6_x000D_
+            r'(?::\d+)?' # optional port_x000D_
+            r'(?:/?|[/?]\S+)$', re.IGNORECASE)_x000D_
+        _x000D_
+        if re.match(uri_regex, followers_url):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,followers_url,organization.followers_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        followers_url = latest_response['owner']['followers_url']_x000D_
+        if not isinstance(followers_url, str):_x000D_
+            return -1_x000D_
+        # Check if the followers_url is a valid URI_x000D_
+        uri_regex = re.compile(_x000D_
+            r'^(?:http|ftp)s?://' # http:// or https://_x000D_
+            r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' # domain..._x000D_
+            r'localhost|' # localhost..._x000D_
+            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|' # ...or ipv4_x000D_
+            r'\[?[A-F0-9]*:[A-F0-9:]+\]?)' # ...or ipv6_x000D_
+            r'(?::\d+)?' # optional port_x000D_
+            r'(?:/?|[/?]\S+)$', re.IGNORECASE)_x000D_
+        _x000D_
+        if re.match(uri_regex, followers_url):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,followers_url,template_repository.owner.followers_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        followers_url = latest_response['owner']['followers_url']_x000D_
+        if not isinstance(followers_url, str):_x000D_
+            return -1_x000D_
+        # Check if the followers_url is a valid URI_x000D_
+        uri_regex = re.compile(_x000D_
+            r'^(?:http|ftp)s?://' # http:// or https://_x000D_
+            r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' # domain..._x000D_
+            r'localhost|' # localhost..._x000D_
+            r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|' # ...or ipv4_x000D_
+            r'\[?[A-F0-9]*:[A-F0-9:]+\]?)' # ...or ipv6_x000D_
+            r'(?::\d+)?' # optional port_x000D_
+            r'(?:/?|[/?]\S+)$', re.IGNORECASE)_x000D_
+        _x000D_
+        if re.match(uri_regex, followers_url):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,is_template,is_template,"Whether this repository acts as a template that can be used to generate new repositories, schema: {""type"": ""boolean"", ""example"": true}",0,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        # Check if 'is_template' exists in the response_x000D_
+        if 'is_template' not in latest_response:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if 'is_template' is of type boolean_x000D_
+        if isinstance(latest_response['is_template'], bool):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except Exception as e:_x000D_
+        return -1_x000D_
+",unknown,,,,,0
+post-/orgs/{org}/repos,repository,starred_at,starred_at,"{""type"": ""string"", ""example"": ""\""2020-07-09T00:17:42Z\""""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        starred_at = latest_response.get(""starred_at"")_x000D_
+        if starred_at is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if 'starred_at' is a valid ISO 8601 datetime string_x000D_
+        from datetime import datetime_x000D_
+        try:_x000D_
+            datetime.fromisoformat(starred_at.replace(""Z"", ""+00:00""))_x000D_
+            return 1_x000D_
+        except ValueError:_x000D_
+            return -1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,starred_at,owner.starred_at,"{""type"": ""string"", ""example"": ""\""2020-07-09T00:17:55Z\""""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        starred_at = latest_response.get(""starred_at"")_x000D_
+        if starred_at is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if ""starred_at"" is a string and follows the ISO 8601 format_x000D_
+        from datetime import datetime_x000D_
+        datetime.strptime(starred_at, ""%Y-%m-%dT%H:%M:%SZ"")_x000D_
+        _x000D_
+        return 1_x000D_
+    except (ValueError, TypeError):_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,starred_at,organization.starred_at,"{""type"": ""string"", ""example"": ""\""2020-07-09T00:17:55Z\""""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        starred_at = latest_response.get(""starred_at"")_x000D_
+        if starred_at is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if ""starred_at"" is a string and follows the ISO 8601 format_x000D_
+        from datetime import datetime_x000D_
+        datetime.strptime(starred_at, ""%Y-%m-%dT%H:%M:%SZ"")_x000D_
+        _x000D_
+        return 1_x000D_
+    except (ValueError, TypeError):_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,forks_url,forks_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        forks_url = latest_response.get(""forks_url"")_x000D_
+        if forks_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if forks_url is a string_x000D_
+        if not isinstance(forks_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if forks_url is a valid URI_x000D_
+        parsed_uri = urlparse(forks_url)_x000D_
+        if not all([parsed_uri.scheme, parsed_uri.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,allow_squash_merge,allow_squash_merge,"Whether to allow squash merges for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        if 'allow_squash_merge' in latest_response:_x000D_
+            if isinstance(latest_response['allow_squash_merge'], bool):_x000D_
+                return 1_x000D_
+            else:_x000D_
+                return -1_x000D_
+        else:_x000D_
+            return 0_x000D_
+    except Exception as e:_x000D_
+        return -1_x000D_
+",unknown,,,,,0
+post-/orgs/{org}/repos,repository,milestones_url,milestones_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/milestones{/number}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        milestones_url = latest_response.get(""milestones_url"")_x000D_
+        if milestones_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        if isinstance(milestones_url, str) and milestones_url.startswith(""http://api.github.com/repos/""):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,id,id,"Unique identifier of the repository, schema: {""type"": ""integer"", ""example"": 42}",0,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        # Check if 'id' exists in the response_x000D_
+        if 'id' not in latest_response:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if 'id' is an integer_x000D_
+        if not isinstance(latest_response['id'], int):_x000D_
+            return -1_x000D_
+        _x000D_
+        # If all checks pass_x000D_
+        return 1_x000D_
+    except Exception as e:_x000D_
+        return -1_x000D_
+",unknown,,,,,0
+post-/orgs/{org}/repos,repository,compare_url,compare_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        compare_url = latest_response.get(""compare_url"")_x000D_
+        if compare_url is None:_x000D_
+            return 0  # Attribute does not exist_x000D_
+_x000D_
+        # Check if compare_url is a string_x000D_
+        if not isinstance(compare_url, str):_x000D_
+            return -1_x000D_
+_x000D_
+        # Check if compare_url contains placeholders {base} and {head}_x000D_
+        if ""{base}"" in compare_url and ""{head}"" in compare_url:_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except Exception as e:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,subscription_url,subscription_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        subscription_url = latest_response.get(""subscription_url"")_x000D_
+        if subscription_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if the subscription_url is a valid URI_x000D_
+        parsed_uri = urlparse(subscription_url)_x000D_
+        if not all([parsed_uri.scheme, parsed_uri.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,git_commits_url,git_commits_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        git_commits_url = latest_response.get(""git_commits_url"")_x000D_
+        if git_commits_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if git_commits_url is a string_x000D_
+        if not isinstance(git_commits_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if git_commits_url follows the expected URL pattern_x000D_
+        if not git_commits_url.startswith(""http://api.github.com/repos/""):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,blobs_url,blobs_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        blobs_url = latest_response.get(""blobs_url"")_x000D_
+        if blobs_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if blobs_url is a string_x000D_
+        if not isinstance(blobs_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if blobs_url starts with ""http://api.github.com/repos/""_x000D_
+        if not blobs_url.startswith(""http://api.github.com/repos/""):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if blobs_url contains ""/git/blobs{/sha}""_x000D_
+        if ""/git/blobs{/sha}"" not in blobs_url:_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,license-simple,html_url,license.html_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        html_url = latest_response.get(""html_url"")_x000D_
+        if html_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if html_url is a string_x000D_
+        if not isinstance(html_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if html_url is a valid URI_x000D_
+        parsed_uri = urlparse(html_url)_x000D_
+        if not all([parsed_uri.scheme, parsed_uri.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,branches_url,branches_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/branches{/branch}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        branches_url = latest_response.get(""branches_url"")_x000D_
+        if branches_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        if isinstance(branches_url, str) and branches_url.startswith(""http://api.github.com/repos/""):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,license-simple,url,license.url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def is_valid_uri(uri):_x000D_
+    try:_x000D_
+        result = urlparse(uri)_x000D_
+        return all([result.scheme, result.netloc])_x000D_
+    except ValueError:_x000D_
+        return False_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        url = latest_response.get(""url"", None)_x000D_
+        if url is None:_x000D_
+            return 1  # The attribute is nullable, so None is acceptable_x000D_
+        if isinstance(url, str) and is_valid_uri(url):_x000D_
+            return 1  # The URL is a valid URI_x000D_
+        else:_x000D_
+            return -1  # The URL is not a valid URI_x000D_
+    except Exception:_x000D_
+        return -1  # An error occurred, indicating the constraint is not satisfied_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1,"from datetime import datetime_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        created_at = latest_response.get(""created_at"")_x000D_
+        if created_at is None:_x000D_
+            return 0  # Attribute is nullable, so None is acceptable_x000D_
+        datetime.strptime(created_at, ""%Y-%m-%dT%H:%M:%SZ"")_x000D_
+        return 1  # Constraint satisfied_x000D_
+    except (ValueError, TypeError):_x000D_
+        return -1  # Constraint not satisfied_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,archive_url,archive_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        archive_url = latest_response.get(""archive_url"")_x000D_
+        if archive_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if archive_url is a string_x000D_
+        if not isinstance(archive_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if archive_url contains placeholders {archive_format} and {/ref}_x000D_
+        if ""{archive_format}"" not in archive_url or ""{/ref}"" not in archive_url:_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,updated_at,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1,"from datetime import datetime_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        updated_at = latest_response.get(""updated_at"", None)_x000D_
+        _x000D_
+        if updated_at is None:_x000D_
+            return 0  # Attribute is nullable, so None is acceptable_x000D_
+        _x000D_
+        # Check if the updated_at is a valid date-time string_x000D_
+        datetime.fromisoformat(updated_at.replace(""Z"", ""+00:00""))_x000D_
+        return 1  # Constraint satisfied_x000D_
+    except (ValueError, TypeError):_x000D_
+        return -1  # Constraint not satisfied_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,homepage,homepage,"{""type"": ""string"", ""format"": ""uri""}",1,"from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        homepage = latest_response.get(""homepage"", None)_x000D_
+        _x000D_
+        if homepage is None:_x000D_
+            return 0  # Attribute is nullable, so absence is acceptable_x000D_
+        _x000D_
+        # Check if homepage is a valid URI_x000D_
+        result = urlparse(homepage)_x000D_
+        if all([result.scheme, result.netloc]):_x000D_
+            return 1  # Constraint satisfied_x000D_
+        else:_x000D_
+            return -1  # Constraint not satisfied_x000D_
+    except Exception:_x000D_
+        return -1  # Constraint not satisfied due to an error_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,pulls_url,pulls_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/pulls{/number}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        pulls_url = latest_response.get(""pulls_url"")_x000D_
+        if pulls_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if pulls_url is a string_x000D_
+        if not isinstance(pulls_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if pulls_url starts with ""http://api.github.com/repos/""_x000D_
+        if not pulls_url.startswith(""http://api.github.com/repos/""):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,downloads_url,downloads_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        downloads_url = latest_response.get(""downloads_url"")_x000D_
+        if downloads_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if downloads_url is a string_x000D_
+        if not isinstance(downloads_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if downloads_url is a valid URI_x000D_
+        parsed_url = urlparse(downloads_url)_x000D_
+        if not all([parsed_url.scheme, parsed_url.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,html_url,html_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        html_url = latest_response.get(""html_url"")_x000D_
+        if html_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if html_url is a valid URI_x000D_
+        parsed_uri = urlparse(html_url)_x000D_
+        if not all([parsed_uri.scheme, parsed_uri.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if html_url matches the URI format_x000D_
+        uri_regex = re.compile(_x000D_
+            r'^(?:http|https)://'  # http:// or https://_x000D_
+            r'(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}'  # domain_x000D_
+            r'(?:/?|[/?]\S+)$'  # path_x000D_
+        )_x000D_
+        if not uri_regex.match(html_url):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,private,private,Whether the repository is private or public,0,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        # Check if 'private' attribute exists in the response_x000D_
+        if 'private' not in latest_response:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if 'private' is of type boolean_x000D_
+        if not isinstance(latest_response['private'], bool):_x000D_
+            return -1_x000D_
+        _x000D_
+        # If all checks pass, return 1_x000D_
+        return 1_x000D_
+    except Exception as e:_x000D_
+        return -1_x000D_
+",unknown,,,,,0
+post-/orgs/{org}/repos,repository,mirror_url,mirror_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def is_valid_uri(uri):_x000D_
+    try:_x000D_
+        result = urlparse(uri)_x000D_
+        return all([result.scheme, result.netloc])_x000D_
+    except ValueError:_x000D_
+        return False_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        mirror_url = latest_response.get(""mirror_url"", None)_x000D_
+        _x000D_
+        if mirror_url is None:_x000D_
+            return 0  # Attribute does not exist, insufficient information_x000D_
+        _x000D_
+        if mirror_url is not None and not isinstance(mirror_url, str):_x000D_
+            return -1  # Constraint not satisfied: must be a string or null_x000D_
+        _x000D_
+        if mirror_url is not None and not is_valid_uri(mirror_url):_x000D_
+            return -1  # Constraint not satisfied: must be a valid URI_x000D_
+        _x000D_
+        return 1  # All constraints satisfied_x000D_
+    except Exception as e:_x000D_
+        return -1  # Constraint not satisfied due to an error_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,url,url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        url = latest_response.get(""url"")_x000D_
+        if url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if the URL is a valid URI_x000D_
+        parsed_url = urlparse(url)_x000D_
+        if not all([parsed_url.scheme, parsed_url.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if the URL matches the URI format_x000D_
+        uri_regex = re.compile(_x000D_
+            r'^(?:http|https)://'  # http:// or https://_x000D_
+            r'(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}'  # domain_x000D_
+            r'(?:/[^/]+)*$'  # path_x000D_
+        )_x000D_
+        if not uri_regex.match(url):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,git_refs_url,git_refs_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        git_refs_url = latest_response.get(""git_refs_url"")_x000D_
+        if git_refs_url is None:_x000D_
+            return 0  # Attribute does not exist in the response_x000D_
+_x000D_
+        # Check if git_refs_url is a string_x000D_
+        if not isinstance(git_refs_url, str):_x000D_
+            return -1_x000D_
+_x000D_
+        # Check if git_refs_url is a valid URL_x000D_
+        from urllib.parse import urlparse_x000D_
+        parsed_url = urlparse(git_refs_url)_x000D_
+        if not all([parsed_url.scheme, parsed_url.netloc]):_x000D_
+            return -1_x000D_
+_x000D_
+        return 1  # Constraint is satisfied_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,starred_url,owner.starred_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/starred{/owner}{/repo}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        # Extract the starred_url from the response_x000D_
+        starred_url = latest_response['owner']['starred_url']_x000D_
+        _x000D_
+        # Check if starred_url is a string_x000D_
+        if not isinstance(starred_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if starred_url starts with the expected base URL_x000D_
+        expected_base_url = ""https://api.github.com/users/""_x000D_
+        if not starred_url.startswith(expected_base_url):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if starred_url contains the placeholders for owner and repo_x000D_
+        if '{/owner}' not in starred_url or '{/repo}' not in starred_url:_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except KeyError:_x000D_
+        # Return 0 if the attribute does not exist in the response_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,starred_url,organization.starred_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/starred{/owner}{/repo}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        # Extract the starred_url from the response_x000D_
+        starred_url = latest_response['owner']['starred_url']_x000D_
+        _x000D_
+        # Check if starred_url is a string_x000D_
+        if not isinstance(starred_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if starred_url starts with the expected base URL_x000D_
+        expected_base_url = ""https://api.github.com/users/""_x000D_
+        if not starred_url.startswith(expected_base_url):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if starred_url contains the placeholders for owner and repo_x000D_
+        if '{/owner}' not in starred_url or '{/repo}' not in starred_url:_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except KeyError:_x000D_
+        # Return 0 if the attribute does not exist in the response_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,starred_url,template_repository.owner.starred_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/starred{/owner}{/repo}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        # Extract the starred_url from the response_x000D_
+        starred_url = latest_response['owner']['starred_url']_x000D_
+        _x000D_
+        # Check if starred_url is a string_x000D_
+        if not isinstance(starred_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if starred_url starts with the expected base URL_x000D_
+        expected_base_url = ""https://api.github.com/users/""_x000D_
+        if not starred_url.startswith(expected_base_url):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if starred_url contains the placeholders for owner and repo_x000D_
+        if '{/owner}' not in starred_url or '{/repo}' not in starred_url:_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except KeyError:_x000D_
+        # Return 0 if the attribute does not exist in the response_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,repos_url,owner.repos_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def is_valid_uri(uri):_x000D_
+    try:_x000D_
+        result = urlparse(uri)_x000D_
+        return all([result.scheme, result.netloc])_x000D_
+    except Exception:_x000D_
+        return False_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        repos_url = latest_response['owner']['repos_url']_x000D_
+        if not isinstance(repos_url, str):_x000D_
+            return -1_x000D_
+        if not is_valid_uri(repos_url):_x000D_
+            return -1_x000D_
+        return 1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,repos_url,organization.repos_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def is_valid_uri(uri):_x000D_
+    try:_x000D_
+        result = urlparse(uri)_x000D_
+        return all([result.scheme, result.netloc])_x000D_
+    except Exception:_x000D_
+        return False_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        repos_url = latest_response['owner']['repos_url']_x000D_
+        if not isinstance(repos_url, str):_x000D_
+            return -1_x000D_
+        if not is_valid_uri(repos_url):_x000D_
+            return -1_x000D_
+        return 1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,repos_url,template_repository.owner.repos_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def is_valid_uri(uri):_x000D_
+    try:_x000D_
+        result = urlparse(uri)_x000D_
+        return all([result.scheme, result.netloc])_x000D_
+    except Exception:_x000D_
+        return False_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        repos_url = latest_response['owner']['repos_url']_x000D_
+        if not isinstance(repos_url, str):_x000D_
+            return -1_x000D_
+        if not is_valid_uri(repos_url):_x000D_
+            return -1_x000D_
+        return 1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,tags_url,tags_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        tags_url = latest_response.get(""tags_url"")_x000D_
+        if tags_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if tags_url is a string_x000D_
+        if not isinstance(tags_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if tags_url is a valid URI_x000D_
+        parsed_uri = urlparse(tags_url)_x000D_
+        if not all([parsed_uri.scheme, parsed_uri.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,following_url,owner.following_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/following{/other_user}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        following_url = latest_response['owner']['following_url']_x000D_
+        if isinstance(following_url, str) and following_url.startswith(""https://api.github.com/users/""):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,following_url,organization.following_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/following{/other_user}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        following_url = latest_response['owner']['following_url']_x000D_
+        if isinstance(following_url, str) and following_url.startswith(""https://api.github.com/users/""):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,following_url,template_repository.owner.following_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/following{/other_user}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        following_url = latest_response['owner']['following_url']_x000D_
+        if isinstance(following_url, str) and following_url.startswith(""https://api.github.com/users/""):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,comments_url,comments_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/comments{/number}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        comments_url = latest_response.get(""comments_url"")_x000D_
+        if comments_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if comments_url is a string_x000D_
+        if not isinstance(comments_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if comments_url starts with ""http://api.github.com/repos/""_x000D_
+        if not comments_url.startswith(""http://api.github.com/repos/""):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,organizations_url,owner.organizations_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        organizations_url = latest_response['owner']['organizations_url']_x000D_
+        _x000D_
+        # Check if the organizations_url is a string_x000D_
+        if not isinstance(organizations_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if the organizations_url is a valid URI_x000D_
+        parsed_uri = urlparse(organizations_url)_x000D_
+        if not all([parsed_uri.scheme, parsed_uri.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,organizations_url,organization.organizations_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        organizations_url = latest_response['owner']['organizations_url']_x000D_
+        _x000D_
+        # Check if the organizations_url is a string_x000D_
+        if not isinstance(organizations_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if the organizations_url is a valid URI_x000D_
+        parsed_uri = urlparse(organizations_url)_x000D_
+        if not all([parsed_uri.scheme, parsed_uri.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,organizations_url,template_repository.owner.organizations_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        organizations_url = latest_response['owner']['organizations_url']_x000D_
+        _x000D_
+        # Check if the organizations_url is a string_x000D_
+        if not isinstance(organizations_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if the organizations_url is a valid URI_x000D_
+        parsed_uri = urlparse(organizations_url)_x000D_
+        if not all([parsed_uri.scheme, parsed_uri.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,received_events_url,owner.received_events_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        received_events_url = latest_response['owner']['received_events_url']_x000D_
+        _x000D_
+        # Check if the received_events_url is a string_x000D_
+        if not isinstance(received_events_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if the received_events_url is a valid URI_x000D_
+        parsed_url = urlparse(received_events_url)_x000D_
+        if not all([parsed_url.scheme, parsed_url.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,received_events_url,organization.received_events_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        received_events_url = latest_response['owner']['received_events_url']_x000D_
+        _x000D_
+        # Check if the received_events_url is a string_x000D_
+        if not isinstance(received_events_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if the received_events_url is a valid URI_x000D_
+        parsed_url = urlparse(received_events_url)_x000D_
+        if not all([parsed_url.scheme, parsed_url.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,received_events_url,template_repository.owner.received_events_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        received_events_url = latest_response['owner']['received_events_url']_x000D_
+        _x000D_
+        # Check if the received_events_url is a string_x000D_
+        if not isinstance(received_events_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if the received_events_url is a valid URI_x000D_
+        parsed_url = urlparse(received_events_url)_x000D_
+        if not all([parsed_url.scheme, parsed_url.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,events_url,events_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        events_url = latest_response.get(""events_url"")_x000D_
+        if events_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if events_url is a string_x000D_
+        if not isinstance(events_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if events_url is a valid URI_x000D_
+        parsed_uri = urlparse(events_url)_x000D_
+        if not all([parsed_uri.scheme, parsed_uri.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,ssh_url,ssh_url,"{""type"": ""string"", ""example"": ""git@github.com:octocat/Hello-World.git""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        ssh_url = latest_response.get(""ssh_url"")_x000D_
+        if ssh_url is None:_x000D_
+            return 0  # Attribute does not exist_x000D_
+        if isinstance(ssh_url, str) and ssh_url.startswith(""git@""):_x000D_
+            return 1  # Constraint satisfied_x000D_
+        else:_x000D_
+            return -1  # Constraint not satisfied_x000D_
+    except Exception:_x000D_
+        return -1  # Constraint not satisfied due to an error_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,languages_url,languages_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        languages_url = latest_response.get(""languages_url"")_x000D_
+        if languages_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if languages_url is a string_x000D_
+        if not isinstance(languages_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if languages_url is a valid URI_x000D_
+        parsed_uri = urlparse(languages_url)_x000D_
+        if not all([parsed_uri.scheme, parsed_uri.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,stargazers_url,stargazers_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        stargazers_url = latest_response.get(""stargazers_url"")_x000D_
+        if stargazers_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if the stargazers_url is a valid URI_x000D_
+        parsed_url = urlparse(stargazers_url)_x000D_
+        if not all([parsed_url.scheme, parsed_url.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if the scheme is either http or https_x000D_
+        if parsed_url.scheme not in [""http"", ""https""]:_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,allow_rebase_merge,allow_rebase_merge,"Whether to allow rebase merges for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        # Check if 'allow_rebase_merge' exists in the response_x000D_
+        if 'allow_rebase_merge' not in latest_response:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if 'allow_rebase_merge' is of type boolean_x000D_
+        if isinstance(latest_response['allow_rebase_merge'], bool):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except Exception as e:_x000D_
+        return -1_x000D_
+",unknown,,,,,0
+post-/orgs/{org}/repos,repository,collaborators_url,collaborators_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        collaborators_url = latest_response.get(""collaborators_url"")_x000D_
+        if collaborators_url is None:_x000D_
+            return 0  # Attribute does not exist_x000D_
+_x000D_
+        if isinstance(collaborators_url, str):_x000D_
+            return 1  # Constraint satisfied_x000D_
+        else:_x000D_
+            return -1  # Constraint not satisfied_x000D_
+    except Exception:_x000D_
+        return -1  # Constraint not satisfied due to an error_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,allow_merge_commit,allow_merge_commit,"Whether to allow merge commits for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        # Check if 'allow_merge_commit' exists in the response_x000D_
+        if 'allow_merge_commit' not in latest_response:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if 'allow_merge_commit' is of type boolean_x000D_
+        if isinstance(latest_response['allow_merge_commit'], bool):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except Exception as e:_x000D_
+        return -1_x000D_
+",unknown,,,,,0
+post-/orgs/{org}/repos,repository,clone_url,clone_url,"{""type"": ""string"", ""example"": ""https://github.com/octocat/Hello-World.git""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        clone_url = latest_response.get(""clone_url"")_x000D_
+        if clone_url is None:_x000D_
+            return 0_x000D_
+        if isinstance(clone_url, str) and clone_url.startswith(""https://""):_x000D_
+            return 1_x000D_
+        else:_x000D_
+            return -1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,teams_url,teams_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        teams_url = latest_response.get(""teams_url"")_x000D_
+        if teams_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if teams_url is a valid URI_x000D_
+        parsed_url = urlparse(teams_url)_x000D_
+        if not all([parsed_url.scheme, parsed_url.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,subscribers_url,subscribers_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        subscribers_url = latest_response.get(""subscribers_url"")_x000D_
+        if subscribers_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if the subscribers_url is a string_x000D_
+        if not isinstance(subscribers_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if the subscribers_url is a valid URI_x000D_
+        parsed_url = urlparse(subscribers_url)_x000D_
+        if not all([parsed_url.scheme, parsed_url.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,has_issues,has_issues,"Whether issues are enabled, schema: {""type"": ""boolean"", ""example"": true}",0,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        # Check if 'has_issues' exists in the response_x000D_
+        if 'has_issues' not in latest_response:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if 'has_issues' is of type boolean_x000D_
+        if not isinstance(latest_response['has_issues'], bool):_x000D_
+            return -1_x000D_
+        _x000D_
+        # If all checks pass, return 1_x000D_
+        return 1_x000D_
+    except Exception as e:_x000D_
+        return -1_x000D_
+",unknown,,,,,0
+post-/orgs/{org}/repos,repository,svn_url,svn_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        svn_url = latest_response.get(""svn_url"")_x000D_
+        if svn_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if svn_url is a valid URI_x000D_
+        parsed_url = urlparse(svn_url)_x000D_
+        if not all([parsed_url.scheme, parsed_url.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,subscriptions_url,owner.subscriptions_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        subscriptions_url = latest_response['owner']['subscriptions_url']_x000D_
+        _x000D_
+        # Check if the subscriptions_url is a string_x000D_
+        if not isinstance(subscriptions_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if the subscriptions_url is a valid URI_x000D_
+        parsed_uri = urlparse(subscriptions_url)_x000D_
+        if not all([parsed_uri.scheme, parsed_uri.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,subscriptions_url,organization.subscriptions_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        subscriptions_url = latest_response['owner']['subscriptions_url']_x000D_
+        _x000D_
+        # Check if the subscriptions_url is a string_x000D_
+        if not isinstance(subscriptions_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if the subscriptions_url is a valid URI_x000D_
+        parsed_uri = urlparse(subscriptions_url)_x000D_
+        if not all([parsed_uri.scheme, parsed_uri.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,subscriptions_url,template_repository.owner.subscriptions_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        subscriptions_url = latest_response['owner']['subscriptions_url']_x000D_
+        _x000D_
+        # Check if the subscriptions_url is a string_x000D_
+        if not isinstance(subscriptions_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if the subscriptions_url is a valid URI_x000D_
+        parsed_uri = urlparse(subscriptions_url)_x000D_
+        if not all([parsed_uri.scheme, parsed_uri.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except KeyError:_x000D_
+        return 0_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,hooks_url,hooks_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re_x000D_
+from urllib.parse import urlparse_x000D_
+_x000D_
+def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        hooks_url = latest_response.get(""hooks_url"")_x000D_
+        if hooks_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        # Check if hooks_url is a valid URI_x000D_
+        parsed_uri = urlparse(hooks_url)_x000D_
+        if not all([parsed_uri.scheme, parsed_uri.netloc]):_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,repository,issue_events_url,issue_events_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues/events{/number}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        issue_events_url = latest_response.get(""issue_events_url"")_x000D_
+        if issue_events_url is None:_x000D_
+            return 0_x000D_
+        _x000D_
+        if not isinstance(issue_events_url, str):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if the URL starts with ""http://api.github.com/repos/""_x000D_
+        if not issue_events_url.startswith(""http://api.github.com/repos/""):_x000D_
+            return -1_x000D_
+        _x000D_
+        # Check if the URL contains ""/issues/events""_x000D_
+        if ""/issues/events"" not in issue_events_url:_x000D_
+            return -1_x000D_
+        _x000D_
+        return 1_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,events_url,owner.events_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/events{/privacy}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        events_url = latest_response.get(""events_url"")_x000D_
+        if events_url is None:_x000D_
+            return 0  # Attribute does not exist_x000D_
+_x000D_
+        # Check if events_url is a string_x000D_
+        if not isinstance(events_url, str):_x000D_
+            return -1_x000D_
+_x000D_
+        # Check if events_url starts with ""https://api.github.com/users/""_x000D_
+        if not events_url.startswith(""https://api.github.com/users/""):_x000D_
+            return -1_x000D_
+_x000D_
+        return 1  # Constraint is satisfied_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,events_url,organization.events_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/events{/privacy}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        events_url = latest_response.get(""events_url"")_x000D_
+        if events_url is None:_x000D_
+            return 0  # Attribute does not exist_x000D_
+_x000D_
+        # Check if events_url is a string_x000D_
+        if not isinstance(events_url, str):_x000D_
+            return -1_x000D_
+_x000D_
+        # Check if events_url starts with ""https://api.github.com/users/""_x000D_
+        if not events_url.startswith(""https://api.github.com/users/""):_x000D_
+            return -1_x000D_
+_x000D_
+        return 1  # Constraint is satisfied_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,events_url,template_repository.owner.events_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/events{/privacy}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        events_url = latest_response.get(""events_url"")_x000D_
+        if events_url is None:_x000D_
+            return 0  # Attribute does not exist_x000D_
+_x000D_
+        # Check if events_url is a string_x000D_
+        if not isinstance(events_url, str):_x000D_
+            return -1_x000D_
+_x000D_
+        # Check if events_url starts with ""https://api.github.com/users/""_x000D_
+        if not events_url.startswith(""https://api.github.com/users/""):_x000D_
+            return -1_x000D_
+_x000D_
+        return 1  # Constraint is satisfied_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1
+post-/orgs/{org}/repos,simple-user,events_url,template_repository.events_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/events{/privacy}""}",1,"def verify_latest_response(latest_response):_x000D_
+    try:_x000D_
+        events_url = latest_response.get(""events_url"")_x000D_
+        if events_url is None:_x000D_
+            return 0  # Attribute does not exist_x000D_
+_x000D_
+        # Check if events_url is a string_x000D_
+        if not isinstance(events_url, str):_x000D_
+            return -1_x000D_
+_x000D_
+        # Check if events_url starts with ""https://api.github.com/users/""_x000D_
+        if not events_url.startswith(""https://api.github.com/users/""):_x000D_
+            return -1_x000D_
+_x000D_
+        return 1  # Constraint is satisfied_x000D_
+    except Exception:_x000D_
+        return -1_x000D_
+",unknown,,,,,1

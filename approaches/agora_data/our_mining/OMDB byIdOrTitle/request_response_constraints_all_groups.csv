@@ -1,0 +1,103 @@
+operation,response resource,attribute,group,kio,description,part,corresponding attribute,corresponding attribute description,verification script,Example_value,verify_result,tp
+get-/,Response,Title,Title,1,,parameters,t,Title of movie or series,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'Title' exists in the response
+        if 'Title' not in latest_response:
+            return 0
+        
+        # Extract the 'Title' from the response
+        title = latest_response['Title']
+        
+        # Check if 't' is in the request_info
+        if 't' in request_info:
+            # Extract and cast 't' to string
+            t = str(request_info['t'])
+            
+            # Verify the constraint
+            if title == t:
+                return 1
+            else:
+                return -1
+        else:
+            # 't' is not required, so if it's not in request_info, the constraint is satisfied
+            return 1
+    except Exception as e:
+        # In case of any exception, return -1 indicating the constraint is not satisfied
+        return -1
+",This Is the End,1,1
+get-/,Response,imdbID,imdbID,2,,parameters,i,A valid IMDb ID (e.g. tt0000001),"def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'i' is in request_info
+        if 'i' in request_info:
+            imdb_id = request_info['i']
+            # Check if 'imdbID' is in the response
+            if 'imdbID' in latest_response:
+                response_imdb_id = latest_response['imdbID']
+                # Verify that the response 'imdbID' matches the request 'i'
+                if response_imdb_id == imdb_id:
+                    return 1
+                else:
+                    return -1
+            else:
+                return 0
+        else:
+            return 1  # If 'i' is not in request_info, no constraint to verify
+    except Exception as e:
+        return -1
+",tt1245492,1,1
+get-/,Response,Type,Type,3,,parameters,type,"Return movie, series or episode","def verify_latest_response(latest_response, request_info):
+    try:
+        # Extract the 'type' parameter from request_info
+        requested_type = request_info.get('type', None)
+        
+        # Extract the 'Type' attribute from the response
+        response_type = latest_response.get('Type', None)
+        
+        # Check if the 'Type' attribute exists in the response
+        if response_type is None:
+            return 0
+        
+        # If 'type' parameter is provided in the request, verify it against the response
+        if requested_type:
+            if requested_type in ['movie', 'series', 'episode']:
+                if response_type.lower() == requested_type:
+                    return 1
+                else:
+                    return -1
+            else:
+                return -1
+        else:
+            # If 'type' parameter is not provided, any valid 'Type' in the response is acceptable
+            if response_type.lower() in ['movie', 'series', 'episode']:
+                return 1
+            else:
+                return -1
+    except Exception as e:
+        return -1
+",movie,1,1
+get-/,Response,Plot,Plot,4,,parameters,plot,Return short or full plot,"def verify_latest_response(latest_response, request_info):
+    try:
+        # Check if 'plot' is in request_info
+        if 'plot' in request_info:
+            plot_value = request_info['plot']
+            
+            # Ensure plot_value is a string and one of the allowed values
+            if isinstance(plot_value, str) and plot_value in ['short', 'full']:
+                # Check if 'Plot' is in the response
+                if 'Plot' in latest_response:
+                    plot_response = latest_response['Plot']
+                    
+                    # Ensure plot_response is a string
+                    if isinstance(plot_response, str):
+                        return 1
+                    else:
+                        return -1
+                else:
+                    return 0
+            else:
+                return -1
+        else:
+            return 1  # If 'plot' is not in request_info, no constraint to verify
+    except Exception as e:
+        return -1
+","6 Los Angeles celebrities are stuck in James Franco's house after a series of devastating events just destroyed the city. Inside, the group not only have to face the apocalypse, but themselves.",1,1

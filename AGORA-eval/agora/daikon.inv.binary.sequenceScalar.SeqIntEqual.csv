@@ -1,0 +1,2 @@
+pptname,invariant,invariantType,variables,tp,fp,enter,bug,description,response resource,name_attribute
+main.v1publiccomics{comicId}.getComicIndividual&200(main.getComicIndividual&Input):::EXIT,return.data.results[] elements == return.data.results[return.data.offset],daikon.inv.binary.sequenceScalar.SeqIntEqual,"(return.data.results[..], return.data.results[return.data.offset])",1,0,0,0,The list of comics returned by the call;,,"[('ComicDataContainer', 'results'), (None, None)]"

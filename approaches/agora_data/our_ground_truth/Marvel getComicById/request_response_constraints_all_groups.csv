@@ -1,0 +1,2 @@
+operation,response resource,attribute,group,description,part,corresponding attribute,corresponding attribute description
+get-/v1/public/comics/{comicid},Comic,id,data.results.id,,parameters,comicId,A single comic

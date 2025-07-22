@@ -1,0 +1,2413 @@
+operation,response resource,attribute,group,description,tp,verification script,status,script confirmation,revised script,revised executable script,revised status,TP
+get-/orgs/{org}/repos,repository,git_refs_url,template_repository.git_refs_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            git_refs_url = repo.get(""git_refs_url"")
+            if git_refs_url is None:
+                return 0
+            if not isinstance(git_refs_url, str):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,git_refs_url,template_repository.template_repository.git_refs_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            git_refs_url = repo.get(""git_refs_url"")
+            if git_refs_url is None:
+                return 0
+            if not isinstance(git_refs_url, str):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,allow_merge_commit,template_repository.template_repository.allow_merge_commit,"Whether to allow merge commits for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0,"def verify_latest_response(latest_response):
+    try:
+        # Check if the response is a list of minimal-repository objects
+        if not isinstance(latest_response, list):
+            return -1
+        
+        for repo in latest_response:
+            # Check if 'allow_merge_commit' exists and is a boolean
+            if 'allow_merge_commit' not in repo:
+                return 0
+            if not isinstance(repo['allow_merge_commit'], bool):
+                return -1
+        
+        # If all checks pass
+        return 1
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,0
+get-/orgs/{org}/repos,repository,allow_merge_commit,template_repository.allow_merge_commit,"Whether to allow merge commits for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0,"def verify_latest_response(latest_response):
+    try:
+        # Check if the response is a list of minimal-repository objects
+        if not isinstance(latest_response, list):
+            return -1
+        
+        for repo in latest_response:
+            # Check if 'allow_merge_commit' exists and is a boolean
+            if 'allow_merge_commit' not in repo:
+                return 0
+            if not isinstance(repo['allow_merge_commit'], bool):
+                return -1
+        
+        # If all checks pass
+        return 1
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,0
+get-/orgs/{org}/repos,minimal-repository,issues_url,issues_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues{/number}""}",1,"import re
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            issues_url = repo.get(""issues_url"")
+            if issues_url is None:
+                return 0
+            # Check if issues_url is a string and matches the expected pattern
+            if not isinstance(issues_url, str):
+                return -1
+            pattern = r""^http://api\.github\.com/repos/[^/]+/[^/]+/issues(?:/\{\w+\})?$""
+            if not re.match(pattern, issues_url):
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,languages_url,template_repository.languages_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except ValueError:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            languages_url = repo.get(""languages_url"")
+            if languages_url is None:
+                return 0
+            if not isinstance(languages_url, str):
+                return -1
+            if not is_valid_uri(languages_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,languages_url,template_repository.template_repository.languages_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except ValueError:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            languages_url = repo.get(""languages_url"")
+            if languages_url is None:
+                return 0
+            if not isinstance(languages_url, str):
+                return -1
+            if not is_valid_uri(languages_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,subscription_url,subscription_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except ValueError:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            subscription_url = repo.get(""subscription_url"")
+            if subscription_url is None:
+                return 0
+            if not isinstance(subscription_url, str) or not is_valid_uri(subscription_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,simple-user,received_events_url,owner.received_events_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        # Check if 'received_events_url' exists in the response
+        if 'received_events_url' not in latest_response:
+            return 0
+        
+        received_events_url = latest_response['received_events_url']
+        
+        # Check if 'received_events_url' is a string
+        if not isinstance(received_events_url, str):
+            return -1
+        
+        # Check if 'received_events_url' is a valid URI
+        parsed_url = urlparse(received_events_url)
+        if not all([parsed_url.scheme, parsed_url.netloc]):
+            return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,simple-user,subscriptions_url,owner.subscriptions_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'subscriptions_url' not in repo:
+                return 0
+            subscriptions_url = repo['subscriptions_url']
+            # Check if subscriptions_url is a string and matches URI format
+            if isinstance(subscriptions_url, str) and re.match(r'^https?://[^\s/$.?#].[^\s]*$', subscriptions_url):
+                continue
+            else:
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,teams_url,template_repository.teams_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except Exception:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            teams_url = repo.get(""teams_url"")
+            if teams_url is None:
+                return 0
+            if not isinstance(teams_url, str) or not is_valid_uri(teams_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,teams_url,template_repository.template_repository.teams_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except Exception:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            teams_url = repo.get(""teams_url"")
+            if teams_url is None:
+                return 0
+            if not isinstance(teams_url, str) or not is_valid_uri(teams_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,clone_url,template_repository.clone_url,"{""type"": ""string"", ""example"": ""https://github.com/octocat/Hello-World.git""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            clone_url = repo.get(""clone_url"")
+            if clone_url is None:
+                return 0
+            if not isinstance(clone_url, str):
+                return -1
+            if not clone_url.startswith(""https://""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,clone_url,template_repository.template_repository.clone_url,"{""type"": ""string"", ""example"": ""https://github.com/octocat/Hello-World.git""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            clone_url = repo.get(""clone_url"")
+            if clone_url is None:
+                return 0
+            if not isinstance(clone_url, str):
+                return -1
+            if not clone_url.startswith(""https://""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,archive_url,archive_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            archive_url = repo.get(""archive_url"")
+            if archive_url is None:
+                return 0  # Attribute does not exist
+            if not isinstance(archive_url, str):
+                return -1  # Constraint not satisfied: not a string
+            if ""{archive_format}"" not in archive_url or ""{/ref}"" not in archive_url:
+                return -1  # Constraint not satisfied: placeholders not present
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,updated_at,updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            updated_at = repo.get(""updated_at"")
+            if updated_at is None:
+                continue  # Attribute is nullable, so None is acceptable
+            # Check if the updated_at is a valid date-time string
+            datetime.fromisoformat(updated_at.replace(""Z"", ""+00:00""))
+        return 1
+    except (ValueError, TypeError):
+        return -1
+    except KeyError:
+        return 0
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,compare_url,compare_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            compare_url = repo.get(""compare_url"")
+            if compare_url is None:
+                return 0
+            if not isinstance(compare_url, str):
+                return -1
+            if not compare_url.startswith(""http://api.github.com/repos/""):
+                return -1
+            if ""/compare/"" not in compare_url:
+                return -1
+            if ""{base}"" not in compare_url or ""{head}"" not in compare_url:
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,downloads_url,downloads_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except Exception:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            downloads_url = repo.get(""downloads_url"")
+            if downloads_url is None:
+                return 0
+            if not isinstance(downloads_url, str) or not is_valid_uri(downloads_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,deployments_url,template_repository.deployments_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        # Check if latest_response is a list
+        if not isinstance(latest_response, list):
+            return -1
+        
+        # Define a regex pattern for URI validation
+        uri_regex = re.compile(
+            r'^(?:http|https)://'  # http:// or https://
+            r'(?:\S+(?::\S*)?@)?'  # optional user:pass authentication
+            r'(?:[A-Za-z0-9.-]+|\[[A-Fa-f0-9:]+\])'  # domain or IPv6
+            r'(?::\d{2,5})?'  # optional port
+            r'(?:[/?#]\S*)?$'  # resource path
+        )
+
+        for repo in latest_response:
+            # Check if 'deployments_url' exists in the repository object
+            if 'deployments_url' not in repo:
+                return 0
+            
+            deployments_url = repo['deployments_url']
+            
+            # Check if 'deployments_url' is a string
+            if not isinstance(deployments_url, str):
+                return -1
+            
+            # Check if 'deployments_url' is a valid URI
+            if not uri_regex.match(deployments_url):
+                return -1
+
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,deployments_url,template_repository.template_repository.deployments_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        # Check if latest_response is a list
+        if not isinstance(latest_response, list):
+            return -1
+        
+        # Define a regex pattern for URI validation
+        uri_regex = re.compile(
+            r'^(?:http|https)://'  # http:// or https://
+            r'(?:\S+(?::\S*)?@)?'  # optional user:pass authentication
+            r'(?:[A-Za-z0-9.-]+|\[[A-Fa-f0-9:]+\])'  # domain or IPv6
+            r'(?::\d{2,5})?'  # optional port
+            r'(?:[/?#]\S*)?$'  # resource path
+        )
+
+        for repo in latest_response:
+            # Check if 'deployments_url' exists in the repository object
+            if 'deployments_url' not in repo:
+                return 0
+            
+            deployments_url = repo['deployments_url']
+            
+            # Check if 'deployments_url' is a string
+            if not isinstance(deployments_url, str):
+                return -1
+            
+            # Check if 'deployments_url' is a valid URI
+            if not uri_regex.match(deployments_url):
+                return -1
+
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,starred_at,template_repository.starred_at,"{""type"": ""string"", ""example"": ""\""2020-07-09T00:17:42Z\""""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            starred_at = repo.get(""starred_at"")
+            if starred_at is None:
+                return 0
+            # Check if ""starred_at"" is a string
+            if not isinstance(starred_at, str):
+                return -1
+            # Check if ""starred_at"" is in the correct datetime format
+            from datetime import datetime
+            try:
+                datetime.strptime(starred_at, ""%Y-%m-%dT%H:%M:%SZ"")
+            except ValueError:
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,git_refs_url,git_refs_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/refs{/sha}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            git_refs_url = repo.get(""git_refs_url"")
+            if git_refs_url is None:
+                return 0
+            if not isinstance(git_refs_url, str):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,visibility,template_repository.visibility,"The repository visibility: public, private, or internal",0,"def verify_latest_response(latest_response):
+    try:
+        valid_values = {""public"", ""private"", ""internal""}
+        for repo in latest_response:
+            if ""visibility"" not in repo:
+                return 0
+            if repo[""visibility""] not in valid_values:
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,0
+get-/orgs/{org}/repos,repository,visibility,template_repository.template_repository.visibility,"The repository visibility: public, private, or internal",0,"def verify_latest_response(latest_response):
+    try:
+        valid_values = {""public"", ""private"", ""internal""}
+        for repo in latest_response:
+            if ""visibility"" not in repo:
+                return 0
+            if repo[""visibility""] not in valid_values:
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,0
+get-/orgs/{org}/repos,repository,milestones_url,template_repository.milestones_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/milestones{/number}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            milestones_url = repo.get(""milestones_url"")
+            if milestones_url is None:
+                return 0
+            if not isinstance(milestones_url, str):
+                return -1
+            if not milestones_url.startswith(""http://api.github.com/repos/""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,milestones_url,template_repository.template_repository.milestones_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/milestones{/number}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            milestones_url = repo.get(""milestones_url"")
+            if milestones_url is None:
+                return 0
+            if not isinstance(milestones_url, str):
+                return -1
+            if not milestones_url.startswith(""http://api.github.com/repos/""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,languages_url,languages_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except ValueError:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            languages_url = repo.get(""languages_url"")
+            if languages_url is None:
+                return 0
+            if not isinstance(languages_url, str):
+                return -1
+            if not is_valid_uri(languages_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,pulls_url,pulls_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/pulls{/number}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            pulls_url = repo.get(""pulls_url"")
+            if pulls_url is None:
+                return 0
+            if not isinstance(pulls_url, str):
+                return -1
+            if not pulls_url.startswith(""http://api.github.com/repos/""):
+                return -1
+            if ""/pulls"" not in pulls_url:
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,simple-user,gists_url,owner.gists_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/gists{/gist_id}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if ""gists_url"" not in repo:
+                return 0
+            gists_url = repo[""gists_url""]
+            if not isinstance(gists_url, str):
+                return -1
+            if not gists_url.startswith(""https://api.github.com/users/""):
+                return -1
+            if ""{/gist_id}"" not in gists_url:
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,simple-user,starred_at,owner.starred_at,"{""type"": ""string"", ""example"": ""\""2020-07-09T00:17:55Z\""""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if ""starred_at"" not in repo:
+                return 0
+            starred_at = repo[""starred_at""]
+            # Check if the ""starred_at"" is a valid ISO 8601 date-time string
+            from datetime import datetime
+            try:
+                datetime.strptime(starred_at, ""%Y-%m-%dT%H:%M:%SZ"")
+            except ValueError:
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,teams_url,teams_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except Exception:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            teams_url = repo.get(""teams_url"")
+            if teams_url is None:
+                return 0
+            if not isinstance(teams_url, str) or not is_valid_uri(teams_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,statuses_url,statuses_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/statuses/{sha}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'statuses_url' not in repo:
+                return 0
+            statuses_url = repo['statuses_url']
+            if not isinstance(statuses_url, str):
+                return -1
+            if not statuses_url.startswith(""http://api.github.com/repos/""):
+                return -1
+            if ""/statuses/"" not in statuses_url:
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,ssh_url,template_repository.ssh_url,"{""type"": ""string"", ""example"": ""git@github.com:octocat/Hello-World.git""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            ssh_url = repo.get(""ssh_url"")
+            if ssh_url is None:
+                return 0
+            if not isinstance(ssh_url, str):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,ssh_url,template_repository.template_repository.ssh_url,"{""type"": ""string"", ""example"": ""git@github.com:octocat/Hello-World.git""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            ssh_url = repo.get(""ssh_url"")
+            if ssh_url is None:
+                return 0
+            if not isinstance(ssh_url, str):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,collaborators_url,template_repository.collaborators_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            collaborators_url = repo.get(""collaborators_url"")
+            if collaborators_url is None:
+                return 0
+            if not isinstance(collaborators_url, str):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,collaborators_url,template_repository.template_repository.collaborators_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            collaborators_url = repo.get(""collaborators_url"")
+            if collaborators_url is None:
+                return 0
+            if not isinstance(collaborators_url, str):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,events_url,template_repository.events_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            events_url = repo.get(""events_url"")
+            if events_url is None:
+                return 0
+            
+            # Check if events_url is a valid URI
+            parsed_url = urlparse(events_url)
+            if not all([parsed_url.scheme, parsed_url.netloc]):
+                return -1
+            
+            # Check if the format is a URI
+            uri_regex = re.compile(
+                r'^(?:http|ftp)s?://' # http:// or https://
+                r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' # domain...
+                r'localhost|' # localhost...
+                r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|' # ...or ipv4
+                r'\[?[A-F0-9]*:[A-F0-9:]+\]?)' # ...or ipv6
+                r'(?::\d+)?' # optional port
+                r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+            
+            if not re.match(uri_regex, events_url):
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,events_url,template_repository.template_repository.owner.events_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            events_url = repo.get(""events_url"")
+            if events_url is None:
+                return 0
+            
+            # Check if events_url is a valid URI
+            parsed_url = urlparse(events_url)
+            if not all([parsed_url.scheme, parsed_url.netloc]):
+                return -1
+            
+            # Check if the format is a URI
+            uri_regex = re.compile(
+                r'^(?:http|ftp)s?://' # http:// or https://
+                r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' # domain...
+                r'localhost|' # localhost...
+                r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|' # ...or ipv4
+                r'\[?[A-F0-9]*:[A-F0-9:]+\]?)' # ...or ipv6
+                r'(?::\d+)?' # optional port
+                r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+            
+            if not re.match(uri_regex, events_url):
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,events_url,template_repository.template_repository.events_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            events_url = repo.get(""events_url"")
+            if events_url is None:
+                return 0
+            
+            # Check if events_url is a valid URI
+            parsed_url = urlparse(events_url)
+            if not all([parsed_url.scheme, parsed_url.netloc]):
+                return -1
+            
+            # Check if the format is a URI
+            uri_regex = re.compile(
+                r'^(?:http|ftp)s?://' # http:// or https://
+                r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' # domain...
+                r'localhost|' # localhost...
+                r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|' # ...or ipv4
+                r'\[?[A-F0-9]*:[A-F0-9:]+\]?)' # ...or ipv6
+                r'(?::\d+)?' # optional port
+                r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+            
+            if not re.match(uri_regex, events_url):
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,subscribers_url,template_repository.subscribers_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except Exception:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if ""subscribers_url"" not in repo:
+                return 0
+            if not isinstance(repo[""subscribers_url""], str):
+                return -1
+            if not is_valid_uri(repo[""subscribers_url""]):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,subscribers_url,template_repository.template_repository.subscribers_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except Exception:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if ""subscribers_url"" not in repo:
+                return 0
+            if not isinstance(repo[""subscribers_url""], str):
+                return -1
+            if not is_valid_uri(repo[""subscribers_url""]):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,has_projects,template_repository.has_projects,"Whether projects are enabled, schema: {""type"": ""boolean"", ""example"": true}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'has_projects' not in repo:
+                return 0  # Attribute does not exist
+            if not isinstance(repo['has_projects'], bool):
+                return -1  # Constraint not satisfied: must be a boolean
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,has_projects,template_repository.template_repository.has_projects,"Whether projects are enabled, schema: {""type"": ""boolean"", ""example"": true}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'has_projects' not in repo:
+                return 0  # Attribute does not exist
+            if not isinstance(repo['has_projects'], bool):
+                return -1  # Constraint not satisfied: must be a boolean
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,hooks_url,template_repository.hooks_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except ValueError:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            hooks_url = repo.get(""hooks_url"")
+            if hooks_url is None:
+                return 0
+            if not isinstance(hooks_url, str) or not is_valid_uri(hooks_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,hooks_url,template_repository.template_repository.hooks_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except ValueError:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            hooks_url = repo.get(""hooks_url"")
+            if hooks_url is None:
+                return 0
+            if not isinstance(hooks_url, str) or not is_valid_uri(hooks_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,has_downloads,template_repository.has_downloads,"Whether downloads are enabled, schema: {""type"": ""boolean"", ""example"": true}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'has_downloads' not in repo:
+                return 0  # Attribute does not exist
+            if not isinstance(repo['has_downloads'], bool):
+                return -1  # Constraint not satisfied: must be a boolean
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,has_downloads,template_repository.template_repository.has_downloads,"Whether downloads are enabled, schema: {""type"": ""boolean"", ""example"": true}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'has_downloads' not in repo:
+                return 0  # Attribute does not exist
+            if not isinstance(repo['has_downloads'], bool):
+                return -1  # Constraint not satisfied: must be a boolean
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,forks_url,forks_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            forks_url = repo.get(""forks_url"")
+            if forks_url is None:
+                return 0  # Attribute does not exist
+            
+            # Check if forks_url is a valid URI
+            parsed_uri = urlparse(forks_url)
+            if not all([parsed_uri.scheme, parsed_uri.netloc]):
+                return -1  # Constraint not satisfied
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,issue_events_url,template_repository.issue_events_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues/events{/number}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            issue_events_url = repo.get(""issue_events_url"")
+            if issue_events_url is None:
+                return 0
+            if not isinstance(issue_events_url, str):
+                return -1
+            if not issue_events_url.startswith(""http://"") and not issue_events_url.startswith(""https://""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,issue_events_url,template_repository.template_repository.issue_events_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues/events{/number}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            issue_events_url = repo.get(""issue_events_url"")
+            if issue_events_url is None:
+                return 0
+            if not isinstance(issue_events_url, str):
+                return -1
+            if not issue_events_url.startswith(""http://"") and not issue_events_url.startswith(""https://""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,assignees_url,template_repository.assignees_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/assignees{/user}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            assignees_url = repo.get(""assignees_url"")
+            if assignees_url is None:
+                return 0
+            if not isinstance(assignees_url, str):
+                return -1
+            if not assignees_url.startswith(""http://"") and not assignees_url.startswith(""https://""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,assignees_url,template_repository.template_repository.assignees_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/assignees{/user}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            assignees_url = repo.get(""assignees_url"")
+            if assignees_url is None:
+                return 0
+            if not isinstance(assignees_url, str):
+                return -1
+            if not assignees_url.startswith(""http://"") and not assignees_url.startswith(""https://""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,simple-user,events_url,owner.events_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/events{/privacy}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            events_url = repo.get(""events_url"")
+            if events_url is None:
+                return 0  # Attribute does not exist
+            if not isinstance(events_url, str):
+                return -1  # Constraint not satisfied: not a string
+            if not events_url.startswith(""https://api.github.com/users/""):
+                return -1  # Constraint not satisfied: does not start with the expected URL pattern
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,collaborators_url,collaborators_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/collaborators{/collaborator}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            collaborators_url = repo.get(""collaborators_url"")
+            if collaborators_url is None:
+                return 0
+            if not isinstance(collaborators_url, str):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,comments_url,comments_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/comments{/number}""}",1,"import re
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            comments_url = repo.get(""comments_url"")
+            if comments_url is None:
+                return 0
+            pattern = r""^http://api\.github\.com/repos/[^/]+/[^/]+/comments(?:/\d+)?$""
+            if not re.match(pattern, comments_url):
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,events_url,events_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            events_url = repo.get(""events_url"")
+            if events_url is None:
+                return 0
+            
+            # Check if events_url is a valid URI
+            parsed_url = urlparse(events_url)
+            if not all([parsed_url.scheme, parsed_url.netloc]):
+                return -1
+            
+            # Check if the format is a URI
+            uri_regex = re.compile(
+                r'^(?:http|ftp)s?://' # http:// or https://
+                r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' # domain...
+                r'localhost|' # localhost...
+                r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|' # ...or ipv4
+                r'\[?[A-F0-9]*:[A-F0-9:]+\]?)' # ...or ipv6
+                r'(?::\d+)?' # optional port
+                r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+            
+            if not re.match(uri_regex, events_url):
+                return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,subscribers_url,subscribers_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except Exception:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if ""subscribers_url"" not in repo:
+                return 0
+            if not isinstance(repo[""subscribers_url""], str):
+                return -1
+            if not is_valid_uri(repo[""subscribers_url""]):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,blobs_url,template_repository.blobs_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            blobs_url = repo.get(""blobs_url"")
+            if blobs_url is None:
+                return 0
+            if not isinstance(blobs_url, str):
+                return -1
+            if not blobs_url.startswith(""http://api.github.com/repos/""):
+                return -1
+            if ""/git/blobs"" not in blobs_url:
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,blobs_url,template_repository.template_repository.blobs_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            blobs_url = repo.get(""blobs_url"")
+            if blobs_url is None:
+                return 0
+            if not isinstance(blobs_url, str):
+                return -1
+            if not blobs_url.startswith(""http://api.github.com/repos/""):
+                return -1
+            if ""/git/blobs"" not in blobs_url:
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,branches_url,template_repository.branches_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/branches{/branch}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            branches_url = repo.get(""branches_url"")
+            if branches_url is None:
+                return 0
+            if not isinstance(branches_url, str):
+                return -1
+            if not branches_url.startswith(""http://api.github.com/repos/""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,branches_url,template_repository.template_repository.branches_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/branches{/branch}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            branches_url = repo.get(""branches_url"")
+            if branches_url is None:
+                return 0
+            if not isinstance(branches_url, str):
+                return -1
+            if not branches_url.startswith(""http://api.github.com/repos/""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,hooks_url,hooks_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except ValueError:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            hooks_url = repo.get(""hooks_url"")
+            if hooks_url is None:
+                return 0
+            if not isinstance(hooks_url, str) or not is_valid_uri(hooks_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,svn_url,template_repository.svn_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except Exception:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            svn_url = repo.get(""svn_url"")
+            if svn_url is None:
+                return 0
+            if not isinstance(svn_url, str) or not is_valid_uri(svn_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,svn_url,template_repository.template_repository.svn_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except Exception:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            svn_url = repo.get(""svn_url"")
+            if svn_url is None:
+                return 0
+            if not isinstance(svn_url, str) or not is_valid_uri(svn_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,has_issues,template_repository.has_issues,"Whether issues are enabled, schema: {""type"": ""boolean"", ""example"": true}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'has_issues' not in repo:
+                return 0
+            if not isinstance(repo['has_issues'], bool):
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,has_issues,template_repository.template_repository.has_issues,"Whether issues are enabled, schema: {""type"": ""boolean"", ""example"": true}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'has_issues' not in repo:
+                return 0
+            if not isinstance(repo['has_issues'], bool):
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,issue_events_url,issue_events_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues/events{/number}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            issue_events_url = repo.get(""issue_events_url"")
+            if issue_events_url is None:
+                return 0
+            if not isinstance(issue_events_url, str):
+                return -1
+            if not issue_events_url.startswith(""http://"") and not issue_events_url.startswith(""https://""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,allow_rebase_merge,template_repository.allow_rebase_merge,"Whether to allow rebase merges for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0,"def verify_latest_response(latest_response):
+    try:
+        # Check if the response is a list of minimal-repository objects
+        if not isinstance(latest_response, list):
+            return -1
+        
+        for repo in latest_response:
+            # Check if 'allow_rebase_merge' is present and is a boolean
+            if 'allow_rebase_merge' not in repo:
+                return 0
+            if not isinstance(repo['allow_rebase_merge'], bool):
+                return -1
+        
+        # If all checks pass
+        return 1
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,0
+get-/orgs/{org}/repos,repository,allow_rebase_merge,template_repository.template_repository.allow_rebase_merge,"Whether to allow rebase merges for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0,"def verify_latest_response(latest_response):
+    try:
+        # Check if the response is a list of minimal-repository objects
+        if not isinstance(latest_response, list):
+            return -1
+        
+        for repo in latest_response:
+            # Check if 'allow_rebase_merge' is present and is a boolean
+            if 'allow_rebase_merge' not in repo:
+                return 0
+            if not isinstance(repo['allow_rebase_merge'], bool):
+                return -1
+        
+        # If all checks pass
+        return 1
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,0
+get-/orgs/{org}/repos,simple-user,repos_url,owner.repos_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        # Check if 'repos_url' exists in the response
+        if 'repos_url' not in latest_response:
+            return 0
+        
+        repos_url = latest_response['repos_url']
+        
+        # Check if 'repos_url' is a string
+        if not isinstance(repos_url, str):
+            return -1
+        
+        # Check if 'repos_url' is a valid URI
+        parsed_uri = urlparse(repos_url)
+        if not all([parsed_uri.scheme, parsed_uri.netloc]):
+            return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,tags_url,template_repository.tags_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            tags_url = repo.get(""tags_url"")
+            if tags_url is None:
+                return 0
+            
+            # Check if tags_url is a valid URI
+            parsed_url = urlparse(tags_url)
+            if not all([parsed_url.scheme, parsed_url.netloc]):
+                return -1
+            
+            # Check if the scheme is either http or https
+            if parsed_url.scheme not in [""http"", ""https""]:
+                return -1
+            
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,tags_url,template_repository.template_repository.tags_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            tags_url = repo.get(""tags_url"")
+            if tags_url is None:
+                return 0
+            
+            # Check if tags_url is a valid URI
+            parsed_url = urlparse(tags_url)
+            if not all([parsed_url.scheme, parsed_url.netloc]):
+                return -1
+            
+            # Check if the scheme is either http or https
+            if parsed_url.scheme not in [""http"", ""https""]:
+                return -1
+            
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,created_at,template_repository.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            created_at = repo.get(""created_at"")
+            if created_at is None:
+                continue  # Skip if nullable and not present
+            # Check if the created_at is a valid date-time string
+            datetime.fromisoformat(created_at.replace(""Z"", ""+00:00""))
+        return 1
+    except (ValueError, TypeError):
+        return -1
+    except KeyError:
+        return 0
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,created_at,template_repository.template_repository.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            created_at = repo.get(""created_at"")
+            if created_at is None:
+                continue  # Skip if nullable and not present
+            # Check if the created_at is a valid date-time string
+            datetime.fromisoformat(created_at.replace(""Z"", ""+00:00""))
+        return 1
+    except (ValueError, TypeError):
+        return -1
+    except KeyError:
+        return 0
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,stargazers_url,template_repository.stargazers_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except Exception:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            stargazers_url = repo.get(""stargazers_url"")
+            if stargazers_url is None:
+                return 0
+            if not isinstance(stargazers_url, str) or not is_valid_uri(stargazers_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,stargazers_url,template_repository.template_repository.stargazers_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except Exception:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            stargazers_url = repo.get(""stargazers_url"")
+            if stargazers_url is None:
+                return 0
+            if not isinstance(stargazers_url, str) or not is_valid_uri(stargazers_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,deployments_url,deployments_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        # Check if latest_response is a list
+        if not isinstance(latest_response, list):
+            return -1
+        
+        # Define a regex pattern for URI validation
+        uri_regex = re.compile(
+            r'^(?:http|https)://'  # http:// or https://
+            r'(?:\S+(?::\S*)?@)?'  # optional user:pass authentication
+            r'(?:[A-Za-z0-9.-]+|\[[A-Fa-f0-9:]+\])'  # domain or IPv6
+            r'(?::\d{2,5})?'  # optional port
+            r'(?:[/?#]\S*)?$'  # resource path
+        )
+
+        for repo in latest_response:
+            # Check if 'deployments_url' exists in the repository object
+            if 'deployments_url' not in repo:
+                return 0
+            
+            deployments_url = repo['deployments_url']
+            
+            # Check if 'deployments_url' is a string
+            if not isinstance(deployments_url, str):
+                return -1
+            
+            # Check if 'deployments_url' is a valid URI
+            if not uri_regex.match(deployments_url):
+                return -1
+
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,blobs_url,blobs_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/blobs{/sha}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            blobs_url = repo.get(""blobs_url"")
+            if blobs_url is None:
+                return 0
+            if not isinstance(blobs_url, str):
+                return -1
+            if not blobs_url.startswith(""http://api.github.com/repos/""):
+                return -1
+            if ""/git/blobs"" not in blobs_url:
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,simple-user,html_url,owner.html_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except ValueError:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            html_url = repo.get(""html_url"")
+            if html_url is None:
+                return 0
+            if not isinstance(html_url, str) or not is_valid_uri(html_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,simple-user,url,owner.url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except Exception:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'url' not in repo:
+                return 0
+            if not isinstance(repo['url'], str):
+                return -1
+            if not is_valid_uri(repo['url']):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            created_at = repo.get(""created_at"")
+            if created_at is None:
+                continue  # Skip if nullable and not present
+            # Check if the created_at is a valid date-time string
+            datetime.fromisoformat(created_at.replace(""Z"", ""+00:00""))
+        return 1
+    except (ValueError, TypeError):
+        return -1
+    except KeyError:
+        return 0
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,stargazers_url,stargazers_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except Exception:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            stargazers_url = repo.get(""stargazers_url"")
+            if stargazers_url is None:
+                return 0
+            if not isinstance(stargazers_url, str) or not is_valid_uri(stargazers_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,git_commits_url,template_repository.git_commits_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            git_commits_url = repo.get(""git_commits_url"")
+            if git_commits_url is None:
+                return 0
+            if not isinstance(git_commits_url, str):
+                return -1
+            if not git_commits_url.startswith(""http://api.github.com/repos/""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,git_commits_url,template_repository.template_repository.git_commits_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            git_commits_url = repo.get(""git_commits_url"")
+            if git_commits_url is None:
+                return 0
+            if not isinstance(git_commits_url, str):
+                return -1
+            if not git_commits_url.startswith(""http://api.github.com/repos/""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,allow_squash_merge,template_repository.template_repository.allow_squash_merge,"Whether to allow squash merges for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0,"def verify_latest_response(latest_response):
+    try:
+        # Check if the response is a list of minimal-repository objects
+        if not isinstance(latest_response, list):
+            return -1
+        
+        for repo in latest_response:
+            # Check if 'allow_squash_merge' is present and is a boolean
+            if 'allow_squash_merge' not in repo:
+                return 0
+            if not isinstance(repo['allow_squash_merge'], bool):
+                return -1
+        
+        # If all checks pass
+        return 1
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,0
+get-/orgs/{org}/repos,repository,allow_squash_merge,template_repository.allow_squash_merge,"Whether to allow squash merges for pull requests, schema: {""type"": ""boolean"", ""example"": true}",0,"def verify_latest_response(latest_response):
+    try:
+        # Check if the response is a list of minimal-repository objects
+        if not isinstance(latest_response, list):
+            return -1
+        
+        for repo in latest_response:
+            # Check if 'allow_squash_merge' is present and is a boolean
+            if 'allow_squash_merge' not in repo:
+                return 0
+            if not isinstance(repo['allow_squash_merge'], bool):
+                return -1
+        
+        # If all checks pass
+        return 1
+    except Exception as e:
+        # In case of any unexpected error
+        return -1
+",unknown,,,,,0
+get-/orgs/{org}/repos,repository,updated_at,template_repository.updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            updated_at = repo.get(""updated_at"")
+            if updated_at is None:
+                continue  # Attribute is nullable, so None is acceptable
+            # Check if the updated_at is a valid date-time string
+            datetime.fromisoformat(updated_at.replace(""Z"", ""+00:00""))
+        return 1
+    except (ValueError, TypeError):
+        return -1
+    except KeyError:
+        return 0
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,updated_at,template_repository.template_repository.updated_at,"{""type"": ""string"", ""format"": ""date-time""}",1,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            updated_at = repo.get(""updated_at"")
+            if updated_at is None:
+                continue  # Attribute is nullable, so None is acceptable
+            # Check if the updated_at is a valid date-time string
+            datetime.fromisoformat(updated_at.replace(""Z"", ""+00:00""))
+        return 1
+    except (ValueError, TypeError):
+        return -1
+    except KeyError:
+        return 0
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,compare_url,template_repository.compare_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            compare_url = repo.get(""compare_url"")
+            if compare_url is None:
+                return 0
+            if not isinstance(compare_url, str):
+                return -1
+            if not compare_url.startswith(""http://api.github.com/repos/""):
+                return -1
+            if ""/compare/"" not in compare_url:
+                return -1
+            if ""{base}"" not in compare_url or ""{head}"" not in compare_url:
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,compare_url,template_repository.template_repository.compare_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/compare/{base}...{head}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            compare_url = repo.get(""compare_url"")
+            if compare_url is None:
+                return 0
+            if not isinstance(compare_url, str):
+                return -1
+            if not compare_url.startswith(""http://api.github.com/repos/""):
+                return -1
+            if ""/compare/"" not in compare_url:
+                return -1
+            if ""{base}"" not in compare_url or ""{head}"" not in compare_url:
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,private,template_repository.private,Whether the repository is private or public,1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'private' not in repo:
+                return 0
+            if not isinstance(repo['private'], bool):
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,private,template_repository.template_repository.private,Whether the repository is private or public,1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'private' not in repo:
+                return 0
+            if not isinstance(repo['private'], bool):
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,comments_url,template_repository.comments_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/comments{/number}""}",1,"import re
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            comments_url = repo.get(""comments_url"")
+            if comments_url is None:
+                return 0
+            pattern = r""^http://api\.github\.com/repos/[^/]+/[^/]+/comments(?:/\d+)?$""
+            if not re.match(pattern, comments_url):
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,comments_url,template_repository.template_repository.comments_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/comments{/number}""}",1,"import re
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            comments_url = repo.get(""comments_url"")
+            if comments_url is None:
+                return 0
+            pattern = r""^http://api\.github\.com/repos/[^/]+/[^/]+/comments(?:/\d+)?$""
+            if not re.match(pattern, comments_url):
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,simple-user,starred_url,owner.starred_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/starred{/owner}{/repo}""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'starred_url' exists in each minimal-repository object
+        for repo in latest_response:
+            if 'starred_url' not in repo:
+                return 0  # Attribute does not exist
+
+            starred_url = repo['starred_url']
+            
+            # Check if 'starred_url' is a string
+            if not isinstance(starred_url, str):
+                return -1  # Constraint not satisfied
+
+            # Check if 'starred_url' follows the expected pattern
+            if not starred_url.startswith(""https://api.github.com/users/"") or ""/starred"" not in starred_url:
+                return -1  # Constraint not satisfied
+
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,id,template_repository.id,"Unique identifier of the repository, schema: {""type"": ""integer"", ""example"": 42}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'id' not in repo:
+                return 0
+            if not isinstance(repo['id'], int):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,id,template_repository.template_repository.id,"Unique identifier of the repository, schema: {""type"": ""integer"", ""example"": 42}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'id' not in repo:
+                return 0
+            if not isinstance(repo['id'], int):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,id,template_repository.template_repository.owner.id,"Unique identifier of the repository, schema: {""type"": ""integer"", ""example"": 42}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'id' not in repo:
+                return 0
+            if not isinstance(repo['id'], int):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,simple-user,following_url,owner.following_url,"{""type"": ""string"", ""example"": ""https://api.github.com/users/octocat/following{/other_user}""}",1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'following_url' exists in the response
+        if 'following_url' not in latest_response:
+            return 0
+        
+        following_url = latest_response['following_url']
+        
+        # Check if 'following_url' is a string
+        if not isinstance(following_url, str):
+            return -1
+        
+        # Check if 'following_url' is a valid URL format
+        if not following_url.startswith(""https://api.github.com/users/""):
+            return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,downloads_url,template_repository.downloads_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except Exception:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            downloads_url = repo.get(""downloads_url"")
+            if downloads_url is None:
+                return 0
+            if not isinstance(downloads_url, str) or not is_valid_uri(downloads_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,downloads_url,template_repository.template_repository.downloads_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except Exception:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            downloads_url = repo.get(""downloads_url"")
+            if downloads_url is None:
+                return 0
+            if not isinstance(downloads_url, str) or not is_valid_uri(downloads_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,pulls_url,template_repository.pulls_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/pulls{/number}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            pulls_url = repo.get(""pulls_url"")
+            if pulls_url is None:
+                return 0
+            if not isinstance(pulls_url, str):
+                return -1
+            if not pulls_url.startswith(""http://api.github.com/repos/""):
+                return -1
+            if ""/pulls"" not in pulls_url:
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,pulls_url,template_repository.template_repository.pulls_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/pulls{/number}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            pulls_url = repo.get(""pulls_url"")
+            if pulls_url is None:
+                return 0
+            if not isinstance(pulls_url, str):
+                return -1
+            if not pulls_url.startswith(""http://api.github.com/repos/""):
+                return -1
+            if ""/pulls"" not in pulls_url:
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,assignees_url,assignees_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/assignees{/user}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            assignees_url = repo.get(""assignees_url"")
+            if assignees_url is None:
+                return 0
+            if not isinstance(assignees_url, str):
+                return -1
+            if not assignees_url.startswith(""http://"") and not assignees_url.startswith(""https://""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,html_url,template_repository.html_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            html_url = repo.get(""html_url"")
+            if html_url is None:
+                return 0
+            parsed_url = urlparse(html_url)
+            if not (parsed_url.scheme in [""http"", ""https""] and parsed_url.netloc):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,html_url,template_repository.template_repository.owner.html_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            html_url = repo.get(""html_url"")
+            if html_url is None:
+                return 0
+            parsed_url = urlparse(html_url)
+            if not (parsed_url.scheme in [""http"", ""https""] and parsed_url.netloc):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,html_url,template_repository.template_repository.html_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            html_url = repo.get(""html_url"")
+            if html_url is None:
+                return 0
+            parsed_url = urlparse(html_url)
+            if not (parsed_url.scheme in [""http"", ""https""] and parsed_url.netloc):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,mirror_url,template_repository.mirror_url,"{""type"": ""string"", ""format"": ""uri""}",1,"from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            mirror_url = repo.get(""mirror_url"")
+            if mirror_url is None:
+                continue  # nullable, so None is acceptable
+            if not isinstance(mirror_url, str):
+                return -1
+            parsed_url = urlparse(mirror_url)
+            if not all([parsed_url.scheme, parsed_url.netloc]):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,mirror_url,template_repository.template_repository.mirror_url,"{""type"": ""string"", ""format"": ""uri""}",1,"from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            mirror_url = repo.get(""mirror_url"")
+            if mirror_url is None:
+                continue  # nullable, so None is acceptable
+            if not isinstance(mirror_url, str):
+                return -1
+            parsed_url = urlparse(mirror_url)
+            if not all([parsed_url.scheme, parsed_url.netloc]):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,url,template_repository.url,"{""type"": ""string"", ""format"": ""uri""}",1,"from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            url = repo.get(""url"")
+            if url is None:
+                return 0
+            parsed_url = urlparse(url)
+            if not all([parsed_url.scheme, parsed_url.netloc]):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,url,template_repository.template_repository.owner.url,"{""type"": ""string"", ""format"": ""uri""}",1,"from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            url = repo.get(""url"")
+            if url is None:
+                return 0
+            parsed_url = urlparse(url)
+            if not all([parsed_url.scheme, parsed_url.netloc]):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,url,template_repository.template_repository.url,"{""type"": ""string"", ""format"": ""uri""}",1,"from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            url = repo.get(""url"")
+            if url is None:
+                return 0
+            parsed_url = urlparse(url)
+            if not all([parsed_url.scheme, parsed_url.netloc]):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,url,license.url,"{""type"": ""string"", ""format"": ""uri""}",1,"from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            url = repo.get(""url"")
+            if url is None:
+                return 0
+            parsed_url = urlparse(url)
+            if not all([parsed_url.scheme, parsed_url.netloc]):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,git_commits_url,git_commits_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/git/commits{/sha}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            git_commits_url = repo.get(""git_commits_url"")
+            if git_commits_url is None:
+                return 0
+            if not isinstance(git_commits_url, str):
+                return -1
+            if not git_commits_url.startswith(""http://api.github.com/repos/""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,milestones_url,milestones_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/milestones{/number}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            milestones_url = repo.get(""milestones_url"")
+            if milestones_url is None:
+                return 0
+            if not isinstance(milestones_url, str):
+                return -1
+            if not milestones_url.startswith(""http://api.github.com/repos/""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,statuses_url,template_repository.statuses_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/statuses/{sha}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'statuses_url' not in repo:
+                return 0
+            statuses_url = repo['statuses_url']
+            if not isinstance(statuses_url, str):
+                return -1
+            if not statuses_url.startswith(""http://api.github.com/repos/""):
+                return -1
+            if ""/statuses/"" not in statuses_url:
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,statuses_url,template_repository.template_repository.statuses_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/statuses/{sha}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'statuses_url' not in repo:
+                return 0
+            statuses_url = repo['statuses_url']
+            if not isinstance(statuses_url, str):
+                return -1
+            if not statuses_url.startswith(""http://api.github.com/repos/""):
+                return -1
+            if ""/statuses/"" not in statuses_url:
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,branches_url,branches_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/branches{/branch}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            branches_url = repo.get(""branches_url"")
+            if branches_url is None:
+                return 0
+            if not isinstance(branches_url, str):
+                return -1
+            if not branches_url.startswith(""http://api.github.com/repos/""):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,issues_url,template_repository.issues_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues{/number}""}",1,"import re
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            issues_url = repo.get(""issues_url"")
+            if issues_url is None:
+                return 0
+            # Check if issues_url is a string and matches the expected pattern
+            if not isinstance(issues_url, str):
+                return -1
+            pattern = r""^http://api\.github\.com/repos/[^/]+/[^/]+/issues(?:/\{\w+\})?$""
+            if not re.match(pattern, issues_url):
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,issues_url,template_repository.template_repository.issues_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/issues{/number}""}",1,"import re
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            issues_url = repo.get(""issues_url"")
+            if issues_url is None:
+                return 0
+            # Check if issues_url is a string and matches the expected pattern
+            if not isinstance(issues_url, str):
+                return -1
+            pattern = r""^http://api\.github\.com/repos/[^/]+/[^/]+/issues(?:/\{\w+\})?$""
+            if not re.match(pattern, issues_url):
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,is_template,template_repository.is_template,"Whether this repository acts as a template that can be used to generate new repositories, schema: {""type"": ""boolean"", ""example"": true}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'is_template' not in repo:
+                return 0
+            if not isinstance(repo['is_template'], bool):
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,is_template,template_repository.template_repository.is_template,"Whether this repository acts as a template that can be used to generate new repositories, schema: {""type"": ""boolean"", ""example"": true}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            if 'is_template' not in repo:
+                return 0
+            if not isinstance(repo['is_template'], bool):
+                return -1
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,html_url,html_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            html_url = repo.get(""html_url"")
+            if html_url is None:
+                return 0
+            parsed_url = urlparse(html_url)
+            if not (parsed_url.scheme in [""http"", ""https""] and parsed_url.netloc):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,url,url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except Exception:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            url = repo.get(""url"")
+            if url is None:
+                continue  # Attribute is nullable, so None is acceptable
+            if not isinstance(url, str) or not is_valid_uri(url):
+                return -1
+        return 1
+    except Exception:
+        return 0
+",unknown,,,,,1
+get-/orgs/{org}/repos,minimal-repository,tags_url,tags_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            tags_url = repo.get(""tags_url"")
+            if tags_url is None:
+                return 0
+            
+            # Check if tags_url is a valid URI
+            parsed_url = urlparse(tags_url)
+            if not all([parsed_url.scheme, parsed_url.netloc]):
+                return -1
+            
+            # Check if the scheme is either http or https
+            if parsed_url.scheme not in [""http"", ""https""]:
+                return -1
+            
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,simple-user,followers_url,owner.followers_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        # Check if 'followers_url' exists in the response
+        if 'followers_url' not in latest_response:
+            return 0
+        
+        followers_url = latest_response['followers_url']
+        
+        # Check if 'followers_url' is a string
+        if not isinstance(followers_url, str):
+            return -1
+        
+        # Check if 'followers_url' is a valid URI
+        parsed_uri = urlparse(followers_url)
+        if not all([parsed_uri.scheme, parsed_uri.netloc]):
+            return -1
+        
+        return 1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,subscription_url,template_repository.subscription_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except ValueError:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            subscription_url = repo.get(""subscription_url"")
+            if subscription_url is None:
+                return 0
+            if not isinstance(subscription_url, str) or not is_valid_uri(subscription_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,subscription_url,template_repository.template_repository.subscription_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def is_valid_uri(uri):
+    try:
+        result = urlparse(uri)
+        return all([result.scheme, result.netloc])
+    except ValueError:
+        return False
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            subscription_url = repo.get(""subscription_url"")
+            if subscription_url is None:
+                return 0
+            if not isinstance(subscription_url, str) or not is_valid_uri(subscription_url):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,forks_url,template_repository.forks_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            forks_url = repo.get(""forks_url"")
+            if forks_url is None:
+                return 0  # Attribute does not exist
+            
+            # Check if forks_url is a valid URI
+            parsed_uri = urlparse(forks_url)
+            if not all([parsed_uri.scheme, parsed_uri.netloc]):
+                return -1  # Constraint not satisfied
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,forks_url,template_repository.template_repository.forks_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            forks_url = repo.get(""forks_url"")
+            if forks_url is None:
+                return 0  # Attribute does not exist
+            
+            # Check if forks_url is a valid URI
+            parsed_uri = urlparse(forks_url)
+            if not all([parsed_uri.scheme, parsed_uri.netloc]):
+                return -1  # Constraint not satisfied
+        return 1  # Constraint satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,archive_url,template_repository.archive_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            archive_url = repo.get(""archive_url"")
+            if archive_url is None:
+                return 0  # Attribute does not exist
+            if not isinstance(archive_url, str):
+                return -1  # Constraint not satisfied: not a string
+            if ""{archive_format}"" not in archive_url or ""{/ref}"" not in archive_url:
+                return -1  # Constraint not satisfied: placeholders not present
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,archive_url,template_repository.template_repository.archive_url,"{""type"": ""string"", ""example"": ""http://api.github.com/repos/octocat/Hello-World/{archive_format}{/ref}""}",1,"def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            archive_url = repo.get(""archive_url"")
+            if archive_url is None:
+                return 0  # Attribute does not exist
+            if not isinstance(archive_url, str):
+                return -1  # Constraint not satisfied: not a string
+            if ""{archive_format}"" not in archive_url or ""{/ref}"" not in archive_url:
+                return -1  # Constraint not satisfied: placeholders not present
+        return 1  # All constraints satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+get-/orgs/{org}/repos,simple-user,organizations_url,owner.organizations_url,"{""type"": ""string"", ""format"": ""uri""}",1,"import re
+
+def verify_latest_response(latest_response):
+    try:
+        # Check if 'organizations_url' exists in the response
+        if 'organizations_url' not in latest_response:
+            return 0
+        
+        organizations_url = latest_response['organizations_url']
+        
+        # Verify that 'organizations_url' is a string and matches URI format
+        if isinstance(organizations_url, str):
+            # Simple regex pattern to check URI format
+            uri_pattern = re.compile(
+                r'^(?:http|ftp)s?://' # http:// or https://
+                r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' # domain...
+                r'localhost|' # localhost...
+                r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}|' # ...or ipv4
+                r'\[?[A-F0-9]*:[A-F0-9:]+\]?)' # ...or ipv6
+                r'(?::\d+)?' # optional port
+                r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+            
+            if re.match(uri_pattern, organizations_url):
+                return 1
+            else:
+                return -1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,homepage,template_repository.homepage,"{""type"": ""string"", ""format"": ""uri""}",1,"from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            homepage = repo.get(""homepage"")
+            if homepage is None:
+                continue  # Attribute is nullable, so None is acceptable
+            if not isinstance(homepage, str):
+                return -1
+            parsed_uri = urlparse(homepage)
+            if not all([parsed_uri.scheme, parsed_uri.netloc]):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1
+get-/orgs/{org}/repos,repository,homepage,template_repository.template_repository.homepage,"{""type"": ""string"", ""format"": ""uri""}",1,"from urllib.parse import urlparse
+
+def verify_latest_response(latest_response):
+    try:
+        for repo in latest_response:
+            homepage = repo.get(""homepage"")
+            if homepage is None:
+                continue  # Attribute is nullable, so None is acceptable
+            if not isinstance(homepage, str):
+                return -1
+            parsed_uri = urlparse(homepage)
+            if not all([parsed_uri.scheme, parsed_uri.netloc]):
+                return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,1

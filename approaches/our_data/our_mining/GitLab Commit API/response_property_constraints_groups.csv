@@ -1,0 +1,40 @@
+operation,response resource,attribute,group,description,TP
+post-/projects,BasicProjectDetails,last_activity_at,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects,Owner,created_at,owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects,BasicProjectDetails,marked_for_deletion_on,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+get-/projects/{id}/repository/commits/{sha}/refs,RepoCommitRefs,type,type,"{""type"": ""string"", ""enum"": [""branch"", ""tag"", ""all""]}",1
+get-/projects,BasicProjectDetails,marked_for_deletion_on,marked_for_deletion_on,"{""type"": ""string"", ""format"": ""date""}",1
+get-/projects,Owner,created_at,owner.created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects,BasicProjectDetails,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects,BasicProjectDetails,last_activity_at,last_activity_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+post-/projects,BasicProjectDetails,created_at,created_at,"{""type"": ""string"", ""format"": ""date-time""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,web_url,author.web_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,web_url,author.web_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,web_url,author.web_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,avatar_url,author.avatar_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,avatar_url,author.avatar_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,avatar_url,author.avatar_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,web_url,author.web_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,web_url,author.web_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,web_url,author.web_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,avatar_url,author.avatar_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,avatar_url,author.avatar_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,avatar_url,author.avatar_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,web_url,author.web_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,web_url,author.web_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,web_url,author.web_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,avatar_url,author.avatar_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,avatar_url,author.avatar_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/comments,Author,avatar_url,author.avatar_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/statuses,CommitStatus,target_url,target_url,"{""type"": ""string""}",1
+post-/projects/{id}/statuses/{sha},Author,web_url,author.web_url,"{""type"": ""string""}",1
+post-/projects/{id}/statuses/{sha},Author,avatar_url,author.avatar_url,"{""type"": ""string""}",1
+post-/projects/{id}/statuses/{sha},CommitStatus,target_url,target_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/merge_requests,Author,avatar_url,author.avatar_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/merge_requests,MergeRequests,web_url,web_url,"{""type"": ""string""}",1
+get-/projects,BasicProjectDetails,http_url_to_repo,http_url_to_repo,"{""type"": ""string""}",1
+get-/projects,BasicProjectDetails,web_url,web_url,"{""type"": ""string""}",1
+get-/projects,BasicProjectDetails,readme_url,readme_url,"{""type"": ""string""}",1
+post-/projects,BasicProjectDetails,web_url,web_url,"{""type"": ""string""}",1
+post-/projects,BasicProjectDetails,readme_url,readme_url,"{""type"": ""string""}",1
+get-/projects/{id}/repository/commits/{sha}/signature,X509Issuer,crl_url,x509_certificate.x509_issuer.crl_url,"{ ""type"": ""string"" }",1

@@ -1,0 +1,19 @@
+endpoint,group,response resource,attribute,description
+get+artists_{id}_albums,items.id,album-simple,id,Attribute id is responded to by parameter album-simple with a description: The Spotify ID for the artist
+get+artists_{id}_albums,limit,album-simple-page,limit,Attribute limit is responded to by parameter album-simple-page with a description: The maximum number of items to return
+get+artists_{id}_albums,offset,album-simple-page,offset,Attribute offset is responded to by parameter album-simple-page with a description: The index of the first item to return
+get+artists_{id}_albums,items.available_markets,album-simple,available_markets,Attribute market is responded to by parameter album-simple with a description: The market (an ISO 3166-1 alpha-2 country code)
+get+artists_{id}_albums,href,album-simple-page,href,"A link to the Web API endpoint returning the full result of the request. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+artists_{id}_albums,items.album_type,album-simple,album_type,"The type of the album: one of 'album', 'single', or 'compilation'. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+artists_{id}_albums,items.available_markets,album-simple,available_markets,"The markets in which the album is available: ISO 3166-1 alpha-2 country codes. Note that an album is considered available in a market when at least 1 of its tracks is available in that market. schema: {""type"": ""array""} schema: {""type"": ""array""}"
+get+artists_{id}_albums,items.available_markets,album-simple,available_markets,The markets in which the album is available: ISO 3166-1 alpha-2 country codes. Note that an album is considered available in a market when at least 1 of its tracks is available in that market
+get+artists_{id}_albums,items.href,album-simple,href,"A link to the Web API endpoint providing full details of the album. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+artists_{id}_albums,items.href,album-simple,href,"A link to the Web API endpoint providing full details of the album schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+get+artists_{id}_albums,items.images.url,image,url,"The source URL of the image. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+artists_{id}_albums,items.uri,album-simple,uri,"The Spotify URI for the album. schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+artists_{id}_albums,items.uri,album-simple,uri,"The Spotify URI for the album, schema: {""type"": ""string"", ""format"": ""uri""} schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+get+artists_{id}_albums,items.artists.type,artist-simple,type,"The object type: 'artist' schema: {""type"": ""string""} schema: {""type"": ""string""}"
+get+artists_{id}_albums,limit,album-simple-page,limit,"The maximum number of items in the response (as set in the query or by default). schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+get+artists_{id}_albums,previous,album-simple-page,previous,"URL to the previous page of items. (null if none schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+get+artists_{id}_albums,items.artists.href,artist-simple,href,"A link to the Web API endpoint providing full details of the artist schema: {""type"": ""integer""} schema: {""type"": ""integer""}"
+get+artists_{id}_albums,next,album-simple-page,next,"URL to the next page of items. (null if none schema: {""type"": ""integer""} schema: {""type"": ""integer""}"

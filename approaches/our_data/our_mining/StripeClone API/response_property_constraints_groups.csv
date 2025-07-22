@@ -1,0 +1,94 @@
+operation,response resource,attribute,group,description,TP
+get-/v1/apple_pay/domains,apple_pay_domain,id,data.id,"Unique identifier for the object, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/apple_pay/domains,apple_pay_domain,domain_name,data.domain_name,"{""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/apple_pay/domains,apple_pay_domain,domain_name,data.domain_name,"{""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/apple_pay/domains,apple_pay_domain,livemode,data.livemode,Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode,1.0
+get-/v1/apple_pay/domains,apple_pay_domain,created,data.created,"Time at which the object was created. Measured in seconds since the Unix epoch. schema: {""format"": ""unix-time"", ""type"": ""integer""}_x000D_",1.0
+get-/v1/apple_pay/domains,apple_pay_domain,domain_name,data.domain_name,"{""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/apple_pay/domains,apple_pay_domain,domain_name,data.domain_name,"{""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/radar/value_list_items,radar.value_list_item,id,data.id,"Unique identifier for the object, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/radar/value_list_items,radar.value_list_item,created_by,data.created_by,"The name or email address of the user who added this item to the value list, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/radar/value_list_items,radar.value_list_item,object,data.object,"String representing the object's type. Objects of the same type share the same value, schema: {""type"": ""string"", ""enum"": [""radar.value_list_item""]}",1.0
+get-/v1/radar/value_list_items,radar.value_list_item,value_list,data.value_list,"The identifier of the value list this item belongs to, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/radar/value_list_items,radar.value_list_item,value,data.value,"The value of the item, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/reporting/report_types,reporting.report_type,data_available_end,data.data_available_end,"Most recent time for which this Report Type is available. Measured in seconds since the Unix epoch, schema: {""type"": ""integer"", ""format"": ""unix-time""}",1.0
+get-/v1/reporting/report_types,reporting.report_type,updated,data.updated,"When this Report Type was latest updated. Measured in seconds since the Unix epoch, schema: {""type"": ""integer"", ""format"": ""unix-time""}",1.0
+get-/v1/reporting/report_types,reporting.report_type,data_available_start,data.data_available_start,"Earliest time for which this Report Type is available. Measured in seconds since the Unix epoch, schema: {""type"": ""integer"", ""format"": ""unix-time""}",1.0
+get-/v1/reporting/report_types,reporting.report_type,object,data.object,"String representing the object's type. Objects of the same type share the same value, schema: {""type"": ""string"", ""enum"": [""reporting.report_type""]}",1.0
+get-/v1/reporting/report_types,reporting.report_type,name,data.name,"Human-readable name of the Report Type, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/tax_rates,tax_rate,object,data.object,"String representing the object's type. Objects of the same type share the same value, schema: {""type"": ""string"", ""enum"": [""tax_rate""]}",1.0
+get-/v1/tax_rates,tax_rate,jurisdiction,data.jurisdiction,"The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer’s invoice, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/tax_rates,tax_rate,jurisdiction,data.jurisdiction,"The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer’s invoice. schema: {""maxLength"": 5000, ""nullable"": true, ""type"": ""string""}_x000D_",1.0
+get-/v1/tax_rates,tax_rate,livemode,data.livemode,Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode,1.0
+get-/v1/tax_rates,tax_rate,percentage,data.percentage,"Tax rate percentage out of 100. For tax calculations with automatic_tax[enabled]=true, this percentage includes the statutory tax rate of non-taxable jurisdictions, schema: {""type"": ""number"", ""format"": ""uri""}",1.0
+get-/v1/tax_rates,tax_rate,state,data.state,[ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US,1.0
+get-/v1/tax_rates,tax_rate,display_name,data.display_name,"The display name of the tax rates as it will appear to your customer on their receipt email, PDF, and the hosted invoice page, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/tax_rates,tax_rate,description,data.description,"An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/tax_rates,tax_rate,active,data.active,"Defaults to `true`. When set to `false`, this tax rate cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set",1.0
+get-/v1/tax_rates,tax_rate,tax_type,data.tax_type,"The high-level tax type, such as `vat` or `sales_tax`, schema: {""type"": ""string"", ""enum"": [""amusement_tax"", ""communications_tax"", ""gst"", ""hst"", ""igst"", ""jct"", ""lease_tax"", ""pst"", ""qst"", ""rst"", ""sales_tax"", ""vat""]}",1.0
+get-/v1/tax_rates,tax_rate,inclusive,data.inclusive,This specifies if the tax rate is inclusive or exclusive,1.0
+get-/v1/tax_rates,tax_rate,id,data.id,"Unique identifier for the object, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/tax_rates,,has_more,has_more,,
+get-/v1/tax_rates,tax_rate,country,data.country,"Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). schema: {""maxLength"": 5000, ""nullable"": true, ""type"": ""string""}_x000D_",1.0
+get-/v1/tax_rates,tax_rate,created,data.created,"Time at which the object was created. Measured in seconds since the Unix epoch. schema: {""format"": ""unix-time"", ""type"": ""integer""}",1.0
+get-/v1/tax_rates,tax_rate,jurisdiction,data.jurisdiction,"The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer’s invoice, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/tax_rates,tax_rate,jurisdiction,data.jurisdiction,"The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer’s invoice. schema: {""maxLength"": 5000, ""nullable"": true, ""type"": ""string""}_x000D_",1.0
+get-/v1/tax_rates,tax_rate,jurisdiction_level,data.jurisdiction_level,"The level of the jurisdiction that imposes this tax rate. Will be `null` for manually defined tax rates. schema: {""enum"": [""city"", ""country"", ""county"", ""district"", ""multiple"", ""state""], ""nullable"": true, ""type"": ""string""}",1.0
+get-/v1/test_helpers/test_clocks,test_helpers.test_clock,name,data.name,"The custom name supplied at creation, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/test_helpers/test_clocks,test_helpers.test_clock,frozen_time,data.frozen_time,"Time at which all objects belonging to this clock are frozen, schema: {""type"": ""integer"", ""format"": ""unix-time""}",1.0
+get-/v1/test_helpers/test_clocks,test_helpers.test_clock,deletes_after,data.deletes_after,"Time at which this clock is scheduled to auto delete, schema: {""type"": ""integer"", ""format"": ""unix-time""}",1.0
+get-/v1/test_helpers/test_clocks,test_helpers.test_clock,id,data.id,"Unique identifier for the object, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/test_helpers/test_clocks,test_helpers.test_clock,object,data.object,"String representing the object's type. Objects of the same type share the same value, schema: {""type"": ""string"", ""enum"": [""test_helpers.test_clock""]}",1.0
+get-/v1/webhook_endpoints,webhook_endpoint,url,data.url,"The URL of the webhook endpoint, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/webhook_endpoints,webhook_endpoint,status,data.status,"The status of the webhook. It can be `enabled` or `disabled`, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/webhook_endpoints,webhook_endpoint,id,data.id,"Unique identifier for the object, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/webhook_endpoints,webhook_endpoint,object,data.object,"String representing the object's type. Objects of the same type share the same value, schema: {""type"": ""string"", ""enum"": [""webhook_endpoint""]}",1.0
+get-/v1/webhook_endpoints,webhook_endpoint,livemode,data.livemode,Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode,1.0
+get-/v1/webhook_endpoints,webhook_endpoint,description,data.description,"An optional description of what the webhook is used for, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/webhook_endpoints,webhook_endpoint,api_version,data.api_version,"The API version events are rendered as for this webhook endpoint, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+get-/v1/webhook_endpoints,webhook_endpoint,application,data.application,"The ID of the associated Connect application. schema: {""maxLength"": 5000, ""nullable"": true, ""type"": ""string""}_x000D_",1.0
+get-/v1/webhook_endpoints,webhook_endpoint,created,data.created,"Time at which the object was created. Measured in seconds since the Unix epoch. schema: {""format"": ""unix-time"", ""type"": ""integer""}_x000D_",1.0
+get-/v1/webhook_endpoints,webhook_endpoint,secret,data.secret,"The endpoint's secret, used to generate [webhook signatures](https://stripe.com/docs/webhooks/signatures). Only returned at creation. schema: {""maxLength"": 5000, ""type"": ""string""}_x000D_",1.0
+get-/v1/webhook_endpoints,,has_more,has_more,,
+post-/v1/account_links,account_link,url,url,"The URL for the account link, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/account_links,account_link,expires_at,expires_at,"The timestamp at which this account link will expire, schema: {""type"": ""integer"", ""format"": ""unix-time""}",1.0
+post-/v1/account_links,account_link,object,object,"String representing the object's type. Objects of the same type share the same value, schema: {""type"": ""string"", ""enum"": [""account_link""]}",1.0
+post-/v1/apple_pay/domains,apple_pay_domain,livemode,livemode,Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode,1.0
+post-/v1/apple_pay/domains,apple_pay_domain,id,id,"Unique identifier for the object, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/apple_pay/domains,apple_pay_domain,domain_name,domain_name,"{""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/ephemeral_keys,ephemeral_key,object,object,"String representing the object's type. Objects of the same type share the same value, schema: {""type"": ""string"", ""enum"": [""ephemeral_key""]}",1.0
+post-/v1/ephemeral_keys,ephemeral_key,id,id,"Unique identifier for the object, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/ephemeral_keys,ephemeral_key,secret,secret,"The key's secret. You can use this value to make authorized requests to the Stripe API, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/ephemeral_keys,ephemeral_key,expires,expires,"Time at which the key will expire. Measured in seconds since the Unix epoch, schema: {""type"": ""integer"", ""format"": ""unix-time""}",1.0
+post-/v1/radar/value_list_items,radar.value_list_item,id,id,"Unique identifier for the object, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/radar/value_list_items,radar.value_list_item,created_by,created_by,"The name or email address of the user who added this item to the value list, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/radar/value_list_items,radar.value_list_item,object,object,"String representing the object's type. Objects of the same type share the same value, schema: {""type"": ""string"", ""enum"": [""radar.value_list_item""]}",1.0
+post-/v1/radar/value_list_items,radar.value_list_item,value_list,value_list,"The identifier of the value list this item belongs to, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/radar/value_list_items,radar.value_list_item,value,value,"The value of the item, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/tax_rates,tax_rate,state,state,[ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US,1.0
+post-/v1/tax_rates,tax_rate,object,object,"String representing the object's type. Objects of the same type share the same value, schema: {""type"": ""string"", ""enum"": [""tax_rate""]}",1.0
+post-/v1/tax_rates,tax_rate,livemode,livemode,Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode,1.0
+post-/v1/tax_rates,tax_rate,description,description,"An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/tax_rates,tax_rate,inclusive,inclusive,This specifies if the tax rate is inclusive or exclusive,1.0
+post-/v1/tax_rates,tax_rate,id,id,"Unique identifier for the object, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/tax_rates,tax_rate,percentage,percentage,"Tax rate percentage out of 100. For tax calculations with automatic_tax[enabled]=true, this percentage includes the statutory tax rate of non-taxable jurisdictions, schema: {""type"": ""number"", ""format"": ""uri""}",1.0
+post-/v1/tax_rates,tax_rate,display_name,display_name,"The display name of the tax rates as it will appear to your customer on their receipt email, PDF, and the hosted invoice page, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/tax_rates,tax_rate,active,active,"Defaults to `true`. When set to `false`, this tax rate cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set",1.0
+post-/v1/tax_rates,tax_rate,tax_type,tax_type,"The high-level tax type, such as `vat` or `sales_tax`, schema: {""type"": ""string"", ""enum"": [""amusement_tax"", ""communications_tax"", ""gst"", ""hst"", ""igst"", ""jct"", ""lease_tax"", ""pst"", ""qst"", ""rst"", ""sales_tax"", ""vat""]}",1.0
+post-/v1/tax_rates,tax_rate,jurisdiction,jurisdiction,"The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer’s invoice, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/test_helpers/test_clocks,test_helpers.test_clock,frozen_time,frozen_time,"Time at which all objects belonging to this clock are frozen, schema: {""type"": ""integer"", ""format"": ""unix-time""}",1.0
+post-/v1/test_helpers/test_clocks,test_helpers.test_clock,deletes_after,deletes_after,"Time at which this clock is scheduled to auto delete, schema: {""type"": ""integer"", ""format"": ""unix-time""}",1.0
+post-/v1/test_helpers/test_clocks,test_helpers.test_clock,id,id,"Unique identifier for the object, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/test_helpers/test_clocks,test_helpers.test_clock,name,name,"The custom name supplied at creation, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/test_helpers/test_clocks,test_helpers.test_clock,object,object,"String representing the object's type. Objects of the same type share the same value, schema: {""type"": ""string"", ""enum"": [""test_helpers.test_clock""]}",1.0
+post-/v1/test_helpers/test_clocks,test_helpers.test_clock,created,created,"Time at which the object was created. Measured in seconds since the Unix epoch. schema: {""format"": ""unix-time"", ""type"": ""integer""}_x000D_",1.0
+post-/v1/webhook_endpoints,webhook_endpoint,api_version,api_version,"The API version events are rendered as for this webhook endpoint, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/webhook_endpoints,webhook_endpoint,object,object,"String representing the object's type. Objects of the same type share the same value, schema: {""type"": ""string"", ""enum"": [""webhook_endpoint""]}",1.0
+post-/v1/webhook_endpoints,webhook_endpoint,livemode,livemode,Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode,1.0
+post-/v1/webhook_endpoints,webhook_endpoint,description,description,"An optional description of what the webhook is used for, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/webhook_endpoints,webhook_endpoint,id,id,"Unique identifier for the object, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/webhook_endpoints,webhook_endpoint,url,url,"The URL of the webhook endpoint, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/webhook_endpoints,webhook_endpoint,status,status,"The status of the webhook. It can be `enabled` or `disabled`, schema: {""maxLength"": 5000, ""type"": ""string""}",1.0
+post-/v1/webhook_endpoints,webhook_endpoint,application,application,"The ID of the associated Connect application. schema: {""maxLength"": 5000, ""nullable"": true, ""type"": ""string""}_x000D_",1.0
+post-/v1/webhook_endpoints,webhook_endpoint,created,created,"Time at which the object was created. Measured in seconds since the Unix epoch. schema: {""format"": ""unix-time"", ""type"": ""integer""}_x000D_",1.0
+post-/v1/webhook_endpoints,webhook_endpoint,secret,secret,"The endpoint's secret, used to generate [webhook signatures](https://stripe.com/docs/webhooks/signatures). Only returned at creation. schema: {""maxLength"": 5000, ""type"": ""string""}",1.0

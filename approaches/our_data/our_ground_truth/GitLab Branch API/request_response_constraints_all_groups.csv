@@ -1,0 +1,49 @@
+operation,response resource,attribute,group,description,part,corresponding attribute,corresponding attribute description
+get-/projects,BasicProjectDetails,issues_enabled,issues_enabled,,parameters,with_issues_enabled,Limit by enabled issues feature
+get-/projects,BasicProjectDetails,merge_requests_enabled,merge_requests_enabled,,parameters,with_merge_requests_enabled,Limit by enabled merge requests feature
+get-/projects,BasicProjectDetails,archived,archived,,parameters,archived,Limit by archived status
+get-/projects,BasicProjectDetails,id,id,,parameters,id_before,Limit results to projects with IDs less than the specified ID
+get-/projects,BasicProjectDetails,id,id,,parameters,id_after,Limit results to projects with IDs greater than the specified ID
+get-/projects,BasicProjectDetails,id,id,,parameters,id_before,Limit results to projects with IDs less than the specified ID
+get-/projects,BasicProjectDetails,id,id,,parameters,id_after,Limit results to projects with IDs greater than the specified ID
+get-/projects,BasicProjectDetails,visibility,visibility,,parameters,visibility,Limit by visibility
+get-/projects,BasicProjectDetails,last_activity_at,last_activity_at,,parameters,last_activity_after,Limit results to projects with last_activity after specified time.ISO 8601 YYYY-MM-DDTHH:MM:SSZ
+get-/projects,BasicProjectDetails,last_activity_at,last_activity_at,,parameters,last_activity_before,Limit results to projects with last_activity before specified time. ISO 8601 YYYY-MM-DDTHH:MM:SSZ
+get-/projects,BasicProjectDetails,last_activity_at,last_activity_at,,parameters,last_activity_after,Limit results to projects with last_activity after specified time.ISO 8601 YYYY-MM-DDTHH:MM:SSZ
+get-/projects,BasicProjectDetails,last_activity_at,last_activity_at,,parameters,last_activity_before,Limit results to projects with last_activity before specified time. ISO 8601 YYYY-MM-DDTHH:MM:SSZ
+get-/projects,BasicProjectDetails,repository_storage,repository_storage,,parameters,repository_storage,Limit results to projects stored on repository_storage. (admins only)
+get-/projects/{id}/repository/branches/{branch},Branch,name,name,,parameters,branch,Name of the branch
+post-/projects,BasicProjectDetails,issues_enabled,issues_enabled,,parameters,issues_enabled,(Deprecated)Enable issues for this project. Use issues_access_level instead
+post-/projects,BasicProjectDetails,merge_requests_enabled,merge_requests_enabled,,parameters,merge_requests_enabled,(Deprecated)Enable merge requests for this project. Use merge_requests_access_level instead
+post-/projects,BasicProjectDetails,jobs_enabled,jobs_enabled,,parameters,jobs_enabled,(Deprecated)Enable jobs for this project. Use builds_access_level instead
+post-/projects,BasicProjectDetails,wiki_enabled,wiki_enabled,,parameters,wiki_enabled,(Deprecated)Enable wiki for this project. Use wiki_access_levelinstead
+post-/projects,BasicProjectDetails,snippets_enabled,snippets_enabled,,parameters,snippets_enabled,(Deprecated)Enable snippets for this project. Use snippets_access_level instead
+post-/projects,BasicProjectDetails,resolve_outdated_diff_discussions,resolve_outdated_diff_discussions,,parameters,resolve_outdated_diff_discussions,Automatically resolve merge request diffs discussions on lines changed with a push
+post-/projects,BasicProjectDetails,container_registry_enabled,container_registry_enabled,,parameters,container_registry_enabled,Enable container registry for this project
+post-/projects,BasicProjectDetails,shared_runners_enabled,shared_runners_enabled,,parameters,shared_runners_enabled,Enable shared runners for this project
+post-/projects,BasicProjectDetails,public_jobs,public_jobs,,parameters,public_builds,"If true, jobs can be viewed by non-project members"
+post-/projects,BasicProjectDetails,only_allow_merge_if_pipeline_succeeds,only_allow_merge_if_pipeline_succeeds,,parameters,only_allow_merge_if_pipeline_succeeds,Set whether merge requests can only be merged with successful jobs
+post-/projects,BasicProjectDetails,allow_merge_on_skipped_pipeline,allow_merge_on_skipped_pipeline,,parameters,allow_merge_on_skipped_pipeline,Set whether or not merge requests can be merged with skipped jobs
+post-/projects,BasicProjectDetails,only_allow_merge_if_all_discussions_are_resolved,only_allow_merge_if_all_discussions_are_resolved,,parameters,only_allow_merge_if_all_discussions_are_resolved,Set whether merge requests can only be merged when all the discussions are resolved
+post-/projects,BasicProjectDetails,remove_source_branch_after_merge,remove_source_branch_after_merge,,parameters,remove_source_branch_after_merge,Enable Delete source branch option by default for all new merge requests
+post-/projects,BasicProjectDetails,request_access_enabled,request_access_enabled,,parameters,merge_requests_enabled,(Deprecated)Enable merge requests for this project. Use merge_requests_access_level instead
+post-/projects,BasicProjectDetails,request_access_enabled,request_access_enabled,,parameters,request_access_enabled,Allow users to request member access
+post-/projects,BasicProjectDetails,request_access_enabled,request_access_enabled,,parameters,merge_requests_enabled,(Deprecated)Enable merge requests for this project. Use merge_requests_access_level instead
+post-/projects,BasicProjectDetails,request_access_enabled,request_access_enabled,,parameters,request_access_enabled,Allow users to request member access
+post-/projects,BasicProjectDetails,auto_devops_enabled,auto_devops_enabled,,parameters,auto_devops_enabled,Enable Auto DevOps for this project
+post-/projects,BasicProjectDetails,packages_enabled,packages_enabled,,parameters,packages_enabled,Enable or disable packages repository feature
+post-/projects,BasicProjectDetails,service_desk_enabled,service_desk_enabled,,parameters,snippets_enabled,(Deprecated)Enable snippets for this project. Use snippets_access_level instead
+post-/projects,BasicProjectDetails,autoclose_referenced_issues,autoclose_referenced_issues,,parameters,autoclose_referenced_issues,Set whether auto-closing referenced issues on default branch
+post-/projects,BasicProjectDetails,description,description,,parameters,description,Short project description
+post-/projects,BasicProjectDetails,default_branch,default_branch,,parameters,default_branch,master by default
+post-/projects,BasicProjectDetails,visibility,visibility,,parameters,visibility,See project visibility level
+post-/projects,BasicProjectDetails,name,name,,parameters,name,"The name of the new project. Either path or name is required, not both"
+post-/projects,BasicProjectDetails,path,path,,parameters,path,Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes)
+post-/projects,BasicProjectDetails,merge_method,merge_method,,parameters,merge_method,Set the merge method used
+post-/projects,BasicProjectDetails,auto_devops_deploy_strategy,auto_devops_deploy_strategy,,parameters,auto_devops_deploy_strategy,Auto Deploy strategy
+post-/projects,BasicProjectDetails,repository_storage,repository_storage,,parameters,repository_storage,Which storage shard the repository is on.(admins only)
+post-/projects,BasicProjectDetails,tag_list,tag_list,,parameters,tag_list,"The list of tags for a project; put array of tags, that should be finally assigned to a project"
+post-/projects/{id}/protected_branches,ProtectedBranch,id,id,,parameters,id,The ID or URL-encoded path of the project owned by the authenticated user
+post-/projects/{id}/protected_branches,ProtectedBranch,name,name,,parameters,name,The name of the branch or wildcard
+post-/projects/{id}/protected_branches,ProtectedBranch,allow_force_push,allow_force_push,,parameters,allow_force_push,Allow force push for all users with push access
+post-/projects/{id}/repository/branches,Branch,name,name,,parameters,branch,The name of the branch

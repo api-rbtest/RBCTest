@@ -1,0 +1,262 @@
+operation,response resource,attribute,group,description,tp,verification script,status,script confirmation,revised script,revised executable script,revised status,TP
+post-/users/{user_id}/playlists,playlist-track-page,previous,tracks.previous,URL to the previous page of items. (null if none,1,"def verify_latest_response(latest_response):
+    try:
+        previous = latest_response.get('tracks', {}).get('previous', None)
+        
+        # Check if 'previous' is either a string or None
+        if previous is None or isinstance(previous, str):
+            return 1
+        else:
+            return -1
+    except Exception:
+        return 0
+",unknown,,,,,1
+post-/users/{user_id}/playlists,playlist,uri,uri,"Spotify URI of the playlist, schema: {""type"": ""string"", ""format"": ""uri""}",1,"def verify_latest_response(latest_response):
+    try:
+        uri = latest_response.get('uri')
+        if uri is None:
+            return 0
+        if isinstance(uri, str) and uri.startswith(""spotify:""):
+            return 1
+        else:
+            return -1
+    except Exception:
+        return -1
+",unknown,,,,,1
+post-/users/{user_id}/playlists,playlist,public,public,"The playlist's public/private status: true the playlist is public, false the playlist is private, null the playlist status is not relevant. For more about public/private status, see Working with Playlists",1,"def verify_latest_response(latest_response):
+    try:
+        public_status = latest_response.get('public', None)
+        
+        if public_status is None:
+            return 0  # The attribute does not exist or is null, indicating status is not relevant
+        
+        if isinstance(public_status, bool):
+            return 1  # The constraint is satisfied as the value is a boolean
+        
+        return -1  # The value is not a boolean, hence the constraint is not satisfied
+    except Exception as e:
+        return -1  # In case of any unexpected error, return -1
+",unknown,,,,,1
+post-/users/{user_id}/playlists,followers,total,owner.followers.total,The total number of followers,0,"def verify_latest_response(latest_response):
+    try:
+        total_followers = latest_response['owner']['followers']['total']
+        if isinstance(total_followers, int):
+            return 1
+        else:
+            return -1
+    except KeyError:
+        return 0
+",unknown,,,,,0
+post-/users/{user_id}/playlists,followers,total,tracks.items.added_by.followers.total,The total number of followers,0,"def verify_latest_response(latest_response):
+    try:
+        total_followers = latest_response['owner']['followers']['total']
+        if isinstance(total_followers, int):
+            return 1
+        else:
+            return -1
+    except KeyError:
+        return 0
+",unknown,,,,,0
+post-/users/{user_id}/playlists,user-profile,href,owner.href,A link to the Web API endpoint for this user,1,"def verify_latest_response(latest_response):
+    try:
+        href = latest_response.get('href')
+        if href is None:
+            return 0  # Attribute does not exist
+        if isinstance(href, str):
+            return 1  # Constraint satisfied
+        else:
+            return -1  # Constraint not satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+post-/users/{user_id}/playlists,user-profile,href,tracks.items.added_by.href,A link to the Web API endpoint for this user,1,"def verify_latest_response(latest_response):
+    try:
+        href = latest_response.get('href')
+        if href is None:
+            return 0  # Attribute does not exist
+        if isinstance(href, str):
+            return 1  # Constraint satisfied
+        else:
+            return -1  # Constraint not satisfied
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,1
+post-/users/{user_id}/playlists,playlist-track,added_at,tracks.items.added_at,The date and time the track was added in ISO 8601 format. Note that some very old playlists may return null in this field,1,"from datetime import datetime
+
+def verify_latest_response(latest_response):
+    try:
+        tracks = latest_response.get('tracks', {}).get('items', [])
+        for track in tracks:
+            added_at = track.get('added_at')
+            if added_at is None:
+                continue  # Skip validation for null values as per description
+            try:
+                # Check if the date is in ISO 8601 format
+                datetime.fromisoformat(added_at.replace('Z', '+00:00'))
+            except ValueError:
+                return -1  # Invalid date format
+        return 1  # All non-null dates are valid
+    except Exception:
+        return 0  # Insufficient information to verify the constraint
+",unknown,,,,,1
+post-/users/{user_id}/playlists,user-profile,uri,owner.uri,"The Spotify URI for the user, schema: {""type"": ""string"", ""format"": ""uri""}",1,"def verify_latest_response(latest_response):
+    try:
+        uri = latest_response.get('uri')
+        if uri is None:
+            return 0
+        if isinstance(uri, str) and uri.startswith('spotify:'):
+            return 1
+        else:
+            return -1
+    except Exception:
+        return -1
+",unknown,,,,,1
+post-/users/{user_id}/playlists,user-profile,uri,tracks.items.added_by.uri,"The Spotify URI for the user, schema: {""type"": ""string"", ""format"": ""uri""}",1,"def verify_latest_response(latest_response):
+    try:
+        uri = latest_response.get('uri')
+        if uri is None:
+            return 0
+        if isinstance(uri, str) and uri.startswith('spotify:'):
+            return 1
+        else:
+            return -1
+    except Exception:
+        return -1
+",unknown,,,,,1
+post-/users/{user_id}/playlists,playlist-track-page,next,tracks.next,URL to the next page of items. (null if none,1,"def verify_latest_response(latest_response):
+    try:
+        next_url = latest_response['tracks']['next']
+        if next_url is None or isinstance(next_url, str):
+            return 1
+        else:
+            return -1
+    except KeyError:
+        return 0
+",unknown,,,,,1
+post-/users/{user_id}/playlists,playlist,type,type,The object type: 'playlist',1,"def verify_latest_response(latest_response):
+    try:
+        if 'type' in latest_response:
+            if latest_response['type'] == 'playlist':
+                return 1
+            else:
+                return -1
+        else:
+            return 0
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+post-/users/{user_id}/playlists,user-profile,type,owner.type,The object type: 'user',1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'type' attribute exists in the response
+        if 'type' not in latest_response:
+            return 0
+        
+        # Verify that the 'type' attribute is 'playlist'
+        if latest_response['type'] == 'playlist':
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+post-/users/{user_id}/playlists,user-profile,type,tracks.items.added_by.type,The object type: 'user',1,"def verify_latest_response(latest_response):
+    try:
+        # Check if 'type' attribute exists in the response
+        if 'type' not in latest_response:
+            return 0
+        
+        # Verify that the 'type' attribute is 'playlist'
+        if latest_response['type'] == 'playlist':
+            return 1
+        else:
+            return -1
+    except Exception as e:
+        return -1
+",unknown,,,,,1
+post-/users/{user_id}/playlists,followers,href,owner.followers.href,A link to the Web API endpoint providing full details of the followers; null if not available,1,"def verify_latest_response(latest_response):
+    try:
+        href = latest_response.get(""href"", None)
+        if href is None:
+            return 0  # The attribute does not exist or is null
+        if isinstance(href, str):
+            return 1  # The constraint is satisfied
+        else:
+            return -1  # The attribute exists but is not a string
+    except Exception as e:
+        return -1  # An error occurred, indicating the constraint is not satisfied
+",unknown,,,,,1
+post-/users/{user_id}/playlists,followers,href,tracks.items.added_by.followers.href,A link to the Web API endpoint providing full details of the followers; null if not available,1,"def verify_latest_response(latest_response):
+    try:
+        href = latest_response.get(""href"", None)
+        if href is None:
+            return 0  # The attribute does not exist or is null
+        if isinstance(href, str):
+            return 1  # The constraint is satisfied
+        else:
+            return -1  # The attribute exists but is not a string
+    except Exception as e:
+        return -1  # An error occurred, indicating the constraint is not satisfied
+",unknown,,,,,1
+post-/users/{user_id}/playlists,playlist-track-page,total,tracks.total,The total number of items available to return,0,"def verify_latest_response(latest_response):
+    try:
+        # Navigate to the 'total' attribute in the response
+        total_followers = latest_response['owner']['followers']['total']
+        
+        # Check if 'total' is an integer
+        if isinstance(total_followers, int):
+            return 1
+        else:
+            return -1
+    except KeyError:
+        # Return 0 if the 'total' attribute does not exist in the response
+        return 0
+",unknown,,,,,0
+post-/users/{user_id}/playlists,playlist,href,followers.href,A link to the Web API endpoint providing full details of the playlist,1,"def verify_latest_response(latest_response):
+    try:
+        href = latest_response.get('href')
+        if href is None:
+            return 0
+        if isinstance(href, str):
+            return 1
+        else:
+            return -1
+    except Exception:
+        return -1
+",unknown,,,,,1
+post-/users/{user_id}/playlists,playlist,href,href,A link to the Web API endpoint providing full details of the playlist,1,"def verify_latest_response(latest_response):
+    try:
+        href = latest_response.get('href')
+        if href is None:
+            return 0
+        if isinstance(href, str):
+            return 1
+        else:
+            return -1
+    except Exception:
+        return -1
+",unknown,,,,,1
+post-/users/{user_id}/playlists,image,url,images.url,"The source URL of the image, schema: {""type"": ""string"", ""format"": ""uri""}",0,"def verify_latest_response(latest_response):
+    try:
+        images = latest_response.get('images', [])
+        for image in images:
+            url = image.get('url')
+            if url is None:
+                return 0  # Attribute does not exist
+            if not isinstance(url, str):
+                return -1  # Constraint not satisfied: url is not a string
+        return 1  # Constraint satisfied for all images
+    except Exception as e:
+        return -1  # Constraint not satisfied due to an error
+",unknown,,,,,0
+post-/users/{user_id}/playlists,image,height,images.height,The image height in pixels. If unknown: null or not returned,0,"def verify_latest_response(latest_response):
+    try:
+        images = latest_response.get(""images"", [])
+        for image in images:
+            if ""height"" in image:
+                height = image[""height""]
+                if height is not None and not isinstance(height, int):
+                    return -1
+        return 1
+    except Exception:
+        return -1
+",unknown,,,,,0
